@@ -57,11 +57,14 @@ def tavily_search(
         Formatted search results with full webpage content
     """
     # Use Tavily to discover URLs
-    search_results = tavily_client.search(
-        query,
-        max_results=max_results,
-        topic=topic,
-    )
+    try:
+        search_results = tavily_client.search(
+            query,
+            max_results=max_results,
+            topic=topic,
+        )
+    except Exception as e:
+        return f"Error searching Tavily: {str(e)}"
 
     # Fetch full content for each URL
     result_texts = []

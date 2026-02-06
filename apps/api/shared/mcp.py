@@ -6,6 +6,7 @@ import time
 import asyncio
 from collections import defaultdict
 from typing import Optional, Any
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,14 @@ class RateLimiter:
         self.limits = {
             "string": 1.0,      # STRING API: 1 req/s limit
             "chembl": 0.5,      # ChEMBL: be conservative
-            "default": 0.1     # Default: 10 req/s
+            "pubmed": 0.34,     # PubMed: ~3 req/s
+            "entrez": 0.34,     # NCBI Entrez: 3 req/s
+            "iuphar": 0.2,      # IUPHAR: fast
+            "opentargets": 0.2, # OpenTargets: fast
+            "pubchem": 0.5,     # PubChem: < 5 req/s
+            "ensembl": 0.2,     # Ensembl: 15 req/s
+            "biogrid": 0.5,     # BioGRID: 2 req/s
+            "default": 0.1      # Default: 10 req/s
         }
 
     async def wait(self, service: str):
@@ -36,6 +44,20 @@ class RateLimiter:
             return "string"
         elif tool_name.startswith("chembl_"):
             return "chembl"
+        elif tool_name.startswith("mcp_pubmed_") or tool_name.startswith("pubmed_"):
+            return "pubmed"
+        elif tool_name.startswith("entrez_"):
+            return "entrez"
+        elif tool_name.startswith("iuphar_"):
+            return "iuphar"
+        elif tool_name.startswith("opentargets_"):
+            return "opentargets"
+        elif tool_name.startswith("pubchem_"):
+            return "pubchem"
+        elif tool_name.startswith("ensembl_"):
+            return "ensembl"
+        elif tool_name.startswith("biogrid_"):
+            return "biogrid"
         return "default"
 
 
@@ -146,31 +168,73 @@ async def query_lifesciences(
 ):
     """
     Access biomedical databases via the Life Sciences MCP.
+    Acts as a generic wrapper for ANY tool available on the Life Sciences MCP server.
 
-    Supported tools and their arguments:
-    - clinicaltrials_search_trials: query (str)
-    - clinicaltrials_get_trial: nct_id (str)
-    - chembl_search_compounds: query (str), max_phase (int, optional)
-    - chembl_get_compound: chembl_id (str)
-    - hgnc_search_genes: query (str)
-    - hgnc_get_gene: hgnc_id (str)
-    - uniprot_get_protein: uniprot_id (str)
-    - string_search_proteins: query (str), species (int, default 9606)
-    - string_get_interactions: string_id (str), species (int), required_score (int)
-    - biogrid_get_interactions: gene_symbol (str)
-    - wikipathways_search_pathways: query (str)
-    - wikipathways_get_pathways_for_gene: gene_id (str)
+    Common Tools & Argument Patterns:
+    
+    1. SEARCH Tools (Use 'query' argument or 'tool_args' for complex inputs)
+       - clinicaltrials_search_trials: query (str)
+       - chembl_search_compounds: query (str)
+       - hgnc_search_genes: query (str)
+       - uniprot_search_proteins: query (str)
+       - string_search_proteins: query (str)
+       - pubchem_search_compounds: query (str)
+       - wikipathways_search_pathways: query (str)
+       - iuphar_search_ligands: query (str)
+       - iuphar_search_targets: query (str)
+       - opentargets_search_targets: query (str)
+       - entrez_search_genes: query (str)
+       - ensembl_search_genes: query (str)
+       - biogrid_search_genes: query (str)
+
+    2. GET Tools (REQUIRE 'tool_args' with specific ID field)
+       - clinicaltrials_get_trial: {"nct_id": "NCT..."}
+       - chembl_get_compound: {"chembl_id": "CHEMBL..."}
+       - hgnc_get_gene: {"hgnc_id": "HGNC:..."}
+       - uniprot_get_protein: {"uniprot_id": "P12345"}
+       - string_get_interactions: {"string_id": "...", "species": 9606}
+       - pubchem_get_compound: {"pubchem_id": "PubChem:CID..."}
+       - wikipathways_get_pathway: {"pathway_id": "WP..."}
+       - iuphar_get_ligand: {"iuphar_id": "IUPHAR:..."}
+       - iuphar_get_target: {"iuphar_id": "IUPHAR:..."}
+       - opentargets_get_target: {"ensembl_id": "ENSG..."}
+       - ensembl_get_gene: {"ensembl_id": "ENSG..."}
+       - entrez_get_gene: {"entrez_id": "NCBIGene:..."}
+       - biogrid_get_interactions: {"gene_symbol": "TP53"}
 
     Args:
-        query: The search query (e.g., "NSCLC", "Imatinib", "ACVR1")
-        tool_name: The MCP tool to call. Defaults to clinical trials search.
-        tool_args: Optional dict of full arguments to pass to the tool.
-                   If provided, overrides the simple 'query' parameter.
-                   Example: {"gene_symbol": "TP53"} for biogrid_get_interactions
+        query: Search query (e.g., "aspirin", "TP53"). Used ONLY if tool_args is None.
+        tool_name: The EXACT name of the MCP tool to call (e.g. 'iuphar_search_ligands').
+        tool_args: Dictionary of arguments. REQUIRED for 'get_*' tools that don't take a 'query'.
+                   Example: {"nct_id": "NCT00001"} OR {"query": "aspirin", "approved_only": True}
     """
     # Use tool_args if provided, otherwise fall back to simple query
     args = tool_args if tool_args else {"query": query}
     return await lifesciences_client.call_tool(tool_name, args)
+
+
+# --- PubMed MCP ---
+PUBMED_MCP_URL = os.environ.get("PUBMED_MCP_URL", "https://pubmed-research.fastmcp.app/mcp")
+pubmed_client = HTTPMCPClient(PUBMED_MCP_URL, timeout=60.0)
+
+@tool
+async def query_pubmed(
+    tool_name: str,
+    tool_args: dict[str, Any]
+):
+    """
+    Access biomedical literature via the PubMed MCP.
+
+    Supported tools:
+    - mcp_pubmed_search_articles: query (str), max_results (int)
+    - mcp_pubmed_get_article_metadata: pmids (list[str])
+    - mcp_pubmed_get_full_text_article: pmc_ids (list[str])
+
+    Args:
+        tool_name: The MCP tool to call (e.g., 'mcp_pubmed_search_articles')
+        tool_args: Dictionary of arguments for the tool
+    """
+    return await pubmed_client.call_tool(tool_name, tool_args)
 
 
 # --- Direct API Access (Fallback) ---

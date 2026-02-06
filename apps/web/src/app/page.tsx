@@ -16,6 +16,7 @@ import {
 import { ThreadList } from "@/app/components/ThreadList";
 import { ChatProvider } from "@/providers/ChatProvider";
 import { ChatInterface } from "@/app/components/ChatInterface";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface HomePageInnerProps {
   config: StandaloneConfig;
@@ -143,6 +144,7 @@ function HomePageInner({
               <span className="font-medium">Assistant:</span>{" "}
               {config.assistantId}
             </div>
+            <ThemeToggle />
             <Button
               variant="outline"
               size="sm"

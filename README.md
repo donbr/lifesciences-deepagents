@@ -41,9 +41,9 @@ Open `http://localhost:3000`.
 In the UI:
 1. Click the **Settings** icon.
 2. In **Agent config**, set the **Assistant ID** (or Graph ID) to:
-   - `research` (for the Deep Research Agent)
-   - `coding` (for the Coding Agent)
    - `lifesciences` (for the Life Sciences Graph Builder)
+   - `research` (for the Deep Research Agent) # DEPRECATED
+   - `coding` (for the Coding Agent) # DEPRECATED
 3. Click Save.
 
 ## Troubleshooting

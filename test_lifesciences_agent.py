@@ -6,7 +6,7 @@ async def main():
     print("--- Testing Life Sciences Graph Builder Agent ---")
     
     # Test Question (CQ14-style)
-    question = "What are the synthetic lethal partners of TP53?"
+    question = "What is the mechanism of Palovarotene in FOP according to literature?"
     
     print(f"Question: {question}")
     print("Invoking graph...")
@@ -21,8 +21,22 @@ async def main():
         for key, value in output.items():
             print(f"\n--- Node: {key} ---")
             # print(value)
-            if "messages" in value:
-                print(f"Agent Output: {value['messages'][-1].content[:200]}...") # Truncate for readability
+            print(f"Node Output Type: {type(value)}")
+            # Enhanced Logging for Visibility
+            if isinstance(value, dict) and "messages" in value and isinstance(value["messages"], list):
+                last_msg = value['messages'][-1]
+                
+                # Check for Task Tool Calls (Subagent Activation)
+                if hasattr(last_msg, 'tool_calls') and last_msg.tool_calls:
+                    for tool_call in last_msg.tool_calls:
+                        if tool_call['name'] == 'task':
+                            subagent = tool_call['args'].get('subagent_type', 'unknown')
+                            print(f"\n🚀 [ACTIVATING SUBAGENT]: {subagent.upper()}")
+                            print(f"   Task: {tool_call['args'].get('description', 'No description contents')[:100]}...")
+                
+                print(f"Agent Output: {last_msg.content[:200]}...")
+            else:
+                 print(f"Node Output: {value}")
                 
     print("\n--- Test Complete ---")
 

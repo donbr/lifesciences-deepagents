@@ -14,3 +14,9 @@ wheels/
 .env.local
 .env.*.local
 !.env.example
+
+# LangGraph
+.langgraph_api/
+
+reference/deepagents
+reference/deep-agents-ui
