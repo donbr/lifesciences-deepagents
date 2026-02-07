@@ -46,7 +46,7 @@ graph LR
 | **4a. TRAVERSE (Drugs)** | `traversal_drugs_specialist` | ChEMBL, Open Targets GraphQL | Drug candidates with mechanisms and phases |
 | **4b. TRAVERSE (Trials)** | `traversal_trials_specialist` | ClinicalTrials.gov v2 | Active trials with NCT IDs |
 | **5. VALIDATE** | `validation_specialist` | ClinicalTrials.gov, ChEMBL, PubMed | Each fact marked VALIDATED or INVALID |
-| **6. PERSIST** | `persistence_specialist` | Graphiti / Neo4j | Knowledge graph with full provenance |
+| **6. PERSIST** | `persistence_specialist` | Graphiti / Neo4j | Knowledge graph with full provenance (OPTIONAL) |
 
 ---
 
@@ -55,10 +55,11 @@ graph LR
 This repo is the **agent orchestration layer**. It does not implement API clients directly — instead it calls the [lifesciences-research](https://github.com/donbr/lifesciences-research) MCP servers (12 databases, 34+ tools) via FastMCP Cloud, keeping the agent logic decoupled from API volatility.
 
 ```mermaid
-graph TB
+graph TD
     UI["React UI<br/>Next.js 16 + Streaming"]
     LG["LangGraph Server<br/>:2024"]
     SUP["Supervisor<br/>(no tools — routes only)"]
+    PM["PubMed MCP<br/>(Local npx sidecar)"]
 
     A1["anchor_specialist"]
     A2["enrichment_specialist"]
@@ -69,7 +70,6 @@ graph TB
     A7["persistence_specialist"]
 
     MCP["lifesciences-research<br/>FastMCP Cloud"]
-    PM["PubMed MCP"]
     OT["Open Targets<br/>GraphQL (fallback)"]
     GR["Graphiti / Neo4j"]
 
@@ -86,10 +86,12 @@ graph TB
 
     style UI fill:#3498DB,color:#fff
     style LG fill:#2C3E50,color:#fff
+    style PM fill:#2C3E50,color:#fff
     style SUP fill:#E74C3C,color:#fff
     style MCP fill:#27AE60,color:#fff
     style GR fill:#8E44AD,color:#fff
 ```
+
 
 ### Key Files
 
@@ -132,7 +134,7 @@ All external API access flows through 5 tool wrappers defined in `shared/mcp.py`
 | Tool | Endpoint | Timeout | Purpose |
 |:-----|:---------|:--------|:--------|
 | `query_lifesciences` | `lifesciences-research.fastmcp.app/mcp` | 120s | 12 databases: ChEMBL, HGNC, UniProt, STRING, BioGRID, ClinicalTrials.gov, Open Targets, PubChem, WikiPathways, Ensembl, Entrez, IUPHAR |
-| `query_pubmed` | `pubmed-research.fastmcp.app/mcp` | 60s | PubMed article search, metadata, full text |
+| `query_pubmed` | `npx @cyanheads/pubmed-mcp-server` (local) | 60s | PubMed article search, metadata, full text |
 | `query_langchain_docs` | `docs.langchain.com/mcp` | 30s | LangChain/LangGraph documentation lookup |
 | `query_api_direct` | *(arbitrary URL)* | 30s | Direct HTTP GET/POST fallback (Open Targets GraphQL, ClinicalTrials.gov v2) |
 | `persist_to_graphiti` | `localhost:8000/mcp` | 30s | Save knowledge graph as JSON episodes to Graphiti |
@@ -154,7 +156,7 @@ query_lifesciences(query="", tool_name="biogrid_get_interactions", tool_args={"g
 ### Prerequisites
 
 - Python 3.11+, [uv](https://docs.astral.sh/uv/)
-- Node.js 18+, [yarn](https://yarnpkg.com/)
+- Node.js 18+, [yarn](https://yarnpkg.com/) (Required for frontend AND backend PubMed integration)
 
 ### 1. Clone and Configure
 
@@ -171,6 +173,8 @@ cp .env.example .env
 uv sync
 uv run langgraph dev
 ```
+
+> **Note:** The first request to PubMed may take a moment while `npx` downloads the `@cyanheads/pubmed-mcp-server` package.
 
 The LangGraph API serves at `http://localhost:2024`.
 
