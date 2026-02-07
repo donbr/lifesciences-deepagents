@@ -125,10 +125,10 @@ STRICT ROUTING RULES:
             },
             {
                 "name": "persistence_specialist",
-                "description": "PHASE 6: Formats validated knowledge graph, persists to Graphiti, and provides final summary.",
+                "description": "PHASE 6: Formats validated knowledge graph and provides final summary.",
                 "system_prompt": PERSIST_SYSTEM,
                 "model": model_name,
-                "tools": [persist_to_graphiti]
+                "tools": []
             }
         ]
     )

@@ -7,6 +7,8 @@ import asyncio
 from collections import defaultdict
 from typing import Optional, Any
 import os
+from mcp.client.stdio import stdio_client, StdioServerParameters
+from mcp import ClientSession
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +46,7 @@ class RateLimiter:
             return "string"
         elif tool_name.startswith("chembl_"):
             return "chembl"
-        elif tool_name.startswith("mcp_pubmed_") or tool_name.startswith("pubmed_"):
+        elif tool_name.startswith("mcp_pubmed_") or tool_name.startswith("pubmed_") or tool_name in ("search_articles", "get_article_metadata", "get_full_text_article", "find_related_articles", "lookup_article_by_citation", "convert_article_ids", "get_copyright_status"):
             return "pubmed"
         elif tool_name.startswith("entrez_"):
             return "entrez"
@@ -138,6 +140,35 @@ class HTTPMCPClient:
 
         return f"No valid content found in response. Raw response start: {text[:200]}"
 
+
+class StdioMCPClient:
+    """MCP Client for local stdio-based servers."""
+    def __init__(self, command: str, args: list[str], env: Optional[dict] = None):
+        self.server_params = StdioServerParameters(
+            command=command,
+            args=args,
+            env=env
+        )
+
+    async def call_tool(self, tool_name: str, arguments: dict) -> str:
+        try:
+            async with stdio_client(self.server_params) as (read, write):
+                async with ClientSession(read, write) as session:
+                    await session.initialize()
+                    result = await session.call_tool(tool_name, arguments)
+                    
+                    # Format result to string to match HTTP client output
+                    text_content = ""
+                    if hasattr(result, 'content'):
+                        for content in result.content:
+                            if hasattr(content, 'text'):
+                                text_content += content.text + "\n"
+                            elif getattr(content, 'type', '') == 'image':
+                                text_content += "[Image]\n"
+                    return text_content.strip()
+        except Exception as e:
+            return f"Stdio Connection Error: {e}"
+
 # --- Docs-LangChain MCP ---
 DOCS_MCP_URL = "https://docs.langchain.com/mcp"
 docs_client = HTTPMCPClient(DOCS_MCP_URL, timeout=30.0)
@@ -214,8 +245,14 @@ async def query_lifesciences(
 
 
 # --- PubMed MCP ---
-PUBMED_MCP_URL = os.environ.get("PUBMED_MCP_URL", "https://pubmed-research.fastmcp.app/mcp")
-pubmed_client = HTTPMCPClient(PUBMED_MCP_URL, timeout=60.0)
+# --- PubMed MCP (Local Cyanheads via Stdio) ---
+# Using @cyanheads/pubmed-mcp-server via npx
+# This runs locally, ensuring privacy and reliability (no external dependency on proprietary servers)
+pubmed_client = StdioMCPClient(
+    command="npx",
+    args=["-y", "@cyanheads/pubmed-mcp-server"],
+    env=os.environ.copy()
+)
 
 @tool
 async def query_pubmed(
@@ -225,16 +262,41 @@ async def query_pubmed(
     """
     Access biomedical literature via the PubMed MCP.
 
-    Supported tools:
-    - mcp_pubmed_search_articles: query (str), max_results (int)
-    - mcp_pubmed_get_article_metadata: pmids (list[str])
-    - mcp_pubmed_get_full_text_article: pmc_ids (list[str])
+    Supported tools (Adapter wraps local @cyanheads/pubmed-mcp-server):
+    - search_articles: query (str), max_results (int) -> maps to pubmed_search_articles
+    - get_article_metadata: pmids (list[str]) -> maps to pubmed_fetch_contents(detailLevel='abstract_plus')
+    - get_full_text_article: pmc_ids/pmids (list[str]) -> maps to pubmed_fetch_contents(detailLevel='full_xml')
 
     Args:
-        tool_name: The MCP tool to call (e.g., 'mcp_pubmed_search_articles')
+        tool_name: The MCP tool to call (e.g., 'search_articles')
         tool_args: Dictionary of arguments for the tool
     """
-    return await pubmed_client.call_tool(tool_name, tool_args)
+    # Adapter Logic for @cyanheads/pubmed-mcp-server
+    real_tool_name = tool_name
+    real_args = tool_args.copy()
+
+    if tool_name == "search_articles":
+        real_tool_name = "pubmed_search_articles"
+        if "query" in real_args:
+            real_args["queryTerm"] = real_args.pop("query")
+        if "max_results" in real_args:
+            real_args["maxResults"] = real_args.pop("max_results")
+            
+    elif tool_name == "get_article_metadata":
+        real_tool_name = "pubmed_fetch_contents"
+        # Ensure pmids is a list
+        if "pmids" in real_args and isinstance(real_args["pmids"], str):
+             real_args["pmids"] = [real_args["pmids"]]
+        real_args["detailLevel"] = "abstract_plus" 
+
+    elif tool_name == "get_full_text_article":
+        real_tool_name = "pubmed_fetch_contents"
+        # Map pmc_ids to pmids as best effort (or expect agent to pass pmids)
+        if "pmc_ids" in real_args:
+             real_args["pmids"] = real_args.pop("pmc_ids")
+        real_args["detailLevel"] = "full_xml"
+
+    return await pubmed_client.call_tool(real_tool_name, real_args)
 
 
 # --- Direct API Access (Fallback) ---
@@ -255,7 +317,7 @@ async def query_api_direct(
     - You need full control over request parameters
 
     Common fallback patterns:
-    1. Open Targets GraphQL (replaces broken ChEMBL):
+    1. Open Targets GraphQL (alternative to ChEMBL):
        url: "https://api.platform.opentargets.org/api/v4/graphql"
        method: "POST"
        body: '{"query": "{ target(ensemblId: \"ENSG00000115170\") { ... } }"}'

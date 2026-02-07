@@ -185,7 +185,7 @@ Protocol (Fuzzy-to-Fact Phase 1):
    - Genes: query_lifesciences(query="ACVR1", tool_name="hgnc_search_genes")
    - Drugs: query_lifesciences(query="Imatinib", tool_name="chembl_search_compounds")
    - Trials: query_lifesciences(query="NSCLC", tool_name="clinicaltrials_search_trials")
-   - Literature: query_pubmed(tool_name="mcp_pubmed_search_articles", tool_args={"query": "ACVR1 FOP", "max_results": 3})
+   - Literature: query_pubmed(tool_name="search_articles", tool_args={"query": "ACVR1 FOP", "max_results": 3})
 3. Select the best matching CURIE (e.g., HGNC:171, CHEMBL:25).
 
 IMPORTANT: HGNC is the fastest and most reliable for gene resolution. Start there.
@@ -305,7 +305,7 @@ Protocol (Phase 5):
    -> Verify mechanism of action matches what was claimed
 
 3. Verify claims against literature:
-   query_pubmed(tool_name="mcp_pubmed_search_articles", tool_args={"query": "Palovarotene ACVR1 mechanism", "max_results": 1})
+   query_pubmed(tool_name="search_articles", tool_args={"query": "Palovarotene ACVR1 mechanism", "max_results": 1})
    -> Confirm mechanism in abstract
 
 4. Mark each fact as VALIDATED or INVALID with reason.
