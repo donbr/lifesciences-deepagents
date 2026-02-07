@@ -4,10 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Life Sciences Deep Agents Platform - A multi-agent system for biomedical research combining LangGraph-based agents with a shared React UI. Three specialized agents:
-- **research**: Deep Research pattern with main agent + subagents
-- **coding**: File-based workspace with virtual filesystem
+Life Sciences Deep Agents Platform - A multi-agent system for biomedical research combining LangGraph-based agents with a shared React UI. The primary agent is:
 - **lifesciences**: "Fuzzy-to-Fact" protocol for biological entity resolution (ANCHOR → ENRICH → EXPAND → TRAVERSE_DRUGS → TRAVERSE_TRIALS → VALIDATE → PERSIST)
+
+Legacy agents (`research`, `coding`) exist but are deprecated.
 
 ## Commands
 
@@ -15,70 +15,84 @@ Life Sciences Deep Agents Platform - A multi-agent system for biomedical researc
 ```bash
 uv sync                    # Install dependencies
 uv run langgraph dev       # Start backend on :2024
+fuser -k 2024/tcp          # Kill port 2024 if address in use
 ```
 
-### Frontend (Node)
+### Frontend (yarn)
 ```bash
 cd apps/web
-npm install                # Install dependencies (or yarn)
-npm run dev                # Dev server with Turbopack on :3000
-npm run build              # Production build
-npm run lint               # ESLint
-npm run lint:fix           # ESLint with auto-fix
-npm run format             # Prettier format
-npm run format:check       # Check formatting
-```
-
-### Troubleshooting
-```bash
-fuser -k 2024/tcp          # Kill process on port 2024 if address in use
+yarn install               # Install dependencies
+yarn dev                   # Dev server with Turbopack on :3000
+yarn build                 # Production build
+yarn lint                  # ESLint
+yarn lint:fix              # ESLint with auto-fix
+yarn format                # Prettier format
+yarn format:check          # Check formatting
 ```
 
 ## Architecture
 
-```
-apps/
-├── api/                   # LangGraph backend
-│   ├── graphs/            # Agent definitions (research.py, coding.py, lifesciences.py)
-│   └── shared/            # Shared modules
-│       ├── mcp.py         # HTTP MCP Client for external APIs
-│       ├── tools.py       # tavily_search, fetch_webpage_content, think_tool
-│       └── prompts.py     # System prompts
-└── web/                   # Next.js 16 frontend
-    ├── components/        # React components (ChatInterface, ThreadList, ConfigDialog)
-    ├── providers/         # ClientProvider (LangGraph), ChatProvider (state)
-    └── lib/               # Utilities
-```
+### Directory Layout
+- `apps/api/graphs/` — Agent definitions (`lifesciences.py`, `research.py`, `coding.py`)
+- `apps/api/shared/mcp.py` — `HTTPMCPClient` + all MCP tool wrappers + rate limiter
+- `apps/api/shared/tools.py` — `tavily_search`, `fetch_webpage_content`, `think_tool`
+- `apps/api/shared/prompts.py` — System prompts for supervisor + all 7 phase specialists
+- `apps/web/src/app/hooks/useChat.ts` — Core chat state, streaming, interrupt handling
+- `apps/web/src/providers/` — `ClientProvider` (LangGraph SDK client), `ChatProvider` (state context)
 
-### Key Patterns
+### DeepAgents Pattern
 
-**DeepAgents Pattern**: All three agents (research, coding, lifesciences) use `create_deep_agent()` with supervisor + subagents architecture. The lifesciences agent has 7 specialist subagents implementing the Fuzzy-to-Fact protocol phases.
+All agents use `create_deep_agent()` from the `deepagents` library. This creates a **supervisor** that delegates to **specialist subagents** via task tool calls. The supervisor has no tools itself — it only routes.
 
-**MCP Integration**: HTTPMCPClient uses JSON-RPC protocol. Two main bridges:
-- `query_langchain_docs`: LangChain/LangGraph documentation
-- `query_lifesciences`: ChEMBL, ClinicalTrials.gov, WikiPathways, HGNC, UniProt, STRING, BioGrid
+The lifesciences agent has 7 specialists (one per Fuzzy-to-Fact phase). Each specialist gets only the tools it needs (tool isolation).
 
-**Agent Switching**: UI settings → Assistant ID field → set to `research`, `coding`, or `lifesciences`
+### MCP Integration
 
-## Configuration Files
+`HTTPMCPClient` (`shared/mcp.py`) speaks JSON-RPC to external MCP servers. Five tool wrappers bridge to APIs:
+
+| Tool | Base URL | Timeout | Purpose |
+|------|----------|---------|---------|
+| `query_lifesciences` | `lifesciences-research.fastmcp.app/mcp` | 120s | ChEMBL, HGNC, UniProt, STRING, BioGRID, ClinicalTrials.gov, Open Targets, PubChem, WikiPathways, Ensembl, Entrez, IUPHAR |
+| `query_pubmed` | `pubmed-research.fastmcp.app/mcp` | 60s | PubMed article search, metadata, and full text |
+| `query_langchain_docs` | `docs.langchain.com/mcp` | 30s | LangChain/LangGraph documentation |
+| `query_api_direct` | arbitrary URL | 30s | Direct HTTP GET/POST fallback (e.g., Open Targets GraphQL) |
+| `persist_to_graphiti` | `localhost:8000/mcp` | 30s | Save knowledge graph as JSON episodes to Graphiti |
+
+`query_lifesciences` accepts a `tool_args` parameter for full API control: `tool_args={"gene_symbol": "TP53"}`.
+
+**Rate limits**: STRING 1 req/s, ChEMBL 0.5s, PubMed 0.34s, BioGrid 0.5s, Open Targets 0.2s.
+
+### API Reliability
+
+- **ChEMBL frequently returns 500 errors.** Use Open Targets `knownDrugs` GraphQL as fallback (returns drugs + mechanisms + phases in one call).
+- **HGNC is fastest/most reliable** for gene resolution — always start ANCHOR phase there.
+- **STRING batch queries** return protein names; single queries don't.
+- **Open Targets GraphQL** requires explicit `index: 0` in pagination.
+- **ClinicalTrials.gov v2 API** is stable and returns structured JSON.
+
+### Frontend Data Flow
+
+UI settings (`ConfigDialog`) → `assistantId` stored in localStorage → `useChat` hook creates `@langchain/langgraph-sdk` client → streams from LangGraph backend on `:2024`. Thread ID is a URL query parameter (via `nuqs`). The hook supports tool approval interrupts via `resumeInterrupt(value)`.
+
+## Configuration
 
 | File | Purpose |
 |------|---------|
-| `langgraph.json` | Defines graph entry points (`research`, `coding`, `lifesciences`) |
-| `.mcp.json` | MCP server registry (graphiti-aura, neo4j servers) |
+| `langgraph.json` | Graph entry points mapping agent names to Python files |
+| `.mcp.json` | MCP server registry (graphiti-aura, neo4j Docker/Aura) |
 | `pyproject.toml` | Python dependencies (uv-managed) |
-| `apps/web/package.json` | Frontend dependencies and scripts |
+| `apps/web/package.json` | Frontend dependencies (yarn-managed) |
 
 ## Environment Variables
 
 Required in `.env` (see `.env.example`):
-- NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD
-- TAVILY_API_KEY
-- LANGSMITH_API_KEY
-- ANTHROPIC_API_KEY, OPENAI_API_KEY
+- `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`
+- `LANGSMITH_API_KEY`, `LANGSMITH_TRACING`, `LANGSMITH_PROJECT`
+- `BIOGRID_API_KEY`, `NCBI_API_KEY`
+- `TAVILY_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` (loaded at runtime, not in `.env.example`)
 
 ## Code Conventions
 
-- Python: Type hints throughout (TypedDict, Annotated), async/await for I/O, docstrings on tools (parse_docstring=True)
-- TypeScript: "use client" directives, hook-based state, type-safe props, path aliasing (@/*)
-- Tools: Long timeouts for heavy operations (120s for ChEMBL queries)
+- Python: Type hints (TypedDict, Annotated), async/await for I/O, docstrings on tools (`parse_docstring=True`)
+- TypeScript: `"use client"` directives, hook-based state, path aliasing (`@/*`)
+- MCP tool timeouts vary by API reliability: 120s for ChEMBL, 60s for PubMed, 30s default
