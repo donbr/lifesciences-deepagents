@@ -1,0 +1,1 @@
+{"nodes": [{"id": "HGNC:171", "type": "Gene", "label": "ACVR1", "properties": {"function": "Mutation causes FOP"}}, {"id": "CHEMBL:1908363", "type": "Drug", "label": "Palovarotene", "properties": {"phase": 3}}], "edges": [{"source": "CHEMBL:1908363", "target": "HGNC:171", "type": "TARGETS", "properties": {"mechanism": "RARγ agonist"}}]}

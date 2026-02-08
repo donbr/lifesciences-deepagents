@@ -21,6 +21,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from langchain.chat_models import init_chat_model
 from deepagents import create_deep_agent
+from deepagents.backends import FilesystemBackend
 from shared.mcp import query_lifesciences, query_api_direct, persist_to_graphiti, query_pubmed
 from shared.tools import think_tool
 from shared.prompts import (
@@ -76,11 +77,19 @@ STRICT ROUTING RULES:
 - Always start with 'anchor_specialist' for new queries.
 - If the user asks a research question, map it to the 'anchor_specialist' first to identify the key entities."""
 
+    # Configure FilesystemBackend for optional artifact generation (non-blocking)
+    # Workspace directory for phase outputs and final artifacts (project root)
+    workspace_dir = os.path.join(
+        os.path.dirname(__file__), "..", "..", "..", ".deepagents", "workspace"
+    )
+    os.makedirs(workspace_dir, exist_ok=True)
+
     # Note: We append think_tool to complex specialists
     agent = create_deep_agent(
         model=model,
         tools=[],  # Supervisor delegates, doesn't call tools directly
         system_prompt=supervisor_system,
+        backend=FilesystemBackend(root_dir=workspace_dir, virtual_mode=True),
         subagents=[
             {
                 "name": "anchor_specialist",
