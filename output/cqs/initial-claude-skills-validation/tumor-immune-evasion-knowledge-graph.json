@@ -1,0 +1,374 @@
+{
+  "graph_metadata": {
+    "query": "How does the tumor hijack the immune system to create an evasion mechanism, and what specific factors does it secrete to inhibit immune response or stimulate its own growth?",
+    "generated": "2026-02-07",
+    "protocol": "Fuzzy-to-Fact v1.0",
+    "confidence": "HIGH"
+  },
+  "nodes": [
+    {
+      "id": "HGNC:17635",
+      "type": "Gene",
+      "label": "CD274",
+      "properties": {
+        "symbol": "CD274",
+        "name": "CD274 molecule",
+        "aliases": ["PD-L1", "B7-H1", "PDL1"],
+        "ensembl": "ENSG00000120217",
+        "uniprot": "Q9NZQ7",
+        "entrez": "29126",
+        "function": "Plays a critical role in induction and maintenance of immune tolerance to self. As a ligand for the inhibitory receptor PDCD1/PD-1, modulates the activation threshold of T-cells and limits T-cell effector response."
+      }
+    },
+    {
+      "id": "HGNC:11766",
+      "type": "Gene",
+      "label": "TGFB1",
+      "properties": {
+        "symbol": "TGFB1",
+        "name": "transforming growth factor beta 1",
+        "aliases": ["TGFbeta", "CED"],
+        "ensembl": "ENSG00000105329",
+        "uniprot": "P01137",
+        "entrez": "7040",
+        "function": "Multifunctional protein that regulates the growth and differentiation of various cell types. Active in immune suppression."
+      }
+    },
+    {
+      "id": "HGNC:5962",
+      "type": "Gene",
+      "label": "IL10",
+      "properties": {
+        "symbol": "IL10",
+        "name": "interleukin 10",
+        "aliases": ["CSIF", "TGIF", "IL-10"],
+        "ensembl": "ENSG00000136634",
+        "uniprot": "P22301",
+        "entrez": "3586",
+        "function": "Major immune regulatory cytokine with profound anti-inflammatory functions. Inhibits release of pro-inflammatory cytokines from macrophages and monocytes."
+      }
+    },
+    {
+      "id": "HGNC:12680",
+      "type": "Gene",
+      "label": "VEGFA",
+      "properties": {
+        "symbol": "VEGFA",
+        "name": "vascular endothelial growth factor A",
+        "aliases": ["VEGF", "VPF"],
+        "ensembl": "ENSG00000112715",
+        "uniprot": "P15692",
+        "entrez": "7422",
+        "function": "Induces angiogenesis and protects cells from hypoxia-mediated cell death. Key growth factor for tumor vascularization."
+      }
+    },
+    {
+      "id": "HGNC:8760",
+      "type": "Gene",
+      "label": "PDCD1",
+      "properties": {
+        "symbol": "PDCD1",
+        "name": "programmed cell death 1",
+        "aliases": ["PD-1", "PD1", "CD279"],
+        "ensembl": "ENSG00000188389",
+        "uniprot": "Q15116",
+        "entrez": "5133",
+        "function": "Inhibitory receptor on T-cells. Delivers inhibitory signals upon binding to CD274/PD-L1, suppressing T-cell activation."
+      }
+    },
+    {
+      "id": "HGNC:2505",
+      "type": "Gene",
+      "label": "CTLA4",
+      "properties": {
+        "symbol": "CTLA4",
+        "name": "cytotoxic T-lymphocyte associated protein 4",
+        "aliases": ["CD152", "CTLA-4"],
+        "ensembl": "ENSG00000163599",
+        "uniprot": "P16410",
+        "entrez": "1493",
+        "function": "Major negative regulator of T-cell responses. Acts as a decoy receptor with higher affinity for B7 ligands than CD28."
+      }
+    },
+    {
+      "id": "HGNC:6059",
+      "type": "Gene",
+      "label": "IDO1",
+      "properties": {
+        "symbol": "IDO1",
+        "name": "indoleamine 2,3-dioxygenase 1",
+        "ensembl": "ENSG00000131203",
+        "uniprot": "P14902",
+        "entrez": "3620",
+        "function": "Catalyzes tryptophan catabolism. Tryptophan shortage inhibits T-cell division and accumulation of catabolites induces T-cell apoptosis. Acts as suppressor of anti-tumor immunity."
+      }
+    },
+    {
+      "id": "CHEMBL:3301587",
+      "type": "Compound",
+      "label": "Durvalumab",
+      "properties": {
+        "drug_name": "DURVALUMAB",
+        "mechanism": "Programmed cell death 1 ligand 1 inhibitor",
+        "phase": 4,
+        "target": "CD274/PD-L1"
+      }
+    },
+    {
+      "id": "CHEMBL:3707227",
+      "type": "Compound",
+      "label": "Atezolizumab",
+      "properties": {
+        "drug_name": "ATEZOLIZUMAB",
+        "mechanism": "Programmed cell death 1 ligand 1 inhibitor",
+        "phase": 4,
+        "target": "CD274/PD-L1"
+      }
+    },
+    {
+      "id": "CHEMBL:3137343",
+      "type": "Compound",
+      "label": "Pembrolizumab",
+      "properties": {
+        "drug_name": "PEMBROLIZUMAB",
+        "mechanism": "Programmed cell death protein 1 inhibitor",
+        "phase": 4,
+        "target": "PDCD1/PD-1"
+      }
+    },
+    {
+      "id": "CHEMBL:2108738",
+      "type": "Compound",
+      "label": "Nivolumab",
+      "properties": {
+        "drug_name": "NIVOLUMAB",
+        "mechanism": "Programmed cell death protein 1 inhibitor",
+        "phase": 4,
+        "target": "PDCD1/PD-1"
+      }
+    },
+    {
+      "id": "CHEMBL:1789844",
+      "type": "Compound",
+      "label": "Ipilimumab",
+      "properties": {
+        "drug_name": "IPILIMUMAB",
+        "mechanism": "Cytotoxic T-lymphocyte protein 4 inhibitor",
+        "phase": 4,
+        "target": "CTLA4"
+      }
+    },
+    {
+      "id": "CHEMBL:3039545",
+      "type": "Compound",
+      "label": "Luspatercept",
+      "properties": {
+        "drug_name": "LUSPATERCEPT",
+        "mechanism": "Transforming growth factor beta inhibitor",
+        "phase": 4,
+        "target": "TGFB1"
+      }
+    },
+    {
+      "id": "CHEMBL:3545369",
+      "type": "Compound",
+      "label": "Epacadostat",
+      "properties": {
+        "drug_name": "EPACADOSTAT",
+        "mechanism": "Indoleamine 2,3-dioxygenase inhibitor",
+        "phase": 3,
+        "target": "IDO1"
+      }
+    },
+    {
+      "id": "NCT:02734160",
+      "type": "ClinicalTrial",
+      "label": "Galunisertib + Durvalumab in Pancreatic Cancer",
+      "properties": {
+        "title": "TGF-β Receptor I Kinase Inhibitor (Galunisertib) + Anti-PD-L1 (Durvalumab) in Metastatic Pancreatic Cancer",
+        "phase": "1b",
+        "status": "COMPLETED",
+        "condition": "Metastatic Pancreatic Cancer",
+        "interventions": ["Galunisertib", "Durvalumab"],
+        "mechanism_tested": "TGF-β pathway blockade + PD-L1 checkpoint inhibition"
+      }
+    },
+    {
+      "id": "NCT:03307616",
+      "type": "ClinicalTrial",
+      "label": "Nivolumab ± Ipilimumab in Sarcoma",
+      "properties": {
+        "title": "Neoadjuvant Checkpoint Blockade in Undifferentiated Pleomorphic Sarcoma and Dedifferentiated Liposarcoma",
+        "phase": "2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "condition": "Resectable Sarcoma",
+        "interventions": ["Nivolumab", "Ipilimumab", "Radiation Therapy"],
+        "mechanism_tested": "PD-1 inhibition ± CTLA-4 inhibition"
+      }
+    },
+    {
+      "id": "NCT:04949113",
+      "type": "ClinicalTrial",
+      "label": "NADINA: Neoadjuvant vs Adjuvant ICI in Melanoma",
+      "properties": {
+        "title": "Neoadjuvant Ipilimumab + Nivolumab vs Standard Adjuvant Nivolumab in Stage III Melanoma",
+        "phase": "3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "condition": "Macroscopic Stage III Melanoma",
+        "interventions": ["Neoadjuvant ipilimumab + nivolumab", "Adjuvant nivolumab"],
+        "mechanism_tested": "Combined CTLA-4 + PD-1 inhibition timing"
+      }
+    },
+    {
+      "id": "EFO:0003060",
+      "type": "Disease",
+      "label": "Non-small cell lung carcinoma",
+      "properties": {
+        "association_score": 0.67,
+        "associated_target": "ENSG00000120217"
+      }
+    },
+    {
+      "id": "MONDO:0007254",
+      "type": "Disease",
+      "label": "Breast cancer",
+      "properties": {
+        "association_score": 0.55,
+        "associated_target": "ENSG00000120217"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:17635",
+      "target": "HGNC:8760",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "PD-L1 binds to PD-1 receptor on T-cells, delivering inhibitory signals",
+        "evidence": "UniProt:Q9NZQ7, UniProt:Q15116",
+        "STRING_score": 0.938
+      }
+    },
+    {
+      "source": "HGNC:11766",
+      "target": "immune_response",
+      "type": "SUPPRESSES",
+      "properties": {
+        "mechanism": "TGF-β inhibits T-cell activation and promotes regulatory T-cell differentiation",
+        "evidence": "UniProt:P01137"
+      }
+    },
+    {
+      "source": "HGNC:5962",
+      "target": "immune_response",
+      "type": "SUPPRESSES",
+      "properties": {
+        "mechanism": "IL-10 inhibits pro-inflammatory cytokine release from macrophages and monocytes, blocks MHC-II expression",
+        "evidence": "UniProt:P22301"
+      }
+    },
+    {
+      "source": "HGNC:12680",
+      "target": "tumor_growth",
+      "type": "PROMOTES",
+      "properties": {
+        "mechanism": "VEGF induces angiogenesis, providing nutrients and oxygen to tumor, enabling growth and metastasis",
+        "evidence": "UniProt:P15692"
+      }
+    },
+    {
+      "source": "HGNC:6059",
+      "target": "T_cell_function",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "IDO1 depletes tryptophan, inhibiting T-cell division and inducing T-cell apoptosis",
+        "evidence": "UniProt:P14902"
+      }
+    },
+    {
+      "source": "HGNC:2505",
+      "target": "T_cell_activation",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "CTLA-4 outcompetes CD28 for B7 ligands (CD80/CD86), blocking co-stimulatory signals",
+        "evidence": "UniProt:P16410",
+        "STRING_score": 0.955
+      }
+    },
+    {
+      "source": "CHEMBL:3301587",
+      "target": "HGNC:17635",
+      "type": "INHIBITS",
+      "properties": {
+        "drug_name": "Durvalumab",
+        "mechanism": "PD-L1 inhibitor antibody",
+        "phase": 4,
+        "evidence": "Open Targets GraphQL"
+      }
+    },
+    {
+      "source": "CHEMBL:3137343",
+      "target": "HGNC:8760",
+      "type": "INHIBITS",
+      "properties": {
+        "drug_name": "Pembrolizumab",
+        "mechanism": "PD-1 inhibitor antibody",
+        "phase": 4,
+        "evidence": "Open Targets GraphQL"
+      }
+    },
+    {
+      "source": "CHEMBL:1789844",
+      "target": "HGNC:2505",
+      "type": "INHIBITS",
+      "properties": {
+        "drug_name": "Ipilimumab",
+        "mechanism": "CTLA-4 inhibitor antibody",
+        "phase": 4,
+        "evidence": "Open Targets GraphQL"
+      }
+    },
+    {
+      "source": "CHEMBL:3039545",
+      "target": "HGNC:11766",
+      "type": "INHIBITS",
+      "properties": {
+        "drug_name": "Luspatercept",
+        "mechanism": "TGF-β inhibitor",
+        "phase": 4,
+        "evidence": "Open Targets GraphQL"
+      }
+    },
+    {
+      "source": "CHEMBL:3545369",
+      "target": "HGNC:6059",
+      "type": "INHIBITS",
+      "properties": {
+        "drug_name": "Epacadostat",
+        "mechanism": "IDO1 inhibitor",
+        "phase": 3,
+        "evidence": "Open Targets GraphQL"
+      }
+    },
+    {
+      "source": "HGNC:17635",
+      "target": "EFO:0003060",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "disease": "Non-small cell lung carcinoma",
+        "score": 0.67,
+        "evidence": "Open Targets"
+      }
+    },
+    {
+      "source": "HGNC:17635",
+      "target": "MONDO:0007254",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "disease": "Breast cancer",
+        "score": 0.55,
+        "evidence": "Open Targets"
+      }
+    }
+  ]
+}
