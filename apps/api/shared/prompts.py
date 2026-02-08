@@ -470,13 +470,13 @@ Fuzzy-to-Fact Phase 6 — Graph Formatting & Summary:
        {"source": "CHEMBL:...", "target": "HGNC:171", "type": "TARGETS", "properties": {"mechanism": "..."}}
    ]
 
-2. Save artifacts to filesystem:
-   ALWAYS attempt to save both files using write_file:
+2. OPTIONAL: Save artifacts to filesystem (best-effort, non-blocking):
+   If write_file tool is available, try to save:
    - graph.json: write_file(path="graph.json", content=json.dumps({"nodes": nodes, "edges": edges, "metadata": {...}}))
    - report.md: write_file(path="report.md", content=formatted_markdown_summary)
 
-   IMPORTANT: Use RELATIVE paths (graph.json not /graph.json).
-   If write_file is not available or fails, log the error but continue to step 3.
+   Use RELATIVE paths (graph.json not /graph.json).
+   If writes fail, continue anyway - artifacts are bonus, not required.
 
 3. OPTIONAL: Persist to Graphiti (if persist_to_graphiti tool is available):
    persist_to_graphiti(

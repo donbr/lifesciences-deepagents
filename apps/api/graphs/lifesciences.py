@@ -135,10 +135,10 @@ STRICT ROUTING RULES:
             },
             {
                 "name": "persistence_specialist",
-                "description": "PHASE 6: Formats validated knowledge graph and provides final summary. Has access to write_file for saving artifacts and persist_to_graphiti for graph storage.",
+                "description": "PHASE 6: Formats validated knowledge graph and provides final summary.",
                 "system_prompt": PERSIST_SYSTEM,
                 "model": model_name,
-                "tools": None  # Get automatic filesystem tools from FilesystemBackend
+                "tools": []
             }
         ]
     )
