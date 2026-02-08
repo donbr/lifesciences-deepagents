@@ -125,7 +125,8 @@ Use `PREFIX:LOCAL_ID` format for persistence:
 - [ ] Phase 4a TRAVERSE_DRUGS: LOCATE drugs targeting identified proteins → RETRIEVE mechanisms
 - [ ] Phase 4b TRAVERSE_TRIALS: LOCATE trials for identified drugs → RETRIEVE trial details
 - [ ] Phase 5 VALIDATE: RETRIEVE verification for every NCT ID, drug mechanism, gene-disease link
-- [ ] Phase 6 PERSIST: Format validated graph as JSON → persist to Graphiti → summarize
+- [ ] Phase 6a PERSIST: Format validated graph as JSON → persist to Graphiti
+- [ ] Phase 6b REPORT: Select template → grade evidence → format final report (lifesciences-reporting skill)
 
 ## Phase 1: ANCHOR — Entity Resolution
 
@@ -213,10 +214,28 @@ Call `chembl_get_compound` with: {"chembl_id": "CHEMBL3137309"}
 → May return 500 — note failure, continue
 ```
 
+**LOCATE** disease CURIE (use Ensembl ID from HGNC cross-references above):
+
+PRIMARY (MCP tool):
+```
+Call `opentargets_get_associations` with: {"ensembl_id": "ENSG00000115170"}
+→ Returns diseases with MONDO/EFO/Orphanet IDs + association scores
+→ Pick the highest-scoring disease matching the user's query
+→ Record disease CURIE (e.g., MONDO:0007606 for FOP) for Phase 4a/4b
+```
+
+FALLBACK (curl):
+```bash
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ target(ensemblId: \"ENSG00000115170\") { associatedDiseases(page: {index: 0, size: 5}) { rows { disease { name id } score } } } }"}'
+```
+
 **Critical outputs for downstream phases**:
 - Ensembl ID (ENSG...) → needed by Phase 4a for Open Targets GraphQL
 - UniProt ID → needed by Phase 3 for STRING
 - Interactor mentions from function text → guides Phase 3 expansion
+- **Disease CURIE** (MONDO/EFO ID) → needed by Phase 4a/4b for drug/trial filtering
 
 ## Phase 3: EXPAND — Network Expansion
 
@@ -282,8 +301,14 @@ FALLBACK (curl — for full GraphQL control):
 ```bash
 curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
   -H "Content-Type: application/json" \
-  -d '{"query": "{ target(ensemblId: \"ENSG00000171791\") { knownDrugs(page: {index: 0, size: 10}) { rows { drug { name id } mechanismOfAction phase } } } }"}'
+  -d '{"query": "{ target(ensemblId: \"ENSG00000171791\") { knownDrugs(size: 25) { rows { drug { name id } mechanismOfAction phase } } } }"}'
 ```
+
+**Open Targets `knownDrugs` Pagination**:
+- Use `size` parameter only (e.g., `size: 25`) — this is the reliable pattern
+- Do NOT use `page` or `index` — these cause intermittent failures
+- For paginated results, use `cursor` (returned in the response) as the continuation token
+- If first query fails, retry with `size` only (no other pagination params)
 
 **LOCATE** drugs via ChEMBL (secondary fallback — frequently 500s on detail endpoints):
 
@@ -304,7 +329,7 @@ Check the "mechanismOfAction" field from Open Targets:
 ```
 
 **Pitfalls**:
-- Open Targets GraphQL requires `page: {index: 0, size: N}` — omitting `index: 0` causes errors.
+- Open Targets GraphQL `knownDrugs`: use `size` only (e.g., `size: 25`). Do NOT use `page`/`index`. Use `cursor` for pagination.
 - The Ensembl ID (ENSG...) is required for Open Targets target queries — get from Phase 2.
 - ChEMBL detail endpoints (`chembl_get_compound`) often return 500 errors; search endpoints (`chembl_search_compounds`) are generally reliable.
 - Do NOT retry ChEMBL more than once — switch to Open Targets.
@@ -375,9 +400,9 @@ curl -s "https://rest.ensembl.org/xrefs/id/ENSG00000141510?content-type=applicat
 
 **Verdicts**: Mark each fact as `VALIDATED`, `INVALID` (with reason), or `UNVERIFIABLE`.
 
-## Phase 6: PERSIST — Graph Persistence & Summary
+## Phase 6a: PERSIST — Graph Persistence
 
-**Goal**: Format validated graph, persist to Graphiti, provide human-readable summary.
+**Goal**: Format validated graph as JSON and persist to Graphiti.
 
 **Structure** (only include VALIDATED entities and relationships):
 ```python
@@ -404,28 +429,25 @@ persist_to_graphiti(
 )
 ```
 
-**Summary format** — provide to user:
+## Phase 6b: REPORT — Formatted Report with Evidence Grading
+
+**Goal**: Produce a professional report using the **lifesciences-reporting** skill.
+
+Use the `lifesciences-reporting` skill to format the Phases 1-5 output. The skill will:
+1. **Template selection**: Route query through its Template Decision Tree (7 templates)
+2. **Evidence grading**: Apply L1-L4 levels + modifiers to all claims
+3. **Confidence calculation**: Compute median of all claim scores (resistant to outliers)
+4. **Source attribution**: Include `[Source: tool(param)]` on every factual claim
+
+The reporting skill consumes Phases 1-5 output and the graph structure from Phase 6a. It does NOT make new API calls.
+
+**Fallback** (if reporting skill unavailable):
 ```
 ## Summary
-[Direct answer to the user's original question]
-
-## Resolved Entities
-| Entity | CURIE | Type |
-|--------|-------|------|
-
-## Key Findings
-- [Validated fact 1 — source: tool/API that provided it]
-
-## Drug Candidates
-| Drug | Phase | Mechanism | Source |
-|------|-------|-----------|--------|
-
-## Clinical Trials
-| NCT ID | Title | Phase | Status | Verified |
-|--------|-------|-------|--------|----------|
+[Direct answer with source citations on every claim]
 
 ## Confidence
-[Overall confidence and caveats]
+[State that full evidence grading was not performed and why]
 ```
 
 ## Edge Discovery Commands
@@ -502,6 +524,7 @@ These curl commands are for edge types not covered by MCP tools:
 - **lifesciences-pharmacology**: ChEMBL, PubChem, IUPHAR, Open Targets drug endpoints (Phase 4a)
 - **lifesciences-clinical**: Open Targets associations, ClinicalTrials.gov trial endpoints (Phases 4b, 5)
 - **lifesciences-crispr**: BioGRID ORCS essentiality validation (extends Phase 3 with CRISPR screen data)
+- **lifesciences-reporting**: Domain-specific report templates and evidence grading (Phase 6b)
 
 ### MCP Server Reference
 
