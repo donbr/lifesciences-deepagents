@@ -78,9 +78,9 @@ STRICT ROUTING RULES:
 - If the user asks a research question, map it to the 'anchor_specialist' first to identify the key entities."""
 
     # Configure FilesystemBackend for optional artifact generation (non-blocking)
-    # Workspace directory for phase outputs and final artifacts
+    # Workspace directory for phase outputs and final artifacts (project root)
     workspace_dir = os.path.join(
-        os.path.dirname(__file__), "..", "..", ".deepagents", "workspace"
+        os.path.dirname(__file__), "..", "..", "..", ".deepagents", "workspace"
     )
     os.makedirs(workspace_dir, exist_ok=True)
 
@@ -138,7 +138,7 @@ STRICT ROUTING RULES:
                 "description": "PHASE 6: Formats validated knowledge graph and provides final summary. Has access to write_file for saving artifacts and persist_to_graphiti for graph storage.",
                 "system_prompt": PERSIST_SYSTEM,
                 "model": model_name,
-                "tools": [persist_to_graphiti, think_tool]
+                "tools": None  # Get automatic filesystem tools from FilesystemBackend
             }
         ]
     )
