@@ -561,4 +561,6 @@ These curl commands are for edge types not covered by MCP tools:
 ### MCP Server Reference
 
 All 34 tools are available via the `lifesciences-research` MCP server.
-Gateway source: `/home/donbr/graphiti-org/lifesciences-research/src/lifesciences_mcp/servers/gateway.py`
+Endpoint: `https://lifesciences-research.fastmcp.app/mcp`
+
+Graphiti persistence is optional/best-effort. Core workflow completion is producing validated graph and report artifacts.

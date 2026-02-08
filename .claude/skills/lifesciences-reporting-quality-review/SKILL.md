@@ -26,8 +26,8 @@ Structured evaluation framework for assessing Fuzzy-to-Fact life sciences report
 **Required reads** (in order):
 1. The report markdown file being reviewed
 2. Associated knowledge graph JSON file (if exists) — usually `{report-name}-knowledge-graph.json`
-3. The lifesciences-graph-builder skill (`/home/donbr/ai2026/lifesciences-deepagents/.claude/skills/lifesciences-graph-builder/SKILL.md`)
-4. The lifesciences-reporting skill (`/home/donbr/ai2026/lifesciences-deepagents/.claude/skills/lifesciences-reporting/SKILL.md`)
+3. The `lifesciences-graph-builder` skill
+4. The `lifesciences-reporting` skill
 
 **Optional reads** (if specific databases/tools are central to the report):
 - lifesciences-pharmacology skill (for drug discovery reports)
