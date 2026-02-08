@@ -57,8 +57,14 @@ FALLBACK (curl):
 ```bash
 curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
   -H "Content-Type: application/json" \
-  -d '{"query": "{ target(ensemblId: \"ENSG00000171791\") { knownDrugs(page: {index: 0, size: 10}) { rows { drug { name id } mechanismOfAction phase } } } }"}'
+  -d '{"query": "{ target(ensemblId: \"ENSG00000171791\") { knownDrugs(size: 25) { rows { drug { name id } mechanismOfAction phase } } } }"}'
 ```
+
+**Open Targets `knownDrugs` Pagination**:
+- Use `size` parameter only (e.g., `size: 25`) — this is the reliable pattern
+- Do NOT use `page` or `index` — these cause intermittent failures
+- For paginated results, use `cursor` (returned in the response) as the continuation token
+- If first query fails, retry with `size` only (no other pagination params)
 
 **Note**: Requires Ensembl Gene ID (ENSG...). Get this from HGNC cross-references or Ensembl lookup.
 
