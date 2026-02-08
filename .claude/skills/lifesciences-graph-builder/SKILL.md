@@ -95,6 +95,33 @@ The `lifesciences-research` MCP server provides 34 tools across 12 databases. **
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
+## MCP Token Budgeting (`slim` Parameter)
+
+ALL 34 MCP tools support a `slim` parameter for phase-specific token budgeting:
+
+**Phase-Specific Usage:**
+- **LOCATE phases (1 ANCHOR, 3 EXPAND)**: Use `slim=true, page_size=3-5` for fast candidate lists
+- **RETRIEVE phases (2 ENRICH, 4 TRAVERSE, 5 VALIDATE)**: Use `slim=false` (default) for full metadata
+
+**Token Savings:**
+- `slim=true`: ~20 tokens/entity (ID, symbol, name only)
+- `slim=false`: ~115-300 tokens/entity (full metadata + cross-references)
+
+**Example (Phase 1 ANCHOR):**
+```
+# LOCATE: Find gene candidates with slim=true
+Call `hgnc_search_genes` with: {"query": "ACVR", "slim": true, "page_size": 5}
+→ Returns 5 candidates at ~20 tokens each = 100 tokens total
+
+# RETRIEVE: Get full record for selected candidate
+Call `hgnc_get_gene` with: {"hgnc_id": "HGNC:171"}
+→ Returns complete metadata (~115 tokens)
+```
+
+**Impact:** Using `slim=true` during LOCATE phases enables batch resolution of 10-50 entities per LLM turn, critical for network expansion (Phase 3) and drug discovery (Phase 4a).
+
+**Reference:** Token budgeting pattern documented in `reference/prior-art-api-patterns.md` (Section 7.1).
+
 ## CURIE Format Conventions
 
 Two contexts require different ID formats:
