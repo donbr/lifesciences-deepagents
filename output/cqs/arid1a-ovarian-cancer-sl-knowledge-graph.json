@@ -1,0 +1,275 @@
+{
+  "query": "How can we identify therapeutic strategies for ARID1A-deficient Ovarian Cancer using synthetic lethality?",
+  "disease": {
+    "id": "MONDO:0008170",
+    "name": "ovarian cancer",
+    "alternative_id": "EFO:0001075",
+    "alternative_name": "ovarian carcinoma"
+  },
+  "nodes": [
+    {
+      "id": "HGNC:11110",
+      "type": "Gene",
+      "label": "ARID1A",
+      "symbol": "ARID1A",
+      "name": "AT-rich interaction domain 1A",
+      "properties": {
+        "ensembl": "ENSG00000117713",
+        "uniprot": "O14497",
+        "entrez": "8289",
+        "function": "Component of SWI/SNF chromatin remodeling complexes. Binds DNA non-specifically. Essential for neural progenitor self-renewal and proliferation.",
+        "role": "Loss-of-function driver mutation in ovarian cancer"
+      }
+    },
+    {
+      "id": "HGNC:18040",
+      "type": "Gene",
+      "label": "ARID1B",
+      "symbol": "ARID1B",
+      "name": "AT-rich interaction domain 1B",
+      "properties": {
+        "ensembl": "ENSG00000049618",
+        "uniprot": "Q8NFD5",
+        "entrez": "57492",
+        "mechanism": "Paralog of ARID1A; synthetic lethal dependency in ARID1A-deficient cells"
+      }
+    },
+    {
+      "id": "HGNC:3527",
+      "type": "Gene",
+      "label": "EZH2",
+      "symbol": "EZH2",
+      "name": "enhancer of zeste 2 polycomb repressive complex 2 subunit",
+      "properties": {
+        "ensembl": "ENSG00000106462",
+        "uniprot": "Q15910",
+        "entrez": "2146",
+        "function": "Catalytic subunit of PRC2 complex. Methylates H3K27 leading to transcriptional repression.",
+        "mechanism": "Synthetic lethal dependency in ARID1A-deficient cancers via chromatin remodeling antagonism"
+      }
+    },
+    {
+      "id": "HGNC:882",
+      "type": "Gene",
+      "label": "ATR",
+      "symbol": "ATR",
+      "name": "ATR checkpoint kinase",
+      "properties": {
+        "ensembl": "ENSG00000175054",
+        "uniprot": "Q13535",
+        "entrez": "545",
+        "function": "Serine/threonine kinase activating checkpoint signaling upon DNA damage.",
+        "mechanism": "Synthetic lethal dependency in ARID1A-deficient cancers due to increased replication stress"
+      }
+    },
+    {
+      "id": "CHEMBL:3414621",
+      "type": "Compound",
+      "label": "Tazemetostat",
+      "name": "TAZEMETOSTAT",
+      "properties": {
+        "phase": 4,
+        "mechanism": "Histone-lysine N-methyltransferase EZH2 inhibitor",
+        "approval_status": "FDA approved for epithelioid sarcoma"
+      }
+    },
+    {
+      "id": "CHEMBL:4594260",
+      "type": "Compound",
+      "label": "Tazemetostat Hydrobromide",
+      "name": "TAZEMETOSTAT HYDROBROMIDE",
+      "properties": {
+        "phase": 4,
+        "mechanism": "Histone-lysine N-methyltransferase EZH2 inhibitor",
+        "relationship": "Salt form of tazemetostat"
+      }
+    },
+    {
+      "id": "CHEMBL:4285417",
+      "type": "Compound",
+      "label": "Ceralasertib",
+      "name": "CERALASERTIB",
+      "properties": {
+        "phase": 3,
+        "mechanism": "Serine-protein kinase ATR inhibitor",
+        "alternative_names": ["AZD6738"]
+      }
+    },
+    {
+      "id": "CHEMBL:3989870",
+      "type": "Compound",
+      "label": "Berzosertib",
+      "name": "BERZOSERTIB",
+      "properties": {
+        "phase": 2,
+        "mechanism": "Serine-protein kinase ATR inhibitor"
+      }
+    },
+    {
+      "id": "NCT:04065269",
+      "type": "ClinicalTrial",
+      "label": "ATARI Trial",
+      "name": "ATr Inhibitor in Combination With Olaparib/Durvalumab in Gynaecological Cancers With ARID1A Loss or no Loss",
+      "properties": {
+        "status": "RECRUITING",
+        "phase": "Phase 2",
+        "interventions": ["Ceralasertib", "Olaparib", "Durvalumab"],
+        "target_population": "Gynaecological cancers with ARID1A loss",
+        "primary_sponsor": "Institute of Cancer Research, United Kingdom",
+        "significance": "First trial specifically targeting ARID1A-deficient gynaecological cancers with ATR inhibition"
+      }
+    },
+    {
+      "id": "NCT:03348631",
+      "type": "ClinicalTrial",
+      "label": "Tazemetostat in Ovarian/Endometrial Cancer",
+      "name": "Phase II Study of Tazemetostat in Recurrent or Persistent Endometrioid or Clear Cell Carcinoma",
+      "properties": {
+        "status": "ACTIVE_NOT_RECRUITING",
+        "phase": "Phase 2",
+        "interventions": ["Tazemetostat"],
+        "target_population": "Ovarian clear cell carcinoma with ARID1A mutations (amended criteria)",
+        "primary_sponsor": "NRG Oncology",
+        "enrollment_criteria": "Only OCCC with ARID1A pathologic variants eligible (as of Oct 2021 amendment)"
+      }
+    },
+    {
+      "id": "NCT:06617923",
+      "type": "ClinicalTrial",
+      "label": "Senaparib + Temozolomide",
+      "name": "Study of Senaparib in Combination With Temozolomide in ARID1A Mutation Associated Ovarian Cancer",
+      "properties": {
+        "status": "RECRUITING",
+        "phase": "Phase 2",
+        "interventions": ["Senaparib", "Temozolomide"],
+        "target_population": "ARID1A mutation associated ovarian, fallopian tube, or primary peritoneal cancer",
+        "primary_sponsor": "Sidney Kimmel Comprehensive Cancer Center at Johns Hopkins",
+        "mechanism": "PARP inhibition + alkylating agent in ARID1A-deficient context"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:11110",
+      "target": "MONDO:0008170",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "relationship": "Loss-of-function mutations in ARID1A occur in ~50% of ovarian clear cell carcinomas and ~30% of endometrioid ovarian cancers",
+        "evidence": "Open Targets associations"
+      }
+    },
+    {
+      "source": "HGNC:11110",
+      "target": "HGNC:18040",
+      "type": "SYNTHETIC_LETHAL_WITH",
+      "properties": {
+        "mechanism": "ARID1A and ARID1B are paralogous subunits of SWI/SNF complexes. Loss of ARID1A creates dependency on ARID1B for chromatin remodeling function.",
+        "evidence": "Physical interaction confirmed in BioGRID (ID: 513185)"
+      }
+    },
+    {
+      "source": "HGNC:11110",
+      "target": "HGNC:3527",
+      "type": "SYNTHETIC_LETHAL_WITH",
+      "properties": {
+        "mechanism": "SWI/SNF (containing ARID1A) and PRC2 (containing EZH2) have antagonistic roles in chromatin regulation. ARID1A loss creates dependency on EZH2.",
+        "evidence": "Literature-reported synthetic lethality mechanism"
+      }
+    },
+    {
+      "source": "HGNC:11110",
+      "target": "HGNC:882",
+      "type": "SYNTHETIC_LETHAL_WITH",
+      "properties": {
+        "mechanism": "ARID1A loss causes increased replication stress and DNA damage, creating dependency on ATR-mediated checkpoint signaling.",
+        "evidence": "Rationale for NCT:04065269 trial"
+      }
+    },
+    {
+      "source": "CHEMBL:3414621",
+      "target": "HGNC:3527",
+      "type": "INHIBITOR",
+      "properties": {
+        "Ki": "not specified",
+        "selectivity": "EZH2-selective inhibitor",
+        "evidence": "Open Targets knownDrugs"
+      }
+    },
+    {
+      "source": "CHEMBL:4594260",
+      "target": "HGNC:3527",
+      "type": "INHIBITOR",
+      "properties": {
+        "relationship": "Salt form of tazemetostat with identical target",
+        "evidence": "Open Targets knownDrugs"
+      }
+    },
+    {
+      "source": "CHEMBL:4285417",
+      "target": "HGNC:882",
+      "type": "INHIBITOR",
+      "properties": {
+        "selectivity": "ATR-selective kinase inhibitor",
+        "evidence": "Open Targets knownDrugs"
+      }
+    },
+    {
+      "source": "CHEMBL:3989870",
+      "target": "HGNC:882",
+      "type": "INHIBITOR",
+      "properties": {
+        "selectivity": "ATR-selective kinase inhibitor",
+        "evidence": "Open Targets knownDrugs"
+      }
+    },
+    {
+      "source": "NCT:04065269",
+      "target": "CHEMBL:4285417",
+      "type": "INVESTIGATES",
+      "properties": {
+        "combination": "Ceralasertib + Olaparib or Ceralasertib + Durvalumab",
+        "evidence": "ClinicalTrials.gov verified"
+      }
+    },
+    {
+      "source": "NCT:03348631",
+      "target": "CHEMBL:3414621",
+      "type": "INVESTIGATES",
+      "properties": {
+        "monotherapy": true,
+        "evidence": "ClinicalTrials.gov verified"
+      }
+    },
+    {
+      "source": "NCT:06617923",
+      "target": "HGNC:11110",
+      "type": "TARGETS_DEFICIENCY",
+      "properties": {
+        "biomarker": "ARID1A pathologic variant or likely pathogenic variant",
+        "strategy": "PARP inhibition (senaparib) + temozolomide in ARID1A-deficient context",
+        "evidence": "ClinicalTrials.gov verified"
+      }
+    }
+  ],
+  "metadata": {
+    "generated_by": "Fuzzy-to-Fact Protocol v2.0",
+    "date": "2026-02-07",
+    "phases_completed": [
+      "1_ANCHOR",
+      "2_ENRICH",
+      "3_EXPAND",
+      "4a_TRAVERSE_DRUGS",
+      "4b_TRAVERSE_TRIALS",
+      "5_VALIDATE"
+    ],
+    "validation_status": "All NCT IDs verified via ClinicalTrials.gov API",
+    "confidence": "HIGH",
+    "evidence_sources": [
+      "HGNC",
+      "UniProt",
+      "BioGRID",
+      "Open Targets",
+      "ClinicalTrials.gov"
+    ]
+  }
+}

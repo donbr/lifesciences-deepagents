@@ -1,0 +1,217 @@
+{
+  "query": "For NGLY1 deficiency, what are the associated genes, and what existing drugs target proteins in those pathways?",
+  "nodes": [
+    {
+      "id": "HGNC:17646",
+      "type": "Gene",
+      "label": "NGLY1",
+      "properties": {
+        "name": "N-glycanase 1",
+        "ensembl_id": "ENSG00000151092",
+        "uniprot_id": "Q96IV0",
+        "function": "Deglycosylates denatured N-linked glycoproteins in cytoplasm, assists proteasome-mediated degradation",
+        "pathway": "ER-associated degradation (ERAD)"
+      }
+    },
+    {
+      "id": "HGNC:28454",
+      "type": "Gene",
+      "label": "DERL1",
+      "properties": {
+        "name": "derlin 1",
+        "ensembl_id": "ENSG00000136986",
+        "uniprot_id": "Q9BUN8",
+        "pathway": "ER-associated degradation (ERAD)",
+        "interaction_score": 0.905
+      }
+    },
+    {
+      "id": "HGNC:12666",
+      "type": "Gene",
+      "label": "VCP",
+      "properties": {
+        "name": "valosin containing protein",
+        "ensembl_id": "ENSG00000165280",
+        "uniprot_id": "P55072",
+        "pathway": "ER-associated degradation (ERAD)",
+        "function": "Transitional endoplasmic reticulum ATPase",
+        "interaction_score": 0.999
+      }
+    },
+    {
+      "id": "HGNC:463",
+      "type": "Gene",
+      "label": "AMFR",
+      "properties": {
+        "name": "autocrine motility factor receptor",
+        "ensembl_id": "ENSG00000159461",
+        "uniprot_id": "Q9UKV5",
+        "pathway": "ER-associated degradation (ERAD)",
+        "function": "E3 ubiquitin ligase",
+        "interaction_score": 0.932
+      }
+    },
+    {
+      "id": "MONDO:0800044",
+      "type": "Disease",
+      "label": "NGLY1 deficiency",
+      "properties": {
+        "name": "congenital disorder of deglycosylation 1",
+        "association_score": 0.789,
+        "clinical_features": ["global developmental delay", "hyperkinetic movement disorder", "transient transaminase elevation", "hypoalacrima", "peripheral neuropathy"]
+      }
+    },
+    {
+      "id": "WP:WP1785",
+      "type": "Pathway",
+      "label": "Asparagine N-linked glycosylation",
+      "properties": {
+        "organism": "Homo sapiens",
+        "gene_count": 373
+      }
+    },
+    {
+      "id": "INTERVENTION:GS-100",
+      "type": "TherapeuticIntervention",
+      "label": "GS-100",
+      "properties": {
+        "description": "AAV9 vector-mediated gene transfer of human NGLY1",
+        "modality": "gene therapy",
+        "phase": "1/2/3",
+        "status": "recruiting",
+        "nct_id": "NCT:06199531"
+      }
+    },
+    {
+      "id": "INTERVENTION:GlcNAc",
+      "type": "TherapeuticIntervention",
+      "label": "N-acetylglucosamine (GlcNAc)",
+      "properties": {
+        "description": "Substrate supplementation therapy for tear production",
+        "modality": "small molecule supplement",
+        "phase": "2",
+        "status": "active_not_recruiting",
+        "nct_id": "NCT:05402345"
+      }
+    },
+    {
+      "id": "NCT:06199531",
+      "type": "ClinicalTrial",
+      "label": "GS-100 Gene Therapy Trial",
+      "properties": {
+        "title": "Phase 1/2/3 Study of GS-100 AAV9 Gene Transfer in NGLY1 Deficiency",
+        "status": "RECRUITING",
+        "sponsor": "Grace Science, LLC",
+        "enrollment_age": "2-18 years",
+        "primary_outcome": "Safety, tolerability, and efficacy over 5 years"
+      }
+    },
+    {
+      "id": "NCT:05402345",
+      "type": "ClinicalTrial",
+      "label": "GlcNAc for Tear Production Trial",
+      "properties": {
+        "title": "Phase II Study of GlcNAc for Tear Production in NGLY1-CDDG",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "sponsor": "Eva Morava-Kozicz",
+        "enrollment_age": "1-60 years",
+        "primary_outcome": "Difference in tear production after 6 weeks"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:17646",
+      "target": "MONDO:0800044",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.789,
+        "evidence": "Open Targets disease association"
+      }
+    },
+    {
+      "source": "HGNC:17646",
+      "target": "HGNC:28454",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "score": 0.905,
+        "database": "STRING",
+        "evidence_types": ["association", "experiments", "databases", "textmining"]
+      }
+    },
+    {
+      "source": "HGNC:17646",
+      "target": "HGNC:463",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "score": 0.932,
+        "database": "STRING",
+        "evidence_types": ["association", "experiments", "databases", "textmining"]
+      }
+    },
+    {
+      "source": "HGNC:28454",
+      "target": "HGNC:12666",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "score": 0.999,
+        "database": "STRING",
+        "evidence_types": ["experiments", "databases", "textmining"]
+      }
+    },
+    {
+      "source": "HGNC:17646",
+      "target": "WP:WP1785",
+      "type": "MEMBER_OF",
+      "properties": {
+        "database": "WikiPathways"
+      }
+    },
+    {
+      "source": "INTERVENTION:GS-100",
+      "target": "HGNC:17646",
+      "type": "REPLACES",
+      "properties": {
+        "mechanism": "gene replacement therapy via AAV9 vector"
+      }
+    },
+    {
+      "source": "INTERVENTION:GlcNAc",
+      "target": "MONDO:0800044",
+      "type": "TREATS_SYMPTOM",
+      "properties": {
+        "symptom": "hypoalacrima",
+        "mechanism": "substrate supplementation"
+      }
+    },
+    {
+      "source": "NCT:06199531",
+      "target": "INTERVENTION:GS-100",
+      "type": "EVALUATES",
+      "properties": {
+        "phase": "1/2/3"
+      }
+    },
+    {
+      "source": "NCT:05402345",
+      "target": "INTERVENTION:GlcNAc",
+      "type": "EVALUATES",
+      "properties": {
+        "phase": "2"
+      }
+    }
+  ],
+  "metadata": {
+    "protocol": "Fuzzy-to-Fact",
+    "phases_completed": ["ANCHOR", "ENRICH", "EXPAND", "TRAVERSE_DRUGS", "TRAVERSE_TRIALS", "VALIDATE", "PERSIST"],
+    "date_generated": "2026-02-07",
+    "validation_status": "all_entities_validated",
+    "key_findings": {
+      "associated_genes": ["NGLY1", "DERL1", "VCP", "AMFR"],
+      "pathway": "ER-associated degradation (ERAD)",
+      "approved_drugs": "None (rare disease with no approved therapies)",
+      "investigational_therapies": ["GS-100 gene therapy", "N-acetylglucosamine supplementation"],
+      "active_trials": 2
+    }
+  }
+}

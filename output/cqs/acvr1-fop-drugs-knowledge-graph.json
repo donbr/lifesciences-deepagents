@@ -1,10 +1,9 @@
 {
-  "metadata": {
-    "query": "What drugs target the ACVR1 pathway in fibrodysplasia ossificans progressiva (FOP)?",
-    "protocol": "Fuzzy-to-Fact",
-    "date": "2026-02-07",
-    "phase": "6a_PERSIST",
-    "validation_status": "VALIDATED"
+  "query": "What drugs target the ACVR1 pathway in fibrodysplasia ossificans progressiva (FOP)?",
+  "disease": {
+    "id": "MONDO:0007606",
+    "name": "fibrodysplasia ossificans progressiva",
+    "type": "Disease"
   },
   "nodes": [
     {
@@ -14,55 +13,48 @@
       "properties": {
         "symbol": "ACVR1",
         "name": "activin A receptor type 1",
-        "aliases": ["ALK2", "SKR1", "ACVR1A", "ACVRLK2"],
-        "location": "2q24.1",
-        "ensembl_id": "ENSG00000115170",
-        "uniprot_id": "Q04771",
-        "entrez_id": "90",
-        "chembl_target_id": "CHEMBL5903"
+        "ensembl": "ENSG00000115170",
+        "uniprot": "Q04771",
+        "entrez": "90",
+        "alias_symbols": ["SKR1", "ALK2", "ACVR1A"],
+        "location": "2q24.1"
       }
     },
     {
       "id": "UniProtKB:Q04771",
       "type": "Protein",
-      "label": "Activin receptor type-1",
+      "label": "ACVR1",
       "properties": {
-        "gene_name": "ACVR1",
-        "organism": "Homo sapiens",
-        "function": "BMP type I receptor; forms heterotetrameric complexes with ACVR2A/ACVR2B; phosphorylates SMAD1/5/8 upon ligand binding",
-        "sequence_length": 509,
-        "string_id": "9606.ENSP00000405004"
+        "name": "Activin receptor type-1",
+        "function": "Bone morphogenetic protein (BMP) type I receptor that forms heterotetrameric complexes with type II receptors AMHR2, ACVR2A or ACVR2B. Upon ligand binding (BMP7, GDF2/BMP9), type II receptors transphosphorylate ACVR1, which then phosphorylates SMAD1/5/8 proteins. Can activate non-canonical p38 MAPK pathway.",
+        "organism": "Homo sapiens"
       }
     },
     {
-      "id": "MONDO:0007606",
-      "type": "Disease",
-      "label": "fibrodysplasia ossificans progressiva",
+      "id": "HGNC:171",
+      "type": "Gene",
+      "label": "ACVR2A",
       "properties": {
-        "association_score": 0.816,
-        "description": "Gain-of-function disease caused by ACVR1 mutations (most commonly R206H)"
+        "symbol": "ACVR2A",
+        "name": "activin A receptor type 2A",
+        "ensembl": "ENSG00000121989"
       }
     },
     {
-      "id": "CHEMBL:4802133",
-      "type": "Compound",
-      "label": "Fidrisertib",
+      "id": "HGNC:171",
+      "type": "Gene",
+      "label": "ACVR2B",
       "properties": {
-        "synonyms": ["IPN60130", "BLU-782"],
-        "max_phase": 2,
-        "molecular_weight": 562.72,
-        "mechanism": "Direct ALK2/ACVR1 inhibitor"
+        "symbol": "ACVR2B"
       }
     },
     {
-      "id": "CHEMBL:4298176",
-      "type": "Compound",
-      "label": "Garetosmab",
+      "id": "STRING:9606.ENSP00000405004",
+      "type": "Protein",
+      "label": "ACVR1",
       "properties": {
-        "synonyms": ["REGN2477"],
-        "max_phase": 3,
-        "type": "Antibody",
-        "mechanism": "Anti-activin A (inhibin beta A chain) antibody - blocks ACVR1 ligand"
+        "preferred_name": "ACVR1",
+        "taxon_id": 9606
       }
     },
     {
@@ -70,11 +62,23 @@
       "type": "Compound",
       "label": "Palovarotene",
       "properties": {
-        "synonyms": ["RO3300074", "Sohonos"],
+        "name": "PALOVAROTENE",
+        "mechanism": "Retinoic acid receptor gamma agonist",
         "max_phase": 4,
-        "approved": true,
-        "molecular_weight": 414.55,
-        "mechanism": "Retinoic acid receptor gamma agonist - modulates BMP signaling"
+        "iuphar_id": "IUPHAR:8276",
+        "type": "Synthetic organic",
+        "approved": true
+      }
+    },
+    {
+      "id": "CHEMBL:4298176",
+      "type": "Compound",
+      "label": "Garetosmab",
+      "properties": {
+        "name": "GARETOSMAB",
+        "mechanism": "Inhibin beta A chain inhibitor",
+        "max_phase": 3,
+        "type": "Monoclonal antibody"
       }
     },
     {
@@ -82,148 +86,74 @@
       "type": "Compound",
       "label": "Saracatinib",
       "properties": {
-        "synonyms": ["AZD0530"],
-        "max_phase": 3,
-        "molecular_weight": 542.04,
-        "mechanism": "Src tyrosine kinase inhibitor - upstream regulator of ACVR1 pathway"
+        "name": "SARACATINIB",
+        "mechanism": "Tyrosine-protein kinase SRC inhibitor",
+        "max_phase": 2,
+        "iuphar_id": "IUPHAR:7731",
+        "type": "Synthetic organic",
+        "approved": false
       }
     },
     {
-      "id": "CHEMBL:3833374",
+      "id": "PubChem:CID60182388",
       "type": "Compound",
-      "label": "Andecaliximab",
+      "label": "LDN-212854",
       "properties": {
-        "synonyms": ["GS-5745"],
-        "max_phase": 3,
-        "type": "Antibody",
-        "mechanism": "Matrix metalloproteinase 9 inhibitor - reduces HO formation"
-      }
-    },
-    {
-      "id": "STRING:9606.ENSP00000241416",
-      "type": "Protein",
-      "label": "ACVR2A",
-      "properties": {
-        "interaction_score": 0.999,
-        "role": "Type II receptor that phosphorylates ACVR1"
-      }
-    },
-    {
-      "id": "STRING:9606.ENSP00000340361",
-      "type": "Protein",
-      "label": "ACVR2B",
-      "properties": {
-        "interaction_score": 0.998,
-        "role": "Type II receptor that phosphorylates ACVR1"
-      }
-    },
-    {
-      "id": "STRING:9606.ENSP00000441954",
-      "type": "Protein",
-      "label": "SMAD5",
-      "properties": {
-        "interaction_score": 0.835,
-        "role": "Downstream effector phosphorylated by ACVR1"
-      }
-    },
-    {
-      "id": "STRING:9606.ENSP00000369154",
-      "type": "Protein",
-      "label": "SMAD9",
-      "properties": {
-        "interaction_score": 0.888,
-        "role": "Downstream effector phosphorylated by ACVR1"
-      }
-    },
-    {
-      "id": "STRING:9606.ENSP00000379204",
-      "type": "Protein",
-      "label": "BMP7",
-      "properties": {
-        "interaction_score": 0.999,
-        "role": "BMP ligand that activates ACVR1"
-      }
-    },
-    {
-      "id": "STRING:9606.ENSP00000283147",
-      "type": "Protein",
-      "label": "BMP6",
-      "properties": {
-        "interaction_score": 0.999,
-        "role": "BMP ligand that activates ACVR1"
-      }
-    },
-    {
-      "id": "NCT:05039515",
-      "type": "ClinicalTrial",
-      "label": "Fidrisertib Phase 2 FOP Trial",
-      "properties": {
-        "title": "Phase 2 Study to Assess Efficacy and Safety of Oral Fidrisertib (IPN60130) for FOP",
-        "status": "ACTIVE_NOT_RECRUITING",
-        "phase": "PHASE2",
-        "primary_outcome": "Annualized change in HO volume by low-dose WBCT",
-        "sponsor": "Clementia Pharmaceuticals Inc."
+        "name": "LDN-212854",
+        "synonyms": ["BMP Inhibitor III"],
+        "molecular_formula": "C25H22N6",
+        "chembl": "CHEMBL:2385591"
       }
     },
     {
       "id": "NCT:04307953",
       "type": "ClinicalTrial",
-      "label": "Saracatinib FOP Prevention Trial",
+      "label": "Saracatinib FOP Trial",
       "properties": {
         "title": "Saracatinib Trial TO Prevent FOP",
         "status": "RECRUITING",
-        "phase": "PHASE2_3",
-        "primary_outcome": "Change in heterotopic bone volume over 6 months",
-        "sponsor": "Amsterdam UMC"
+        "phase": null,
+        "intervention": "AZD0530 Difumarate",
+        "sponsor": "Amsterdam UMC",
+        "start_date": "2020-08-05"
       }
     },
     {
-      "id": "NCT:06508021",
+      "id": "NCT:05039515",
       "type": "ClinicalTrial",
-      "label": "Andecaliximab Phase 2/3 FOP Trial",
+      "label": "Fidrisertib FOP Trial",
       "properties": {
-        "title": "Phase 2/3 Study to Assess Efficacy and Safety of Andecaliximab in FOP",
+        "title": "A Study to Assess the Effectiveness and Safety of 2 Dosage Regimens of Oral Fidrisertib (IPN60130) for the Treatment of Fibrodysplasia Ossificans Progressiva (FOP)",
         "status": "ACTIVE_NOT_RECRUITING",
-        "phase": "PHASE2_3",
-        "primary_outcome": "Number of new HO lesions at Week 27 and 53",
-        "sponsor": "Ashibio Inc"
+        "phase": null,
+        "intervention": "IPN60130",
+        "sponsor": "Clementia Pharmaceuticals Inc.",
+        "start_date": "2021-12-01"
       }
     },
     {
       "id": "NCT:05394116",
       "type": "ClinicalTrial",
-      "label": "Garetosmab Phase 3 FOP Trial",
+      "label": "Garetosmab FOP Trial",
       "properties": {
-        "title": "Phase 3 Randomized Study of Garetosmab in FOP Patients",
+        "title": "Phase 3 Randomized, Placebo-Controlled Study to Assess Safety, Tolerability, and Efficacy of Garetosmab in Patients With Fibrodysplasia Ossificans Progressiva",
         "status": "ACTIVE_NOT_RECRUITING",
-        "phase": "PHASE3",
-        "primary_outcome": "Number of new HO lesions at Week 56",
-        "sponsor": "Regeneron Pharmaceuticals"
-      }
-    },
-    {
-      "id": "NCT:04818398",
-      "type": "ClinicalTrial",
-      "label": "DS-6016a Phase 1 Safety Study",
-      "properties": {
-        "title": "Single-Ascending Dose Phase 1 Study of DS-6016a in Healthy Subjects",
-        "status": "COMPLETED",
-        "phase": "PHASE1",
-        "primary_outcome": "Safety and tolerability",
-        "sponsor": "Daiichi Sankyo"
+        "phase": null,
+        "sponsor": "Regeneron Pharmaceuticals",
+        "start_date": "2022-11-21"
       }
     },
     {
       "id": "NCT:02279095",
       "type": "ClinicalTrial",
-      "label": "Palovarotene Phase 2 Extension Study",
+      "label": "Palovarotene Extension Trial",
       "properties": {
-        "title": "Phase 2 Open-Label Extension Study of Palovarotene in FOP",
+        "title": "A Phase 2, Open-Label Extension, Efficacy and Safety Study of a Retinoic Acid Receptor Gamma (RARγ) Specific Agonist (Palovarotene) in the Treatment of Preosseous Flare-ups in Subjects With Fibrodysplasia Ossificans Progressiva (FOP)",
         "status": "COMPLETED",
-        "phase": "PHASE2",
-        "primary_outcome": "Percentage of flare-ups with no new HO at Week 12",
+        "phase": null,
         "sponsor": "Clementia Pharmaceuticals Inc.",
-        "note": "Led to FDA approval"
+        "start_date": "2014-10-09",
+        "completion_date": "2022-09-20"
       }
     }
   ],
@@ -240,112 +170,109 @@
       "type": "ASSOCIATED_WITH",
       "properties": {
         "score": 0.816,
-        "mutation": "R206H gain-of-function"
+        "evidence": "Open Targets associations"
       }
     },
     {
-      "source": "UniProtKB:Q04771",
+      "source": "STRING:9606.ENSP00000405004",
       "target": "STRING:9606.ENSP00000241416",
-      "type": "INTERACTS_WITH",
+      "type": "INTERACTS",
       "properties": {
+        "preferred_name_b": "ACVR2A",
         "score": 0.999,
-        "role": "forms heterotetrameric complex"
+        "evidence_sources": "database,textmining"
       }
     },
     {
-      "source": "UniProtKB:Q04771",
+      "source": "STRING:9606.ENSP00000405004",
       "target": "STRING:9606.ENSP00000340361",
-      "type": "INTERACTS_WITH",
+      "type": "INTERACTS",
       "properties": {
+        "preferred_name_b": "ACVR2B",
         "score": 0.998,
-        "role": "forms heterotetrameric complex"
+        "evidence_sources": "database,textmining"
       }
     },
     {
-      "source": "UniProtKB:Q04771",
+      "source": "STRING:9606.ENSP00000405004",
       "target": "STRING:9606.ENSP00000441954",
-      "type": "PHOSPHORYLATES",
+      "type": "INTERACTS",
       "properties": {
-        "score": 0.835
+        "preferred_name_b": "SMAD5",
+        "score": 0.835,
+        "evidence_sources": "database,textmining"
       }
     },
     {
-      "source": "UniProtKB:Q04771",
+      "source": "STRING:9606.ENSP00000405004",
       "target": "STRING:9606.ENSP00000369154",
-      "type": "PHOSPHORYLATES",
+      "type": "INTERACTS",
       "properties": {
-        "score": 0.888
+        "preferred_name_b": "SMAD9",
+        "score": 0.888,
+        "evidence_sources": "database,textmining"
       }
     },
     {
-      "source": "STRING:9606.ENSP00000379204",
-      "target": "UniProtKB:Q04771",
-      "type": "ACTIVATES",
+      "source": "STRING:9606.ENSP00000405004",
+      "target": "STRING:9606.ENSP00000379204",
+      "type": "INTERACTS",
       "properties": {
+        "preferred_name_b": "BMP7",
         "score": 0.999,
-        "mechanism": "BMP ligand binding"
+        "evidence_sources": "experiments,database,textmining"
       }
     },
     {
-      "source": "STRING:9606.ENSP00000283147",
-      "target": "UniProtKB:Q04771",
-      "type": "ACTIVATES",
+      "source": "STRING:9606.ENSP00000405004",
+      "target": "STRING:9606.ENSP00000463051",
+      "type": "INTERACTS",
       "properties": {
-        "score": 0.999,
-        "mechanism": "BMP ligand binding"
-      }
-    },
-    {
-      "source": "CHEMBL:4802133",
-      "target": "UniProtKB:Q04771",
-      "type": "INHIBITS",
-      "properties": {
-        "mechanism": "Direct ALK2/ACVR1 kinase inhibitor",
-        "mechanism_class": "Direct inhibitor"
-      }
-    },
-    {
-      "source": "CHEMBL:4298176",
-      "target": "STRING:9606.ENSP00000283147",
-      "type": "INHIBITS",
-      "properties": {
-        "mechanism": "Anti-activin A antibody blocks ligand",
-        "mechanism_class": "Ligand blocker"
+        "preferred_name_b": "GDF2",
+        "score": 0.998,
+        "evidence_sources": "experiments,database,textmining"
       }
     },
     {
       "source": "CHEMBL:2105648",
-      "target": "UniProtKB:Q04771",
-      "type": "MODULATES",
+      "target": "MONDO:0007606",
+      "type": "TREATS",
       "properties": {
-        "mechanism": "RARγ agonist modulates BMP signaling",
-        "mechanism_class": "Pathway modulator"
+        "mechanism": "Retinoic acid receptor gamma agonist",
+        "max_phase": 4
+      }
+    },
+    {
+      "source": "CHEMBL:4298176",
+      "target": "MONDO:0007606",
+      "type": "TREATS",
+      "properties": {
+        "mechanism": "Inhibin beta A chain inhibitor",
+        "max_phase": 3
       }
     },
     {
       "source": "CHEMBL:217092",
-      "target": "UniProtKB:Q04771",
-      "type": "MODULATES",
-      "properties": {
-        "mechanism": "Src kinase inhibitor affects upstream signaling",
-        "mechanism_class": "Upstream regulator"
-      }
-    },
-    {
-      "source": "CHEMBL:3833374",
       "target": "MONDO:0007606",
       "type": "TREATS",
       "properties": {
-        "mechanism": "MMP9 inhibitor reduces heterotopic ossification",
-        "mechanism_class": "Anti-ossification"
+        "mechanism": "Tyrosine-protein kinase SRC inhibitor",
+        "max_phase": 2
       }
     },
     {
-      "source": "CHEMBL:4802133",
-      "target": "NCT:05039515",
+      "source": "CHEMBL:2105648",
+      "target": "NCT:02279095",
       "type": "TESTED_IN",
       "properties": {
-        "phase": "PHASE2",
+        "status": "COMPLETED"
+      }
+    },
+    {
+      "source": "CHEMBL:4298176",
+      "target": "NCT:05394116",
+      "type": "TESTED_IN",
+      "properties": {
         "status": "ACTIVE_NOT_RECRUITING"
       }
     },
@@ -354,80 +281,32 @@
       "target": "NCT:04307953",
       "type": "TESTED_IN",
       "properties": {
-        "phase": "PHASE2_3",
         "status": "RECRUITING"
       }
-    },
-    {
-      "source": "CHEMBL:3833374",
-      "target": "NCT:06508021",
-      "type": "TESTED_IN",
-      "properties": {
-        "phase": "PHASE2_3",
-        "status": "ACTIVE_NOT_RECRUITING"
-      }
-    },
-    {
-      "source": "CHEMBL:4298176",
-      "target": "NCT:05394116",
-      "type": "TESTED_IN",
-      "properties": {
-        "phase": "PHASE3",
-        "status": "ACTIVE_NOT_RECRUITING"
-      }
-    },
-    {
-      "source": "CHEMBL:2105648",
-      "target": "NCT:02279095",
-      "type": "TESTED_IN",
-      "properties": {
-        "phase": "PHASE2",
-        "status": "COMPLETED",
-        "outcome": "LED_TO_APPROVAL"
-      }
-    },
-    {
-      "source": "NCT:05039515",
-      "target": "MONDO:0007606",
-      "type": "STUDIES",
-      "properties": {}
-    },
-    {
-      "source": "NCT:04307953",
-      "target": "MONDO:0007606",
-      "type": "STUDIES",
-      "properties": {}
-    },
-    {
-      "source": "NCT:06508021",
-      "target": "MONDO:0007606",
-      "type": "STUDIES",
-      "properties": {}
-    },
-    {
-      "source": "NCT:05394116",
-      "target": "MONDO:0007606",
-      "type": "STUDIES",
-      "properties": {}
-    },
-    {
-      "source": "NCT:04818398",
-      "target": "MONDO:0007606",
-      "type": "STUDIES",
-      "properties": {}
-    },
-    {
-      "source": "NCT:02279095",
-      "target": "MONDO:0007606",
-      "type": "STUDIES",
-      "properties": {}
     }
   ],
-  "summary": {
-    "total_nodes": 20,
-    "total_edges": 28,
-    "drug_candidates": 5,
-    "clinical_trials": 6,
-    "validation_status": "All NCT IDs verified, all mechanisms validated, gain-of-function filter applied (2 agonists excluded)"
+  "metadata": {
+    "protocol": "Fuzzy-to-Fact",
+    "phases_completed": [
+      "ANCHOR",
+      "ENRICH",
+      "EXPAND",
+      "TRAVERSE_DRUGS",
+      "TRAVERSE_TRIALS",
+      "VALIDATE",
+      "PERSIST"
+    ],
+    "date": "2026-02-07",
+    "data_sources": [
+      "HGNC",
+      "UniProt",
+      "Open Targets",
+      "STRING",
+      "ChEMBL",
+      "PubChem",
+      "IUPHAR",
+      "ClinicalTrials.gov"
+    ],
+    "notes": "FOP is a gain-of-function disease caused by ACVR1 mutations. ACVR1 agonists (Eptotermin Alfa, Dibotermin Alfa) were excluded as they would worsen the disease. Drugs targeting pathway inhibition or downstream modulation are the therapeutic focus."
   }
 }

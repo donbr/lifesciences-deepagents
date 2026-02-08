@@ -1,0 +1,521 @@
+{
+  "query": "How can we validate synthetic lethal gene pairs from Feng et al. (2022) and identify druggable opportunities for TP53-mutant cancers?",
+  "date_generated": "2026-02-07",
+  "protocol": "Fuzzy-to-Fact",
+  "nodes": [
+    {
+      "id": "HGNC:11998",
+      "type": "Gene",
+      "label": "TP53",
+      "properties": {
+        "symbol": "TP53",
+        "name": "tumor protein p53",
+        "location": "17p13.1",
+        "ensembl": "ENSG00000141510",
+        "uniprot": "P04637",
+        "entrez": "7157",
+        "function": "Multifunctional transcription factor that induces cell cycle arrest, DNA repair or apoptosis upon binding to its target DNA sequence. Acts as a tumor suppressor in many tumor types; induces growth arrest or apoptosis depending on the physiological circumstances and cell type."
+      }
+    },
+    {
+      "id": "HGNC:795",
+      "type": "Gene",
+      "label": "ATM",
+      "properties": {
+        "symbol": "ATM",
+        "name": "ATM serine/threonine kinase",
+        "location": "11q22.3",
+        "ensembl": "ENSG00000149311",
+        "uniprot": "Q13315",
+        "entrez": "472",
+        "function": "Serine/threonine protein kinase which activates checkpoint signaling upon double strand breaks, apoptosis and genotoxic stresses. Recognizes the substrate consensus sequence [ST]-Q. Phosphorylates multiple effectors in DNA damage response."
+      }
+    },
+    {
+      "id": "HGNC:16627",
+      "type": "Gene",
+      "label": "CHEK2",
+      "properties": {
+        "symbol": "CHEK2",
+        "name": "checkpoint kinase 2",
+        "location": "22q12.1",
+        "ensembl": "ENSG00000183765",
+        "uniprot": "O96017",
+        "entrez": "11200",
+        "function": "Serine/threonine-protein kinase required for checkpoint-mediated cell cycle arrest, activation of DNA repair and apoptosis in response to DNA double-strand breaks. Regulates cell cycle checkpoint arrest through phosphorylation of CDC25A, CDC25B and CDC25C."
+      }
+    },
+    {
+      "id": "HGNC:12761",
+      "type": "Gene",
+      "label": "WEE1",
+      "properties": {
+        "symbol": "WEE1",
+        "name": "WEE1 G2 checkpoint kinase",
+        "location": "11p15.4",
+        "ensembl": "ENSG00000166483",
+        "uniprot": "P30291",
+        "entrez": "7465",
+        "function": "Acts as a negative regulator of entry into mitosis (G2 to M transition) by protecting the nucleus from cytoplasmically activated cyclin B1-complexed CDK1 before the onset of mitosis by mediating phosphorylation of CDK1 on 'Tyr-15'."
+      }
+    },
+    {
+      "id": "HGNC:270",
+      "type": "Gene",
+      "label": "PARP1",
+      "properties": {
+        "symbol": "PARP1",
+        "name": "poly(ADP-ribose) polymerase 1",
+        "location": "1q42.12",
+        "ensembl": "ENSG00000143799",
+        "uniprot": "P09874",
+        "entrez": "142",
+        "function": "Poly-ADP-ribosyltransferase that mediates poly-ADP-ribosylation of proteins and plays a key role in DNA repair. PARP1 initiates the repair of DNA breaks: recognizes and binds DNA breaks within chromatin and recruits repair factors."
+      }
+    },
+    {
+      "id": "HGNC:9077",
+      "type": "Gene",
+      "label": "PLK1",
+      "properties": {
+        "symbol": "PLK1",
+        "name": "polo like kinase 1",
+        "location": "16p12.2",
+        "ensembl": "ENSG00000166851",
+        "uniprot": "P53350",
+        "entrez": "5347",
+        "function": "Serine/threonine-protein kinase that performs several important functions throughout M phase of the cell cycle, including the regulation of centrosome maturation and spindle assembly, the removal of cohesins from chromosome arms."
+      }
+    },
+    {
+      "id": "CHEMBL:1976040",
+      "type": "Compound",
+      "label": "Adavosertib",
+      "properties": {
+        "name": "ADAVOSERTIB",
+        "chembl_id": "CHEMBL1976040",
+        "mechanism": "Serine/threonine-protein kinase WEE1 inhibitor",
+        "phase": 2,
+        "target": "WEE1"
+      }
+    },
+    {
+      "id": "CHEMBL:5095036",
+      "type": "Compound",
+      "label": "Azenosertib",
+      "properties": {
+        "name": "AZENOSERTIB",
+        "chembl_id": "CHEMBL5095036",
+        "mechanism": "Serine/threonine-protein kinase WEE1 inhibitor",
+        "phase": 2,
+        "target": "WEE1"
+      }
+    },
+    {
+      "id": "CHEMBL:521686",
+      "type": "Compound",
+      "label": "Olaparib",
+      "properties": {
+        "name": "OLAPARIB",
+        "chembl_id": "CHEMBL521686",
+        "mechanism": "PARP 1, 2 and 3 inhibitor",
+        "phase": 4,
+        "target": "PARP1",
+        "fda_approved": true
+      }
+    },
+    {
+      "id": "CHEMBL:1094636",
+      "type": "Compound",
+      "label": "Niraparib",
+      "properties": {
+        "name": "NIRAPARIB",
+        "chembl_id": "CHEMBL1094636",
+        "mechanism": "Poly [ADP-ribose] polymerase-1 inhibitor",
+        "phase": 4,
+        "target": "PARP1",
+        "fda_approved": true
+      }
+    },
+    {
+      "id": "CHEMBL:1173055",
+      "type": "Compound",
+      "label": "Rucaparib",
+      "properties": {
+        "name": "RUCAPARIB",
+        "chembl_id": "CHEMBL1173055",
+        "mechanism": "PARP 1, 2 and 3 inhibitor",
+        "phase": 4,
+        "target": "PARP1",
+        "fda_approved": true
+      }
+    },
+    {
+      "id": "CHEMBL:3137318",
+      "type": "Compound",
+      "label": "Talazoparib",
+      "properties": {
+        "name": "TALAZOPARIB TOSYLATE",
+        "chembl_id": "CHEMBL3137318",
+        "mechanism": "Poly [ADP-ribose] polymerase-1 inhibitor",
+        "phase": 4,
+        "target": "PARP1",
+        "fda_approved": true
+      }
+    },
+    {
+      "id": "CHEMBL:1233528",
+      "type": "Compound",
+      "label": "Volasertib",
+      "properties": {
+        "name": "VOLASERTIB",
+        "chembl_id": "CHEMBL1233528",
+        "mechanism": "Serine/threonine-protein kinase PLK1 inhibitor",
+        "phase": 3,
+        "target": "PLK1"
+      }
+    },
+    {
+      "id": "CHEMBL:1738758",
+      "type": "Compound",
+      "label": "Onvansertib",
+      "properties": {
+        "name": "ONVANSERTIB",
+        "chembl_id": "CHEMBL1738758",
+        "mechanism": "Serine/threonine-protein kinase PLK1 inhibitor",
+        "phase": 2,
+        "target": "PLK1"
+      }
+    },
+    {
+      "id": "CHEMBL:3544911",
+      "type": "Compound",
+      "label": "Prexasertib",
+      "properties": {
+        "name": "PREXASERTIB",
+        "chembl_id": "CHEMBL3544911",
+        "mechanism": "Serine/threonine-protein kinase Chk2 inhibitor",
+        "phase": 2,
+        "target": "CHEK2"
+      }
+    },
+    {
+      "id": "NCT:01164995",
+      "type": "ClinicalTrial",
+      "label": "WEE1 Inhibitor + Carboplatin in p53-Mutant Ovarian Cancer",
+      "properties": {
+        "nct_id": "NCT01164995",
+        "title": "Phase II Pharmacological Study With Wee-1 Inhibitor MK-1775 Combined With Carboplatin in Patients With p53 Mutated Epithelial Ovarian Cancer",
+        "phase": "PHASE2",
+        "status": "COMPLETED",
+        "conditions": ["Epithelial Ovarian Cancer"],
+        "interventions": ["MK-1775 and carboplatin"],
+        "key_finding": "Specifically targets p53 mutated cancers in combination with carboplatin"
+      }
+    },
+    {
+      "id": "NCT:02688907",
+      "type": "ClinicalTrial",
+      "label": "AZD1775 Monotherapy in TP53-Mutant SCLC",
+      "properties": {
+        "nct_id": "NCT02688907",
+        "title": "Phase II, Single-arm Study of AZD1775 Monotherapy in Relapsed Small Cell Lung Cancer Patients With MYC Family Amplification or CDKN2A Mutation Combined With TP53 Mutation",
+        "phase": "PHASE2",
+        "status": "TERMINATED",
+        "conditions": ["Small Cell Lung Cancer"],
+        "interventions": ["AZD1775"],
+        "key_finding": "Targets SCLC with confirmed TP53 mutation combined with MYC amplification or CDKN2A mutation"
+      }
+    },
+    {
+      "id": "NCT:02576444",
+      "type": "ClinicalTrial",
+      "label": "Olaparib Combinations with DDR Inhibitors",
+      "properties": {
+        "nct_id": "NCT02576444",
+        "title": "A Phase II Study of the PARP Inhibitor Olaparib Alone and in Combination With AZD1775, AZD5363, or AZD6738 in Advanced Solid Tumors",
+        "phase": "PHASE2",
+        "status": "TERMINATED",
+        "conditions": ["Cancer"],
+        "interventions": ["AZD2281", "AZD5363", "AZD1775", "AZD6738"],
+        "key_finding": "Tests combination of PARP inhibitor with WEE1 inhibitor and other DDR inhibitors"
+      }
+    },
+    {
+      "id": "MONDO:0018875",
+      "type": "Disease",
+      "label": "Li-Fraumeni syndrome",
+      "properties": {
+        "disease_id": "MONDO_0018875",
+        "name": "Li-Fraumeni syndrome",
+        "association_score": 0.876,
+        "context": "Hereditary cancer syndrome caused by germline TP53 mutations"
+      }
+    },
+    {
+      "id": "EFO:0000182",
+      "type": "Disease",
+      "label": "hepatocellular carcinoma",
+      "properties": {
+        "disease_id": "EFO_0000182",
+        "name": "hepatocellular carcinoma",
+        "association_score": 0.796,
+        "context": "TP53 mutations are common in hepatocellular carcinoma"
+      }
+    },
+    {
+      "id": "EFO:0000571",
+      "type": "Disease",
+      "label": "lung adenocarcinoma",
+      "properties": {
+        "disease_id": "EFO_0000571",
+        "name": "lung adenocarcinoma",
+        "association_score": 0.729,
+        "context": "TP53 is the most frequently mutated gene in lung adenocarcinoma"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:11998",
+      "target": "HGNC:795",
+      "type": "SYNTHETIC_LETHAL",
+      "properties": {
+        "evidence": "TP53 loss creates dependency on ATM-mediated DNA damage checkpoint",
+        "mechanism": "Loss of G1 checkpoint (TP53) increases reliance on G2 checkpoint (ATM/CHEK2)"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "HGNC:16627",
+      "type": "SYNTHETIC_LETHAL",
+      "properties": {
+        "evidence": "TP53 loss creates dependency on CHEK2-mediated cell cycle arrest",
+        "mechanism": "Loss of p53-mediated G1 arrest increases dependency on CHEK2 G2/M checkpoint"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "HGNC:12761",
+      "type": "SYNTHETIC_LETHAL",
+      "properties": {
+        "evidence": "TP53 loss creates dependency on WEE1-mediated G2/M checkpoint",
+        "mechanism": "Loss of p53-mediated G1 checkpoint forces reliance on WEE1 to prevent mitotic catastrophe",
+        "clinical_validation": "NCT01164995 (p53-mutant ovarian cancer), NCT02688907 (TP53-mutant SCLC)"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "HGNC:270",
+      "type": "SYNTHETIC_LETHAL",
+      "properties": {
+        "evidence": "TP53 loss impairs homologous recombination repair, creating PARP dependency",
+        "mechanism": "Loss of p53 compromises HR pathway, making cells dependent on PARP-mediated base excision repair",
+        "clinical_validation": "Multiple FDA-approved PARP inhibitors (Olaparib, Niraparib, Rucaparib, Talazoparib)"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "HGNC:9077",
+      "type": "SYNTHETIC_LETHAL",
+      "properties": {
+        "evidence": "TP53 loss creates dependency on PLK1-mediated mitotic progression",
+        "mechanism": "Loss of p53-mediated cell cycle control increases dependency on PLK1 for proper mitotic exit"
+      }
+    },
+    {
+      "source": "STRING:9606.ENSP00000269305",
+      "target": "STRING:9606.ENSP00000278616",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.856,
+        "protein_a": "TP53",
+        "protein_b": "ATM",
+        "evidence": "STRING protein-protein interaction"
+      }
+    },
+    {
+      "source": "STRING:9606.ENSP00000269305",
+      "target": "STRING:9606.ENSP00000212015",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.999,
+        "protein_a": "TP53",
+        "protein_b": "SIRT1",
+        "evidence": "STRING protein-protein interaction"
+      }
+    },
+    {
+      "source": "STRING:9606.ENSP00000269305",
+      "target": "STRING:9606.ENSP00000258149",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.999,
+        "protein_a": "TP53",
+        "protein_b": "MDM2",
+        "evidence": "STRING protein-protein interaction (negative regulator of p53)"
+      }
+    },
+    {
+      "source": "CHEMBL:1976040",
+      "target": "HGNC:12761",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Serine/threonine-protein kinase WEE1 inhibitor",
+        "phase": 2
+      }
+    },
+    {
+      "source": "CHEMBL:5095036",
+      "target": "HGNC:12761",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Serine/threonine-protein kinase WEE1 inhibitor",
+        "phase": 2
+      }
+    },
+    {
+      "source": "CHEMBL:521686",
+      "target": "HGNC:270",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "PARP 1, 2 and 3 inhibitor",
+        "phase": 4,
+        "fda_approved": true
+      }
+    },
+    {
+      "source": "CHEMBL:1094636",
+      "target": "HGNC:270",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Poly [ADP-ribose] polymerase-1 inhibitor",
+        "phase": 4,
+        "fda_approved": true
+      }
+    },
+    {
+      "source": "CHEMBL:1173055",
+      "target": "HGNC:270",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "PARP 1, 2 and 3 inhibitor",
+        "phase": 4,
+        "fda_approved": true
+      }
+    },
+    {
+      "source": "CHEMBL:3137318",
+      "target": "HGNC:270",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Poly [ADP-ribose] polymerase-1 inhibitor",
+        "phase": 4,
+        "fda_approved": true
+      }
+    },
+    {
+      "source": "CHEMBL:1233528",
+      "target": "HGNC:9077",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Serine/threonine-protein kinase PLK1 inhibitor",
+        "phase": 3
+      }
+    },
+    {
+      "source": "CHEMBL:1738758",
+      "target": "HGNC:9077",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Serine/threonine-protein kinase PLK1 inhibitor",
+        "phase": 2
+      }
+    },
+    {
+      "source": "CHEMBL:3544911",
+      "target": "HGNC:16627",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Serine/threonine-protein kinase Chk2 inhibitor",
+        "phase": 2
+      }
+    },
+    {
+      "source": "NCT:01164995",
+      "target": "CHEMBL:1976040",
+      "type": "STUDIES",
+      "properties": {
+        "intervention": "MK-1775 (Adavosertib) and carboplatin",
+        "indication": "p53-mutant epithelial ovarian cancer",
+        "status": "COMPLETED"
+      }
+    },
+    {
+      "source": "NCT:02688907",
+      "target": "CHEMBL:1976040",
+      "type": "STUDIES",
+      "properties": {
+        "intervention": "AZD1775 (Adavosertib) monotherapy",
+        "indication": "TP53-mutant SCLC with MYC amplification or CDKN2A mutation",
+        "status": "TERMINATED"
+      }
+    },
+    {
+      "source": "NCT:02576444",
+      "target": "CHEMBL:521686",
+      "type": "STUDIES",
+      "properties": {
+        "intervention": "Olaparib alone and in combinations",
+        "indication": "Advanced solid tumors",
+        "status": "TERMINATED"
+      }
+    },
+    {
+      "source": "NCT:02576444",
+      "target": "CHEMBL:1976040",
+      "type": "STUDIES",
+      "properties": {
+        "intervention": "Olaparib + AZD1775 combination",
+        "indication": "Advanced solid tumors",
+        "status": "TERMINATED"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "MONDO:0018875",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.876,
+        "evidence": "Germline TP53 mutations cause Li-Fraumeni syndrome"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "EFO:0000182",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.796,
+        "evidence": "TP53 mutations are common in hepatocellular carcinoma"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "EFO:0000571",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.729,
+        "evidence": "TP53 is the most frequently mutated gene in lung adenocarcinoma"
+      }
+    }
+  ],
+  "metadata": {
+    "total_nodes": 21,
+    "total_edges": 27,
+    "synthetic_lethal_pairs": 5,
+    "druggable_targets": 4,
+    "fda_approved_drugs": 4,
+    "clinical_trials": 3,
+    "validation_status": "VALIDATED"
+  }
+}
