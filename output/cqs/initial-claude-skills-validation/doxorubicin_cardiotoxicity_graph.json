@@ -1,0 +1,245 @@
+{
+  "nodes": [
+    {
+      "id": "CHEMBL:53463",
+      "type": "Compound",
+      "label": "Doxorubicin",
+      "properties": {
+        "molecular_formula": "C27H29NO11",
+        "molecular_weight": 543.53,
+        "max_phase": 4,
+        "smiles": "COc1cccc2c1C(=O)c1c(O)c3c(c(O)c1C2=O)C[C@@](O)(C(=O)CO)C[C@@H]3O[C@H]1C[C@H](N)[C@H](O)[C@H](C)O1",
+        "approved": "FDA (1974), EMA (1996)",
+        "who_essential": true,
+        "iuphar_id": "IUPHAR:7069"
+      }
+    },
+    {
+      "id": "HGNC:11990",
+      "type": "Gene",
+      "label": "TOP2B",
+      "properties": {
+        "name": "DNA topoisomerase II beta",
+        "ensembl": "ENSG00000077097",
+        "uniprot": "Q02880",
+        "entrez": "7155",
+        "location": "3p24.2",
+        "function": "Key decatenating enzyme that alters DNA topology by binding to two double-stranded DNA molecules, generating a double-stranded break in one of the strands, passing the intact strand through the broken strand, and religating the broken strand. Plays a role in B-cell differentiation"
+      }
+    },
+    {
+      "id": "UniProtKB:Q02880",
+      "type": "Protein",
+      "label": "TOP2B",
+      "properties": {
+        "name": "DNA topoisomerase 2-beta",
+        "organism": "Homo sapiens",
+        "sequence_length": 1626,
+        "string_id": "9606.ENSP00000264331",
+        "biogrid_id": "113008"
+      }
+    },
+    {
+      "id": "HGNC:11180",
+      "type": "Gene",
+      "label": "SOD2",
+      "properties": {
+        "name": "superoxide dismutase 2",
+        "ensembl": "ENSG00000291237",
+        "uniprot": "P04179",
+        "entrez": "6648",
+        "location": "6q25.3",
+        "alias": "MnSOD",
+        "function": "Destroys superoxide anion radicals which are normally produced within the cells and which are toxic to biological systems"
+      }
+    },
+    {
+      "id": "UniProtKB:P04179",
+      "type": "Protein",
+      "label": "SOD2",
+      "properties": {
+        "name": "Superoxide dismutase [Mn], mitochondrial",
+        "organism": "Homo sapiens",
+        "sequence_length": 222,
+        "string_id": "9606.ENSP00000446252",
+        "biogrid_id": "112531"
+      }
+    },
+    {
+      "id": "HGNC:4553",
+      "type": "Gene",
+      "label": "GPX1",
+      "properties": {
+        "name": "glutathione peroxidase 1",
+        "ensembl": "ENSG00000233276",
+        "uniprot": "P07203",
+        "entrez": "2876",
+        "location": "3p21.31",
+        "function": "Catalyzes the reduction of hydroperoxides in a glutathione-dependent manner thus regulating cellular redox homeostasis"
+      }
+    },
+    {
+      "id": "UniProtKB:P07203",
+      "type": "Protein",
+      "label": "GPX1",
+      "properties": {
+        "name": "Glutathione peroxidase 1",
+        "organism": "Homo sapiens",
+        "sequence_length": 203,
+        "biogrid_id": "109134"
+      }
+    },
+    {
+      "id": "EFO:0000318",
+      "type": "Disease",
+      "label": "Cardiomyopathy",
+      "properties": {
+        "source": "Open Targets"
+      }
+    },
+    {
+      "id": "CHEMBL:1200778",
+      "type": "Compound",
+      "label": "Dexrazoxane Hydrochloride",
+      "properties": {
+        "mechanism": "DNA topoisomerase II inhibitor",
+        "max_phase": 4,
+        "cardioprotective": true
+      }
+    },
+    {
+      "id": "NCT:07349459",
+      "type": "ClinicalTrial",
+      "label": "Cardioprotective Effect of Melatonin Versus Vitamin D",
+      "properties": {
+        "title": "Clinical Study Evaluating Cardioprotective Effect of Melatonin Versus Vitamin D in Breast Cancer Patients Receiving Doxorubicin",
+        "status": "NOT_YET_RECRUITING",
+        "study_type": "INTERVENTIONAL",
+        "primary_purpose": "PREVENTION",
+        "phase": null,
+        "start_date": "2026-04-30"
+      }
+    },
+    {
+      "id": "NCT:04461223",
+      "type": "ClinicalTrial",
+      "label": "Myocardial Injury After Anthracycline Chemotherapy",
+      "properties": {
+        "title": "Evaluation of Myocardial Injury After Anthracycline Chemotherapy in Osteosarcoma Patients Using CMR",
+        "status": "UNKNOWN",
+        "study_type": "OBSERVATIONAL",
+        "conditions": ["Cardiotoxicity", "Doxorubicin Induced Cardiomyopathy"],
+        "start_date": "2019-12-01"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:11990",
+      "target": "UniProtKB:Q02880",
+      "type": "ENCODES",
+      "properties": {
+        "evidence": "HGNC cross-reference"
+      }
+    },
+    {
+      "source": "HGNC:11180",
+      "target": "UniProtKB:P04179",
+      "type": "ENCODES",
+      "properties": {
+        "evidence": "HGNC cross-reference"
+      }
+    },
+    {
+      "source": "HGNC:4553",
+      "target": "UniProtKB:P07203",
+      "type": "ENCODES",
+      "properties": {
+        "evidence": "HGNC cross-reference"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "UniProtKB:Q02880",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II inhibitor",
+        "evidence": "IUPHAR, ChEMBL"
+      }
+    },
+    {
+      "source": "CHEMBL:1200778",
+      "target": "UniProtKB:Q02880",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II inhibitor",
+        "cardioprotective": true,
+        "evidence": "Open Targets"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "EFO:0000318",
+      "type": "CAUSES",
+      "properties": {
+        "side_effect": "Cardiotoxicity",
+        "evidence": "ClinicalTrials.gov (NCT04461223)"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "EFO:0000318",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.465,
+        "evidence": "Open Targets"
+      }
+    },
+    {
+      "source": "UniProtKB:Q02880",
+      "target": "UniProtKB:Q02880",
+      "type": "INTERACTS",
+      "properties": {
+        "partner": "TOP2A",
+        "score": 0.973,
+        "evidence": "STRING"
+      }
+    },
+    {
+      "source": "UniProtKB:Q02880",
+      "target": "PARP1",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.724,
+        "evidence": "STRING"
+      }
+    },
+    {
+      "source": "NCT:07349459",
+      "target": "CHEMBL:53463",
+      "type": "STUDIES",
+      "properties": {
+        "intervention": "Evaluating cardioprotective interventions",
+        "status": "NOT_YET_RECRUITING"
+      }
+    },
+    {
+      "source": "NCT:04461223",
+      "target": "CHEMBL:53463",
+      "type": "STUDIES",
+      "properties": {
+        "intervention": "CMR evaluation of myocardial injury",
+        "conditions": ["Cardiotoxicity", "Doxorubicin Induced Cardiomyopathy"]
+      }
+    }
+  ],
+  "metadata": {
+    "query": "Doxorubicin cardiotoxicity mechanisms and side effects on heart cells",
+    "generated_date": "2026-02-07",
+    "protocol": "Fuzzy-to-Fact",
+    "phases_completed": ["ANCHOR", "ENRICH", "EXPAND", "TRAVERSE_DRUGS", "TRAVERSE_TRIALS", "VALIDATE"],
+    "source_databases": ["HGNC", "UniProt", "ChEMBL", "Open Targets", "STRING", "IUPHAR", "ClinicalTrials.gov"],
+    "validated_entities": 11,
+    "validated_relationships": 11
+  }
+}

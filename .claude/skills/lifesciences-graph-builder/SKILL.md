@@ -224,6 +224,11 @@ Call `opentargets_get_associations` with: {"ensembl_id": "ENSG00000115170"}
 → Record disease CURIE (e.g., MONDO:0007606 for FOP) for Phase 4a/4b
 ```
 
+**Disease CURIE Optionality**:
+- REQUIRED if drug discovery (Phase 4a) or clinical trial search (Phase 4b) is in scope
+- OPTIONAL for gene network questions (Template 2) without therapeutic focus
+- If query is about biological mechanisms (not therapeutics), disease CURIE may be omitted
+
 FALLBACK (curl):
 ```bash
 curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
@@ -235,7 +240,7 @@ curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
 - Ensembl ID (ENSG...) → needed by Phase 4a for Open Targets GraphQL
 - UniProt ID → needed by Phase 3 for STRING
 - Interactor mentions from function text → guides Phase 3 expansion
-- **Disease CURIE** (MONDO/EFO ID) → needed by Phase 4a/4b for drug/trial filtering
+- **Disease CURIE** (MONDO/EFO ID) → needed by Phase 4a/4b for drug/trial filtering (OPTIONAL if Phases 4a/4b not in scope)
 
 ## Phase 3: EXPAND — Network Expansion
 
