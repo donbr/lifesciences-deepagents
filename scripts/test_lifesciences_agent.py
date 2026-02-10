@@ -1,5 +1,5 @@
 import asyncio
-from apps.api.graphs.lifesciences import graph
+from apps.api.lifesciences import graph
 from langchain_core.messages import HumanMessage
 
 async def main():

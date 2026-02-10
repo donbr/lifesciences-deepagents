@@ -2,9 +2,10 @@
 """Check what tools are actually available to subagents."""
 
 import sys
-sys.path.insert(0, '/home/donbr/ai2026/lifesciences-deepagents')
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from apps.api.graphs.lifesciences import graph
+from apps.api.lifesciences import graph
 
 print("Checking lifesciences agent configuration...\n")
 
@@ -21,7 +22,7 @@ print("\n" + "="*70)
 print("Checking subagent configurations from source...")
 
 # Read the source to see what tools each subagent has
-with open('apps/api/graphs/lifesciences.py') as f:
+with open('apps/api/lifesciences.py') as f:
     lines = f.readlines()
     in_subagent = False
     current_agent = None

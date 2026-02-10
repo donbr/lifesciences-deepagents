@@ -42,7 +42,7 @@ uv run python scripts/test_lifesciences_agent.py  # End-to-end agent test
 ## Architecture
 
 ### Directory Layout
-- `apps/api/graphs/` — Agent definitions (`lifesciences.py`, `research.py`, `coding.py`)
+- `apps/api/graphs/` — Agent definitions (`lifesciences.py`)
 - `apps/api/shared/mcp.py` — `HTTPMCPClient` + `StdioMCPClient` + all MCP tool wrappers + rate limiter
 - `apps/api/shared/tools.py` — `tavily_search`, `fetch_webpage_content`, `think_tool`
 - `apps/api/shared/prompts.py` — System prompts for supervisor + all 7 phase specialists

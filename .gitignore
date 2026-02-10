@@ -18,8 +18,8 @@ wheels/
 # LangGraph
 .langgraph_api/
 
-reference/deepagents
-reference/deep-agents-ui
+# reference/deepagents
+# reference/deep-agents-ui
 
 traces
 

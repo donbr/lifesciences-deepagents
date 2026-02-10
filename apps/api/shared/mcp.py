@@ -191,57 +191,273 @@ LIFESCIENCES_MCP_URL = "https://lifesciences-research.fastmcp.app/mcp"
 # ChEMBL requires longer timeout (120s) as noted in documentation
 lifesciences_client = HTTPMCPClient(LIFESCIENCES_MCP_URL, timeout=120.0)
 
-@tool
-async def query_lifesciences(
+async def _query_lifesciences(
     query: str,
     tool_name: str = "clinicaltrials_search_trials",
     tool_args: Optional[dict[str, Any]] = None
 ):
     """
-    Access biomedical databases via the Life Sciences MCP.
-    Acts as a generic wrapper for ANY tool available on the Life Sciences MCP server.
-
-    Common Tools & Argument Patterns:
-    
-    1. SEARCH Tools (Use 'query' argument or 'tool_args' for complex inputs)
-       - clinicaltrials_search_trials: query (str)
-       - chembl_search_compounds: query (str)
-       - hgnc_search_genes: query (str)
-       - uniprot_search_proteins: query (str)
-       - string_search_proteins: query (str)
-       - pubchem_search_compounds: query (str)
-       - wikipathways_search_pathways: query (str)
-       - iuphar_search_ligands: query (str)
-       - iuphar_search_targets: query (str)
-       - opentargets_search_targets: query (str)
-       - entrez_search_genes: query (str)
-       - ensembl_search_genes: query (str)
-       - biogrid_search_genes: query (str)
-
-    2. GET Tools (REQUIRE 'tool_args' with specific ID field)
-       - clinicaltrials_get_trial: {"nct_id": "NCT..."}
-       - chembl_get_compound: {"chembl_id": "CHEMBL..."}
-       - hgnc_get_gene: {"hgnc_id": "HGNC:..."}
-       - uniprot_get_protein: {"uniprot_id": "P12345"}
-       - string_get_interactions: {"string_id": "...", "species": 9606}
-       - pubchem_get_compound: {"pubchem_id": "PubChem:CID..."}
-       - wikipathways_get_pathway: {"pathway_id": "WP..."}
-       - iuphar_get_ligand: {"iuphar_id": "IUPHAR:..."}
-       - iuphar_get_target: {"iuphar_id": "IUPHAR:..."}
-       - opentargets_get_target: {"ensembl_id": "ENSG..."}
-       - ensembl_get_gene: {"ensembl_id": "ENSG..."}
-       - entrez_get_gene: {"entrez_id": "NCBIGene:..."}
-       - biogrid_get_interactions: {"gene_symbol": "TP53"}
-
-    Args:
-        query: Search query (e.g., "aspirin", "TP53"). Used ONLY if tool_args is None.
-        tool_name: The EXACT name of the MCP tool to call (e.g. 'iuphar_search_ligands').
-        tool_args: Dictionary of arguments. REQUIRED for 'get_*' tools that don't take a 'query'.
-                   Example: {"nct_id": "NCT00001"} OR {"query": "aspirin", "approved_only": True}
+    Internal fallback helper for direct calls to the Life Sciences MCP.
+    Not exposed as a tool to agents; prefer explicit alias tools below.
     """
-    # Use tool_args if provided, otherwise fall back to simple query
     args = tool_args if tool_args else {"query": query}
     return await lifesciences_client.call_tool(tool_name, args)
+
+
+async def _call_lifesciences_alias(
+    tool_name: str,
+    query: str = "",
+    tool_args: Optional[dict[str, Any]] = None,
+):
+    """Internal helper for direct alias tools used by runtime skills."""
+    args = tool_args if tool_args else {"query": query}
+    return await lifesciences_client.call_tool(tool_name, args)
+
+
+LIFESCIENCES_ALIAS_TOOL_NAMES = [
+    # Genomics / IDs
+    "hgnc_search_genes",
+    "hgnc_get_gene",
+    "ensembl_search_genes",
+    "ensembl_get_gene",
+    "ensembl_get_transcript",
+    "entrez_search_genes",
+    "entrez_get_gene",
+    "entrez_get_pubmed_links",
+    # Proteomics / interactions
+    "uniprot_search_proteins",
+    "uniprot_get_protein",
+    "string_search_proteins",
+    "string_get_interactions",
+    "string_get_network_image_url",
+    "biogrid_search_genes",
+    "biogrid_get_interactions",
+    # Pharmacology
+    "chembl_search_compounds",
+    "chembl_get_compound",
+    "chembl_get_compounds_batch",
+    "pubchem_search_compounds",
+    "pubchem_get_compound",
+    "iuphar_search_ligands",
+    "iuphar_get_ligand",
+    "iuphar_search_targets",
+    "iuphar_get_target",
+    "opentargets_search_targets",
+    "opentargets_get_target",
+    "opentargets_get_associations",
+    # Pathways and clinical
+    "wikipathways_search_pathways",
+    "wikipathways_get_pathway",
+    "wikipathways_get_pathways_for_gene",
+    "wikipathways_get_pathway_components",
+    "clinicaltrials_search_trials",
+    "clinicaltrials_get_trial",
+    "clinicaltrials_get_trial_locations",
+]
+
+
+@tool
+async def hgnc_search_genes(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for hgnc_search_genes on lifesciences MCP."""
+    return await _call_lifesciences_alias("hgnc_search_genes", query, tool_args)
+
+
+@tool
+async def hgnc_get_gene(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for hgnc_get_gene. Provide tool_args: {'hgnc_id': 'HGNC:171'}."""
+    return await _call_lifesciences_alias("hgnc_get_gene", query, tool_args)
+
+
+@tool
+async def ensembl_search_genes(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for ensembl_search_genes on lifesciences MCP."""
+    return await _call_lifesciences_alias("ensembl_search_genes", query, tool_args)
+
+
+@tool
+async def ensembl_get_gene(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for ensembl_get_gene. Provide tool_args: {'ensembl_id': 'ENSG...'}."""
+    return await _call_lifesciences_alias("ensembl_get_gene", query, tool_args)
+
+
+@tool
+async def ensembl_get_transcript(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for ensembl_get_transcript. Provide tool_args: {'transcript_id': 'ENST...'}."""
+    return await _call_lifesciences_alias("ensembl_get_transcript", query, tool_args)
+
+
+@tool
+async def entrez_search_genes(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for entrez_search_genes on lifesciences MCP."""
+    return await _call_lifesciences_alias("entrez_search_genes", query, tool_args)
+
+
+@tool
+async def entrez_get_gene(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for entrez_get_gene. Provide tool_args: {'entrez_id': 'NCBIGene:7157'}."""
+    return await _call_lifesciences_alias("entrez_get_gene", query, tool_args)
+
+
+@tool
+async def entrez_get_pubmed_links(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for entrez_get_pubmed_links with NCBI gene IDs."""
+    return await _call_lifesciences_alias("entrez_get_pubmed_links", query, tool_args)
+
+
+@tool
+async def uniprot_search_proteins(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for uniprot_search_proteins on lifesciences MCP."""
+    return await _call_lifesciences_alias("uniprot_search_proteins", query, tool_args)
+
+
+@tool
+async def uniprot_get_protein(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for uniprot_get_protein. Provide tool_args: {'uniprot_id': 'UniProtKB:P04637'}."""
+    return await _call_lifesciences_alias("uniprot_get_protein", query, tool_args)
+
+
+@tool
+async def string_search_proteins(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for string_search_proteins on lifesciences MCP."""
+    return await _call_lifesciences_alias("string_search_proteins", query, tool_args)
+
+
+@tool
+async def string_get_interactions(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for string_get_interactions with STRING IDs."""
+    return await _call_lifesciences_alias("string_get_interactions", query, tool_args)
+
+
+@tool
+async def string_get_network_image_url(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for string_get_network_image_url."""
+    return await _call_lifesciences_alias("string_get_network_image_url", query, tool_args)
+
+
+@tool
+async def biogrid_search_genes(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for biogrid_search_genes on lifesciences MCP."""
+    return await _call_lifesciences_alias("biogrid_search_genes", query, tool_args)
+
+
+@tool
+async def biogrid_get_interactions(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for biogrid_get_interactions. Provide tool_args: {'gene_symbol': 'TP53'}."""
+    return await _call_lifesciences_alias("biogrid_get_interactions", query, tool_args)
+
+
+@tool
+async def chembl_search_compounds(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for chembl_search_compounds on lifesciences MCP."""
+    return await _call_lifesciences_alias("chembl_search_compounds", query, tool_args)
+
+
+@tool
+async def chembl_get_compound(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for chembl_get_compound. Provide tool_args: {'chembl_id': 'CHEMBL:25'}."""
+    return await _call_lifesciences_alias("chembl_get_compound", query, tool_args)
+
+
+@tool
+async def chembl_get_compounds_batch(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for chembl_get_compounds_batch."""
+    return await _call_lifesciences_alias("chembl_get_compounds_batch", query, tool_args)
+
+
+@tool
+async def pubchem_search_compounds(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for pubchem_search_compounds on lifesciences MCP."""
+    return await _call_lifesciences_alias("pubchem_search_compounds", query, tool_args)
+
+
+@tool
+async def pubchem_get_compound(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for pubchem_get_compound. Provide tool_args: {'pubchem_id': 'PubChem:CID2244'}."""
+    return await _call_lifesciences_alias("pubchem_get_compound", query, tool_args)
+
+
+@tool
+async def iuphar_search_ligands(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for iuphar_search_ligands on lifesciences MCP."""
+    return await _call_lifesciences_alias("iuphar_search_ligands", query, tool_args)
+
+
+@tool
+async def iuphar_get_ligand(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for iuphar_get_ligand."""
+    return await _call_lifesciences_alias("iuphar_get_ligand", query, tool_args)
+
+
+@tool
+async def iuphar_search_targets(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for iuphar_search_targets on lifesciences MCP."""
+    return await _call_lifesciences_alias("iuphar_search_targets", query, tool_args)
+
+
+@tool
+async def iuphar_get_target(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for iuphar_get_target."""
+    return await _call_lifesciences_alias("iuphar_get_target", query, tool_args)
+
+
+@tool
+async def opentargets_search_targets(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for opentargets_search_targets on lifesciences MCP."""
+    return await _call_lifesciences_alias("opentargets_search_targets", query, tool_args)
+
+
+@tool
+async def opentargets_get_target(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for opentargets_get_target with Ensembl IDs."""
+    return await _call_lifesciences_alias("opentargets_get_target", query, tool_args)
+
+
+@tool
+async def opentargets_get_associations(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for opentargets_get_associations with Ensembl IDs."""
+    return await _call_lifesciences_alias("opentargets_get_associations", query, tool_args)
+
+
+@tool
+async def wikipathways_get_pathways_for_gene(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for wikipathways_get_pathways_for_gene."""
+    return await _call_lifesciences_alias("wikipathways_get_pathways_for_gene", query, tool_args)
+
+
+@tool
+async def wikipathways_search_pathways(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for wikipathways_search_pathways on lifesciences MCP."""
+    return await _call_lifesciences_alias("wikipathways_search_pathways", query, tool_args)
+
+
+@tool
+async def wikipathways_get_pathway(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for wikipathways_get_pathway."""
+    return await _call_lifesciences_alias("wikipathways_get_pathway", query, tool_args)
+
+
+@tool
+async def wikipathways_get_pathway_components(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for wikipathways_get_pathway_components."""
+    return await _call_lifesciences_alias("wikipathways_get_pathway_components", query, tool_args)
+
+
+@tool
+async def clinicaltrials_search_trials(query: str, tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for clinicaltrials_search_trials on lifesciences MCP."""
+    return await _call_lifesciences_alias("clinicaltrials_search_trials", query, tool_args)
+
+
+@tool
+async def clinicaltrials_get_trial(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for clinicaltrials_get_trial. Provide tool_args: {'nct_id': 'NCT:12345678'}."""
+    return await _call_lifesciences_alias("clinicaltrials_get_trial", query, tool_args)
+
+
+@tool
+async def clinicaltrials_get_trial_locations(query: str = "", tool_args: Optional[dict[str, Any]] = None):
+    """Direct alias for clinicaltrials_get_trial_locations."""
+    return await _call_lifesciences_alias("clinicaltrials_get_trial_locations", query, tool_args)
 
 
 # --- PubMed MCP ---

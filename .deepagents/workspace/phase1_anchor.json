@@ -1,0 +1,21 @@
+{
+  "entities": [
+    {
+      "mention": "Fibrodysplasia Ossificans Progressiva",
+      "type": "Disease",
+      "curie_or_id": "MeSH:D009221",
+      "status": "Resolved through literature association"
+    },
+    {
+      "mention": "Palovarotene",
+      "type": "Drug",
+      "curie_or_id": "CHEMBL:2105648",
+      "status": "Resolved"
+    }
+  ],
+  "unresolved": [],
+  "query_context": {
+    "disease_name": "Fibrodysplasia Ossificans Progressiva",
+    "suspected_mechanism_if_known": "Palovarotene, a retinoic acid receptor gamma agonist, may inhibit heterotopic ossification."
+  }
+}
