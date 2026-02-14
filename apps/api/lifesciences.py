@@ -26,7 +26,7 @@ from langchain.chat_models import init_chat_model
 from langchain.agents.middleware.types import AgentMiddleware, ToolCallRequest
 from langchain_core.messages import ToolMessage
 from deepagents import create_deep_agent
-from deepagents.backends import FilesystemBackend
+from deepagents.backends import FilesystemBackend, StateBackend, CompositeBackend
 from shared.mcp import (
     query_api_direct,
     persist_to_graphiti,
@@ -281,12 +281,26 @@ STRICT ROUTING RULES:
     )
 
     # Note: We append think_tool to complex specialists
+
+    # Backend configuration for workspace isolation:
+    # - /workspace/ → StateBackend (ephemeral, thread-scoped)
+    # - Everything else → FilesystemBackend (persistent: AGENTS.md, skills)
+    def make_backend(runtime):
+        state_backend = StateBackend(runtime)
+        filesystem_backend = FilesystemBackend(root_dir=str(runtime_root), virtual_mode=True)
+        return CompositeBackend(
+            default=filesystem_backend,  # Default: persistent storage
+            routes={
+                "/workspace/": state_backend,  # Workspace is thread-scoped and ephemeral
+            }
+        )
+
     agent = create_deep_agent(
         model=model,
         tools=[],  # Supervisor delegates, doesn't call tools directly
         system_prompt=supervisor_system,
         middleware=[LifesciencesSubagentGuardMiddleware()],
-        backend=FilesystemBackend(root_dir=str(runtime_root), virtual_mode=True),
+        backend=make_backend,
         memory=memory_paths or None,
         skills=supervisor_skills or None,
         subagents=[

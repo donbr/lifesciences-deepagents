@@ -24,3 +24,12 @@ wheels/
 traces
 
 **/*.pptx
+
+# langsmith traces
+
+langsmith-traces-recent/
+langsmith-traces-latest/
+langsmith-traces-final/
+comparison-reports/
+skill-execution/
+fop-palovarotene-ui-validation.png
