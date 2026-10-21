@@ -1,0 +1,591 @@
+{
+  "query": "What known genes or pathways are implicated in minimizing Doxorubicin toxicity while preserving its anti-tumor efficacy?",
+  "disease": {
+    "id": "EFO:0000318",
+    "name": "cardiomyopathy",
+    "type": "Disease"
+  },
+  "nodes": [
+    {
+      "id": "CHEMBL:53463",
+      "type": "Compound",
+      "label": "Doxorubicin",
+      "properties": {
+        "name": "Doxorubicin",
+        "pubchem": "PubChem:CID31703",
+        "formula": "C27H29NO11",
+        "mechanism": "DNA topoisomerase II alpha inhibitor",
+        "max_phase": 4,
+        "role": "anti-tumor anthracycline"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn200548",
+          "description": "Transcription profiling of rat heart: doxorubicin vs dexrazoxane+doxorubicin",
+          "samples": 46
+        },
+        {
+          "id": "syn237343",
+          "description": "Doxorubicin-TOP2A ternary complex gene expression"
+        }
+      ]
+    },
+    {
+      "id": "HGNC:11989",
+      "type": "Gene",
+      "label": "TOP2A",
+      "properties": {
+        "symbol": "TOP2A",
+        "name": "DNA topoisomerase II alpha",
+        "ensembl": "ENSG00000131747",
+        "uniprot": "P11388",
+        "location": "17q21.2",
+        "chembl_target": "CHEMBL1806"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237608",
+          "description": "TOP2 inhibition chromosomal expression patterns: Doxorubicin study",
+          "samples": 18
+        },
+        {
+          "id": "syn237343",
+          "description": "Doxorubicin-TOP2A ternary complex gene expression"
+        }
+      ]
+    },
+    {
+      "id": "HGNC:11990",
+      "type": "Gene",
+      "label": "TOP2B",
+      "properties": {
+        "symbol": "TOP2B",
+        "name": "DNA topoisomerase II beta",
+        "ensembl": "ENSG00000077097",
+        "uniprot": "Q02880",
+        "location": "3p24.2",
+        "chembl_target": "CHEMBL3396"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237608",
+          "description": "TOP2 inhibition chromosomal expression patterns: Doxorubicin study",
+          "samples": 18
+        },
+        {
+          "id": "syn200548",
+          "description": "Transcription profiling of rat heart: doxorubicin vs dexrazoxane+doxorubicin",
+          "samples": 46
+        }
+      ]
+    },
+    {
+      "id": "HGNC:7782",
+      "type": "Gene",
+      "label": "NFE2L2",
+      "properties": {
+        "symbol": "NFE2L2",
+        "name": "NFE2 like bZIP transcription factor 2",
+        "alias": "NRF2",
+        "ensembl": "ENSG00000116044",
+        "uniprot": "Q16236",
+        "location": "2q31.2"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn205590",
+          "description": "NRF2 knockout mice: reduced cytoprotective enzymes",
+          "samples": 6
+        },
+        {
+          "id": "syn237499",
+          "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+          "samples": 83
+        }
+      ]
+    },
+    {
+      "id": "HGNC:23177",
+      "type": "Gene",
+      "label": "KEAP1",
+      "properties": {
+        "symbol": "KEAP1",
+        "name": "kelch like ECH associated protein 1",
+        "ensembl": "ENSG00000079999",
+        "uniprot": "Q14145",
+        "location": "19p13.2"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn205590",
+          "description": "NRF2 knockout mice: reduced cytoprotective enzymes",
+          "samples": 6
+        }
+      ]
+    },
+    {
+      "id": "HGNC:11180",
+      "type": "Gene",
+      "label": "SOD2",
+      "properties": {
+        "symbol": "SOD2",
+        "name": "superoxide dismutase 2",
+        "alias": "MnSOD",
+        "ensembl": "ENSG00000291237",
+        "uniprot": "P04179",
+        "location": "6q25.3"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237499",
+          "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+          "samples": 83
+        }
+      ]
+    },
+    {
+      "id": "HGNC:5013",
+      "type": "Gene",
+      "label": "HMOX1",
+      "properties": {
+        "symbol": "HMOX1",
+        "name": "heme oxygenase 1",
+        "alias": "HO-1",
+        "ensembl": "ENSG00000100292",
+        "uniprot": "P09601",
+        "location": "22q12.3"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237499",
+          "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+          "samples": 83
+        }
+      ]
+    },
+    {
+      "id": "HGNC:2874",
+      "type": "Gene",
+      "label": "NQO1",
+      "properties": {
+        "symbol": "NQO1",
+        "name": "NAD(P)H dehydrogenase [quinone] 1"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237499",
+          "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+          "samples": 83
+        }
+      ]
+    },
+    {
+      "id": "HGNC:9866",
+      "type": "Gene",
+      "label": "RARG",
+      "properties": {
+        "symbol": "RARG",
+        "name": "retinoic acid receptor gamma",
+        "alias": "RARgamma",
+        "ensembl": "ENSG00000172819",
+        "uniprot": "P13631",
+        "location": "12q13.13"
+      }
+    },
+    {
+      "id": "HGNC:40",
+      "type": "Gene",
+      "label": "ABCB1",
+      "properties": {
+        "symbol": "ABCB1",
+        "name": "ATP binding cassette subfamily B member 1",
+        "alias": "MDR1/P-gp",
+        "ensembl": "ENSG00000085563",
+        "uniprot": "P08183",
+        "location": "7q21.12"
+      }
+    },
+    {
+      "id": "HGNC:17768",
+      "type": "Gene",
+      "label": "TDP2",
+      "properties": {
+        "symbol": "TDP2",
+        "name": "tyrosyl-DNA phosphodiesterase 2",
+        "ensembl": "ENSG00000111802",
+        "uniprot": "O95551",
+        "location": "6p22.3"
+      }
+    },
+    {
+      "id": "HGNC:270",
+      "type": "Gene",
+      "label": "PARP1",
+      "properties": {
+        "symbol": "PARP1",
+        "name": "poly(ADP-ribose) polymerase 1"
+      }
+    },
+    {
+      "id": "HGNC:11998",
+      "type": "Gene",
+      "label": "TP53",
+      "properties": {
+        "symbol": "TP53",
+        "name": "tumor protein p53",
+        "ensembl": "ENSG00000141510",
+        "uniprot": "P04637",
+        "location": "17p13.1"
+      }
+    },
+    {
+      "id": "CHEMBL:1738",
+      "type": "Compound",
+      "label": "Dexrazoxane",
+      "properties": {
+        "name": "Dexrazoxane",
+        "chembl_hcl": "CHEMBL1200778",
+        "mechanism": "DNA topoisomerase II inhibitor (TOP2B degradation)",
+        "max_phase": 4,
+        "role": "cardioprotectant"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn200548",
+          "description": "Transcription profiling of rat heart: doxorubicin vs dexrazoxane+doxorubicin",
+          "samples": 46
+        },
+        {
+          "id": "syn5759266",
+          "description": "Dexrazoxane GSVA correlation analysis"
+        }
+      ]
+    },
+    {
+      "id": "WP:WP2824",
+      "type": "Pathway",
+      "label": "Detoxification of reactive oxygen species",
+      "properties": {
+        "source": "WikiPathways",
+        "members_from_graph": ["SOD2"]
+      }
+    },
+    {
+      "id": "WP:WP3",
+      "type": "Pathway",
+      "label": "Transcriptional activation by NRF2",
+      "properties": {
+        "source": "WikiPathways",
+        "members_from_graph": ["NFE2L2", "KEAP1", "HMOX1", "NQO1"],
+        "additional_members": ["GCLC", "GCLM", "GSTA2", "SLC7A11", "MAF", "PIK3CA"]
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn205590",
+          "description": "NRF2 knockout mice: reduced cytoprotective enzymes",
+          "samples": 6
+        },
+        {
+          "id": "syn237499",
+          "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+          "samples": 83
+        }
+      ]
+    },
+    {
+      "id": "EFO:0000318",
+      "type": "Disease",
+      "label": "cardiomyopathy",
+      "properties": {
+        "source": "EFO"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn7079983",
+          "description": "FDA TKI-induced cardiotoxicity (iPSC-CM)"
+        },
+        {
+          "id": "syn13856689",
+          "description": "TKI cardiotoxicity RNA-seq + proteomics + metabolomics",
+          "samples": 56
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11989",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II alpha inhibitor",
+        "phase": 4,
+        "role": "anti-tumor"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237343",
+          "description": "Doxorubicin-TOP2A ternary complex gene expression"
+        }
+      ]
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11990",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II inhibitor (off-target)",
+        "role": "cardiotoxicity_mediator"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237608",
+          "description": "TOP2 inhibition chromosomal expression patterns: Doxorubicin study",
+          "samples": 18
+        }
+      ]
+    },
+    {
+      "source": "CHEMBL:1738",
+      "target": "HGNC:11990",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II inhibitor",
+        "phase": 4,
+        "role": "cardioprotectant"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn200548",
+          "description": "Transcription profiling of rat heart: doxorubicin vs dexrazoxane+doxorubicin",
+          "samples": 46
+        },
+        {
+          "id": "syn5759266",
+          "description": "Dexrazoxane GSVA correlation analysis"
+        }
+      ]
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "EFO:0000318",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.465
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn7079983",
+          "description": "FDA TKI-induced cardiotoxicity (iPSC-CM)"
+        }
+      ]
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "HGNC:17768",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.82,
+        "evidence": "TDP2 repairs TOP2B-mediated DNA breaks"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "HGNC:270",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.724
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "HGNC:11989",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.973
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237608",
+          "description": "TOP2 inhibition chromosomal expression patterns: Doxorubicin study",
+          "samples": 18
+        }
+      ]
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:23177",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "repressed_by",
+        "mechanism": "KEAP1-mediated ubiquitination and degradation"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn205590",
+          "description": "NRF2 knockout mice: reduced cytoprotective enzymes",
+          "samples": 6
+        }
+      ]
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:5013",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "activates",
+        "mechanism": "NRF2 transcriptional target via ARE"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237499",
+          "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+          "samples": 83
+        }
+      ]
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:2874",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "activates",
+        "mechanism": "NRF2 transcriptional target via ARE"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237499",
+          "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+          "samples": 83
+        }
+      ]
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:11180",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "activates",
+        "mechanism": "NRF2 transcriptional target"
+      },
+      "synapse_grounding": [
+        {
+          "id": "syn237499",
+          "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+          "samples": 83
+        }
+      ]
+    },
+    {
+      "source": "HGNC:11180",
+      "target": "WP:WP2824",
+      "type": "MEMBER_OF",
+      "properties": {}
+    },
+    {
+      "source": "HGNC:5013",
+      "target": "WP:WP3",
+      "type": "MEMBER_OF",
+      "properties": {}
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "WP:WP3",
+      "type": "MEMBER_OF",
+      "properties": {}
+    },
+    {
+      "source": "HGNC:23177",
+      "target": "WP:WP3",
+      "type": "MEMBER_OF",
+      "properties": {}
+    },
+    {
+      "source": "HGNC:2874",
+      "target": "WP:WP3",
+      "type": "MEMBER_OF",
+      "properties": {}
+    },
+    {
+      "source": "HGNC:40",
+      "target": "CHEMBL:53463",
+      "type": "TRANSPORTS",
+      "properties": {
+        "mechanism": "P-glycoprotein efflux pump for doxorubicin"
+      }
+    }
+  ],
+  "metadata": {
+    "protocol": "Fuzzy-to-Fact",
+    "phases_completed": [
+      "ANCHOR",
+      "ENRICH",
+      "EXPAND",
+      "TRAVERSE_DRUGS",
+      "TRAVERSE_TRIALS",
+      "VALIDATE",
+      "PERSIST"
+    ],
+    "date": "2026-02-15",
+    "data_sources": [
+      "HGNC",
+      "UniProt",
+      "Open Targets",
+      "STRING",
+      "ChEMBL",
+      "PubChem",
+      "WikiPathways",
+      "ClinicalTrials.gov",
+      "Ensembl",
+      "Entrez"
+    ],
+    "synapse_datasets": [
+      {
+        "id": "syn200548",
+        "description": "Transcription profiling of rat heart: doxorubicin vs dexrazoxane+doxorubicin",
+        "samples": 46,
+        "relevance": "Direct dexrazoxane cardioprotection transcriptomics"
+      },
+      {
+        "id": "syn237608",
+        "description": "TOP2 inhibition chromosomal expression patterns: Doxorubicin study",
+        "samples": 18,
+        "relevance": "TOP2A/TOP2B isoform-specific effects"
+      },
+      {
+        "id": "syn237343",
+        "description": "Doxorubicin-TOP2A ternary complex gene expression",
+        "relevance": "On-target mechanism validation"
+      },
+      {
+        "id": "syn7079983",
+        "description": "FDA TKI-induced cardiotoxicity (iPSC-CM)",
+        "relevance": "Broader drug cardiotoxicity context"
+      },
+      {
+        "id": "syn13856689",
+        "description": "TKI cardiotoxicity RNA-seq + proteomics + metabolomics",
+        "samples": 56,
+        "relevance": "Multi-omics cardiotoxicity reference"
+      },
+      {
+        "id": "syn205590",
+        "description": "NRF2 knockout mice: reduced cytoprotective enzymes",
+        "samples": 6,
+        "relevance": "NRF2 pathway loss-of-function evidence"
+      },
+      {
+        "id": "syn237499",
+        "description": "NFE2L2/NRF2 phase 2 detoxifying genes",
+        "samples": 83,
+        "relevance": "NRF2 target gene expression"
+      },
+      {
+        "id": "syn5759266",
+        "description": "Dexrazoxane GSVA correlation analysis",
+        "relevance": "Dexrazoxane gene set enrichment"
+      }
+    ],
+    "notes": "Doxorubicin cardiotoxicity is mediated by TOP2B (off-target isoform) in post-mitotic cardiomyocytes, distinct from its anti-tumor activity via TOP2A. Dexrazoxane is the only FDA-approved cardioprotectant (Phase 4), acting by TOP2B degradation. The NRF2/KEAP1 and ROS detoxification pathways provide endogenous cytoprotection. SGLT2 inhibitors and ARBs are being tested as emerging cardioprotective strategies in 7 clinical trials."
+  }
+}

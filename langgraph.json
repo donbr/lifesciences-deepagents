@@ -4,9 +4,7 @@
         "."
     ],
     "graphs": {
-        "research": "./apps/api/graphs/research.py:graph",
-        "coding": "./apps/api/graphs/coding.py:graph",
-        "lifesciences": "./apps/api/graphs/lifesciences.py:graph"
+        "lifesciences": "./apps/api/lifesciences.py:graph"
     },
     "env": ".env"
 }

@@ -1,0 +1,495 @@
+{
+  "metadata": {
+    "query": "Identify the specific glycolipid substrate that accumulates in Fabry Disease, and name the cellular organelle where this pathological accumulation primarily takes place due to the absence of functional alpha-galactosidase A.",
+    "protocol": "Fuzzy-to-Fact",
+    "version": "v2",
+    "phases_executed": ["ANCHOR", "ENRICH", "EXPAND", "TRAVERSE_DRUGS", "TRAVERSE_TRIALS", "VALIDATE", "PERSIST", "REPORT"],
+    "confidence": "High",
+    "databases_queried": ["HGNC", "UniProt", "NCBI Entrez", "PubChem", "Open Targets", "WikiPathways", "STRING", "ClinicalTrials.gov"],
+    "grounding": "28 claims verified across 8 databases by 4 parallel verification agents with zero discrepancies",
+    "expansion": "v2 adds 14 nodes (4 interactor genes, 2 pathways, 5 drugs, 3 trials) and 19 edges from grounding agent discoveries"
+  },
+  "nodes": [
+    {
+      "id": "HGNC:4296",
+      "type": "Gene",
+      "label": "GLA",
+      "properties": {
+        "symbol": "GLA",
+        "name": "galactosidase alpha",
+        "ensembl": "ENSG00000102393",
+        "uniprot": "P06280",
+        "entrez": "2717",
+        "location": "Xq22.1",
+        "omim_gene": "300644",
+        "orphanet": "ORPHA:122153",
+        "refseq": "NM_000169",
+        "aliases": ["GALA"],
+        "string_id": "9606.ENSP00000218516"
+      }
+    },
+    {
+      "id": "UniProtKB:P06280",
+      "type": "Protein",
+      "label": "Alpha-galactosidase A",
+      "properties": {
+        "function": "Catalyzes the hydrolysis of glycosphingolipids and participates in their degradation in the lysosome",
+        "sequence_length": 429,
+        "subcellular_location": "Lysosome",
+        "organism": "Homo sapiens",
+        "pdb_structures": ["1R46", "1R47", "3GXN", "3GXP", "3GXT", "3HG2", "3HG3", "3HG4", "3HG5", "3LX9"]
+      }
+    },
+    {
+      "id": "PubChem:CID66616222",
+      "type": "Metabolite",
+      "label": "Globotriaosylceramide",
+      "properties": {
+        "synonyms": ["Gb3", "Gb3Cer", "ceramide trihexoside", "GL-3", "CD77 Antigen", "P(K) Antigen", "Shiga toxin receptor"],
+        "systematic_name": "Galactosyl(alpha1-4)galactosyl(beta1-4)glucosylceramide",
+        "molecular_formula": "C38H69NO18",
+        "molecular_weight": 827.9,
+        "chebi": "CHEBI:18313",
+        "inchikey": "HFQKBOPMAOTAIR-TZSVBWBLSA-N",
+        "cas": "71965-57-6"
+      }
+    },
+    {
+      "id": "MONDO:0010526",
+      "type": "Disease",
+      "label": "Fabry disease",
+      "properties": {
+        "omim": "301500",
+        "orphanet": "ORPHA:122153",
+        "description": "A rare lysosomal storage disorder that results from a failure to catabolize alpha-D-galactosyl glycolipid moieties",
+        "association_score": 0.893,
+        "total_registered_trials": 266
+      }
+    },
+    {
+      "id": "WP:WP4153",
+      "type": "Pathway",
+      "label": "Degradation pathway of sphingolipids, including diseases",
+      "properties": {
+        "organism": "Homo sapiens",
+        "gene_count": 17,
+        "metabolite_count": 22,
+        "url": "https://classic.wikipathways.org/index.php/Pathway:WP4153"
+      }
+    },
+    {
+      "id": "HGNC:713",
+      "type": "Gene",
+      "label": "ARSA",
+      "properties": {
+        "symbol": "ARSA",
+        "name": "arylsulfatase A",
+        "ensembl": "ENSG00000100299",
+        "uniprot": "P15289",
+        "entrez": "410",
+        "location": "22q13.33",
+        "omim_gene": "607574",
+        "disease_if_deficient": "Metachromatic leukodystrophy"
+      }
+    },
+    {
+      "id": "HGNC:4879",
+      "type": "Gene",
+      "label": "HEXB",
+      "properties": {
+        "symbol": "HEXB",
+        "name": "hexosaminidase subunit beta",
+        "ensembl": "ENSG00000049860",
+        "uniprot": "P07686",
+        "entrez": "3074",
+        "location": "5q13.3",
+        "omim_gene": "606873",
+        "disease_if_deficient": "Sandhoff disease"
+      }
+    },
+    {
+      "id": "HGNC:4878",
+      "type": "Gene",
+      "label": "HEXA",
+      "properties": {
+        "symbol": "HEXA",
+        "name": "hexosaminidase subunit alpha",
+        "ensembl": "ENSG00000213614",
+        "uniprot": "P06865",
+        "entrez": "3073",
+        "location": "15q23",
+        "omim_gene": "606869",
+        "disease_if_deficient": "Tay-Sachs disease"
+      }
+    },
+    {
+      "id": "HGNC:7758",
+      "type": "Gene",
+      "label": "NEU1",
+      "properties": {
+        "symbol": "NEU1",
+        "name": "neuraminidase 1",
+        "ensembl": "ENSG00000204386",
+        "uniprot": "Q99519",
+        "entrez": "4758",
+        "location": "6p21.33",
+        "omim_gene": "608272",
+        "disease_if_deficient": "Sialidosis"
+      }
+    },
+    {
+      "id": "WP:WP2788",
+      "type": "Pathway",
+      "label": "Sphingolipid metabolism",
+      "properties": {
+        "organism": "Homo sapiens",
+        "url": "https://classic.wikipathways.org/index.php/Pathway:WP2788"
+      }
+    },
+    {
+      "id": "WP:WP5292",
+      "type": "Pathway",
+      "label": "Glycosphingolipid metabolism",
+      "properties": {
+        "organism": "Homo sapiens",
+        "url": "https://classic.wikipathways.org/index.php/Pathway:WP5292"
+      }
+    },
+    {
+      "id": "CHEMBL:2108214",
+      "type": "Drug",
+      "label": "Agalsidase Alfa",
+      "properties": {
+        "brand_name": "Replagal",
+        "max_phase": 4,
+        "mechanism": "Enzyme Replacement Therapy (ERT)",
+        "mechanism_detail": "Recombinant human alpha-galactosidase A",
+        "approval": "2001 EU",
+        "drugbank": "DB04658"
+      }
+    },
+    {
+      "id": "CHEMBL:2108888",
+      "type": "Drug",
+      "label": "Agalsidase Beta",
+      "properties": {
+        "brand_name": "Fabrazyme",
+        "max_phase": 4,
+        "mechanism": "Enzyme Replacement Therapy (ERT)",
+        "mechanism_detail": "Recombinant human alpha-galactosidase A produced in CHO cells",
+        "approval": "2003 FDA"
+      }
+    },
+    {
+      "id": "CHEMBL:110458",
+      "type": "Drug",
+      "label": "Migalastat",
+      "properties": {
+        "brand_name": "Galafold",
+        "max_phase": 4,
+        "mechanism": "Pharmacological Chaperone",
+        "mechanism_detail": "Stabilizes misfolded but amenable GLA mutants, enabling proper lysosomal trafficking",
+        "approval": "2018 FDA",
+        "limitation": "Only for amenable GLA mutations (approx 35-50% of known mutations)",
+        "smiles": "OC[C@H]1NC[C@H](O)[C@@H](O)[C@H]1O",
+        "molecular_weight": 163.17
+      }
+    },
+    {
+      "id": "CHEMBL:4297801",
+      "type": "Drug",
+      "label": "Pegunigalsidase Alfa",
+      "properties": {
+        "brand_name": "Elfabrio",
+        "max_phase": 4,
+        "mechanism": "PEGylated Enzyme Replacement Therapy",
+        "mechanism_detail": "PEGylated recombinant alpha-galactosidase A with extended half-life",
+        "approval": "2023 FDA"
+      }
+    },
+    {
+      "id": "CHEMBL:1086997",
+      "type": "Drug",
+      "label": "Lucerastat",
+      "properties": {
+        "max_phase": 3,
+        "mechanism": "Substrate Reduction Therapy (SRT)",
+        "mechanism_detail": "Glucosylceramide synthase inhibitor (iminosugar) — reduces Gb3 production upstream",
+        "status": "Phase 3 completed",
+        "smiles": "CCCCN1C[C@H](O)[C@@H](O)[C@@H](O)[C@H]1CO",
+        "molecular_weight": 219.28,
+        "sponsor": "Idorsia Pharmaceuticals"
+      }
+    },
+    {
+      "id": "NCT02795676",
+      "type": "ClinicalTrial",
+      "label": "PRX-102 vs Agalsidase Beta (BALANCE)",
+      "properties": {
+        "title": "A Randomized, Double Blind, Active Control Study of the Safety and Efficacy of PRX-102 Compared to Agalsidase Beta on Renal Function in Patients With Fabry Disease",
+        "status": "COMPLETED",
+        "design": "Randomized, double-blind, active-controlled",
+        "primary_endpoint": "Annualized change in eGFR over 24 months",
+        "sponsor": "Protalix / Chiesi",
+        "start_date": "2016-06",
+        "completion_date": "2021-10",
+        "pubmed": ["39847314", "37940383"]
+      }
+    },
+    {
+      "id": "NCT01218659",
+      "type": "ClinicalTrial",
+      "label": "Migalastat vs ERT (ATTRACT)",
+      "properties": {
+        "title": "A Randomized, Open-Label Study to Compare the Efficacy and Safety of AT1001 and ERT in Patients With Fabry Disease and AT1001-Responsive GLA Mutations",
+        "status": "COMPLETED",
+        "design": "Randomized, open-label, active-controlled",
+        "primary_endpoint": "Annualized rate of change in mGFR-iohexol from baseline to Month 18",
+        "sponsor": "Amicus Therapeutics",
+        "start_date": "2011-09-08",
+        "completion_date": "2014-05-27",
+        "pubmed": ["33012654", "32994552", "31934472", "31889231", "27834756", "27657681"]
+      }
+    },
+    {
+      "id": "NCT03425539",
+      "type": "ClinicalTrial",
+      "label": "Lucerastat Phase 3 (MODIFY)",
+      "properties": {
+        "title": "A Multicenter, Double-blind, Randomized, Placebo-controlled, Parallel-group Study to Determine the Efficacy and Safety of Lucerastat Oral Monotherapy in Adult Subjects With Fabry Disease",
+        "status": "COMPLETED",
+        "design": "Randomized, quadruple-masked, placebo-controlled",
+        "primary_endpoint": "Neuropathic pain monthly score change from baseline to Month 6",
+        "secondary_endpoints": ["Plasma Gb3 change", "Abdominal pain change", "Days with diarrhea change"],
+        "sponsor": "Idorsia Pharmaceuticals",
+        "start_date": "2018-06-21",
+        "completion_date": "2021-08-17"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:4296",
+      "target": "UniProtKB:P06280",
+      "type": "ENCODES",
+      "properties": {
+        "evidence": "hgnc_get_gene('HGNC:4296') cross_references.uniprot = ['P06280']"
+      }
+    },
+    {
+      "source": "UniProtKB:P06280",
+      "target": "PubChem:CID66616222",
+      "type": "HYDROLYZES",
+      "properties": {
+        "evidence": "entrez_get_gene('NCBIGene:2717') summary: 'This enzyme predominantly hydrolyzes ceramide trihexoside'",
+        "reaction": "Cleaves terminal alpha-galactosyl moiety from Gb3"
+      }
+    },
+    {
+      "source": "HGNC:4296",
+      "target": "MONDO:0010526",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.893,
+        "mechanism": "Loss-of-function mutations in GLA cause lysosomal accumulation of Gb3",
+        "evidence": "opentargets_get_associations('ENSG00000102393') top hit; entrez_get_gene('NCBIGene:2717') summary"
+      }
+    },
+    {
+      "source": "HGNC:4296",
+      "target": "WP:WP4153",
+      "type": "MEMBER_OF",
+      "properties": {
+        "evidence": "wikipathways_get_pathway_components('WP:WP4153') includes hgnc:GLA and ensembl:ENSG00000102393"
+      }
+    },
+    {
+      "source": "PubChem:CID66616222",
+      "target": "MONDO:0010526",
+      "type": "ACCUMULATES_IN",
+      "properties": {
+        "organelle": "lysosome",
+        "cause": "Absence of functional alpha-galactosidase A (UniProtKB:P06280)",
+        "evidence": "uniprot_get_protein('UniProtKB:P06280') function: 'degradation in the lysosome'; entrez_get_gene('NCBIGene:2717') summary: 'lysosomal storage disorder'"
+      }
+    },
+    {
+      "source": "HGNC:4296",
+      "target": "HGNC:713",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "score": 0.974,
+        "source_db": "STRING",
+        "evidence_types": ["database", "textmining"],
+        "evidence": "string_get_interactions('9606.ENSP00000218516') score=0.974",
+        "context": "Co-members of WP4153 sphingolipid degradation pathway"
+      }
+    },
+    {
+      "source": "HGNC:4296",
+      "target": "HGNC:4879",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "score": 0.941,
+        "source_db": "STRING",
+        "evidence_types": ["database", "textmining", "association"],
+        "evidence": "string_get_interactions('9606.ENSP00000218516') score=0.941",
+        "context": "Co-members of WP4153 sphingolipid degradation pathway"
+      }
+    },
+    {
+      "source": "HGNC:4296",
+      "target": "HGNC:4878",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "score": 0.939,
+        "source_db": "STRING",
+        "evidence_types": ["database", "textmining", "association"],
+        "evidence": "string_get_interactions('9606.ENSP00000218516') score=0.939",
+        "context": "Co-members of WP4153 sphingolipid degradation pathway"
+      }
+    },
+    {
+      "source": "HGNC:4296",
+      "target": "HGNC:7758",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "score": 0.931,
+        "source_db": "STRING",
+        "evidence_types": ["database", "textmining", "association"],
+        "evidence": "string_get_interactions('9606.ENSP00000218516') score=0.931",
+        "context": "Co-members of WP4153 sphingolipid degradation pathway"
+      }
+    },
+    {
+      "source": "HGNC:4296",
+      "target": "WP:WP2788",
+      "type": "MEMBER_OF",
+      "properties": {
+        "evidence": "wikipathways_get_pathways_for_gene('GLA') returns WP:WP2788"
+      }
+    },
+    {
+      "source": "HGNC:4296",
+      "target": "WP:WP5292",
+      "type": "MEMBER_OF",
+      "properties": {
+        "evidence": "wikipathways_get_pathways_for_gene('GLA') returns WP:WP5292"
+      }
+    },
+    {
+      "source": "CHEMBL:2108214",
+      "target": "MONDO:0010526",
+      "type": "TREATS",
+      "properties": {
+        "max_phase": 4,
+        "evidence": "opentargets_get_target('ENSG00000102393') knownDrugs"
+      }
+    },
+    {
+      "source": "CHEMBL:2108214",
+      "target": "UniProtKB:P06280",
+      "type": "REPLACES",
+      "properties": {
+        "mechanism": "Recombinant human alpha-galactosidase A replaces deficient enzyme"
+      }
+    },
+    {
+      "source": "CHEMBL:2108888",
+      "target": "MONDO:0010526",
+      "type": "TREATS",
+      "properties": {
+        "max_phase": 4,
+        "evidence": "opentargets_get_target('ENSG00000102393') knownDrugs"
+      }
+    },
+    {
+      "source": "CHEMBL:2108888",
+      "target": "UniProtKB:P06280",
+      "type": "REPLACES",
+      "properties": {
+        "mechanism": "Recombinant human alpha-galactosidase A (CHO cells) replaces deficient enzyme"
+      }
+    },
+    {
+      "source": "CHEMBL:110458",
+      "target": "MONDO:0010526",
+      "type": "TREATS",
+      "properties": {
+        "max_phase": 4,
+        "evidence": "opentargets_get_target('ENSG00000102393') knownDrugs",
+        "limitation": "Only for amenable GLA mutations"
+      }
+    },
+    {
+      "source": "CHEMBL:110458",
+      "target": "UniProtKB:P06280",
+      "type": "CHAPERONES",
+      "properties": {
+        "mechanism": "Stabilizes misfolded but amenable GLA mutants enabling proper lysosomal trafficking"
+      }
+    },
+    {
+      "source": "CHEMBL:4297801",
+      "target": "MONDO:0010526",
+      "type": "TREATS",
+      "properties": {
+        "max_phase": 4,
+        "evidence": "opentargets_get_target('ENSG00000102393') knownDrugs"
+      }
+    },
+    {
+      "source": "CHEMBL:4297801",
+      "target": "UniProtKB:P06280",
+      "type": "REPLACES",
+      "properties": {
+        "mechanism": "PEGylated recombinant alpha-galactosidase A with extended half-life"
+      }
+    },
+    {
+      "source": "CHEMBL:1086997",
+      "target": "MONDO:0010526",
+      "type": "TREATS",
+      "properties": {
+        "max_phase": 3,
+        "status": "investigational",
+        "evidence": "clinicaltrials_get_trial('NCT:03425539') confirms Phase 3 completed"
+      }
+    },
+    {
+      "source": "CHEMBL:1086997",
+      "target": "PubChem:CID66616222",
+      "type": "REDUCES_SUBSTRATE",
+      "properties": {
+        "mechanism": "Glucosylceramide synthase inhibitor reduces Gb3 production upstream"
+      }
+    },
+    {
+      "source": "NCT02795676",
+      "target": "CHEMBL:4297801",
+      "type": "EVALUATES",
+      "properties": {
+        "comparator": "Agalsidase Beta",
+        "evidence": "clinicaltrials_get_trial('NCT:02795676') interventions: PRX-102 vs agalsidase beta"
+      }
+    },
+    {
+      "source": "NCT01218659",
+      "target": "CHEMBL:110458",
+      "type": "EVALUATES",
+      "properties": {
+        "comparator": "Agalsidase (ERT)",
+        "evidence": "clinicaltrials_get_trial('NCT:01218659') interventions: migalastat HCl vs agalsidase"
+      }
+    },
+    {
+      "source": "NCT03425539",
+      "target": "CHEMBL:1086997",
+      "type": "EVALUATES",
+      "properties": {
+        "comparator": "Placebo",
+        "evidence": "clinicaltrials_get_trial('NCT:03425539') interventions: Lucerastat vs Placebo"
+      }
+    }
+  ]
+}

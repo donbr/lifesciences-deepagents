@@ -1,0 +1,670 @@
+{
+  "query": "Which therapeutic interventions, clinical phenotypes, and biological pathways are connected to the TUBB4A gene in the context of Hypomyelination with Atrophy of the Basal ganglia and Cerebellum (H-ABC), and how do its molecular interactions explain the disease pathology?",
+  "disease": {
+    "id": "MONDO:0012905",
+    "name": "Hypomyelination with atrophy of basal ganglia and cerebellum",
+    "type": "Disease"
+  },
+  "nodes": [
+    {
+      "id": "HGNC:20774",
+      "type": "Gene",
+      "label": "TUBB4A",
+      "properties": {
+        "symbol": "TUBB4A",
+        "name": "tubulin beta 4A class IVa",
+        "ensembl": "ENSG00000104833",
+        "uniprot": "P04350",
+        "entrez": "10382",
+        "location": "19p13.3",
+        "omim": "602662",
+        "aliases": ["TUBB4", "DYT4", "beta-5"],
+        "chromosome_coords": "chr19:6494319-6502848 (GRCh38, strand -1)",
+        "biogrid": "115655"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "HGNC:12407",
+      "type": "Gene",
+      "label": "TUBA4A",
+      "properties": {
+        "symbol": "TUBA4A",
+        "name": "tubulin alpha 4a",
+        "ensembl": "ENSG00000127824",
+        "uniprot": "P68366",
+        "entrez": "7277",
+        "location": "2q35",
+        "omim": "191110"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "HGNC:6893",
+      "type": "Gene",
+      "label": "MAPT",
+      "properties": {
+        "symbol": "MAPT",
+        "name": "microtubule associated protein tau",
+        "ensembl": "ENSG00000186868",
+        "uniprot": "P10636",
+        "entrez": "4137",
+        "location": "17q21.31",
+        "omim": "157140"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "HGNC:3098",
+      "type": "Gene",
+      "label": "TOR1A",
+      "properties": {
+        "symbol": "TOR1A",
+        "name": "torsin family 1 member A",
+        "ensembl": "ENSG00000136827",
+        "uniprot": "O14656",
+        "entrez": "1861",
+        "location": "9q34.11",
+        "omim": "605204",
+        "aliases": ["DYT1"],
+        "disease_relevance": "DYT1 dystonia"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "HGNC:4274",
+      "type": "Gene",
+      "label": "GJA1",
+      "properties": {
+        "symbol": "GJA1",
+        "name": "gap junction protein alpha 1",
+        "ensembl": "ENSG00000152661",
+        "uniprot": "P17302",
+        "entrez": "2697",
+        "location": "6q22.31",
+        "omim": "121014",
+        "aliases": ["CX43", "connexin 43"]
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "HGNC:682",
+      "type": "Gene",
+      "label": "ARHGEF2",
+      "properties": {
+        "symbol": "ARHGEF2",
+        "name": "Rho/Rac guanine nucleotide exchange factor 2",
+        "ensembl": "ENSG00000116584",
+        "uniprot": "Q92974",
+        "entrez": "9181",
+        "location": "1q22",
+        "omim": "607560",
+        "aliases": ["GEF-H1"]
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "HGNC:20771",
+      "type": "Gene",
+      "label": "TUBB4B",
+      "properties": {
+        "symbol": "TUBB4B",
+        "name": "tubulin beta 4B class IVb",
+        "ensembl": "ENSG00000188229",
+        "uniprot": "P68371",
+        "entrez": "10383",
+        "location": "9q34.3",
+        "omim": "602660"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "HGNC:2963",
+      "type": "Gene",
+      "label": "DYNC1I1",
+      "properties": {
+        "symbol": "DYNC1I1",
+        "name": "dynein cytoplasmic 1 intermediate chain 1",
+        "ensembl": "ENSG00000158560",
+        "uniprot": "O14576",
+        "entrez": "1780",
+        "location": "7q21.3",
+        "omim": "603772"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "UniProtKB:P04350",
+      "type": "Protein",
+      "label": "Tubulin beta-4A chain",
+      "properties": {
+        "accession": "P04350",
+        "gene": "TUBB4A",
+        "organism": "Homo sapiens",
+        "length": 444,
+        "function": "Major constituent of microtubules, alpha-beta tubulin heterodimers, GTP-binding"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "Orphanet:139441",
+      "type": "Disease",
+      "label": "Hypomyelination with atrophy of basal ganglia and cerebellum (H-ABC)",
+      "properties": {
+        "synonyms": ["H-ABC", "TUBB4A-related leukodystrophy", "Hypomyelinating leukodystrophy 6 (HLD6)"],
+        "mondo": "MONDO:0012905",
+        "orphanet": "Orphanet:139441",
+        "omim": "612438",
+        "inheritance": "Autosomal dominant (de novo mutations)",
+        "open_targets_score": 0.76
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "Orphanet:98805",
+      "type": "Disease",
+      "label": "Primary dystonia, DYT4 type",
+      "properties": {
+        "mondo": "MONDO:0007493",
+        "orphanet": "Orphanet:98805",
+        "open_targets_score": 0.74
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "CHEMBL:CHEMBL3838",
+      "type": "Target",
+      "label": "Tubulin beta-4A chain (drug target)",
+      "properties": {
+        "chembl_target_id": "CHEMBL3838",
+        "drugbank": "DB11638",
+        "known_drugs_count": 3956,
+        "note": "Broad tubulin target \u2014 oncology drugs not appropriate for H-ABC"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "ASO:nL-TUBB4-001",
+      "type": "Compound",
+      "label": "nL-TUBB4-001",
+      "properties": {
+        "type": "Antisense oligonucleotide (ASO)",
+        "developer": "n-Lorem Foundation",
+        "mechanism": "Antisense oligonucleotide targeting TUBB4A mutant transcript",
+        "max_phase": "Investigational (N-of-1)",
+        "route": "Intrathecal (via lumbar puncture)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP2652",
+      "type": "Pathway",
+      "label": "Mitotic Prometaphase",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP1892",
+      "type": "Pathway",
+      "label": "Protein folding",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP4124",
+      "type": "Pathway",
+      "label": "Cilium Assembly",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP4075",
+      "type": "Pathway",
+      "label": "Carboxyterminal post-translational modifications of tubulin",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP1859",
+      "type": "Pathway",
+      "label": "Mitotic G2-G2/M phases",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP2359",
+      "type": "Pathway",
+      "label": "Parkin-ubiquitin proteasomal system pathway",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP2038",
+      "type": "Pathway",
+      "label": "Microtubule cytoskeleton regulation",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways",
+        "note": "MAPT pathway membership"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP2059",
+      "type": "Pathway",
+      "label": "Alzheimer's disease and miRNA effects",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways",
+        "note": "Shared by TUBB4A and MAPT"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP3498",
+      "type": "Pathway",
+      "label": "Assembly of the primary cilium",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "WP:WP1784",
+      "type": "Pathway",
+      "label": "Apoptotic execution phase",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways",
+        "note": "MAPT pathway membership"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT:07222371",
+      "type": "ClinicalTrial",
+      "label": "nL-TUBB4-001 ASO for TUBB4A Leukodystrophy (UCSD)",
+      "properties": {
+        "nct_id": "NCT07222371",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "sponsor": "University of California, San Diego",
+        "intervention": "nL-TUBB4-001",
+        "start_date": "2025-09-19",
+        "completion_date": "2027-09",
+        "study_type": "INTERVENTIONAL",
+        "design": "Single-participant, open-label",
+        "primary_outcomes": "Dystonia (BAD, BFMDRS), motor function (GMFM-88), adaptive behavior (Vineland-3)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT:06369974",
+      "type": "ClinicalTrial",
+      "label": "ASO Treatment for TUBB4A Leukodystrophy (MGH)",
+      "properties": {
+        "nct_id": "NCT06369974",
+        "status": "NOT_YET_RECRUITING",
+        "sponsor": "Massachusetts General Hospital",
+        "collaborator": "n-Lorem Foundation",
+        "intervention": "Antisense oligonucleotide treatment (ASO)",
+        "start_date": "2024-06",
+        "completion_date": "2026-06",
+        "study_type": "INTERVENTIONAL",
+        "design": "Single-participant, open-label",
+        "eligibility": "Age >= 4 years, confirmed TUBB4A mutation + H-ABC phenotype",
+        "primary_outcomes": "GMFM88, HINE-1/2, Bayley-4, Vineland-3, Tardieu Spasticity Scale"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT:02699190",
+      "type": "ClinicalTrial",
+      "label": "LeukoSEQ: WGS for Leukodystrophies (CHOP)",
+      "properties": {
+        "nct_id": "NCT02699190",
+        "status": "COMPLETED",
+        "sponsor": "Children's Hospital of Philadelphia",
+        "study_type": "OBSERVATIONAL",
+        "conditions_include": "TUBB4A-Related Leukodystrophy, H-ABC"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT:03047369",
+      "type": "ClinicalTrial",
+      "label": "Myelin Disorders Biorepository (CHOP)",
+      "properties": {
+        "nct_id": "NCT03047369",
+        "status": "RECRUITING",
+        "sponsor": "Children's Hospital of Philadelphia",
+        "collaborators": ["NIH", "NINDS", "NCATS", "Biogen", "Ionis Pharmaceuticals", "Foundation to Fight H-ABC"],
+        "study_type": "OBSERVATIONAL",
+        "completion_date": "2030-12-08",
+        "conditions_include": "TUBB4A-Related Leukodystrophy, H-ABC"
+      },
+      "synapse_grounding": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:20774",
+      "target": "UniProtKB:P04350",
+      "type": "ENCODES",
+      "properties": {
+        "source_tool": "hgnc_get_gene(HGNC:20774)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "Orphanet:139441",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.76,
+        "evidence": "Open Targets, OMIM:612438",
+        "mechanism": "Dominant-negative mutations disrupt microtubule assembly in oligodendrocytes",
+        "source_tool": "opentargets_get_associations(ENSG00000104833)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "Orphanet:98805",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.74,
+        "evidence": "Open Targets, OMIM:128101",
+        "mechanism": "Missense mutations affecting microtubule dynamics in basal ganglia neurons",
+        "source_tool": "opentargets_get_associations(ENSG00000104833)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "HGNC:12407",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.983,
+        "evidence_type": "coexpression, database, experimental",
+        "interaction": "Alpha-beta tubulin heterodimer formation",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000264071)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "HGNC:6893",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.953,
+        "evidence_type": "database, experimental, textmining",
+        "interaction": "MAPT (tau) binds and stabilizes microtubules containing TUBB4A",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000264071)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "HGNC:4274",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.940,
+        "evidence_type": "database, textmining",
+        "interaction": "GJA1/connexin-43 associates with microtubules for gap junction trafficking",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000264071)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "HGNC:682",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.906,
+        "evidence_type": "database",
+        "interaction": "ARHGEF2/GEF-H1 is sequestered on microtubules; released upon depolymerization to activate RhoA",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000264071)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "HGNC:3098",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.895,
+        "evidence_type": "textmining",
+        "interaction": "TOR1A (torsinA/DYT1) interacts with tubulin; shared dystonia phenotype",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000264071)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "HGNC:20771",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.883,
+        "evidence_type": "coexpression, database, experimental",
+        "interaction": "Paralogous beta-tubulin isoform, potential compensatory expression",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000264071)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "HGNC:2963",
+      "type": "INTERACTS",
+      "properties": {
+        "score": 0.861,
+        "evidence_type": "database, experimental, textmining",
+        "interaction": "Cytoplasmic dynein intermediate chain; motor protein translocating along microtubules",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000264071)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "ASO:nL-TUBB4-001",
+      "target": "HGNC:20774",
+      "type": "MODULATOR",
+      "properties": {
+        "mechanism": "Antisense oligonucleotide targeting TUBB4A mutant transcript",
+        "source_tool": "clinicaltrials_get_trial(NCT:07222371)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "ASO:nL-TUBB4-001",
+      "target": "Orphanet:139441",
+      "type": "TREATS",
+      "properties": {
+        "max_phase": "Investigational (N-of-1)",
+        "evidence": "NCT07222371, NCT06369974",
+        "source_tool": "clinicaltrials_get_trial(NCT:07222371), clinicaltrials_get_trial(NCT:06369974)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "WP:WP2652",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(TUBB4A)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "WP:WP1892",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(TUBB4A)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "WP:WP4124",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(TUBB4A)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "WP:WP4075",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(TUBB4A)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "WP:WP1859",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(TUBB4A)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "WP:WP2359",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(TUBB4A)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:6893",
+      "target": "WP:WP2038",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(MAPT)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:6893",
+      "target": "WP:WP2059",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(MAPT)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "WP:WP2059",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(TUBB4A)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:20774",
+      "target": "WP:WP3498",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(TUBB4A)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:6893",
+      "target": "WP:WP1784",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathways_for_gene(MAPT)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "NCT:07222371",
+      "target": "Orphanet:139441",
+      "type": "STUDIES",
+      "properties": {
+        "source_tool": "clinicaltrials_get_trial(NCT:07222371)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "NCT:06369974",
+      "target": "Orphanet:139441",
+      "type": "STUDIES",
+      "properties": {
+        "source_tool": "clinicaltrials_get_trial(NCT:06369974)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "NCT:02699190",
+      "target": "Orphanet:139441",
+      "type": "STUDIES",
+      "properties": {
+        "source_tool": "clinicaltrials_get_trial(NCT:02699190)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "NCT:03047369",
+      "target": "Orphanet:139441",
+      "type": "STUDIES",
+      "properties": {
+        "source_tool": "clinicaltrials_get_trial(NCT:03047369)"
+      },
+      "synapse_grounding": []
+    }
+  ],
+  "metadata": {
+    "protocol": "Fuzzy-to-Fact v1",
+    "template": "Template 1: Single-gene disease mechanism + therapeutic landscape",
+    "created": "2026-02-22",
+    "confidence_score": 0.82,
+    "phases_completed": [
+      "ANCHOR",
+      "ENRICH",
+      "EXPAND",
+      "TRAVERSE_DRUGS",
+      "TRAVERSE_TRIALS",
+      "VALIDATE",
+      "PERSIST"
+    ],
+    "data_sources": [
+      "HGNC (hgnc_search_genes, hgnc_get_gene)",
+      "Open Targets (opentargets_get_associations, opentargets_get_target)",
+      "ChEMBL (chembl_search_compounds, chembl_get_compound)",
+      "UniProt (uniprot_get_protein)",
+      "STRING (string_search_proteins, string_get_interactions)",
+      "WikiPathways (wikipathways_get_pathways_for_gene)",
+      "Ensembl (ensembl_get_gene)",
+      "Entrez (entrez_get_gene)",
+      "ClinicalTrials.gov (clinicaltrials_search_trials, clinicaltrials_get_trial)"
+    ],
+    "synapse_datasets": [],
+    "notes": "Synapse grounding pending \u2014 system maintenance"
+  }
+}

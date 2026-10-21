@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabry Disease — Gb3 Accumulation Knowledge Graph</title>
+    <script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a2e; color: #eee; }
+        #container { display: flex; height: 100vh; }
+        #cy { flex: 1; background: #16213e; }
+        #sidebar { width: 280px; padding: 20px; background: #0f3460; overflow-y: auto; }
+        h1 { font-size: 1.2rem; margin-bottom: 15px; color: #e94560; }
+        h2 { font-size: 0.9rem; margin: 15px 0 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .legend-item { display: flex; align-items: center; margin: 8px 0; font-size: 0.85rem; }
+        .legend-color { width: 16px; height: 16px; border-radius: 50%; margin-right: 10px; border: 2px solid rgba(255,255,255,0.3); }
+        #info { background: #1a1a2e; border-radius: 8px; padding: 12px; margin-top: 15px; font-size: 0.8rem; line-height: 1.5; }
+        #info .node-label { color: #e94560; font-weight: bold; display: block; margin-bottom: 4px; }
+        #info .node-field { display: block; }
+        #info .meta-section { margin-top: 8px; }
+        button { width: 100%; padding: 10px; margin-top: 15px; background: #e94560; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+        button:hover { background: #c73e54; }
+        .controls { margin-top: 15px; }
+        select { width: 100%; padding: 8px; background: #1a1a2e; color: #eee; border: 1px solid #334155; border-radius: 4px; }
+        .stats { font-size: 0.75rem; color: #64748b; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="cy"></div>
+        <div id="sidebar">
+            <h1>Fabry Disease — Gb3 Accumulation</h1>
+            <div class="stats" id="stats"></div>
+
+            <h2>Legend</h2>
+            <div id="legend"></div>
+
+            <h2>Selected Node</h2>
+            <div id="info"><span>Click a node to see details</span></div>
+
+            <div class="controls">
+                <h2>Layout</h2>
+                <select id="layout-select">
+                    <option value="cose">Force-Directed (COSE)</option>
+                    <option value="circle">Circle</option>
+                    <option value="grid">Grid</option>
+                    <option value="breadthfirst">Hierarchical</option>
+                    <option value="concentric">Concentric</option>
+                </select>
+            </div>
+
+            <button onclick="exportPNG()">Export PNG</button>
+            <button onclick="cy.fit()" style="background: #334155;">Fit to View</button>
+        </div>
+    </div>
+
+    <script>
+    // === GRAPH DATA ===
+    const graphData = {
+      nodes: [
+        {
+          id: "HGNC:4296",
+          label: "GLA",
+          type: "Gene",
+          metadata: {
+            "Name": "galactosidase alpha",
+            "Location": "Xq22.1",
+            "Ensembl": "ENSG00000102393",
+            "UniProt": "P06280",
+            "Entrez": "2717",
+            "OMIM": "300644"
+          }
+        },
+        {
+          id: "UniProtKB:P06280",
+          label: "Alpha-Galactosidase A",
+          type: "Protein",
+          metadata: {
+            "Function": "Hydrolyzes glycosphingolipids in the lysosome",
+            "Length": "429 aa",
+            "Subcellular Location": "Lysosome",
+            "PDB": "1R46, 3GXN, 3HG2"
+          }
+        },
+        {
+          id: "PubChem:CID66616222",
+          label: "Globotriaosylceramide (Gb3)",
+          type: "SmallMolecule",
+          metadata: {
+            "Synonyms": "Gb3, ceramide trihexoside, GL-3",
+            "Formula": "C38H69NO18",
+            "MW": "827.9",
+            "CHEBI": "18313",
+            "Systematic": "Gal(a1-4)Gal(b1-4)Glc-Cer"
+          }
+        },
+        {
+          id: "MONDO:0010526",
+          label: "Fabry Disease",
+          type: "Disease",
+          metadata: {
+            "OMIM": "301500",
+            "Orphanet": "ORPHA:122153",
+            "Type": "Lysosomal storage disorder",
+            "Association Score": "0.893"
+          }
+        },
+        {
+          id: "WP:WP4153",
+          label: "Sphingolipid Degradation",
+          type: "Pathway",
+          metadata: {
+            "Full Name": "Degradation pathway of sphingolipids, including diseases",
+            "Organism": "Homo sapiens",
+            "Genes": "17",
+            "Metabolites": "22"
+          }
+        }
+      ],
+      edges: [
+        { source: "HGNC:4296", target: "UniProtKB:P06280", label: "encodes" },
+        { source: "UniProtKB:P06280", target: "PubChem:CID66616222", label: "hydrolyzes" },
+        { source: "HGNC:4296", target: "MONDO:0010526", label: "associated_with" },
+        { source: "HGNC:4296", target: "WP:WP4153", label: "participates_in" },
+        { source: "PubChem:CID66616222", target: "MONDO:0010526", label: "accumulates_in" }
+      ]
+    };
+    // === END GRAPH DATA ===
+
+    // Node type colors
+    const typeColors = {
+        'Gene': '#4CAF50',
+        'Protein': '#009688',
+        'Drug': '#2196F3',
+        'SmallMolecule': '#2196F3',
+        'Disease': '#F44336',
+        'Pathway': '#9C27B0',
+        'ClinicalTrial': '#FF9800',
+        'Publication': '#607D8B',
+        'default': '#78909C'
+    };
+
+    // Edge predicate colors
+    const predicateColors = {
+        'encodes': '#78909C',
+        'hydrolyzes': '#009688',
+        'inhibits': '#2196F3',
+        'activates': '#4CAF50',
+        'associated_with': '#FF9800',
+        'participates_in': '#9C27B0',
+        'accumulates_in': '#F44336',
+        'tested_in': '#00BCD4',
+        'default': '#64748b'
+    };
+
+    function getNodeColor(type) {
+        return typeColors[type] || typeColors['default'];
+    }
+
+    function getEdgeColor(predicate) {
+        return predicateColors[predicate] || predicateColors['default'];
+    }
+
+    // Transform data for Cytoscape
+    const elements = {
+        nodes: graphData.nodes.map(n => ({
+            data: {
+                id: n.id,
+                label: n.label,
+                type: n.type,
+                color: n.color || getNodeColor(n.type),
+                metadata: n.metadata || {}
+            }
+        })),
+        edges: graphData.edges.map((e, i) => ({
+            data: {
+                id: 'e' + i,
+                source: e.source,
+                target: e.target,
+                label: e.label,
+                color: e.color || getEdgeColor(e.label)
+            }
+        }))
+    };
+
+    // Initialize Cytoscape
+    const cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: elements,
+        style: [
+            {
+                selector: 'node',
+                style: {
+                    'background-color': 'data(color)',
+                    'label': 'data(label)',
+                    'color': '#fff',
+                    'text-valign': 'bottom',
+                    'text-margin-y': 8,
+                    'font-size': '12px',
+                    'font-weight': '600',
+                    'text-outline-color': '#16213e',
+                    'text-outline-width': 2,
+                    'width': 45,
+                    'height': 45,
+                    'border-width': 3,
+                    'border-color': '#fff',
+                    'border-opacity': 0.3
+                }
+            },
+            {
+                selector: 'node:selected',
+                style: {
+                    'border-width': 4,
+                    'border-color': '#e94560',
+                    'border-opacity': 1
+                }
+            },
+            {
+                selector: 'edge',
+                style: {
+                    'width': 2,
+                    'line-color': 'data(color)',
+                    'target-arrow-color': 'data(color)',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier',
+                    'label': 'data(label)',
+                    'font-size': '10px',
+                    'color': '#94a3b8',
+                    'text-rotation': 'autorotate',
+                    'text-margin-y': -10
+                }
+            },
+            {
+                selector: 'edge:selected',
+                style: {
+                    'width': 4,
+                    'line-color': '#e94560',
+                    'target-arrow-color': '#e94560'
+                }
+            }
+        ],
+        layout: { name: 'cose', animate: true, animationDuration: 500 }
+    });
+
+    // Build legend from actual node types
+    const usedTypes = [...new Set(graphData.nodes.map(n => n.type))];
+    const legendDiv = document.getElementById('legend');
+    usedTypes.forEach(function(type) {
+        var item = document.createElement('div');
+        item.className = 'legend-item';
+        var colorDot = document.createElement('div');
+        colorDot.className = 'legend-color';
+        colorDot.style.background = getNodeColor(type);
+        var typeLabel = document.createTextNode(type);
+        item.appendChild(colorDot);
+        item.appendChild(typeLabel);
+        legendDiv.appendChild(item);
+    });
+
+    // Stats
+    document.getElementById('stats').textContent =
+        graphData.nodes.length + ' nodes, ' + graphData.edges.length + ' edges';
+
+    // Node click handler — uses safe DOM methods (no innerHTML)
+    cy.on('tap', 'node', function(evt) {
+        var node = evt.target.data();
+        var infoDiv = document.getElementById('info');
+
+        // Clear previous content
+        while (infoDiv.firstChild) {
+            infoDiv.removeChild(infoDiv.firstChild);
+        }
+
+        // Label
+        var labelSpan = document.createElement('span');
+        labelSpan.className = 'node-label';
+        labelSpan.textContent = node.label;
+        infoDiv.appendChild(labelSpan);
+
+        // ID
+        var idSpan = document.createElement('span');
+        idSpan.className = 'node-field';
+        idSpan.textContent = 'ID: ' + node.id;
+        infoDiv.appendChild(idSpan);
+
+        // Type
+        var typeSpan = document.createElement('span');
+        typeSpan.className = 'node-field';
+        typeSpan.textContent = 'Type: ' + node.type;
+        infoDiv.appendChild(typeSpan);
+
+        // Metadata
+        if (node.metadata && Object.keys(node.metadata).length > 0) {
+            var metaDiv = document.createElement('div');
+            metaDiv.className = 'meta-section';
+            Object.keys(node.metadata).forEach(function(key) {
+                var fieldSpan = document.createElement('span');
+                fieldSpan.className = 'node-field';
+                fieldSpan.textContent = key + ': ' + node.metadata[key];
+                metaDiv.appendChild(fieldSpan);
+            });
+            infoDiv.appendChild(metaDiv);
+        }
+    });
+
+    // Layout change handler
+    document.getElementById('layout-select').addEventListener('change', function(e) {
+        cy.layout({ name: e.target.value, animate: true, animationDuration: 500 }).run();
+    });
+
+    // Export PNG
+    function exportPNG() {
+        var png = cy.png({ output: 'blob', bg: '#16213e', scale: 2 });
+        var url = URL.createObjectURL(png);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'fabry-disease-gb3-knowledge-graph.png';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+    </script>
+</body>
+</html>

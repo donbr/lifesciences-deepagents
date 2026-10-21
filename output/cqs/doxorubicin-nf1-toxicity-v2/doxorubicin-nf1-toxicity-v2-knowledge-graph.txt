@@ -1,0 +1,374 @@
+{
+  "metadata": {
+    "query": "What known genes or pathways are implicated in minimizing Doxorubicin toxicity while preserving its anti-tumor efficacy for NF1?",
+    "protocol": "Fuzzy-to-Fact v2",
+    "generated": "2026-02-15",
+    "phases_completed": ["ANCHOR", "ENRICH", "EXPAND", "TRAVERSE_DRUGS", "TRAVERSE_TRIALS", "VALIDATE", "PERSIST"],
+    "validation_summary": {
+      "gene_nodes_validated": 11,
+      "gene_nodes_with_5_fields": 11,
+      "nct_ids_verified": 8,
+      "nct_ids_valid": 8,
+      "nct_ids_invalid": 0,
+      "negative_searches_documented": 2,
+      "negative_search_details": [
+        "NF1-specific cardiotoxicity trials: 0 results [Source: clinicaltrials_search_trials(query='neurofibromatosis NF1 cardiotoxicity')]",
+        "Doxorubicin TOP2B cardiotoxicity biomarker trials: 0 results [Source: clinicaltrials_search_trials(query='doxorubicin TOP2B cardiotoxicity biomarker')]"
+      ]
+    }
+  },
+  "nodes": {
+    "genes": [
+      {
+        "id": "HGNC:7765",
+        "symbol": "NF1",
+        "name": "neurofibromin 1",
+        "ensembl": "ENSG00000196712",
+        "uniprot": "P21359",
+        "location": "17q11.2",
+        "entrez": "4763",
+        "function": "Stimulates the GTPase activity of Ras. NF1 shows greater affinity for Ras GAP, but lower specific activity. May be a regulator of Ras activity.",
+        "role_in_query": "Primary disease gene. Loss-of-function mutations cause constitutive RAS pathway activation, driving tumorigenesis in NF1 patients.",
+        "source": "[Source: hgnc_get_gene(HGNC:7765), uniprot_get_protein(UniProtKB:P21359)]"
+      },
+      {
+        "id": "HGNC:11989",
+        "symbol": "TOP2A",
+        "name": "DNA topoisomerase II alpha",
+        "ensembl": "ENSG00000131747",
+        "uniprot": "P11388",
+        "location": "17q21.2",
+        "entrez": "7153",
+        "function": "Key decatenating enzyme that alters DNA topology by generating double-stranded breaks, passing intact strand through, and religating.",
+        "role_in_query": "Anti-tumor target of doxorubicin. Inhibition of TOP2A drives the desired anti-cancer effect.",
+        "source": "[Source: hgnc_get_gene(HGNC:11989), uniprot_get_protein(UniProtKB:P11388)]"
+      },
+      {
+        "id": "HGNC:11990",
+        "symbol": "TOP2B",
+        "name": "DNA topoisomerase II beta",
+        "ensembl": "ENSG00000077097",
+        "uniprot": "Q02880",
+        "location": "3p24.2",
+        "entrez": "7155",
+        "function": "Key decatenating enzyme. Plays a role in B-cell differentiation. Inhibition in cardiomyocytes mediates doxorubicin-induced cardiotoxicity.",
+        "role_in_query": "Cardiotoxicity mediator. Doxorubicin inhibition of TOP2B in cardiomyocytes (which lack TOP2A) causes double-strand breaks leading to cardiomyopathy.",
+        "source": "[Source: hgnc_get_gene(HGNC:11990), uniprot_get_protein(UniProtKB:Q02880), opentargets_get_associations(ENSG00000077097) -> cardiomyopathy EFO_0000318 score=0.465]"
+      },
+      {
+        "id": "HGNC:6407",
+        "symbol": "KRAS",
+        "name": "KRAS proto-oncogene, GTPase",
+        "ensembl": "ENSG00000133703",
+        "uniprot": "P01116",
+        "location": "12p12.1",
+        "entrez": "3845",
+        "function": "GTPase that acts as a molecular switch in cell signaling. Cycles between active GTP-bound and inactive GDP-bound states.",
+        "role_in_query": "Direct substrate of NF1 GAP activity. NF1 loss leads to constitutively active KRAS, driving the RAS-MAPK cascade in NF1-associated tumors.",
+        "source": "[Source: hgnc_get_gene(HGNC:6407), string_get_interactions(NF1) -> KRAS score=0.996]"
+      },
+      {
+        "id": "HGNC:1097",
+        "symbol": "BRAF",
+        "name": "B-Raf proto-oncogene, serine/threonine kinase",
+        "ensembl": "ENSG00000157764",
+        "uniprot": "P15056",
+        "location": "7q34",
+        "entrez": "673",
+        "function": "Serine/threonine kinase that acts downstream of RAS in the MAPK signaling cascade. Phosphorylates MEK1/2.",
+        "role_in_query": "Downstream effector of constitutively active RAS in NF1-null tumors. Therapeutic target in RAS pathway-driven cancers.",
+        "source": "[Source: hgnc_get_gene(HGNC:1097), string_get_interactions(NF1) -> KRAS-BRAF score=0.999]"
+      },
+      {
+        "id": "HGNC:11998",
+        "symbol": "TP53",
+        "name": "tumor protein p53",
+        "ensembl": "ENSG00000141510",
+        "uniprot": "P04637",
+        "location": "17p13.1",
+        "entrez": "7157",
+        "function": "Tumor suppressor that responds to DNA damage by regulating target genes involved in cell cycle arrest, apoptosis, and DNA repair.",
+        "role_in_query": "DNA damage response mediator. Doxorubicin-induced DNA damage activates TP53; co-mutation of NF1 and TP53 accelerates MPNST development.",
+        "source": "[Source: hgnc_get_gene(HGNC:11998), string_get_interactions(NF1) -> KRAS-TP53 score=0.949]"
+      },
+      {
+        "id": "HGNC:270",
+        "symbol": "PARP1",
+        "name": "poly(ADP-ribose) polymerase 1",
+        "ensembl": "ENSG00000143799",
+        "uniprot": "P09874",
+        "location": "1q42.12",
+        "entrez": "142",
+        "function": "Detects DNA strand breaks and catalyzes poly(ADP-ribosylation) to recruit DNA repair factors.",
+        "role_in_query": "DNA repair enzyme that interacts with TOP2B. PARP inhibitors may sensitize NF1-deficient tumors while PARP1 activity protects cardiomyocytes from TOP2B-mediated damage.",
+        "source": "[Source: hgnc_get_gene(HGNC:270), string_get_interactions(TOP2B) -> PARP1 score=0.724]"
+      },
+      {
+        "id": "HGNC:17768",
+        "symbol": "TDP2",
+        "name": "tyrosyl-DNA phosphodiesterase 2",
+        "ensembl": "ENSG00000111802",
+        "uniprot": "O95551",
+        "location": "6p22.3",
+        "entrez": "51567",
+        "function": "Repairs abortive topoisomerase II cleavage complexes by hydrolyzing 5'-phosphotyrosyl bonds.",
+        "role_in_query": "Key repair enzyme for TOP2B-mediated DNA damage. TDP2 removes covalent TOP2B-DNA adducts; its activity may mitigate cardiotoxicity while potentially reducing anti-tumor efficacy.",
+        "source": "[Source: hgnc_get_gene(HGNC:17768), string_get_interactions(TOP2B) -> TDP2 score=0.82]"
+      },
+      {
+        "id": "HGNC:20249",
+        "symbol": "SPRED1",
+        "name": "sprouty related EVH1 domain containing 1",
+        "ensembl": "ENSG00000166068",
+        "uniprot": "Q7Z699",
+        "location": "15q14",
+        "entrez": "161742",
+        "function": "Negative regulator of the RAS-MAPK pathway. Mutations cause Legius syndrome, a neurofibromatosis-like RASopathy.",
+        "role_in_query": "Parallel RAS pathway regulator to NF1. SPRED1 loss phenocopies aspects of NF1 loss, providing additional context for RAS pathway dysregulation.",
+        "source": "[Source: hgnc_get_gene(HGNC:20249), string_get_interactions(NF1) -> KRAS-SPRED1 score=0.868]"
+      },
+      {
+        "id": "HGNC:6840",
+        "symbol": "MAP2K1",
+        "name": "mitogen-activated protein kinase kinase 1",
+        "ensembl": "ENSG00000169032",
+        "uniprot": "Q02750",
+        "location": "15q22.31",
+        "entrez": "5604",
+        "function": "Dual specificity kinase (MEK1) that phosphorylates and activates ERK1/2. Central node in the RAS-MAPK signaling cascade.",
+        "role_in_query": "Direct target of selumetinib and trametinib (MEK inhibitors). Inhibiting MEK1 blocks the hyperactive RAS signaling caused by NF1 loss.",
+        "source": "[Source: hgnc_get_gene(HGNC:6840)]"
+      },
+      {
+        "id": "HGNC:6842",
+        "symbol": "MAP2K2",
+        "name": "mitogen-activated protein kinase kinase 2",
+        "ensembl": "ENSG00000126934",
+        "uniprot": "P36507",
+        "location": "19p13.3",
+        "entrez": "5605",
+        "function": "Dual specificity kinase (MEK2) that phosphorylates and activates ERK1/2. Functionally redundant with MAP2K1.",
+        "role_in_query": "Co-target of MEK inhibitors with MAP2K1. Dual inhibition required for effective blockade of RAS-MAPK signaling in NF1-null tumors.",
+        "source": "[Source: hgnc_get_gene(HGNC:6842)]"
+      }
+    ],
+    "drugs": [
+      {
+        "id": "CHEMBL:53463",
+        "name": "Doxorubicin",
+        "synonyms": ["Adriamycin", "Hydroxydaunorubicin", "NSC-123127"],
+        "pubchem": "PubChem:CID31703",
+        "molecular_weight": 543.53,
+        "max_phase": 4,
+        "mechanism": "Topoisomerase II poison — intercalates DNA and stabilizes TOP2-DNA cleavage complexes, causing double-strand breaks",
+        "role_in_query": "Query drug. Used in NF1-associated MPNST treatment. Cardiotoxicity mediated by TOP2B inhibition in cardiomyocytes.",
+        "source": "[Source: chembl_get_compound(CHEMBL:53463), pubchem_get_compound(PubChem:CID31703)]"
+      },
+      {
+        "id": "CHEMBL:1614701",
+        "name": "Selumetinib",
+        "synonyms": ["AZD6244", "ARRY-142886", "Koselugo"],
+        "molecular_weight": 457.69,
+        "max_phase": 4,
+        "mechanism": "Selective MEK1/2 inhibitor. Blocks MAP2K1/MAP2K2 downstream of hyperactive RAS in NF1-null cells.",
+        "role_in_query": "FDA-approved for NF1 plexiform neurofibromas. Addresses RAS pathway hyperactivation caused by NF1 loss without topoisomerase-mediated cardiotoxicity.",
+        "indications_relevant": ["Neurofibromatosis 1", "Neurofibroma, Plexiform"],
+        "source": "[Source: chembl_get_compound(CHEMBL:1614701)]"
+      },
+      {
+        "id": "CHEMBL:2103875",
+        "name": "Trametinib",
+        "synonyms": ["GSK1120212", "Mekinist"],
+        "molecular_weight": 615.4,
+        "max_phase": 4,
+        "mechanism": "Selective MEK1/2 inhibitor. Blocks MAP2K1/MAP2K2 with higher potency than selumetinib.",
+        "role_in_query": "Alternative MEK inhibitor for RAS pathway blockade. Used in BRAF-mutant cancers; potential combination agent for NF1-associated tumors.",
+        "source": "[Source: chembl_get_compound(CHEMBL:2103875)]"
+      },
+      {
+        "id": "CHEMBL:1738",
+        "name": "Dexrazoxane",
+        "synonyms": ["ICRF-187", "ADR-529", "Cardioxane"],
+        "molecular_weight": 268.27,
+        "max_phase": 4,
+        "mechanism": "Iron chelator that prevents iron-mediated free radical generation by doxorubicin. Also inhibits TOP2B catalytic activity without stabilizing cleavage complexes.",
+        "role_in_query": "Only FDA-approved cardioprotectant against anthracycline cardiotoxicity. Reduces TOP2B-mediated DNA damage in cardiomyocytes.",
+        "source": "[Source: chembl_get_compound(CHEMBL:1738)]"
+      }
+    ],
+    "diseases": [
+      {
+        "id": "MONDO_0018975",
+        "name": "neurofibromatosis type 1",
+        "association_score": 0.885,
+        "target": "ENSG00000196712",
+        "source": "[Source: opentargets_get_associations(ENSG00000196712)]"
+      },
+      {
+        "id": "EFO_0000318",
+        "name": "cardiomyopathy",
+        "association_score": 0.465,
+        "target": "ENSG00000077097",
+        "source": "[Source: opentargets_get_associations(ENSG00000077097)]"
+      },
+      {
+        "id": "EFO_0000760",
+        "name": "malignant peripheral nerve sheath tumor",
+        "association_score": 0.692,
+        "target": "ENSG00000196712",
+        "source": "[Source: opentargets_get_associations(ENSG00000196712)]"
+      }
+    ],
+    "pathways": [
+      {
+        "id": "WP:WP2735",
+        "name": "RAF/MAP kinase cascade",
+        "organism": "Homo sapiens",
+        "gene_count": 235,
+        "relevance": "Core signaling pathway dysregulated by NF1 loss. NF1 normally attenuates RAS-RAF-MEK-ERK signaling; loss removes this brake.",
+        "source": "[Source: wikipathways_get_pathways_for_gene(NF1)]"
+      },
+      {
+        "id": "WP:WP5366",
+        "name": "NF1 copy number variation syndrome",
+        "organism": "Homo sapiens",
+        "gene_count": 108,
+        "relevance": "Disease-specific pathway capturing the genomic context of NF1 microdeletions and their phenotypic consequences.",
+        "source": "[Source: wikipathways_get_pathways_for_gene(NF1)]"
+      },
+      {
+        "id": "WP:WP3805",
+        "name": "SUMOylation of DNA replication proteins",
+        "organism": "Homo sapiens",
+        "relevance": "Post-translational modification pathway relevant to TOP2A/TOP2B regulation. SUMOylation modulates topoisomerase II activity and DNA damage response.",
+        "source": "[Source: wikipathways_get_pathways_for_gene(TOP2B), wikipathways_get_pathways_for_gene(TOP2A)]"
+      }
+    ],
+    "clinical_trials": [
+      {
+        "id": "NCT:00304083",
+        "title": "Phase II Trial of Chemotherapy in Sporadic and NF1 Associated High Grade MPNST",
+        "status": "COMPLETED",
+        "interventions": ["doxorubicin hydrochloride", "etoposide", "ifosfamide"],
+        "conditions": ["Neurofibromatosis Type 1", "Sarcoma"],
+        "relevance": "Direct evidence of doxorubicin use in NF1-associated MPNST. Validates the clinical intersection of doxorubicin and NF1.",
+        "validation": "VALIDATED",
+        "source": "[Source: clinicaltrials_get_trial(NCT:00304083)]"
+      },
+      {
+        "id": "NCT:02407405",
+        "title": "Phase II Trial of Selumetinib in Adults With NF1 and Inoperable Plexiform Neurofibromas",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "interventions": ["Selumetinib"],
+        "conditions": ["Neurofibromatosis 1", "Plexiform Neurofibromas"],
+        "relevance": "Validates MEK inhibition as a therapeutic strategy for NF1, targeting the RAS-MAPK pathway downstream of NF1 loss.",
+        "validation": "VALIDATED",
+        "source": "[Source: clinicaltrials_get_trial(NCT:02407405)]"
+      },
+      {
+        "id": "NCT:03433183",
+        "title": "Selumetinib + Sirolimus for Unresectable/Metastatic MPNST",
+        "status": "COMPLETED",
+        "interventions": ["Selumetinib", "Sirolimus"],
+        "conditions": ["Malignant Peripheral Nerve Sheath Tumors", "Neurofibromatosis 1"],
+        "relevance": "Tests dual MEK + mTOR inhibition in NF1-associated MPNST as alternative to doxorubicin-based chemotherapy.",
+        "validation": "VALIDATED",
+        "source": "[Source: clinicaltrials_get_trial(NCT:03433183)]"
+      },
+      {
+        "id": "NCT:03871257",
+        "title": "Phase 3 Selumetinib vs Carboplatin/Vincristine in NF1 Low-Grade Glioma",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "interventions": ["Selumetinib Sulfate", "Carboplatin", "Vincristine Sulfate"],
+        "conditions": ["Low Grade Glioma", "Neurofibromatosis Type 1"],
+        "relevance": "Phase 3 comparison of MEK inhibitor vs conventional chemotherapy in NF1-associated tumors. No doxorubicin arm, but establishes MEK inhibition as standard-of-care contender.",
+        "validation": "VALIDATED",
+        "source": "[Source: clinicaltrials_get_trial(NCT:03871257)]"
+      },
+      {
+        "id": "NCT:07370506",
+        "title": "Telmisartan for Preventing Doxorubicin-induced Cardiotoxicity",
+        "status": "NOT_YET_RECRUITING",
+        "interventions": ["Telmisartan", "Doxorubicin"],
+        "conditions": ["Breast Cancer", "Doxorubicin Induced Cardiomyopathy"],
+        "relevance": "Tests ARB-mediated cardioprotection during doxorubicin therapy. LVEF change is primary endpoint.",
+        "validation": "VALIDATED",
+        "source": "[Source: clinicaltrials_get_trial(NCT:07370506)]"
+      },
+      {
+        "id": "NCT:04023110",
+        "title": "Risk-Guided Cardioprotection With Carvedilol During Doxorubicin/Trastuzumab",
+        "status": "COMPLETED",
+        "interventions": ["Carvedilol"],
+        "conditions": ["Cardiotoxicity", "Breast Cancer", "Cardiomyopathies"],
+        "relevance": "Tests beta-blocker cardioprotection strategy during anthracycline therapy. Completed with results.",
+        "validation": "VALIDATED",
+        "source": "[Source: clinicaltrials_get_trial(NCT:04023110)]"
+      },
+      {
+        "id": "NCT:00955890",
+        "title": "Dexrazoxane Cardiac Protection in Anthracycline-treated Breast Cancer",
+        "status": "TERMINATED",
+        "interventions": ["Dexrazoxane hydrochloride"],
+        "conditions": ["Breast Cancer"],
+        "relevance": "Tested dexrazoxane (ICRF-187) as cardioprotectant in patients with grade 1 anthracycline cardiotoxicity. Terminated early.",
+        "validation": "VALIDATED",
+        "source": "[Source: clinicaltrials_get_trial(NCT:00955890)]"
+      },
+      {
+        "id": "NCT:05858710",
+        "title": "DPPG2-TSL-DOX With Regional Hyperthermia in Soft Tissue Sarcoma",
+        "status": "COMPLETED",
+        "interventions": ["DPPG2-TSL-DOX", "Dexrazoxane"],
+        "conditions": ["Sarcoma, Soft Tissue"],
+        "relevance": "Novel liposomal doxorubicin formulation co-administered with dexrazoxane. Tests targeted delivery to reduce systemic toxicity.",
+        "validation": "VALIDATED",
+        "source": "[Source: clinicaltrials_get_trial(NCT:05858710)]"
+      }
+    ]
+  },
+  "edges": {
+    "protein_interactions": [
+      {"source": "NF1", "target": "KRAS", "type": "interacts_with", "score": 0.996, "evidence": "STRING (database 0.9, textmining 0.925, experimental 0.543)", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000351015)]"},
+      {"source": "NF1", "target": "RRAS", "type": "interacts_with", "score": 0.960, "evidence": "STRING", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000351015)]"},
+      {"source": "NF1", "target": "RRAS2", "type": "interacts_with", "score": 0.958, "evidence": "STRING", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000351015)]"},
+      {"source": "KRAS", "target": "BRAF", "type": "activates", "score": 0.999, "evidence": "STRING (experimental 0.87, database 0.9, textmining 0.973)", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000351015)]"},
+      {"source": "KRAS", "target": "TP53", "type": "interacts_with", "score": 0.949, "evidence": "STRING (textmining 0.947)", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000351015)]"},
+      {"source": "KRAS", "target": "SPRED1", "type": "regulated_by", "score": 0.868, "evidence": "STRING (textmining 0.639, database 0.5)", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000351015)]"},
+      {"source": "TOP2B", "target": "TOP2A", "type": "paralog_interaction", "score": 0.973, "evidence": "STRING (database 0.9, experimental 0.597)", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000264331)]"},
+      {"source": "TOP2B", "target": "TDP2", "type": "repaired_by", "score": 0.820, "evidence": "STRING (textmining 0.817)", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000264331)]"},
+      {"source": "TOP2B", "target": "PARP1", "type": "interacts_with", "score": 0.724, "evidence": "STRING (experimental 0.457, textmining 0.452)", "source_tool": "[Source: string_get_interactions(STRING:9606.ENSP00000264331)]"},
+      {"source": "BRAF", "target": "MAP2K1", "type": "phosphorylates", "score": null, "evidence": "Canonical RAS-MAPK cascade: BRAF phosphorylates MEK1/2", "source_tool": "[Source: wikipathways_get_pathways_for_gene(NF1) -> WP:WP2735 RAF/MAP kinase cascade]"},
+      {"source": "BRAF", "target": "MAP2K2", "type": "phosphorylates", "score": null, "evidence": "Canonical RAS-MAPK cascade: BRAF phosphorylates MEK1/2", "source_tool": "[Source: wikipathways_get_pathways_for_gene(NF1) -> WP:WP2735 RAF/MAP kinase cascade]"}
+    ],
+    "drug_target": [
+      {"source": "Doxorubicin", "target": "TOP2A", "type": "inhibits", "mechanism": "Stabilizes TOP2A-DNA cleavage complexes, causing lethal double-strand breaks in proliferating tumor cells", "therapeutic": true, "source_tool": "[Source: opentargets_get_target(ENSG00000131747) -> chembl CHEMBL:CHEMBL1806]"},
+      {"source": "Doxorubicin", "target": "TOP2B", "type": "inhibits", "mechanism": "Stabilizes TOP2B-DNA cleavage complexes in cardiomyocytes, causing double-strand breaks leading to cardiomyopathy", "therapeutic": false, "source_tool": "[Source: opentargets_get_target(ENSG00000077097) -> chembl CHEMBL:CHEMBL3396]"},
+      {"source": "Selumetinib", "target": "MAP2K1", "type": "inhibits", "mechanism": "Selective allosteric inhibitor of MEK1", "therapeutic": true, "source_tool": "[Source: chembl_get_compound(CHEMBL:1614701)]"},
+      {"source": "Selumetinib", "target": "MAP2K2", "type": "inhibits", "mechanism": "Selective allosteric inhibitor of MEK2", "therapeutic": true, "source_tool": "[Source: chembl_get_compound(CHEMBL:1614701)]"},
+      {"source": "Trametinib", "target": "MAP2K1", "type": "inhibits", "mechanism": "Selective allosteric inhibitor of MEK1", "therapeutic": true, "source_tool": "[Source: chembl_get_compound(CHEMBL:2103875)]"},
+      {"source": "Trametinib", "target": "MAP2K2", "type": "inhibits", "mechanism": "Selective allosteric inhibitor of MEK2", "therapeutic": true, "source_tool": "[Source: chembl_get_compound(CHEMBL:2103875)]"},
+      {"source": "Dexrazoxane", "target": "TOP2B", "type": "modulates", "mechanism": "Catalytic inhibitor of TOP2B (prevents cleavage complex formation, unlike doxorubicin which stabilizes them). Also chelates iron to prevent ROS generation.", "therapeutic": true, "source_tool": "[Source: chembl_get_compound(CHEMBL:1738)]"}
+    ],
+    "gene_disease": [
+      {"source": "NF1", "target": "MONDO_0018975", "type": "causes", "score": 0.885, "source_tool": "[Source: opentargets_get_associations(ENSG00000196712)]"},
+      {"source": "NF1", "target": "EFO_0000760", "type": "associated_with", "score": 0.692, "source_tool": "[Source: opentargets_get_associations(ENSG00000196712)]"},
+      {"source": "TOP2B", "target": "EFO_0000318", "type": "associated_with", "score": 0.465, "source_tool": "[Source: opentargets_get_associations(ENSG00000077097)]"}
+    ],
+    "gene_pathway": [
+      {"source": "NF1", "target": "WP:WP2735", "type": "participates_in", "source_tool": "[Source: wikipathways_get_pathways_for_gene(NF1)]"},
+      {"source": "NF1", "target": "WP:WP5366", "type": "participates_in", "source_tool": "[Source: wikipathways_get_pathways_for_gene(NF1)]"},
+      {"source": "TOP2A", "target": "WP:WP3805", "type": "participates_in", "source_tool": "[Source: wikipathways_get_pathways_for_gene(TOP2A)]"},
+      {"source": "TOP2B", "target": "WP:WP3805", "type": "participates_in", "source_tool": "[Source: wikipathways_get_pathways_for_gene(TOP2B)]"}
+    ]
+  },
+  "chembl_activity_note": "ChEMBL activity endpoint (IC50/Ki) for doxorubicin against TOP2A/TOP2B was not available through the MCP toolkit. The toolkit provides compound metadata and target associations but not individual bioactivity measurements. Doxorubicin's TOP2 inhibition is well-characterized in literature but specific IC50 values were not retrievable via the available tools.",
+  "lof_filter_analysis": {
+    "gene": "NF1",
+    "mutation_type": "loss-of-function",
+    "consequence": "Loss of NF1 GAP activity leads to constitutive RAS-GTP accumulation and hyperactivation of the RAS-MAPK signaling cascade (KRAS -> BRAF -> MAP2K1/MAP2K2 -> ERK1/2)",
+    "therapeutic_implication": "Only inhibitors acting DOWNSTREAM of NF1 in the RAS pathway are appropriate (MEK inhibitors selumetinib/trametinib). Drugs targeting NF1 protein directly would be ineffective since the protein is already non-functional.",
+    "toxicity_implication": "Doxorubicin's anti-tumor mechanism (TOP2A inhibition) is independent of the RAS pathway. NF1 status does not directly modify doxorubicin sensitivity. However, combination strategies (MEK inhibitor + reduced-dose doxorubicin) or cardioprotection (dexrazoxane) could minimize toxicity while preserving efficacy.",
+    "source": "[Source: uniprot_get_protein(UniProtKB:P21359) function text, opentargets_get_associations(ENSG00000196712)]"
+  }
+}

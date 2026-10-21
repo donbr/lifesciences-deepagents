@@ -1,0 +1,338 @@
+{
+  "metadata": {
+    "competency_question": "What known genes or pathways are implicated in minimizing Doxorubicin toxicity while preserving its anti-tumor efficacy for NF1?",
+    "template": "Template 5: Drug-Gene-Pathway Interaction Network",
+    "protocol": "Fuzzy-to-Fact v2",
+    "created": "2026-02-20",
+    "confidence": 0.78,
+    "phases_completed": ["ANCHOR", "ENRICH", "EXPAND", "TRAVERSE_DRUGS", "TRAVERSE_TRIALS", "VALIDATE", "PERSIST"]
+  },
+  "nodes": [
+    {
+      "id": "HGNC:7765",
+      "type": "Gene",
+      "label": "NF1",
+      "properties": {
+        "symbol": "NF1",
+        "name": "neurofibromin 1",
+        "ensembl": "ENSG00000196712",
+        "uniprot": "P21359",
+        "entrez": "4763",
+        "location": "17q11.2",
+        "function": "Stimulates the GTPase activity of Ras. RAS-GAP tumor suppressor.",
+        "source": "hgnc_get_gene(HGNC:7765), uniprot_get_protein(UniProtKB:P21359)"
+      }
+    },
+    {
+      "id": "HGNC:11989",
+      "type": "Gene",
+      "label": "TOP2A",
+      "properties": {
+        "symbol": "TOP2A",
+        "name": "DNA topoisomerase II alpha",
+        "ensembl": "ENSG00000131747",
+        "uniprot": "P11388",
+        "entrez": "7153",
+        "location": "17q21.2",
+        "role": "Anti-tumor target of doxorubicin. Doxorubicin poisons TOP2A-DNA cleavage complex causing double-strand breaks in tumor cells.",
+        "source": "hgnc_get_gene(HGNC:11989)"
+      }
+    },
+    {
+      "id": "HGNC:11990",
+      "type": "Gene",
+      "label": "TOP2B",
+      "properties": {
+        "symbol": "TOP2B",
+        "name": "DNA topoisomerase II beta",
+        "ensembl": "ENSG00000077097",
+        "uniprot": "Q02880",
+        "entrez": "7155",
+        "location": "3p24.2",
+        "role": "Cardiotoxicity mediator. Doxorubicin poisons TOP2B in cardiomyocytes causing DNA damage and apoptosis.",
+        "chembl_target": "CHEMBL3396",
+        "drugbank": "DB04745",
+        "source": "hgnc_get_gene(HGNC:11990), uniprot_get_protein(UniProtKB:Q02880), opentargets_get_target(ENSG00000077097)"
+      }
+    },
+    {
+      "id": "HGNC:7782",
+      "type": "Gene",
+      "label": "NFE2L2",
+      "properties": {
+        "symbol": "NFE2L2",
+        "name": "NFE2 like bZIP transcription factor 2",
+        "aliases": ["NRF2"],
+        "ensembl": "ENSG00000116044",
+        "uniprot": "Q16236",
+        "entrez": "4780",
+        "location": "2q31.2",
+        "function": "Master regulator of antioxidant response. Binds to antioxidant response elements (ARE) in promoters of cytoprotective genes. Neutralizes reactive electrophiles from doxorubicin metabolism.",
+        "source": "hgnc_get_gene(HGNC:7782), uniprot_get_protein(UniProtKB:Q16236)"
+      }
+    },
+    {
+      "id": "HGNC:23177",
+      "type": "Gene",
+      "label": "KEAP1",
+      "properties": {
+        "symbol": "KEAP1",
+        "name": "kelch like ECH associated protein 1",
+        "ensembl": "ENSG00000079999",
+        "uniprot": "Q14145",
+        "entrez": "9817",
+        "location": "19p13.2",
+        "function": "Negative regulator of NRF2 via ubiquitin-mediated proteasomal degradation.",
+        "source": "hgnc_get_gene(HGNC:23177)"
+      }
+    },
+    {
+      "id": "HGNC:5013",
+      "type": "Gene",
+      "label": "HMOX1",
+      "properties": {
+        "symbol": "HMOX1",
+        "name": "heme oxygenase 1",
+        "aliases": ["HO-1"],
+        "ensembl": "ENSG00000100292",
+        "uniprot": "P09601",
+        "entrez": "3162",
+        "location": "22q12.3",
+        "function": "NRF2 target gene. Catalyzes degradation of heme to biliverdin, CO, and iron. Cytoprotective against oxidative stress.",
+        "source": "hgnc_get_gene(HGNC:5013), wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "id": "HGNC:2874",
+      "type": "Gene",
+      "label": "NQO1",
+      "properties": {
+        "symbol": "NQO1",
+        "name": "NAD(P)H quinone dehydrogenase 1",
+        "aliases": ["DT-diaphorase", "quinone reductase"],
+        "ensembl": "ENSG00000181019",
+        "uniprot": "P15559",
+        "entrez": "1728",
+        "location": "16q22.1",
+        "function": "NRF2 target gene. Two-electron reductase that detoxifies quinones. Directly relevant to doxorubicin: prevents one-electron redox cycling that generates superoxide.",
+        "source": "hgnc_get_gene(HGNC:2874), wikipathways_get_pathway_components(WP:WP408), wikipathways_get_pathway_components(WP:WP3612)"
+      }
+    },
+    {
+      "id": "HGNC:11180",
+      "type": "Gene",
+      "label": "SOD2",
+      "properties": {
+        "symbol": "SOD2",
+        "name": "superoxide dismutase 2",
+        "aliases": ["MnSOD"],
+        "ensembl": "ENSG00000291237",
+        "uniprot": "P04179",
+        "entrez": "6648",
+        "location": "6q25.3",
+        "function": "Mitochondrial antioxidant enzyme. Converts superoxide to hydrogen peroxide. Protects against doxorubicin-induced mitochondrial oxidative damage in cardiomyocytes.",
+        "source": "hgnc_get_gene(HGNC:11180), wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "id": "HGNC:40",
+      "type": "Gene",
+      "label": "ABCB1",
+      "properties": {
+        "symbol": "ABCB1",
+        "name": "ATP binding cassette subfamily B member 1",
+        "aliases": ["MDR1", "P-gp", "P-glycoprotein"],
+        "ensembl": "ENSG00000085563",
+        "uniprot": "P08183",
+        "entrez": "5243",
+        "location": "7q21.12",
+        "function": "Drug efflux transporter. Pumps doxorubicin out of cells. Overexpression in tumors causes chemoresistance; expression in heart may be cardioprotective.",
+        "source": "hgnc_get_gene(HGNC:40)"
+      }
+    },
+    {
+      "id": "HGNC:9866",
+      "type": "Gene",
+      "label": "RARG",
+      "properties": {
+        "symbol": "RARG",
+        "name": "retinoic acid receptor gamma",
+        "ensembl": "ENSG00000172819",
+        "uniprot": "P13631",
+        "entrez": "5916",
+        "location": "12q13.13",
+        "function": "Genetic variants associated with anthracycline-induced cardiotoxicity susceptibility.",
+        "source": "hgnc_get_gene(HGNC:9866)"
+      }
+    },
+    {
+      "id": "HGNC:6407",
+      "type": "Gene",
+      "label": "KRAS",
+      "properties": {
+        "symbol": "KRAS",
+        "name": "KRAS proto-oncogene, GTPase",
+        "ensembl": "ENSG00000133703",
+        "uniprot": "P01116",
+        "entrez": "3845",
+        "location": "12p12.1",
+        "function": "Key downstream effector of NF1-regulated RAS signaling. NF1 loss causes constitutive KRAS activation driving tumorigenesis.",
+        "source": "hgnc_get_gene(HGNC:6407), string_get_interactions(STRING:9606.ENSP00000351015)"
+      }
+    },
+    {
+      "id": "HGNC:1097",
+      "type": "Gene",
+      "label": "BRAF",
+      "properties": {
+        "symbol": "BRAF",
+        "name": "B-Raf proto-oncogene, serine/threonine kinase",
+        "ensembl": "ENSG00000157764",
+        "uniprot": "P15056",
+        "entrez": "673",
+        "location": "7q34",
+        "function": "Serine/threonine kinase downstream of RAS in the MAPK cascade. Target of approved BRAF inhibitors.",
+        "source": "hgnc_get_gene(HGNC:1097), string_get_interactions(STRING:9606.ENSP00000351015)"
+      }
+    },
+    {
+      "id": "CHEMBL:53463",
+      "type": "Compound",
+      "label": "Doxorubicin",
+      "properties": {
+        "pubchem_cid": "31703",
+        "mechanism": "DNA topoisomerase II inhibitor (poisons both TOP2A and TOP2B)",
+        "drug_class": "Anthracycline",
+        "max_phase": 4,
+        "toxicity": "Dose-limiting cardiotoxicity mediated by TOP2B poisoning in cardiomyocytes and oxidative stress from redox cycling",
+        "source": "chembl_search_compounds(Doxorubicin), pubchem_search_compounds(Doxorubicin)"
+      }
+    },
+    {
+      "id": "CHEMBL:1738",
+      "type": "Compound",
+      "label": "Dexrazoxane",
+      "properties": {
+        "mechanism": "TOP2B degradation catalyst and iron chelator. Promotes proteasomal degradation of TOP2B, preventing doxorubicin from forming cardiotoxic TOP2B-DNA cleavage complex.",
+        "max_phase": 4,
+        "cardioprotective": true,
+        "source": "chembl_search_compounds(dexrazoxane), opentargets knownDrugs(ENSG00000077097)"
+      }
+    },
+    {
+      "id": "CHEMBL:1614701",
+      "type": "Compound",
+      "label": "Selumetinib",
+      "properties": {
+        "mechanism": "MEK1/2 inhibitor (targets MAPK/ERK pathway downstream of NF1/RAS)",
+        "max_phase": 4,
+        "indication": "NF1-related plexiform neurofibromas (FDA-approved)",
+        "source": "chembl_search_compounds(selumetinib), clinicaltrials_get_trial(NCT:01362803)"
+      }
+    },
+    {
+      "id": "MONDO:0018975",
+      "type": "Disease",
+      "label": "Neurofibromatosis type 1",
+      "properties": {
+        "score": 0.885,
+        "source": "opentargets_get_associations(ENSG00000196712)"
+      }
+    },
+    {
+      "id": "WP:WP408",
+      "type": "Pathway",
+      "label": "Oxidative stress response",
+      "properties": {
+        "organism": "Homo sapiens",
+        "key_genes": ["NFE2L2", "NQO1", "HMOX1", "SOD1", "SOD2", "SOD3", "GPX1", "GPX3", "CAT", "GCLC", "TXNRD1"],
+        "source": "wikipathways_search_pathways(oxidative stress response), wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "id": "WP:WP3612",
+      "type": "Pathway",
+      "label": "NFE2L2 (NRF2) survival signaling",
+      "properties": {
+        "organism": "Homo sapiens",
+        "key_genes": ["NFE2L2", "KEAP1", "NQO1", "HMOX1", "GCLC", "GCLM", "GSTP1", "ABCC2", "ABCG2", "MAPK8", "MAPK14", "JUN", "FOS"],
+        "source": "wikipathways_get_pathways_for_gene(NFE2L2), wikipathways_get_pathway_components(WP:WP3612)"
+      }
+    },
+    {
+      "id": "WP:WP2735",
+      "type": "Pathway",
+      "label": "RAF/MAP kinase cascade",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "wikipathways_get_pathways_for_gene(NF1)"
+      }
+    },
+    {
+      "id": "WP:WP4223",
+      "type": "Pathway",
+      "label": "Ras signaling",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "wikipathways_search_pathways(RAS MAPK signaling)"
+      }
+    },
+    {
+      "id": "NCT:03930680",
+      "type": "ClinicalTrial",
+      "label": "Dexrazoxane TOP2B degradation study",
+      "properties": {
+        "title": "Prevention of Heart Failure Induced by Doxorubicin With Early Administration of Dexrazoxane",
+        "status": "COMPLETED",
+        "primary_outcome": "95% reduction in topoisomerase 2b from baseline within 8 hours",
+        "sponsor": "University of Arkansas / NHLBI",
+        "source": "clinicaltrials_get_trial(NCT:03930680)"
+      }
+    },
+    {
+      "id": "NCT:01362803",
+      "type": "ClinicalTrial",
+      "label": "Selumetinib for NF1",
+      "properties": {
+        "title": "Phase I/II Study of MEK1 Inhibitor Selumetinib in Children With NF1 and Inoperable Plexiform Neurofibromas",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "sponsor": "National Cancer Institute",
+        "source": "clinicaltrials_get_trial(NCT:01362803)"
+      }
+    },
+    {
+      "id": "NCT:00304083",
+      "type": "ClinicalTrial",
+      "label": "Doxorubicin for NF1 MPNSTs",
+      "properties": {
+        "title": "Phase II Trial of Chemotherapy in NF1-Associated High Grade MPNSTs",
+        "status": "COMPLETED",
+        "interventions": ["doxorubicin hydrochloride", "etoposide", "ifosfamide"],
+        "sponsor": "SARC / NCI",
+        "source": "clinicaltrials_get_trial(NCT:00304083)"
+      }
+    }
+  ],
+  "edges": [
+    {"source": "HGNC:7765", "target": "HGNC:6407", "type": "REGULATES", "properties": {"direction": "repression", "mechanism": "NF1 GTPase-activating protein activity inactivates RAS-GTP", "evidence": "STRING score 0.996", "source": "string_get_interactions(STRING:9606.ENSP00000351015)"}},
+    {"source": "HGNC:6407", "target": "HGNC:1097", "type": "ACTIVATES", "properties": {"mechanism": "RAS-GTP activates BRAF in MAPK cascade", "evidence": "STRING score 0.999", "source": "string_get_interactions(STRING:9606.ENSP00000351015)"}},
+    {"source": "CHEMBL:53463", "target": "HGNC:11989", "type": "INHIBITOR", "properties": {"mechanism": "Doxorubicin poisons TOP2A-DNA cleavage complex (anti-tumor)", "source": "opentargets knownDrugs(ENSG00000131747)"}},
+    {"source": "CHEMBL:53463", "target": "HGNC:11990", "type": "INHIBITOR", "properties": {"mechanism": "Doxorubicin poisons TOP2B-DNA cleavage complex (cardiotoxicity)", "source": "opentargets knownDrugs(ENSG00000077097)"}},
+    {"source": "CHEMBL:1738", "target": "HGNC:11990", "type": "DEGRADES", "properties": {"mechanism": "Dexrazoxane catalyzes proteasomal degradation of TOP2B, preventing doxorubicin-induced cardiotoxicity", "evidence": "NCT03930680: 95% TOP2B reduction in 8 hours", "source": "opentargets knownDrugs(ENSG00000077097), clinicaltrials_get_trial(NCT:03930680)"}},
+    {"source": "HGNC:23177", "target": "HGNC:7782", "type": "REGULATES", "properties": {"direction": "repression", "mechanism": "KEAP1 ubiquitinates NRF2 for proteasomal degradation", "source": "uniprot_get_protein(UniProtKB:Q16236)"}},
+    {"source": "HGNC:7782", "target": "HGNC:5013", "type": "ACTIVATES", "properties": {"mechanism": "NRF2 binds ARE in HMOX1 promoter, inducing cytoprotective expression", "source": "wikipathways_get_pathway_components(WP:WP408), wikipathways_get_pathway_components(WP:WP3612)"}},
+    {"source": "HGNC:7782", "target": "HGNC:2874", "type": "ACTIVATES", "properties": {"mechanism": "NRF2 binds ARE in NQO1 promoter, inducing two-electron quinone reductase activity", "source": "wikipathways_get_pathway_components(WP:WP408), wikipathways_get_pathway_components(WP:WP3612)"}},
+    {"source": "HGNC:7782", "target": "HGNC:11180", "type": "ACTIVATES", "properties": {"mechanism": "NRF2 induces SOD2 expression for mitochondrial superoxide detoxification", "source": "wikipathways_get_pathway_components(WP:WP408)"}},
+    {"source": "HGNC:40", "target": "CHEMBL:53463", "type": "TRANSPORTS", "properties": {"mechanism": "P-glycoprotein effluxes doxorubicin from cells, reducing intracellular accumulation", "source": "hgnc_get_gene(HGNC:40)"}},
+    {"source": "CHEMBL:1614701", "target": "HGNC:1097", "type": "INHIBITOR", "properties": {"mechanism": "MEK1/2 inhibitor blocks MAPK signaling downstream of NF1/RAS", "source": "chembl_search_compounds(selumetinib), clinicaltrials_get_trial(NCT:01362803)"}},
+    {"source": "HGNC:7765", "target": "MONDO:0018975", "type": "ASSOCIATED_WITH", "properties": {"score": 0.885, "source": "opentargets_get_associations(ENSG00000196712)"}},
+    {"source": "HGNC:7765", "target": "WP:WP2735", "type": "MEMBER_OF", "properties": {"source": "wikipathways_get_pathways_for_gene(NF1)"}},
+    {"source": "HGNC:7782", "target": "WP:WP408", "type": "MEMBER_OF", "properties": {"source": "wikipathways_get_pathway_components(WP:WP408)"}},
+    {"source": "HGNC:7782", "target": "WP:WP3612", "type": "MEMBER_OF", "properties": {"source": "wikipathways_get_pathways_for_gene(NFE2L2)"}},
+    {"source": "HGNC:5013", "target": "WP:WP408", "type": "MEMBER_OF", "properties": {"source": "wikipathways_get_pathway_components(WP:WP408)"}},
+    {"source": "HGNC:2874", "target": "WP:WP408", "type": "MEMBER_OF", "properties": {"source": "wikipathways_get_pathway_components(WP:WP408)"}},
+    {"source": "HGNC:11180", "target": "WP:WP408", "type": "MEMBER_OF", "properties": {"source": "wikipathways_get_pathway_components(WP:WP408)"}},
+    {"source": "CHEMBL:53463", "target": "MONDO:0018975", "type": "TREATS", "properties": {"indication": "NF1-associated MPNSTs", "evidence": "NCT00304083", "source": "clinicaltrials_get_trial(NCT:00304083)"}},
+    {"source": "CHEMBL:1614701", "target": "MONDO:0018975", "type": "TREATS", "properties": {"indication": "NF1 plexiform neurofibromas", "max_phase": 4, "evidence": "NCT01362803 (FDA-approved)", "source": "clinicaltrials_get_trial(NCT:01362803)"}}
+  ]
+}

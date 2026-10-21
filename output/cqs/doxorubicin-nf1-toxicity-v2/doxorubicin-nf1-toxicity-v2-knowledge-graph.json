@@ -1,0 +1,533 @@
+{
+  "metadata": {
+    "query": "What known genes or pathways are implicated in minimizing Doxorubicin toxicity while preserving its anti-tumor efficacy for NF1?",
+    "protocol": "Fuzzy-to-Fact v2",
+    "date": "2026-02-17",
+    "template": "Template 3: Drug-Gene-Pathway-Disease Network"
+  },
+  "nodes": [
+    {
+      "id": "HGNC:7765",
+      "type": "Gene",
+      "label": "NF1",
+      "properties": {
+        "symbol": "NF1",
+        "name": "neurofibromin 1",
+        "ensembl": "ENSG00000196712",
+        "uniprot": "P21359",
+        "entrez": "4763",
+        "location": "17q11.2",
+        "function": "Stimulates the GTPase activity of Ras. NF1 shows greater affinity for Ras GAP, but lower specific activity. May be a regulator of Ras activity",
+        "source": "hgnc_get_gene(HGNC:7765), uniprot_get_protein(UniProtKB:P21359)"
+      }
+    },
+    {
+      "id": "HGNC:11989",
+      "type": "Gene",
+      "label": "TOP2A",
+      "properties": {
+        "symbol": "TOP2A",
+        "name": "DNA topoisomerase II alpha",
+        "ensembl": "ENSG00000131747",
+        "uniprot": "P11388",
+        "entrez": "7153",
+        "location": "17q21.2",
+        "function": "Key decatenating enzyme that alters DNA topology. Anti-tumor target of doxorubicin.",
+        "chembl_target": "CHEMBL:CHEMBL1806",
+        "source": "hgnc_get_gene(HGNC:11989), opentargets_get_target(ENSG00000131747)"
+      }
+    },
+    {
+      "id": "HGNC:11990",
+      "type": "Gene",
+      "label": "TOP2B",
+      "properties": {
+        "symbol": "TOP2B",
+        "name": "DNA topoisomerase II beta",
+        "ensembl": "ENSG00000077097",
+        "uniprot": "Q02880",
+        "entrez": "7155",
+        "location": "3p24.2",
+        "function": "Key decatenating enzyme. Plays a role in B-cell differentiation. Cardiotoxicity mediator of doxorubicin.",
+        "chembl_target": "CHEMBL:CHEMBL3396",
+        "source": "hgnc_get_gene(HGNC:11990), opentargets_get_target(ENSG00000077097)"
+      }
+    },
+    {
+      "id": "HGNC:7782",
+      "type": "Gene",
+      "label": "NFE2L2",
+      "properties": {
+        "symbol": "NFE2L2",
+        "name": "NFE2 like bZIP transcription factor 2",
+        "aliases": ["NRF2", "NRF-2"],
+        "ensembl": "ENSG00000116044",
+        "uniprot": "Q16236",
+        "entrez": "4780",
+        "location": "2q31.2",
+        "source": "hgnc_get_gene(HGNC:7782)"
+      }
+    },
+    {
+      "id": "HGNC:23177",
+      "type": "Gene",
+      "label": "KEAP1",
+      "properties": {
+        "symbol": "KEAP1",
+        "name": "kelch like ECH associated protein 1",
+        "ensembl": "ENSG00000079999",
+        "uniprot": "Q14145",
+        "entrez": "9817",
+        "location": "19p13.2",
+        "source": "hgnc_get_gene(HGNC:23177)"
+      }
+    },
+    {
+      "id": "HGNC:2874",
+      "type": "Gene",
+      "label": "NQO1",
+      "properties": {
+        "symbol": "NQO1",
+        "name": "NAD(P)H quinone dehydrogenase 1",
+        "aliases": ["DT-diaphorase", "quinone reductase"],
+        "ensembl": "ENSG00000181019",
+        "uniprot": "P15559",
+        "entrez": "1728",
+        "location": "16q22.1",
+        "source": "hgnc_get_gene(HGNC:2874)"
+      }
+    },
+    {
+      "id": "HGNC:11180",
+      "type": "Gene",
+      "label": "SOD2",
+      "properties": {
+        "symbol": "SOD2",
+        "name": "superoxide dismutase 2",
+        "aliases": ["MnSOD"],
+        "ensembl": "ENSG00000291237",
+        "uniprot": "P04179",
+        "entrez": "6648",
+        "location": "6q25.3",
+        "source": "hgnc_get_gene(HGNC:11180)"
+      }
+    },
+    {
+      "id": "HGNC:1516",
+      "type": "Gene",
+      "label": "CAT",
+      "properties": {
+        "symbol": "CAT",
+        "name": "catalase",
+        "ensembl": "ENSG00000121691",
+        "uniprot": "P04040",
+        "entrez": "847",
+        "location": "11p13",
+        "source": "hgnc_get_gene(HGNC:1516)"
+      }
+    },
+    {
+      "id": "HGNC:5013",
+      "type": "Gene",
+      "label": "HMOX1",
+      "properties": {
+        "symbol": "HMOX1",
+        "name": "heme oxygenase 1",
+        "aliases": ["HO-1"],
+        "ensembl": "ENSG00000100292",
+        "uniprot": "P09601",
+        "entrez": "3162",
+        "location": "22q12.3",
+        "source": "hgnc_get_gene(HGNC:5013)"
+      }
+    },
+    {
+      "id": "HGNC:40",
+      "type": "Gene",
+      "label": "ABCB1",
+      "properties": {
+        "symbol": "ABCB1",
+        "name": "ATP binding cassette subfamily B member 1",
+        "aliases": ["MDR1", "P-glycoprotein", "P-gp"],
+        "ensembl": "ENSG00000085563",
+        "uniprot": "P08183",
+        "entrez": "5243",
+        "location": "7q21.12",
+        "source": "hgnc_get_gene(HGNC:40)"
+      }
+    },
+    {
+      "id": "HGNC:1549",
+      "type": "Gene",
+      "label": "CBR3",
+      "properties": {
+        "symbol": "CBR3",
+        "name": "carbonyl reductase 3",
+        "ensembl": "ENSG00000159231",
+        "uniprot": "O75828",
+        "entrez": "874",
+        "location": "21q22.12",
+        "source": "hgnc_get_gene(HGNC:1549)"
+      }
+    },
+    {
+      "id": "HGNC:9866",
+      "type": "Gene",
+      "label": "RARG",
+      "properties": {
+        "symbol": "RARG",
+        "name": "retinoic acid receptor gamma",
+        "ensembl": "ENSG00000172819",
+        "uniprot": "P13631",
+        "entrez": "5916",
+        "location": "12q13.13",
+        "source": "hgnc_get_gene(HGNC:9866)"
+      }
+    },
+    {
+      "id": "HGNC:20302",
+      "type": "Gene",
+      "label": "SLC22A16",
+      "properties": {
+        "symbol": "SLC22A16",
+        "name": "solute carrier family 22 member 16",
+        "aliases": ["CT2", "OAT6"],
+        "ensembl": "ENSG00000004809",
+        "uniprot": "Q86VW1",
+        "entrez": "85413",
+        "location": "6q21",
+        "source": "hgnc_get_gene(HGNC:20302)"
+      }
+    },
+    {
+      "id": "CHEMBL:53463",
+      "type": "Compound",
+      "label": "Doxorubicin",
+      "properties": {
+        "chembl_id": "CHEMBL:53463",
+        "pubchem_cid": "PubChem:CID31703",
+        "molecular_weight": 543.53,
+        "max_phase": 4,
+        "mechanism": "DNA topoisomerase II alpha inhibitor",
+        "synonyms": ["Adriamycin", "Hydroxydaunorubicin"],
+        "source": "chembl_get_compound(CHEMBL:53463), pubchem_get_compound(PubChem:CID31703), Open Targets GraphQL knownDrugs(ENSG00000131747)"
+      }
+    },
+    {
+      "id": "CHEMBL:1738",
+      "type": "Compound",
+      "label": "Dexrazoxane",
+      "properties": {
+        "chembl_id": "CHEMBL:1738",
+        "molecular_weight": 268.27,
+        "max_phase": 4,
+        "mechanism": "DNA topoisomerase II inhibitor",
+        "synonyms": ["ICRF-187", "Cardioxane", "ADR-529"],
+        "source": "chembl_get_compound(CHEMBL:1738), Open Targets GraphQL knownDrugs(ENSG00000077097)"
+      }
+    },
+    {
+      "id": "CHEMBL:1614701",
+      "type": "Compound",
+      "label": "Selumetinib",
+      "properties": {
+        "chembl_id": "CHEMBL:1614701",
+        "max_phase": 4,
+        "mechanism": "MEK inhibitor",
+        "source": "chembl_search_compounds(selumetinib)"
+      }
+    },
+    {
+      "id": "MONDO:0018975",
+      "type": "Disease",
+      "label": "Neurofibromatosis type 1",
+      "properties": {
+        "association_score": 0.885,
+        "source": "opentargets_get_associations(ENSG00000196712)"
+      }
+    },
+    {
+      "id": "WP:WP2735",
+      "type": "Pathway",
+      "label": "RAF/MAP kinase cascade",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "wikipathways_get_pathways_for_gene(NF1)"
+      }
+    },
+    {
+      "id": "WP:WP408",
+      "type": "Pathway",
+      "label": "Oxidative stress response",
+      "properties": {
+        "organism": "Homo sapiens",
+        "key_genes": ["NFE2L2", "NQO1", "SOD1", "SOD2", "SOD3", "CAT", "GPX1", "GPX3", "HMOX1", "GSR", "GCLC", "TXNRD1", "TXNRD2"],
+        "source": "wikipathways_search_pathways(oxidative stress), wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "id": "WP:WP3",
+      "type": "Pathway",
+      "label": "Transcriptional activation by NRF2 in response to phytochemicals",
+      "properties": {
+        "organism": "Homo sapiens",
+        "key_genes": ["NFE2L2", "KEAP1", "NQO1", "HMOX1", "GCLC", "GCLM", "GSTA2", "SLC7A11", "MAF"],
+        "source": "wikipathways_get_pathways_for_gene(NFE2L2), wikipathways_get_pathway_components(WP:WP3)"
+      }
+    },
+    {
+      "id": "WP:WP3612",
+      "type": "Pathway",
+      "label": "Photodynamic therapy-induced NFE2L2 (NRF2) survival signaling",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "wikipathways_get_pathways_for_gene(NFE2L2)"
+      }
+    },
+    {
+      "id": "NCT:03934905",
+      "type": "ClinicalTrial",
+      "label": "Sulforaphane for Doxorubicin Cardiotoxicity",
+      "properties": {
+        "title": "Phase II Trial of Effects of the Nutritional Supplement Sulforaphane on Doxorubicin-Associated Cardiac Dysfunction",
+        "status": "RECRUITING",
+        "intervention": "sulforaphane",
+        "sponsor": "Texas Tech University Health Sciences Center",
+        "primary_outcome": "Change in cardiac function via 2D Echo",
+        "source": "clinicaltrials_get_trial(NCT:03934905)"
+      }
+    },
+    {
+      "id": "NCT:00304083",
+      "type": "ClinicalTrial",
+      "label": "Doxorubicin for NF1-MPNST",
+      "properties": {
+        "title": "Phase II Trial of Chemotherapy in Sporadic and NF1 Associated High Grade MPNSTs",
+        "status": "COMPLETED",
+        "intervention": "doxorubicin hydrochloride, etoposide, ifosfamide",
+        "sponsor": "Sarcoma Alliance for Research through Collaboration",
+        "source": "clinicaltrials_get_trial(NCT:00304083)"
+      }
+    },
+    {
+      "id": "NCT:03433183",
+      "type": "ClinicalTrial",
+      "label": "Selumetinib + Sirolimus for NF1-MPNST",
+      "properties": {
+        "title": "SARC031: MEK Inhibitor Selumetinib + mTOR Inhibitor Sirolimus for MPNST",
+        "status": "COMPLETED",
+        "intervention": "Selumetinib, Sirolimus",
+        "sponsor": "SARC + DoD + AstraZeneca",
+        "source": "clinicaltrials_get_trial(NCT:03433183)"
+      }
+    },
+    {
+      "id": "NCT:05858710",
+      "type": "ClinicalTrial",
+      "label": "DPPG2-TSL-DOX + Dexrazoxane for STS",
+      "properties": {
+        "title": "Phase I Dose Escalation Study of DPPG2-TSL-DOX Combined With Regional Hyperthermia in STS",
+        "status": "COMPLETED",
+        "intervention": "DPPG2-TSL-DOX, Dexrazoxane",
+        "sponsor": "Thermosome GmbH",
+        "source": "clinicaltrials_get_trial(NCT:05858710)"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:7765",
+      "target": "MONDO:0018975",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.885,
+        "source": "opentargets_get_associations(ENSG00000196712)"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "WP:WP2735",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source": "wikipathways_get_pathways_for_gene(NF1)"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11989",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II alpha inhibitor",
+        "phase": 4,
+        "relationship": "Anti-tumor efficacy target",
+        "source": "Open Targets GraphQL knownDrugs(ENSG00000131747)"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11990",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II inhibitor (off-target)",
+        "relationship": "Cardiotoxicity mediator",
+        "source": "Open Targets GraphQL knownDrugs(ENSG00000077097)"
+      }
+    },
+    {
+      "source": "CHEMBL:1738",
+      "target": "HGNC:11990",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II inhibitor",
+        "phase": 4,
+        "relationship": "Cardioprotection via TOP2B inhibition",
+        "source": "Open Targets GraphQL knownDrugs(ENSG00000077097)"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "WP:WP408",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Master regulator of antioxidant response",
+        "source": "wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "WP:WP3",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source": "wikipathways_get_pathways_for_gene(NFE2L2)"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "WP:WP3612",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source": "wikipathways_get_pathways_for_gene(NFE2L2)"
+      }
+    },
+    {
+      "source": "HGNC:23177",
+      "target": "HGNC:7782",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "repression",
+        "mechanism": "KEAP1 negatively regulates NFE2L2 (NRF2) via ubiquitin-mediated degradation",
+        "source": "wikipathways_get_pathway_components(WP:WP3)"
+      }
+    },
+    {
+      "source": "HGNC:2874",
+      "target": "WP:WP408",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Quinone detoxification",
+        "source": "wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "source": "HGNC:2874",
+      "target": "WP:WP3",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source": "wikipathways_get_pathway_components(WP:WP3)"
+      }
+    },
+    {
+      "source": "HGNC:11180",
+      "target": "WP:WP408",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Mitochondrial superoxide dismutase",
+        "source": "wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "source": "HGNC:1516",
+      "target": "WP:WP408",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Hydrogen peroxide decomposition",
+        "source": "wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "source": "HGNC:5013",
+      "target": "WP:WP408",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Heme catabolism, cytoprotective",
+        "source": "wikipathways_get_pathway_components(WP:WP408)"
+      }
+    },
+    {
+      "source": "HGNC:5013",
+      "target": "WP:WP3",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source": "wikipathways_get_pathway_components(WP:WP3)"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:11989",
+      "type": "CO_LOCATED",
+      "properties": {
+        "note": "Both on chromosome 17 (NF1: 17q11.2, TOP2A: 17q21.2)",
+        "source": "hgnc_get_gene(HGNC:7765), hgnc_get_gene(HGNC:11989)"
+      }
+    },
+    {
+      "source": "CHEMBL:1614701",
+      "target": "WP:WP2735",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "MEK inhibitor targeting RAS-MAPK cascade hyperactivated by NF1 loss",
+        "source": "chembl_search_compounds(selumetinib), clinicaltrials_get_trial(NCT:03433183)"
+      }
+    },
+    {
+      "source": "NCT:03934905",
+      "target": "HGNC:7782",
+      "type": "INVESTIGATES",
+      "properties": {
+        "intervention": "Sulforaphane (NRF2 activator)",
+        "condition": "Anthracycline Related Cardiotoxicity in Breast Cancer",
+        "source": "clinicaltrials_get_trial(NCT:03934905)"
+      }
+    },
+    {
+      "source": "NCT:00304083",
+      "target": "HGNC:7765",
+      "type": "INVESTIGATES",
+      "properties": {
+        "intervention": "doxorubicin + etoposide + ifosfamide",
+        "condition": "NF1-associated MPNST",
+        "source": "clinicaltrials_get_trial(NCT:00304083)"
+      }
+    },
+    {
+      "source": "NCT:03433183",
+      "target": "HGNC:7765",
+      "type": "INVESTIGATES",
+      "properties": {
+        "intervention": "Selumetinib + Sirolimus",
+        "condition": "NF1-associated MPNST",
+        "source": "clinicaltrials_get_trial(NCT:03433183)"
+      }
+    },
+    {
+      "source": "NCT:05858710",
+      "target": "CHEMBL:1738",
+      "type": "INVESTIGATES",
+      "properties": {
+        "intervention": "DPPG2-TSL-DOX + Dexrazoxane",
+        "condition": "Soft Tissue Sarcoma",
+        "source": "clinicaltrials_get_trial(NCT:05858710)"
+      }
+    }
+  ]
+}

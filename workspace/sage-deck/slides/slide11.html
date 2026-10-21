@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #ffffff; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; flex-direction: column;  }
+</style></head><body><div style="background: #1B2A4A; padding: 14pt 28pt; min-height: 44pt; flex-shrink: 0;">
+  <h1 style="color: #FFFFFF; font-size: 22pt; margin: 0; font-weight: bold;">Evidence Grading: L1-L4 Pyramid</h1>
+</div>
+<div style="flex: 1; padding: 10pt 20pt; display: flex; gap: 14pt;">
+  <div style="flex: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4pt;">
+    <div style="width: 55%; background: #1B2A4A; border-radius: 3pt; padding: 6pt 10pt; text-align: center;">
+      <p style="color: #FFFFFF; font-size: 8pt; font-weight: bold; margin: 0;">L4 — Clinical Evidence (0.90-1.00)</p>
+      <p style="color: #CBD5E1; font-size: 6.5pt; margin: 2pt 0 0 0;">Drug-target confirmed by trials or FDA approval</p>
+    </div><div style="width: 65%; background: #2D4A6A; border-radius: 3pt; padding: 6pt 10pt; text-align: center;">
+      <p style="color: #FFFFFF; font-size: 8pt; font-weight: bold; margin: 0;">L3 — Functional Evidence (0.70-0.89)</p>
+      <p style="color: #CBD5E1; font-size: 6.5pt; margin: 2pt 0 0 0;">Validated by experimental data (STRING, BioGRID)</p>
+    </div><div style="width: 78%; background: #3D5A7A; border-radius: 3pt; padding: 6pt 10pt; text-align: center;">
+      <p style="color: #FFFFFF; font-size: 8pt; font-weight: bold; margin: 0;">L2 — Multi-Database (0.50-0.69)</p>
+      <p style="color: #CBD5E1; font-size: 6.5pt; margin: 2pt 0 0 0;">Confirmed across 2+ databases</p>
+    </div><div style="width: 90%; background: #5A7A9A; border-radius: 3pt; padding: 6pt 10pt; text-align: center;">
+      <p style="color: #FFFFFF; font-size: 8pt; font-weight: bold; margin: 0;">L1 — Single Database (0.30-0.49)</p>
+      <p style="color: #CBD5E1; font-size: 6.5pt; margin: 2pt 0 0 0;">Found in one source only</p>
+    </div>
+  </div>
+  <div style="flex: 2; display: flex; align-items: center;">
+    <div style="background: #ECFDF5; border: 2pt solid #2E8B8B; border-radius: 6pt; padding: 12pt;">
+      <p style="color: #1B2A4A; font-size: 9pt; font-weight: bold; margin: 0 0 6pt 0;">Synapse Grounding Upgrade</p>
+      <p style="color: #374151; font-size: 7.5pt; margin: 0; line-height: 1.5;">When a KG node or edge is grounded in a Synapse dataset, its evidence level can be upgraded.</p>
+      <p style="color: #2E8B8B; font-size: 7.5pt; margin: 6pt 0 0 0; font-weight: bold;">Example:</p>
+      <p style="color: #374151; font-size: 7pt; margin: 2pt 0 0 0; line-height: 1.4;">NRF2/KEAP1 at L2 &#8594; grounded by syn205590 (Nrf2 KO mouse) &#8594; upgradeable to L3</p>
+    </div>
+  </div>
+</div></body></html>

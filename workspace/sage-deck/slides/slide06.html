@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #ffffff; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; flex-direction: column;  }
+</style></head><body><div style="background: #1B2A4A; padding: 14pt 28pt; min-height: 44pt; flex-shrink: 0;">
+  <h1 style="color: #FFFFFF; font-size: 22pt; margin: 0; font-weight: bold;">The Fuzzy-to-Fact Protocol</h1><p style="color: #94A3B8; font-size: 11pt; margin: 4pt 0 0 0;">7-Phase Structured Workflow</p>
+</div>
+<div style="flex: 1; padding: 16pt 14pt 8pt 14pt; display: flex; flex-direction: column; justify-content: center; gap: 16pt;">
+  <div style="display: flex; align-items: stretch; gap: 3pt;">
+    <div style="flex: 1; background: #1B2A4A; border-radius: 4pt; padding: 6pt 3pt; text-align: center;">
+      <p style="color: #2E8B8B; font-size: 7pt; margin: 0; font-weight: bold;">1</p>
+      <p style="color: #FFFFFF; font-size: 8pt; margin: 2pt 0; font-weight: bold;">ANCHOR</p>
+      <p style="color: #94A3B8; font-size: 5.5pt; margin: 0;">Resolve entities to canonical IDs</p>
+    </div><div style="display: flex; align-items: center; flex-shrink: 0;"><p style="color: #2E8B8B; font-size: 14pt; margin: 0; font-weight: bold;">&#8594;</p></div><div style="flex: 1; background: #1B2A4A; border-radius: 4pt; padding: 6pt 3pt; text-align: center;">
+      <p style="color: #2E8B8B; font-size: 7pt; margin: 0; font-weight: bold;">2</p>
+      <p style="color: #FFFFFF; font-size: 8pt; margin: 2pt 0; font-weight: bold;">ENRICH</p>
+      <p style="color: #94A3B8; font-size: 5.5pt; margin: 0;">Cross-reference functional metadata</p>
+    </div><div style="display: flex; align-items: center; flex-shrink: 0;"><p style="color: #2E8B8B; font-size: 14pt; margin: 0; font-weight: bold;">&#8594;</p></div><div style="flex: 1; background: #1B2A4A; border-radius: 4pt; padding: 6pt 3pt; text-align: center;">
+      <p style="color: #2E8B8B; font-size: 7pt; margin: 0; font-weight: bold;">3</p>
+      <p style="color: #FFFFFF; font-size: 8pt; margin: 2pt 0; font-weight: bold;">EXPAND</p>
+      <p style="color: #94A3B8; font-size: 5.5pt; margin: 0;">Discover interaction networks</p>
+    </div><div style="display: flex; align-items: center; flex-shrink: 0;"><p style="color: #2E8B8B; font-size: 14pt; margin: 0; font-weight: bold;">&#8594;</p></div><div style="flex: 1; background: #1B2A4A; border-radius: 4pt; padding: 6pt 3pt; text-align: center;">
+      <p style="color: #2E8B8B; font-size: 7pt; margin: 0; font-weight: bold;">4a</p>
+      <p style="color: #FFFFFF; font-size: 8pt; margin: 2pt 0; font-weight: bold;">DRUGS</p>
+      <p style="color: #94A3B8; font-size: 5.5pt; margin: 0;">Find therapeutics for targets</p>
+    </div><div style="display: flex; align-items: center; flex-shrink: 0;"><p style="color: #2E8B8B; font-size: 14pt; margin: 0; font-weight: bold;">&#8594;</p></div><div style="flex: 1; background: #1B2A4A; border-radius: 4pt; padding: 6pt 3pt; text-align: center;">
+      <p style="color: #2E8B8B; font-size: 7pt; margin: 0; font-weight: bold;">4b</p>
+      <p style="color: #FFFFFF; font-size: 8pt; margin: 2pt 0; font-weight: bold;">TRIALS</p>
+      <p style="color: #94A3B8; font-size: 5.5pt; margin: 0;">Find clinical trials</p>
+    </div><div style="display: flex; align-items: center; flex-shrink: 0;"><p style="color: #2E8B8B; font-size: 14pt; margin: 0; font-weight: bold;">&#8594;</p></div><div style="flex: 1; background: #1B2A4A; border-radius: 4pt; padding: 6pt 3pt; text-align: center;">
+      <p style="color: #2E8B8B; font-size: 7pt; margin: 0; font-weight: bold;">5</p>
+      <p style="color: #FFFFFF; font-size: 8pt; margin: 2pt 0; font-weight: bold;">VALIDATE</p>
+      <p style="color: #94A3B8; font-size: 5.5pt; margin: 0;">Verify claims, grade evidence</p>
+    </div><div style="display: flex; align-items: center; flex-shrink: 0;"><p style="color: #2E8B8B; font-size: 14pt; margin: 0; font-weight: bold;">&#8594;</p></div><div style="flex: 1; background: #1B2A4A; border-radius: 4pt; padding: 6pt 3pt; text-align: center;">
+      <p style="color: #2E8B8B; font-size: 7pt; margin: 0; font-weight: bold;">6</p>
+      <p style="color: #FFFFFF; font-size: 8pt; margin: 2pt 0; font-weight: bold;">PERSIST</p>
+      <p style="color: #94A3B8; font-size: 5.5pt; margin: 0;">Generate knowledge graph</p>
+    </div>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 4pt; justify-content: center; padding: 8pt 0;">
+    <div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">HGNC</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">ChEMBL</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">UniProt</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">Ensembl</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">STRING</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">BioGRID</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">Open Targets</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">PubChem</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">WikiPathways</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">ClinicalTrials.gov</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">PubMed</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">Entrez</p>
+    </div><div style="background: #F0F2F5; border: 1pt solid #D1D5DB; border-radius: 10pt; padding: 3pt 7pt;">
+      <p style="color: #1B2A4A; font-size: 6pt; margin: 0; white-space: nowrap;">IUPHAR</p>
+    </div>
+  </div>
+  <p style="color: #6B7280; font-size: 7pt; margin: 0; text-align: center;">13 biomedical APIs orchestrated across 7 phases with dedicated specialist agents</p>
+</div></body></html>
