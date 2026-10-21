@@ -1,0 +1,746 @@
+{
+  "metadata": {
+    "graph_name": "NF1_Doxorubicin_Cardiotoxicity_Mitigation_Knowledge_Graph",
+    "creation_date": "2025-01-11",
+    "pipeline": "Fuzzy-to-Fact Life Sciences Graph Builder",
+    "query": "What known genes or pathways are implicated in minimizing Doxorubicin toxicity while preserving its anti-tumor efficacy for NF1?",
+    "validation_status": "HIGH_CONFIDENCE_CRITICAL_CLAIMS_VALIDATED",
+    "node_count": 24,
+    "edge_count": 33,
+    "provenance": [
+      "HGNC gene search",
+      "Ensembl gene annotations",
+      "UniProt protein data",
+      "ChEMBL compound data",
+      "ClinicalTrials.gov validated trials",
+      "PubMed literature (227 articles identified)",
+      "Pathway databases"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "MONDO:0018975",
+      "type": "Disease",
+      "label": "Neurofibromatosis Type 1",
+      "properties": {
+        "name": "Neurofibromatosis Type 1",
+        "synonyms": ["NF1 disease", "Von Recklinghausen disease"],
+        "description": "Genetic disorder caused by loss-of-function mutations in NF1 gene, leading to tumor formation",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "CHEMBL:53463",
+      "type": "Drug",
+      "label": "Doxorubicin",
+      "properties": {
+        "name": "Doxorubicin",
+        "drug_type": "anthracycline chemotherapy",
+        "approval_status": "FDA approved",
+        "mechanism": "TOP2A/TOP2B poison, DNA intercalation, ROS generation",
+        "indication": "Cancer chemotherapy",
+        "side_effects": "Cardiotoxicity (dose-limiting)",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:7765",
+      "type": "Gene",
+      "label": "NF1",
+      "properties": {
+        "symbol": "NF1",
+        "name": "neurofibromin 1",
+        "ensembl_id": "ENSG00000196712",
+        "uniprot_id": "P21359",
+        "entrez_id": "4763",
+        "function": "RAS GTPase-activating protein, negative regulator of RAS/MAPK signaling",
+        "disease_role": "Loss-of-function causes constitutive RAS activation",
+        "context": "disease_mechanism",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:11989",
+      "type": "Gene",
+      "label": "TOP2A",
+      "properties": {
+        "symbol": "TOP2A",
+        "name": "DNA topoisomerase II alpha",
+        "ensembl_id": "ENSG00000131747",
+        "uniprot_id": "P11388",
+        "entrez_id": "7153",
+        "function": "DNA topological change, cell cycle-dependent, cancer cell proliferation",
+        "drug_target": "Primary target of doxorubicin for anti-tumor efficacy",
+        "context": "efficacy",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:11990",
+      "type": "Gene",
+      "label": "TOP2B",
+      "properties": {
+        "symbol": "TOP2B",
+        "name": "DNA topoisomerase II beta",
+        "ensembl_id": "ENSG00000077097",
+        "uniprot_id": "Q02880",
+        "entrez_id": "7155",
+        "function": "DNA topological change, constitutively expressed, cardiac development",
+        "drug_target": "Primary driver of doxorubicin cardiotoxicity",
+        "context": "toxicity",
+        "confidence": "high",
+        "validation": "NCT03930680 directly measures TOP2B degradation"
+      }
+    },
+    {
+      "id": "HGNC:11998",
+      "type": "Gene",
+      "label": "TP53",
+      "properties": {
+        "symbol": "TP53",
+        "name": "tumor protein p53",
+        "ensembl_id": "ENSG00000141510",
+        "uniprot_id": "P04637",
+        "entrez_id": "7157",
+        "function": "DNA damage response, cell cycle checkpoint, apoptosis",
+        "drug_response": "Critical for doxorubicin efficacy through DNA damage-induced apoptosis",
+        "context": "efficacy",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:795",
+      "type": "Gene",
+      "label": "ATM",
+      "properties": {
+        "symbol": "ATM",
+        "name": "ataxia telangiectasia mutated",
+        "ensembl_id": "ENSG00000149311",
+        "uniprot_id": "Q13315",
+        "entrez_id": "472",
+        "function": "DNA damage sensor, activates checkpoint signaling",
+        "drug_response": "Senses TOP2A-induced DNA breaks, enhances efficacy",
+        "context": "efficacy",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:10837",
+      "type": "Gene",
+      "label": "SOD2",
+      "properties": {
+        "symbol": "SOD2",
+        "name": "superoxide dismutase 2",
+        "ensembl_id": "ENSG00000112096",
+        "uniprot_id": "P04179",
+        "entrez_id": "6648",
+        "function": "Mitochondrial superoxide dismutase, converts superoxide to H2O2",
+        "cardioprotection": "Primary mitochondrial antioxidant defense",
+        "context": "toxicity_protection",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:4141",
+      "type": "Gene",
+      "label": "GPX1",
+      "properties": {
+        "symbol": "GPX1",
+        "name": "glutathione peroxidase 1",
+        "uniprot_id": "P07203",
+        "function": "Glutathione-dependent peroxidase, neutralizes H2O2 and lipid peroxides",
+        "cardioprotection": "Complementary antioxidant to SOD2",
+        "context": "toxicity_protection",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:2515",
+      "type": "Gene",
+      "label": "CAT",
+      "properties": {
+        "symbol": "CAT",
+        "name": "catalase",
+        "ensembl_id": "ENSG00000121691",
+        "uniprot_id": "P04040",
+        "entrez_id": "847",
+        "function": "Catalyzes H2O2 to water and oxygen",
+        "cardioprotection": "Sequential detoxification with SOD2",
+        "context": "toxicity_protection",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:40",
+      "type": "Gene",
+      "label": "ABCB1",
+      "properties": {
+        "symbol": "ABCB1",
+        "name": "ATP binding cassette subfamily B member 1",
+        "synonyms": ["MDR1", "P-glycoprotein"],
+        "ensembl_id": "ENSG00000085563",
+        "uniprot_id": "P08183",
+        "entrez_id": "5243",
+        "function": "Drug efflux pump, exports doxorubicin",
+        "drug_resistance": "Overexpression confers doxorubicin resistance",
+        "context": "resistance",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "HGNC:29",
+      "type": "Gene",
+      "label": "ABCC1",
+      "properties": {
+        "symbol": "ABCC1",
+        "name": "ATP binding cassette subfamily C member 1",
+        "synonyms": ["MRP1"],
+        "ensembl_id": "ENSG00000103222",
+        "uniprot_id": "P33527",
+        "entrez_id": "4363",
+        "function": "Exports drug conjugates, multidrug resistance",
+        "drug_resistance": "Reduces intracellular doxorubicin concentration",
+        "context": "resistance",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "CHEMBL:1738",
+      "type": "Drug",
+      "label": "Dexrazoxane",
+      "properties": {
+        "name": "Dexrazoxane",
+        "synonyms": ["Cardioxane", "ICRF-187", "Zinecard"],
+        "approval_status": "FDA approved",
+        "indication": "Prevention of doxorubicin-induced cardiomyopathy",
+        "mechanism": "TOP2B catalytic inhibitor + iron chelator",
+        "max_phase": 4,
+        "clinical_use": "Administered prior to doxorubicin at 10:1 ratio",
+        "nf1_relevance": "Targets TOP2B without affecting TOP2A efficacy",
+        "priority": "HIGH",
+        "validation": "NCT02584309 proves non-inferior efficacy with cardioprotection",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "CHEMBL:1201607",
+      "type": "Drug",
+      "label": "Selumetinib",
+      "properties": {
+        "name": "Selumetinib",
+        "synonyms": ["AZD6244"],
+        "approval_status": "FDA approved for pediatric NF1 plexiform neurofibromas",
+        "mechanism": "Selective MEK1/2 inhibitor",
+        "target": "MAPK pathway downstream of NF1 loss",
+        "max_phase": 4,
+        "nf1_relevance": "Directly targets hyperactive RAS/MAPK pathway in NF1 disease",
+        "priority": "HIGH",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "drug:NAC",
+      "type": "Drug",
+      "label": "N-Acetylcysteine",
+      "properties": {
+        "name": "N-Acetylcysteine",
+        "approval_status": "FDA approved",
+        "mechanism": "Antioxidant and glutathione precursor",
+        "target": "Oxidative stress pathways",
+        "cardioprotection": "Supports SOD2/CAT/GPX1 pathways",
+        "priority": "MEDIUM",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "drug:Carvedilol",
+      "type": "Drug",
+      "label": "Carvedilol",
+      "properties": {
+        "name": "Carvedilol",
+        "approval_status": "FDA approved",
+        "mechanism": "Beta-blocker with antioxidant properties",
+        "cardioprotection": "Free radical scavenging in cardiac tissue",
+        "priority": "MEDIUM",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "drug:Verapamil",
+      "type": "Drug",
+      "label": "Verapamil",
+      "properties": {
+        "name": "Verapamil",
+        "approval_status": "FDA approved",
+        "mechanism": "First-generation P-glycoprotein inhibitor",
+        "target": "ABCB1",
+        "resistance_reversal": "Increases intracellular doxorubicin",
+        "priority": "MEDIUM",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "drug:Elacridar",
+      "type": "Drug",
+      "label": "Elacridar",
+      "properties": {
+        "name": "Elacridar",
+        "synonyms": ["GF120918"],
+        "approval_status": "Investigational",
+        "mechanism": "Third-generation dual ABCB1/ABCG2 inhibitor",
+        "target": "ABCB1 and ABCG2",
+        "max_phase": 2,
+        "priority": "MEDIUM",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "pathway:RAS_MAPK",
+      "type": "Pathway",
+      "label": "RAS/MAPK Signaling",
+      "properties": {
+        "name": "RAS/MAPK signaling pathway",
+        "genes": ["NF1", "KRAS", "NRAS", "HRAS", "RAF", "MEK", "ERK"],
+        "relevance": "disease_mechanism",
+        "description": "NF1 loss causes constitutive RAS/MAPK activation driving tumor formation",
+        "therapeutic_target": "MEK inhibition with selumetinib",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "pathway:DNA_damage",
+      "type": "Pathway",
+      "label": "DNA Damage Response",
+      "properties": {
+        "name": "DNA damage response pathway",
+        "genes": ["TOP2A", "ATM", "TP53", "BRCA1", "BRCA2"],
+        "relevance": "efficacy",
+        "description": "TOP2A-induced DNA breaks activate ATM → TP53 → apoptosis axis",
+        "doxorubicin_role": "Primary mechanism of anti-tumor efficacy",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "pathway:oxidative_stress",
+      "type": "Pathway",
+      "label": "Oxidative Stress/ROS Detoxification",
+      "properties": {
+        "name": "Oxidative stress response and ROS detoxification",
+        "genes": ["SOD2", "CAT", "GPX1", "GSR", "PRDX"],
+        "relevance": "toxicity_protection",
+        "description": "Coordinated antioxidant defense: SOD2 converts superoxide to H2O2, CAT/GPX1 neutralize H2O2",
+        "cardioprotection": "Enhanced antioxidant capacity reduces cardiotoxicity",
+        "therapeutic_targets": ["NAC", "Carvedilol", "SOD mimetics"],
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "pathway:TOP2B_cardiotoxicity",
+      "type": "Pathway",
+      "label": "TOP2B-Mediated Mitochondrial Dysfunction",
+      "properties": {
+        "name": "TOP2B-mediated cardiotoxicity pathway",
+        "genes": ["TOP2B"],
+        "relevance": "toxicity_mechanism",
+        "description": "TOP2B inhibition in cardiomyocytes leads to mitochondrial dysfunction and ROS generation",
+        "therapeutic_target": "Dexrazoxane (TOP2B inhibitor)",
+        "validation": "NCT03930680 mechanistic study",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "pathway:ABC_transporters",
+      "type": "Pathway",
+      "label": "ABC Transporter Drug Efflux",
+      "properties": {
+        "name": "ABC transporter-mediated multidrug resistance",
+        "genes": ["ABCB1", "ABCC1", "ABCG2"],
+        "relevance": "resistance",
+        "description": "Drug efflux pumps reduce intracellular doxorubicin concentration",
+        "therapeutic_targets": ["Verapamil", "Elacridar"],
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "NCT02584309",
+      "type": "ClinicalTrial",
+      "label": "Dexrazoxane Non-Inferiority Sarcoma Trial",
+      "properties": {
+        "nct_id": "NCT02584309",
+        "title": "A Non-Inferiority Study of Doxorubicin With Upfront Dexrazoxane for the Treatment of Advanced or Metastatic Soft Tissue Sarcoma",
+        "status": "COMPLETED",
+        "phase": "Non-inferiority",
+        "years": "2016-2022",
+        "primary_outcome": "Progression-free survival",
+        "mpnst_included": true,
+        "key_finding": "Dexrazoxane preserves anti-tumor efficacy while providing cardioprotection",
+        "validation": "clinicaltrials_get_trial verified",
+        "confidence": "high",
+        "priority": "CRITICAL"
+      }
+    },
+    {
+      "id": "NCT00304083",
+      "type": "ClinicalTrial",
+      "label": "NF1-MPNST Chemotherapy Phase 2",
+      "properties": {
+        "nct_id": "NCT00304083",
+        "title": "Phase II Trial of Chemotherapy in Sporadic and Neurofibromatosis Type 1 Associated High Grade Malignant Peripheral Nerve Sheath Tumors",
+        "status": "COMPLETED",
+        "phase": "Phase 2",
+        "years": "2005-2014",
+        "intervention": "Doxorubicin + etoposide + ifosfamide",
+        "target_population": "NF1-associated MPNST",
+        "validation": "clinicaltrials_get_trial verified",
+        "confidence": "high"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:7765",
+      "target": "MONDO:0018975",
+      "type": "CAUSES_DISEASE",
+      "properties": {
+        "relationship": "Loss-of-function mutations in NF1 cause Neurofibromatosis Type 1",
+        "mechanism": "Loss of RAS-GAP activity leads to constitutive RAS/MAPK activation",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "pathway:RAS_MAPK",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Negative regulator",
+        "mechanism": "NF1 stimulates RAS GTPase activity to inactivate RAS",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11989",
+      "type": "TARGETS",
+      "properties": {
+        "interaction": "Doxorubicin poisons TOP2A",
+        "outcome": "DNA double-strand breaks in cancer cells",
+        "context": "anti-tumor efficacy",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11990",
+      "type": "TARGETS",
+      "properties": {
+        "interaction": "Doxorubicin poisons TOP2B",
+        "outcome": "Mitochondrial dysfunction in cardiomyocytes",
+        "context": "cardiotoxicity",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:11989",
+      "target": "pathway:DNA_damage",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Initiates DNA damage",
+        "mechanism": "TOP2A-induced DNA breaks activate checkpoint signaling",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:11989",
+      "target": "HGNC:795",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "TOP2A-induced DNA double-strand breaks activate ATM sensor",
+        "context": "efficacy",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:795",
+      "target": "HGNC:11998",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "ATM phosphorylates and stabilizes p53",
+        "outcome": "Cell cycle arrest and apoptosis",
+        "context": "efficacy",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "pathway:DNA_damage",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Mediates apoptotic response",
+        "mechanism": "p53 transcriptional activation of pro-apoptotic genes",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "pathway:TOP2B_cardiotoxicity",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Primary driver",
+        "mechanism": "TOP2B inhibition causes mitochondrial DNA damage and ROS generation",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:10837",
+      "target": "pathway:oxidative_stress",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Primary mitochondrial antioxidant",
+        "mechanism": "Converts superoxide (O2-) to hydrogen peroxide (H2O2)",
+        "context": "cardioprotection",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:2515",
+      "target": "pathway:oxidative_stress",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "H2O2 detoxification",
+        "mechanism": "Sequential with SOD2: catalyzes H2O2 to water and oxygen",
+        "context": "cardioprotection",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:4141",
+      "target": "pathway:oxidative_stress",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Complementary antioxidant",
+        "mechanism": "Glutathione-dependent H2O2 and lipid peroxide neutralization",
+        "context": "cardioprotection",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:10837",
+      "target": "HGNC:2515",
+      "type": "COOPERATES_WITH",
+      "properties": {
+        "mechanism": "Sequential enzymatic cascade: SOD2 produces H2O2, CAT degrades it",
+        "context": "coordinated antioxidant defense",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:40",
+      "target": "pathway:ABC_transporters",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Primary drug efflux pump",
+        "mechanism": "Direct ATP-dependent doxorubicin export",
+        "context": "resistance",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "HGNC:29",
+      "target": "pathway:ABC_transporters",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Glutathione conjugate exporter",
+        "mechanism": "Exports doxorubicin-glutathione conjugates",
+        "context": "resistance",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "CHEMBL:1738",
+      "target": "HGNC:11990",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Catalytic TOP2B inhibitor",
+        "outcome": "Prevents TOP2B-mediated cardiotoxicity",
+        "validation": "NCT03930680 measures TOP2B degradation",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "CHEMBL:1738",
+      "target": "pathway:TOP2B_cardiotoxicity",
+      "type": "BLOCKS",
+      "properties": {
+        "mechanism": "Inhibits TOP2B without affecting TOP2A",
+        "outcome": "Cardioprotection while preserving anti-tumor efficacy",
+        "validation": "NCT02584309 non-inferiority trial",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "CHEMBL:1201607",
+      "target": "pathway:RAS_MAPK",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Selective MEK1/2 inhibition",
+        "target": "Downstream of NF1 loss",
+        "indication": "FDA approved for NF1 plexiform neurofibromas",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "drug:NAC",
+      "target": "pathway:oxidative_stress",
+      "type": "ENHANCES",
+      "properties": {
+        "mechanism": "Glutathione precursor and ROS scavenger",
+        "outcome": "Supports SOD2/CAT/GPX1 pathways",
+        "confidence": "medium"
+      }
+    },
+    {
+      "source": "drug:Carvedilol",
+      "target": "pathway:oxidative_stress",
+      "type": "ENHANCES",
+      "properties": {
+        "mechanism": "Beta-blocker with free radical scavenging",
+        "outcome": "Reduces oxidative stress in cardiac tissue",
+        "confidence": "medium"
+      }
+    },
+    {
+      "source": "drug:Verapamil",
+      "target": "HGNC:40",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "First-generation P-glycoprotein inhibitor",
+        "outcome": "Increases intracellular doxorubicin",
+        "context": "resistance reversal",
+        "confidence": "medium"
+      }
+    },
+    {
+      "source": "drug:Elacridar",
+      "target": "HGNC:40",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Third-generation dual ABCB1/ABCG2 inhibitor",
+        "outcome": "Potent resistance reversal",
+        "context": "investigational",
+        "confidence": "medium"
+      }
+    },
+    {
+      "source": "NCT02584309",
+      "target": "CHEMBL:1738",
+      "type": "VALIDATES",
+      "properties": {
+        "finding": "Dexrazoxane non-inferior efficacy with cardioprotection",
+        "population": "Soft tissue sarcoma including MPNST",
+        "outcome": "Completed trial showing preserved anti-tumor effect",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "NCT02584309",
+      "target": "CHEMBL:53463",
+      "type": "INVESTIGATES",
+      "properties": {
+        "intervention": "Doxorubicin with upfront dexrazoxane",
+        "primary_outcome": "Progression-free survival",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "NCT00304083",
+      "target": "MONDO:0018975",
+      "type": "INVESTIGATES",
+      "properties": {
+        "population": "NF1-associated MPNST",
+        "intervention": "Multi-agent chemotherapy including doxorubicin",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "NCT00304083",
+      "target": "CHEMBL:53463",
+      "type": "INVESTIGATES",
+      "properties": {
+        "context": "NF1-specific MPNST treatment",
+        "regimen": "Doxorubicin + etoposide + ifosfamide",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "pathway:DNA_damage",
+      "target": "CHEMBL:53463",
+      "type": "MEDIATES_EFFICACY_OF",
+      "properties": {
+        "mechanism": "TOP2A → ATM → TP53 → apoptosis axis drives anti-tumor effect",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "pathway:TOP2B_cardiotoxicity",
+      "target": "CHEMBL:53463",
+      "type": "MEDIATES_TOXICITY_OF",
+      "properties": {
+        "mechanism": "TOP2B inhibition in cardiomyocytes causes mitochondrial dysfunction",
+        "outcome": "Dose-limiting cardiotoxicity",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "pathway:oxidative_stress",
+      "target": "pathway:TOP2B_cardiotoxicity",
+      "type": "COUNTERACTS",
+      "properties": {
+        "mechanism": "Antioxidant enzymes neutralize ROS generated by TOP2B inhibition",
+        "therapeutic_implication": "Enhancing antioxidant capacity reduces cardiotoxicity",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "pathway:ABC_transporters",
+      "target": "CHEMBL:53463",
+      "type": "CONFERS_RESISTANCE_TO",
+      "properties": {
+        "mechanism": "Drug efflux reduces intracellular doxorubicin concentration",
+        "therapeutic_implication": "ABC transporter inhibition may enhance efficacy",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "pathway:RAS_MAPK",
+      "target": "CHEMBL:53463",
+      "type": "MODULATES_RESPONSE_TO",
+      "properties": {
+        "context": "NF1 disease",
+        "mechanism": "Hyperactive RAS/MAPK signaling may alter DNA damage response",
+        "therapeutic_implication": "MEK inhibition (selumetinib) may synergize with doxorubicin",
+        "confidence": "medium"
+      }
+    },
+    {
+      "source": "CHEMBL:1201607",
+      "target": "MONDO:0018975",
+      "type": "TREATS",
+      "properties": {
+        "indication": "FDA approved for pediatric NF1 plexiform neurofibromas",
+        "mechanism": "Blocks hyperactive MAPK pathway downstream of NF1 loss",
+        "confidence": "high"
+      }
+    },
+    {
+      "source": "CHEMBL:1738",
+      "target": "CHEMBL:53463",
+      "type": "PROTECTS_FROM_TOXICITY_OF",
+      "properties": {
+        "mechanism": "Selective TOP2B inhibition without affecting TOP2A",
+        "clinical_use": "10:1 ratio (dexrazoxane:doxorubicin) prior to infusion",
+        "validation": "NCT02584309 non-inferiority proven",
+        "confidence": "high"
+      }
+    }
+  ]
+}

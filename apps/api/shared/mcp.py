@@ -189,7 +189,7 @@ async def query_langchain_docs(query: str):
 
 
 # --- Life Sciences FastMCP ---
-LIFESCIENCES_MCP_URL = "https://lifesciences-research.fastmcp.app/mcp"
+LIFESCIENCES_MCP_URL = "https://biosciences-mcp.fastmcp.app/mcp"
 # ChEMBL requires longer timeout (120s) as noted in documentation
 lifesciences_client = HTTPMCPClient(
     LIFESCIENCES_MCP_URL,
@@ -580,7 +580,7 @@ async def query_api_direct(
 # --- Graphiti Persistence ---
 
 # Graphiti MCP client (connects to local Graphiti server)
-GRAPHITI_MCP_URL = "http://localhost:8000/mcp"
+GRAPHITI_MCP_URL = "http://localhost:8002/mcp"
 graphiti_client = HTTPMCPClient(GRAPHITI_MCP_URL, timeout=30.0)
 
 

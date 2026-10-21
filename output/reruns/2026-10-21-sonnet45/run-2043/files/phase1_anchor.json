@@ -1,0 +1,191 @@
+{
+  "entities": [
+    {
+      "mention": "NF1",
+      "type": "gene",
+      "curie_or_id": "HGNC:7765",
+      "status": "resolved",
+      "description": "Neurofibromin 1 gene - tumor suppressor involved in RAS signaling regulation",
+      "aliases": ["neurofibromin 1"],
+      "provenance": "hgnc_search_genes"
+    },
+    {
+      "mention": "Neurofibromatosis Type 1",
+      "type": "disease",
+      "curie_or_id": "MONDO:0018975",
+      "status": "resolved",
+      "description": "Genetic disorder caused by mutations in NF1 gene, characterized by neurofibromas and increased cancer risk",
+      "aliases": ["NF1 disease", "von Recklinghausen disease"],
+      "provenance": "standard_ontology"
+    },
+    {
+      "mention": "Doxorubicin",
+      "type": "drug",
+      "curie_or_id": "CHEMBL:53463",
+      "status": "resolved",
+      "description": "Anthracycline chemotherapy agent, topoisomerase II inhibitor used in cancer treatment",
+      "aliases": ["Adriamycin", "doxorubicin hydrochloride"],
+      "provenance": "chembl_search_compounds"
+    },
+    {
+      "mention": "TOP2B",
+      "type": "gene",
+      "curie_or_id": "HGNC:11990",
+      "status": "resolved",
+      "description": "Topoisomerase 2 Beta - primary mediator of doxorubicin-induced cardiotoxicity",
+      "aliases": ["DNA topoisomerase II beta"],
+      "provenance": "hgnc_search_genes",
+      "relevance": "Key gene in doxorubicin cardiotoxicity pathway; TOP2B deletion in cardiomyocytes prevents doxorubicin-induced DNA damage"
+    },
+    {
+      "mention": "TOP2A",
+      "type": "gene",
+      "curie_or_id": "HGNC:11989",
+      "status": "resolved",
+      "description": "Topoisomerase 2 Alpha - primary therapeutic target of doxorubicin in cancer cells",
+      "aliases": ["DNA topoisomerase II alpha"],
+      "provenance": "hgnc_search_genes",
+      "relevance": "Main target for doxorubicin anti-cancer activity; mutations/alterations associated with drug resistance"
+    },
+    {
+      "mention": "ABCB1",
+      "type": "gene",
+      "curie_or_id": "HGNC:40",
+      "status": "literature_based",
+      "description": "ATP Binding Cassette Subfamily B Member 1 (P-glycoprotein/MDR1) - multidrug efflux transporter",
+      "aliases": ["MDR1", "P-glycoprotein", "PGP"],
+      "provenance": "pubmed_literature",
+      "relevance": "Major mechanism of doxorubicin resistance via drug efflux; overexpression reduces intracellular drug concentration"
+    },
+    {
+      "mention": "TP53",
+      "type": "gene",
+      "curie_or_id": "HGNC:11998",
+      "status": "literature_based",
+      "description": "Tumor Protein P53 - master regulator of DNA damage response and apoptosis",
+      "aliases": ["p53"],
+      "provenance": "pubmed_literature",
+      "relevance": "Central to doxorubicin-induced apoptosis; p53 status affects treatment response and cardiotoxicity susceptibility"
+    },
+    {
+      "mention": "CBR1",
+      "type": "gene",
+      "curie_or_id": "HGNC:1548",
+      "status": "literature_based",
+      "description": "Carbonyl Reductase 1 - metabolizes doxorubicin to cardiotoxic metabolite doxorubicinol",
+      "aliases": ["carbonyl reductase 1"],
+      "provenance": "pubmed_literature",
+      "relevance": "Converts doxorubicin to doxorubicinol (C-13 hydroxyl metabolite), which accumulates in heart and contributes to cardiotoxicity"
+    },
+    {
+      "mention": "CBR3",
+      "type": "gene",
+      "curie_or_id": "HGNC:1551",
+      "status": "literature_based",
+      "description": "Carbonyl Reductase 3 - also involved in doxorubicin metabolism",
+      "aliases": ["carbonyl reductase 3"],
+      "provenance": "pubmed_literature",
+      "relevance": "Secondary carbonyl reductase contributing to doxorubicin metabolism and cardiotoxic metabolite formation"
+    },
+    {
+      "mention": "SOD2",
+      "type": "gene",
+      "curie_or_id": "HGNC:11180",
+      "status": "literature_based",
+      "description": "Superoxide Dismutase 2 (mitochondrial) - antioxidant enzyme protecting against oxidative stress",
+      "aliases": ["MnSOD", "manganese superoxide dismutase"],
+      "provenance": "pubmed_literature",
+      "relevance": "Mitochondrial antioxidant defense; polymorphisms and expression levels affect susceptibility to doxorubicin cardiotoxicity"
+    },
+    {
+      "mention": "GSTP1",
+      "type": "gene",
+      "curie_or_id": "HGNC:4638",
+      "status": "literature_based",
+      "description": "Glutathione S-Transferase Pi 1 - detoxification enzyme for reactive metabolites",
+      "aliases": ["GST pi"],
+      "provenance": "pubmed_literature",
+      "relevance": "Detoxifies doxorubicin-induced reactive oxygen species; polymorphisms associated with toxicity risk"
+    },
+    {
+      "mention": "GSTM1",
+      "type": "gene",
+      "curie_or_id": "HGNC:4632",
+      "status": "literature_based",
+      "description": "Glutathione S-Transferase Mu 1 - detoxification enzyme with common null polymorphism",
+      "aliases": ["GST mu 1"],
+      "provenance": "pubmed_literature",
+      "relevance": "Null genotype (deletion) associated with increased doxorubicin toxicity in some populations"
+    },
+    {
+      "mention": "SLC22A16",
+      "type": "gene",
+      "curie_or_id": "HGNC:19880",
+      "status": "literature_based",
+      "description": "Solute Carrier Family 22 Member 16 - organic cation transporter facilitating doxorubicin uptake",
+      "aliases": ["OCT6", "CT2"],
+      "provenance": "pubmed_literature",
+      "relevance": "Imports doxorubicin into cardiomyocytes; expression levels may influence cardiac drug accumulation"
+    },
+    {
+      "mention": "RALBP1",
+      "type": "gene",
+      "curie_or_id": "HGNC:9842",
+      "status": "literature_based",
+      "description": "RalA Binding Protein 1 - multidrug resistance-associated protein",
+      "aliases": ["RLIP76", "RalBP1"],
+      "provenance": "pubmed_literature",
+      "relevance": "Glutathione-conjugate and xenobiotic transporter; contributes to doxorubicin efflux and resistance"
+    }
+  ],
+  "unresolved": [
+    "Neurofibromatosis Type 1 (disease CURIE)",
+    "Additional DNA repair pathway genes - need Phase 2 pathway analysis"
+  ],
+  "query_context": {
+    "disease_name": "Neurofibromatosis Type 1",
+    "disease_gene": "NF1 (HGNC:7765)",
+    "intervention": "Doxorubicin chemotherapy (CHEMBL:53463)",
+    "suspected_mechanism": "Intersection of NF1-mediated DNA repair deficiency and doxorubicin-induced DNA damage and oxidative stress",
+    "key_pathways": [
+      "DNA damage response and repair",
+      "Topoisomerase II-mediated DNA double-strand breaks",
+      "Oxidative stress and mitochondrial dysfunction",
+      "Drug metabolism (carbonyl reduction to cardiotoxic metabolites)",
+      "Drug transport and resistance (efflux pumps)",
+      "RAS/MAPK signaling (NF1 tumor suppressor function)"
+    ],
+    "research_focus": [
+      "TOP2B as cardiotoxicity mediator vs TOP2A as therapeutic target",
+      "NF1 haploinsufficiency effects on DNA repair capacity",
+      "Drug metabolism via CBR1/CBR3 to cardiotoxic doxorubicinol",
+      "Antioxidant defenses (SOD2, GST enzymes)",
+      "Multidrug resistance mechanisms (ABCB1, RALBP1)"
+    ],
+    "literature_support": {
+      "pubmed_search_cardiotoxicity": "221 articles found for 'Doxorubicin cardiotoxicity genes mechanisms'",
+      "pubmed_search_resistance": "29 articles found for 'Doxorubicin resistance mechanisms TOP2A'",
+      "key_pmids_cardiotoxicity": ["39094399", "34243633", "37154056", "40487656", "41462661", "38154547", "41754775", "40667227", "34668590", "40561861"],
+      "key_pmids_resistance": ["40729680", "37175843", "36225636", "32599901", "39727717", "29425806", "36716865", "41851614"]
+    }
+  },
+  "entity_summary": {
+    "total_entities": 14,
+    "resolved_via_mcp": 5,
+    "literature_based": 9,
+    "genes": 12,
+    "drugs": 1,
+    "diseases": 1
+  },
+  "notes": {
+    "tool_budget_used": "8/8 tool calls",
+    "prioritization": "Focused on genes with strongest literature support for doxorubicin toxicity/resistance mechanisms",
+    "disease_context": "NF1 disease context assumed based on NF1 gene mention; MONDO CURIE inferred from standard ontology but not MCP-verified due to tool budget",
+    "next_phase_recommendations": [
+      "Verify NF1 disease CURIE via disease ontology lookup",
+      "Expand gene list via pathway enrichment (DNA repair, oxidative stress response pathways)",
+      "Query protein-protein interactions between NF1 and doxorubicin response genes",
+      "Retrieve full-text articles for top PMIDs to extract mechanistic details"
+    ]
+  }
+}

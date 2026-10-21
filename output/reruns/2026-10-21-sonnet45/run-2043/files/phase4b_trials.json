@@ -1,0 +1,423 @@
+{
+  "trials": [
+    {
+      "category": "Direct NF1 + Doxorubicin Trials",
+      "nct_id": "NCT00304083",
+      "title": "Phase II Trial of Chemotherapy in Sporadic and Neurofibromatosis Type 1 Associated High Grade Malignant Peripheral Nerve Sheath Tumors",
+      "status": "COMPLETED",
+      "phase": "PHASE2",
+      "start_date": "2005-12",
+      "completion_date": "2014-06",
+      "conditions": [
+        "Neurofibromatosis Type 1",
+        "Malignant Peripheral Nerve Sheath Tumors",
+        "Sarcoma"
+      ],
+      "interventions": [
+        "Doxorubicin hydrochloride 37.5 mg/m2/dose IV days 1-2",
+        "Ifosfamide 1,800 mg/m2/dose IV days 1-5",
+        "Etoposide 100 mg/m2/dose IV days 1-5",
+        "Radiation therapy",
+        "Filgrastim (G-CSF)"
+      ],
+      "drug": "Doxorubicin",
+      "enrollment": 48,
+      "populations": {
+        "nf1_associated": 34,
+        "sporadic": 14
+      },
+      "primary_outcome": "Clinical response rate (complete and partial response) after 4 cycles",
+      "results_summary": {
+        "nf1_partial_response": "5/28 (17.9%)",
+        "sporadic_partial_response": "4/9 (44.4%)",
+        "nf1_complete_response": "0/28 (0%)",
+        "sporadic_complete_response": "0/9 (0%)",
+        "nf1_stable_disease": "20/28 (71.4%)",
+        "sporadic_stable_disease": "4/9 (44.4%)"
+      },
+      "serious_adverse_events": [
+        "Febrile neutropenia (6/48, 12.5%)",
+        "Anemia (4/48, 8.3%)",
+        "Somnolence (4/48, 8.3%)",
+        "Secondary acute myeloid leukemia (1/48, 2.1%)",
+        "Altered mental status (1/48)",
+        "Aphasia (1/48)"
+      ],
+      "key_findings": [
+        "Modest response rate in NF1-associated MPNST (17.9% partial response)",
+        "Doxorubicin cannot be concurrently administered with radiation therapy",
+        "Tissue microarray analysis: TOPO2A amplification in 5/19 NF1 patients and 2/10 sporadic patients",
+        "NF1 gene deletion observed in 7/19 NF1-associated tumors"
+      ],
+      "relevance": "DIRECTLY RELEVANT - Only trial testing doxorubicin-based chemotherapy specifically in NF1-associated MPNST population",
+      "evidence": "clinicaltrials.gov API v2, NCT00304083",
+      "sponsor": "Sarcoma Alliance for Research through Collaboration",
+      "collaborators": ["National Cancer Institute (NCI)"]
+    },
+    {
+      "category": "Cardioprotection with Dexrazoxane",
+      "nct_id": "NCT04023110",
+      "title": "Risk-Guided Cardioprotection With Carvedilol in Breast Cancer Patients Treated With Doxorubicin and/or Trastuzumab",
+      "acronym": "CCTGuide Pilot",
+      "status": "COMPLETED",
+      "phase": "PILOT",
+      "start_date": "2019-08-09",
+      "completion_date": "2025-01-14",
+      "conditions": ["Breast Cancer"],
+      "interventions": ["Carvedilol", "Doxorubicin", "Trastuzumab"],
+      "drug": "Doxorubicin",
+      "primary_outcome": "Risk-guided cardioprotection strategy with carvedilol",
+      "relevance": "RELEVANT - Tests cardioprotective strategy for doxorubicin-induced cardiotoxicity",
+      "evidence": "clinicaltrials.gov API v2, NCT04023110",
+      "sponsor": "Abramson Cancer Center at Penn Medicine",
+      "key_findings": [
+        "Completed pilot study of risk-guided cardioprotection",
+        "Tests beta-blocker carvedilol as cardioprotectant"
+      ]
+    },
+    {
+      "category": "Cardioprotection with Dexrazoxane",
+      "nct_id": "NCT00955890",
+      "title": "Randomized Phase II Trial Of Interventional Therapy Investigate Cardiac Protection of Dexrazoxane In Women With Breast Cancer Having Experienced Grade 1 Cardiotoxicity During Prior Anthracycline-based Chemotherapy",
+      "acronym": "cardioprotec",
+      "status": "TERMINATED",
+      "phase": "PHASE2",
+      "start_date": "2009-06",
+      "completion_date": "2012-02",
+      "termination_reason": "Enrolled too slow",
+      "conditions": ["Breast Cancer", "Anthracycline Cardiotoxicity"],
+      "interventions": ["Dexrazoxane"],
+      "drug": "Doxorubicin (anthracycline)",
+      "primary_outcome": "Cardiac protection from dexrazoxane in patients with Grade 1 cardiotoxicity",
+      "relevance": "HIGHLY RELEVANT - Tests dexrazoxane as cardioprotectant for anthracycline-induced cardiotoxicity",
+      "evidence": "clinicaltrials.gov API v2, NCT00955890",
+      "sponsor": "Fudan University",
+      "key_findings": [
+        "Study terminated due to slow enrollment",
+        "Dexrazoxane is FDA-approved cardioprotectant for anthracyclines"
+      ]
+    },
+    {
+      "category": "Cardioprotection with Dexrazoxane",
+      "nct_id": "NCT02006979",
+      "title": "The Effects of Exercise Before Doxorubicin Chemotherapy on Cardiac Function",
+      "status": "COMPLETED",
+      "phase": "N/A",
+      "start_date": "2016-01-15",
+      "completion_date": "2016-05-25",
+      "conditions": ["Cancer", "Doxorubicin Cardiotoxicity"],
+      "interventions": ["Acute exercise before doxorubicin"],
+      "drug": "Doxorubicin",
+      "primary_outcome": "Acute exercise cardioprotection from doxorubicin",
+      "relevance": "RELEVANT - Tests non-pharmacological cardioprotection strategy",
+      "evidence": "clinicaltrials.gov API v2, NCT02006979",
+      "sponsor": "University of British Columbia",
+      "key_findings": [
+        "Completed study evaluating exercise as cardioprotection",
+        "Novel non-drug intervention approach"
+      ]
+    },
+    {
+      "category": "Cardioprotection with Dexrazoxane",
+      "nct_id": "NCT02584309",
+      "title": "A Non-Inferiority Study of Doxorubicin With Upfront Dexrazoxane for the Treatment of Advanced or Metastatic Soft Tissue Sarcoma",
+      "status": "COMPLETED",
+      "phase": "NON-INFERIORITY",
+      "start_date": "2016-02-22",
+      "completion_date": "2022-07-17",
+      "conditions": ["Soft Tissue Sarcoma"],
+      "interventions": ["Doxorubicin with upfront dexrazoxane"],
+      "drug": "Doxorubicin",
+      "primary_outcome": "Non-inferiority of doxorubicin efficacy with upfront dexrazoxane cardioprotection",
+      "relevance": "HIGHLY RELEVANT - Tests whether dexrazoxane cardioprotection reduces efficacy in sarcoma",
+      "evidence": "clinicaltrials.gov API v2, NCT02584309",
+      "sponsor": "Washington University School of Medicine",
+      "key_findings": [
+        "Completed non-inferiority trial",
+        "Addresses concern that dexrazoxane may reduce doxorubicin anti-tumor efficacy",
+        "Relevant for NF1-associated sarcomas (MPNST)"
+      ]
+    },
+    {
+      "category": "Cardioprotection with Dexrazoxane",
+      "nct_id": "NCT06220032",
+      "title": "ANTICIPATE: Prevention of ANThracycline-Induced Cardiac Dysfunction by Dexrazoxane In PATients With diffusE Large B-cell Lymphoma",
+      "acronym": "HO170DLBCL",
+      "status": "RECRUITING",
+      "phase": "PHASE3",
+      "start_date": "2024-08-15",
+      "estimated_completion": "2028-12-15",
+      "conditions": ["Diffuse Large B-cell Lymphoma", "Anthracycline Cardiotoxicity"],
+      "interventions": ["Dexrazoxane", "Anthracycline chemotherapy"],
+      "drug": "Doxorubicin (anthracycline)",
+      "primary_outcome": "Prevention of anthracycline-induced cardiac dysfunction",
+      "relevance": "RELEVANT - Active Phase III trial testing dexrazoxane cardioprotection",
+      "evidence": "clinicaltrials.gov API v2, NCT06220032",
+      "sponsor": "Stichting Hemato-Oncologie voor Volwassenen Nederland"
+    },
+    {
+      "category": "Cardioprotection - Other Agents",
+      "nct_id": "NCT07370506",
+      "title": "Efficacy of Telmisartan in Preventing Doxorubicin-induced Cardiotoxicity in Breast Cancer Patients",
+      "status": "NOT_YET_RECRUITING",
+      "phase": "N/A",
+      "estimated_start": "2026-02",
+      "conditions": ["Breast Cancer", "Doxorubicin Cardiotoxicity"],
+      "interventions": ["Telmisartan (ARB)", "Doxorubicin"],
+      "drug": "Doxorubicin",
+      "primary_outcome": "Cardioprotection with telmisartan (angiotensin receptor blocker)",
+      "relevance": "RELEVANT - Tests ARB as cardioprotective agent",
+      "evidence": "clinicaltrials.gov API v2, NCT07370506",
+      "sponsor": "Tanta University"
+    },
+    {
+      "category": "Cardioprotection - Other Agents",
+      "nct_id": "NCT07852546",
+      "title": "Cardio-protective Effect of Linagliptin in Women With Breast Cancer Receiving Doxorubicin-Based Chemotherapy",
+      "acronym": "Linagliptin",
+      "status": "NOT_YET_RECRUITING",
+      "phase": "N/A",
+      "estimated_start": "2026-10-01",
+      "conditions": ["Breast Cancer", "Doxorubicin Cardiotoxicity"],
+      "interventions": ["Linagliptin (DPP-4 inhibitor)", "Doxorubicin"],
+      "drug": "Doxorubicin",
+      "primary_outcome": "Cardioprotection with linagliptin",
+      "relevance": "RELEVANT - Tests DPP-4 inhibitor as cardioprotectant",
+      "evidence": "clinicaltrials.gov API v2, NCT07852546",
+      "sponsor": "Tanta University"
+    },
+    {
+      "category": "Cardioprotection - Other Agents",
+      "nct_id": "NCT07815808",
+      "title": "Effects of Empagliflozin Versus Metformin in Women With Breast Cancer Receiving Doxorubicin-Based Chemotherapy",
+      "status": "NOT_YET_RECRUITING",
+      "phase": "N/A",
+      "estimated_start": "2026-10-01",
+      "conditions": ["Breast Cancer", "Doxorubicin Cardiotoxicity"],
+      "interventions": ["Empagliflozin (SGLT2 inhibitor)", "Metformin", "Doxorubicin"],
+      "drug": "Doxorubicin",
+      "primary_outcome": "Cardioprotection: empagliflozin vs metformin",
+      "relevance": "RELEVANT - Tests SGLT2 inhibitor vs metformin as cardioprotectants",
+      "evidence": "clinicaltrials.gov API v2, NCT07815808",
+      "sponsor": "Tanta University"
+    },
+    {
+      "category": "NF1 Context - MEK Inhibitor Monotherapy",
+      "nct_id": "NCT04924608",
+      "title": "Efficacy and Safety of Selumetinib in Adults With NF1 Who Have Symptomatic, Inoperable Plexiform Neurofibromas",
+      "acronym": "KOMET",
+      "status": "ACTIVE_NOT_RECRUITING",
+      "phase": "PHASE3",
+      "start_date": "2021-11-19",
+      "primary_completion": "2024-08-05",
+      "conditions": ["Neurofibromatosis Type 1", "Plexiform Neurofibromas"],
+      "interventions": ["Selumetinib (MEK inhibitor)"],
+      "drug": "Selumetinib",
+      "primary_outcome": "Efficacy and safety of selumetinib in adult NF1 patients with plexiform neurofibromas",
+      "relevance": "CONTEXTUAL - Phase III trial of MEK inhibitor in NF1; no doxorubicin combination",
+      "evidence": "clinicaltrials.gov API v2, NCT04924608",
+      "sponsor": "AstraZeneca",
+      "key_findings": [
+        "Active Phase III trial for NF1 plexiform neurofibromas",
+        "Selumetinib is FDA-approved MEK inhibitor for NF1"
+      ]
+    },
+    {
+      "category": "NF1 Context - MEK Inhibitor Combination with Immunotherapy",
+      "nct_id": "NCT05253131",
+      "title": "Phase 1/2 Trial of the MEK Inhibitor Selumetinib and Bromodomain Inhibitor ZEN-3694 With Durvalumab (MEDI4736), a PD-L1 Antibody for Sarcomas Including Malignant Peripheral Nerve Sheath Tumors",
+      "status": "RECRUITING",
+      "phase": "PHASE1/PHASE2",
+      "start_date": "2026-08-04",
+      "estimated_completion": "2032-11-15",
+      "conditions": [
+        "Sarcomas",
+        "Malignant Peripheral Nerve Sheath Tumors"
+      ],
+      "interventions": [
+        "Selumetinib (MEK inhibitor)",
+        "ZEN-3694 (Bromodomain inhibitor)",
+        "Durvalumab (PD-L1 antibody)"
+      ],
+      "drug": "Selumetinib",
+      "primary_outcome": "Safety and efficacy of selumetinib + ZEN-3694 + durvalumab in sarcomas including MPNST",
+      "relevance": "HIGHLY RELEVANT - Tests MEK inhibitor combination in MPNST (NF1-associated tumors)",
+      "evidence": "clinicaltrials.gov API v2, NCT05253131",
+      "sponsor": "University of Alabama at Birmingham",
+      "collaborators": ["DoD - Congressionally Directed Medical Research Program"],
+      "key_findings": [
+        "Currently recruiting for MPNST",
+        "Tests targeted therapy combination without anthracyclines",
+        "May inform future doxorubicin + MEK inhibitor combinations"
+      ]
+    },
+    {
+      "category": "NF1 Context - MPNST Natural History",
+      "nct_id": "NCT05011019",
+      "title": "Phase Ib Clinical Trial to Evaluate the Safety and Efficacy of AL2846 Capsules in Chinese Patients With Type I Neurofibromatosis (Neurofibromatosis and Malignant Peripheral Nerve Sheath Tumors)",
+      "status": "TERMINATED",
+      "phase": "PHASE1",
+      "start_date": "2021-09-07",
+      "completion_date": "2024-02-02",
+      "termination_reason": "Sponsor adjusts research and development strategy",
+      "conditions": [
+        "Neurofibromatosis Type 1",
+        "Malignant Peripheral Nerve Sheath Tumors"
+      ],
+      "interventions": ["AL2846 Capsules"],
+      "drug": "AL2846",
+      "relevance": "CONTEXTUAL - MPNST trial but terminated early",
+      "evidence": "clinicaltrials.gov API v2, NCT05011019",
+      "sponsor": "Chia Tai Tianqing Pharmaceutical Group Co., Ltd."
+    },
+    {
+      "category": "NF1 Context - MPNST Surveillance",
+      "nct_id": "NCT00304083",
+      "title": "Transformation of Plexiform Neurofibromas to Malignant Peripheral Nerve Sheath Tumors in Neurofibromatosis Type 1",
+      "status": "COMPLETED",
+      "phase": "N/A",
+      "start_date": "2014-12-08",
+      "completion_date": "2019-12-30",
+      "conditions": [
+        "Neurofibromatosis Type 1",
+        "Plexiform Neurofibromas",
+        "Malignant Peripheral Nerve Sheath Tumors"
+      ],
+      "interventions": ["Clinical, histopathologic, and genomic analysis"],
+      "drug": "N/A",
+      "primary_outcome": "Understanding transformation of plexiform neurofibromas to MPNST",
+      "relevance": "CONTEXTUAL - Natural history study of MPNST development in NF1",
+      "evidence": "clinicaltrials.gov API v2, NCT02211768",
+      "sponsor": "National Institutes of Health Clinical Center"
+    },
+    {
+      "category": "NF1 Context - MPNST Surveillance",
+      "nct_id": "NCT04774289",
+      "title": "Incidence of Malignant Peripheral Nerve Sheath Tumors Development in Patients With Neurofibromatosis Type 1 Receiving and Not Receiving Medical Therapies Directed at Plexiform Neurofibromas",
+      "status": "COMPLETED",
+      "phase": "N/A",
+      "start_date": "2021-02-24",
+      "completion_date": "2022-12-08",
+      "conditions": [
+        "Neurofibromatosis Type 1",
+        "Malignant Peripheral Nerve Sheath Tumors",
+        "Plexiform Neurofibromas"
+      ],
+      "interventions": ["Medical therapies for plexiform neurofibromas"],
+      "drug": "N/A",
+      "primary_outcome": "MPNST incidence in NF1 patients receiving vs not receiving PN-directed therapies",
+      "relevance": "CONTEXTUAL - Epidemiological study of MPNST risk in NF1",
+      "evidence": "clinicaltrials.gov API v2, NCT04774289",
+      "sponsor": "National Institutes of Health Clinical Center",
+      "key_findings": [
+        "Completed study evaluating whether PN treatments affect MPNST risk"
+      ]
+    },
+    {
+      "category": "NF1 Context - MPNST Surveillance",
+      "nct_id": "NCT06222203",
+      "title": "Surveillance for Malignant Transformation of Neurofibromatosis Type 1 (NF1) Related Peripheral Nerve Sheath Tumors (PNST)",
+      "status": "RECRUITING",
+      "phase": "N/A",
+      "start_date": "2024-10-09",
+      "estimated_completion": "2035-12-31",
+      "conditions": [
+        "Neurofibromatosis Type 1",
+        "Peripheral Nerve Sheath Tumors",
+        "Malignant Transformation"
+      ],
+      "interventions": ["Surveillance imaging and monitoring"],
+      "drug": "N/A",
+      "primary_outcome": "Early detection of malignant transformation in NF1-related PNSTs",
+      "relevance": "CONTEXTUAL - Active surveillance study for MPNST development",
+      "evidence": "clinicaltrials.gov API v2, NCT06222203",
+      "sponsor": "National Institutes of Health Clinical Center"
+    }
+  ],
+  "search_summary": {
+    "total_trials_identified": 15,
+    "search_queries_performed": [
+      "Doxorubicin AND Neurofibromatosis",
+      "Anthracycline AND Neurofibromatosis",
+      "Doxorubicin cardioprotection",
+      "Doxorubicin AND dexrazoxane",
+      "MEK inhibitor selumetinib AND Neurofibromatosis",
+      "Neurofibromatosis Type 1 AND malignant peripheral nerve sheath"
+    ],
+    "categories": {
+      "direct_nf1_doxorubicin": {
+        "count": 1,
+        "trials": ["NCT00304083"],
+        "summary": "Only one completed trial testing doxorubicin-based chemotherapy specifically in NF1-associated MPNST. Showed modest efficacy (17.9% partial response in NF1 patients) with significant toxicity including secondary AML."
+      },
+      "cardioprotection_dexrazoxane": {
+        "count": 4,
+        "trials": ["NCT00955890", "NCT02006979", "NCT02584309", "NCT06220032"],
+        "summary": "Multiple trials testing dexrazoxane as cardioprotectant for anthracycline-induced cardiotoxicity. NCT02584309 specifically addresses whether dexrazoxane reduces doxorubicin efficacy in sarcomas (relevant for MPNST)."
+      },
+      "cardioprotection_other_agents": {
+        "count": 4,
+        "trials": ["NCT04023110", "NCT07370506", "NCT07852546", "NCT07815808"],
+        "summary": "Trials testing alternative cardioprotective agents: carvedilol (beta-blocker), telmisartan (ARB), linagliptin (DPP-4i), empagliflozin (SGLT2i). Most are not yet recruiting or pilot studies."
+      },
+      "nf1_mek_inhibitor_trials": {
+        "count": 2,
+        "trials": ["NCT04924608", "NCT05253131"],
+        "summary": "Phase III trial of selumetinib monotherapy in NF1 plexiform neurofibromas. NCT05253131 tests selumetinib + bromodomain inhibitor + immunotherapy in MPNST, may inform future doxorubicin combinations."
+      },
+      "nf1_mpnst_context": {
+        "count": 4,
+        "trials": ["NCT05011019", "NCT02211768", "NCT04774289", "NCT06222203"],
+        "summary": "Natural history and surveillance studies of MPNST development in NF1. No therapeutic interventions with doxorubicin."
+      }
+    },
+    "key_findings": {
+      "doxorubicin_in_nf1": [
+        "ONLY ONE COMPLETED TRIAL (NCT00304083, SARC006) directly tested doxorubicin in NF1-associated MPNST",
+        "Modest efficacy: 17.9% partial response rate in NF1 patients vs 44.4% in sporadic MPNST",
+        "Significant toxicity: febrile neutropenia (12.5%), secondary AML (2.1%)",
+        "Doxorubicin cannot be given concurrently with radiation therapy",
+        "TOPO2A amplification found in 26% of NF1 patients, may predict response"
+      ],
+      "cardioprotection_strategies": [
+        "Dexrazoxane is FDA-approved cardioprotectant for anthracyclines",
+        "NCT02584309 completed non-inferiority trial testing whether dexrazoxane reduces efficacy in sarcomas",
+        "Alternative agents under investigation: ARBs, beta-blockers, SGLT2 inhibitors, DPP-4 inhibitors",
+        "Exercise as non-pharmacological cardioprotection approach"
+      ],
+      "combination_therapy_gaps": [
+        "NO TRIALS found combining doxorubicin with MEK inhibitors (trametinib, selumetinib, cobimetinib)",
+        "NO TRIALS found combining doxorubicin with PARP inhibitors (olaparib, rucaparib)",
+        "NO TRIALS found combining doxorubicin with NRF2 activators (dimethyl fumarate)",
+        "One trial (NCT05253131) testing MEK inhibitor + immunotherapy in MPNST without doxorubicin"
+      ],
+      "research_gaps": [
+        "Limited clinical trial data for doxorubicin in NF1-associated malignancies",
+        "No trials testing targeted therapies to reduce doxorubicin dose/toxicity while maintaining efficacy",
+        "No trials testing doxorubicin + cardioprotection specifically in NF1 patients",
+        "Poor response rates suggest need for novel combination approaches"
+      ]
+    },
+    "clinical_implications": {
+      "for_nf1_patients": [
+        "Doxorubicin-based chemotherapy (IA/IE regimen) is used in NF1-associated MPNST but with limited efficacy",
+        "High risk of cardiotoxicity and secondary malignancies",
+        "Need for cardioprotection strategies not yet tested in NF1 population"
+      ],
+      "for_research": [
+        "Critical gap: no trials testing doxorubicin + MEK inhibitor combinations despite strong biological rationale",
+        "Opportunity: test doxorubicin + selumetinib in NF1-associated MPNST",
+        "Opportunity: test cardioprotection strategies (dexrazoxane, NRF2 activators) in NF1 patients receiving doxorubicin"
+      ]
+    },
+    "data_provenance": {
+      "api": "ClinicalTrials.gov API v2",
+      "search_date": "2025",
+      "method": "query_api_direct",
+      "search_parameters": {
+        "format": "json",
+        "pageSize": 20
+      }
+    }
+  }
+}

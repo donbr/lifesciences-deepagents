@@ -1,0 +1,134 @@
+[
+  {
+    "source": "CHEMBL:53463",
+    "target": "HGNC:11989",
+    "type": "INHIBITOR",
+    "properties": {
+      "mechanism": "DNA topoisomerase II alpha inhibitor",
+      "evidence": "opentargets GraphQL drug(CHEMBL53463).mechanismsOfAction"
+    }
+  },
+  {
+    "source": "CHEMBL:53463",
+    "target": "cardiotoxicity",
+    "type": "HAS_ADVERSE_EVENT",
+    "properties": {
+      "logLR": 1400.85,
+      "report_count": 618,
+      "evidence": "opentargets GraphQL drug(CHEMBL53463).adverseEvents (FAERS)"
+    }
+  },
+  {
+    "source": "HGNC:11990",
+    "target": "cardiotoxicity",
+    "type": "MEDIATES",
+    "properties": {
+      "evidence": "Cardiomyocyte-specific Top2b deletion protects mice from doxorubicin-induced DNA double-strand breaks, defective mitochondrial biogenesis, ROS formation and progressive heart failure (PMID:23104132, Nat Med 2012)"
+    }
+  },
+  {
+    "source": "CHEMBL:1738",
+    "target": "HGNC:11990",
+    "type": "INHIBITOR_CANDIDATE",
+    "properties": {
+      "mechanism": "DNA topoisomerase II inhibitor + iron sequestering agent",
+      "note": "ChEMBL records topo II inhibition at target CHEMBL2094255 (isoform not disambiguated in the record)",
+      "evidence": "get_mechanism(CHEMBL:1738)"
+    }
+  },
+  {
+    "source": "HGNC:7765",
+    "target": "MONDO:0018975",
+    "type": "ASSOCIATED_WITH",
+    "properties": {
+      "score": 0.8863726408630827,
+      "evidence": "opentargets_get_associations(ENSG00000196712)"
+    }
+  },
+  {
+    "source": "HGNC:7765",
+    "target": "MONDO:0017827",
+    "type": "ASSOCIATED_WITH",
+    "properties": {
+      "score": 0.6915658933530187,
+      "evidence": "opentargets_get_associations(ENSG00000196712)"
+    }
+  },
+  {
+    "source": "HGNC:7765",
+    "target": "HGNC:6407",
+    "type": "INTERACTS",
+    "properties": {
+      "string_score": 0.998,
+      "evidence": "string_get_interactions(STRING:9606.ENSP00000351015)"
+    }
+  },
+  {
+    "source": "HGNC:7765",
+    "target": "HGNC:992",
+    "type": "NEGATIVELY_REGULATES",
+    "properties": {
+      "direction": "NF1 loss upregulates BCL2L1 (Bcl-xL) via Ras/Erk1/2",
+      "consequence": "increased doxorubicin resistance in MPNST-derived Schwann cells",
+      "evidence": "PMID:23292448 (Int J Oncol 2013)"
+    }
+  },
+  {
+    "source": "HGNC:992",
+    "target": "CHEMBL:53463",
+    "type": "CONFERS_RESISTANCE_TO",
+    "properties": {
+      "reversal": "BCL2L1 knockdown restores doxorubicin-induced apoptosis; very low-dose ABT-737 + doxorubicin is synergistic",
+      "evidence": "PMID:23292448"
+    }
+  },
+  {
+    "source": "CHEMBL:53463",
+    "target": "HGNC:905",
+    "type": "INDUCES_ADAPTATION",
+    "properties": {
+      "evidence": "AXL strongly activated at 2 and 21 days after doxorubicin or kinase inhibition in NF1-MPNST tumorgrafts (PMID:32245042)"
+    }
+  },
+  {
+    "source": "CHEMBL:53463",
+    "target": "HGNC:7794",
+    "type": "INDUCES_ADAPTATION",
+    "properties": {
+      "evidence": "NFkB strongly activated and tightly correlated with AXL regardless of treatment or genomic context (PMID:32245042)"
+    }
+  },
+  {
+    "source": "HGNC:13575",
+    "target": "MONDO:0017827",
+    "type": "EXPRESSED_IN",
+    "properties": {
+      "evidence": "BRD4, EZH2 and TOP2A expression investigated as therapeutic targets in human NF1-derived MPNSTs (PMID:28813519)"
+    }
+  },
+  {
+    "source": "HGNC:3527",
+    "target": "MONDO:0017827",
+    "type": "EXPRESSED_IN",
+    "properties": {
+      "evidence": "PMID:28813519"
+    }
+  },
+  {
+    "source": "HGNC:11989",
+    "target": "MONDO:0017827",
+    "type": "EXPRESSED_IN",
+    "properties": {
+      "evidence": "PMID:28813519"
+    }
+  },
+  {
+    "source": "NCT02584309",
+    "target": "CHEMBL:1738",
+    "type": "TESTS",
+    "properties": {
+      "design": "non-inferiority; PFS primary, cardiac endpoints secondary; MPNST an eligible histology",
+      "evidence": "clinicaltrials_get_trial(NCT:02584309)"
+    }
+  }
+]

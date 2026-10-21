@@ -225,7 +225,7 @@ def _resolve_knowledge_paths(
 
 # anthropic:claude-sonnet-4-5
 # openai:gpt-4o"
-def create_lifesciences_graph(model_name: str = "openai:gpt-4o"):
+def create_lifesciences_graph(model_name: str = "anthropic:claude-sonnet-4-5-20250929"):
     """Create a life sciences deep agent graph using the Fuzzy-to-Fact protocol."""
 
     model = init_chat_model(model_name)

@@ -1,0 +1,101 @@
+{
+  "entities": [
+    {
+      "mention": "NF1",
+      "type": "gene",
+      "curie_or_id": "HGNC:7765",
+      "status": "resolved",
+      "name": "NF1 (neurofibromin 1)",
+      "provenance": "hgnc_search_genes"
+    },
+    {
+      "mention": "NF1",
+      "type": "disease",
+      "curie_or_id": "MONDO:0018975",
+      "status": "resolved",
+      "name": "Neurofibromatosis type 1",
+      "provenance": "standard_ontology"
+    },
+    {
+      "mention": "Doxorubicin",
+      "type": "drug",
+      "curie_or_id": "CHEMBL:53463",
+      "status": "resolved",
+      "name": "DOXORUBICIN",
+      "provenance": "chembl_search_compounds"
+    }
+  ],
+  "unresolved": [],
+  "query_context": {
+    "disease_name": "Neurofibromatosis type 1 (NF1)",
+    "disease_id": "MONDO:0018975",
+    "drug": "Doxorubicin (CHEMBL:53463)",
+    "gene_implicated": "NF1 (HGNC:7765)",
+    "suspected_mechanism": "The query seeks genes/pathways that minimize doxorubicin toxicity (especially cardiotoxicity) while preserving anti-tumor efficacy in the context of NF1-related tumors",
+    "research_focus": [
+      "Cardiotoxicity mitigation pathways",
+      "Drug efficacy preservation mechanisms",
+      "NF1-specific tumor response",
+      "Doxorubicin resistance mechanisms"
+    ]
+  },
+  "literature_insights": [
+    {
+      "search_query": "doxorubicin cardiotoxicity genes pathways",
+      "pmids_found": ["39094399", "37154056", "38154547", "40052211", "36416353", "41432818", "40561861", "39218162", "40712701", "40345555"],
+      "total_available": 199,
+      "context": "These articles address genetic and pathway mechanisms of doxorubicin-induced cardiotoxicity",
+      "provenance": "query_pubmed"
+    },
+    {
+      "search_query": "doxorubicin NF1 neurofibromatosis",
+      "pmids_found": ["41386267", "32245042", "23292448", "28469964", "35511749", "35887576", "38130899", "20838322", "28813519", "24285727"],
+      "total_available": 28,
+      "context": "These articles specifically address doxorubicin use in NF1/neurofibromatosis contexts",
+      "provenance": "query_pubmed"
+    },
+    {
+      "search_query": "doxorubicin efficacy resistance mechanisms genes",
+      "pmids_found": ["38626369", "40789053", "36948284", "41153808", "41111053", "39115587", "34175687", "41024110", "22689379", "39199310"],
+      "total_available": 95,
+      "context": "These articles address molecular mechanisms affecting doxorubicin therapeutic efficacy and resistance",
+      "provenance": "query_pubmed"
+    }
+  ],
+  "additional_genes_mentioned": [
+    {
+      "note": "Detailed gene extraction requires full-text analysis of the identified PMIDs",
+      "key_pathways_expected": [
+        "TOP2A/TOP2B (topoisomerase targets of doxorubicin)",
+        "ABC transporters (MDR1/ABCB1, MRP1/ABCC1) - resistance",
+        "Oxidative stress response (SOD2, GPX1, CAT)",
+        "DNA damage response (TP53, ATM, BRCA1/2)",
+        "Apoptosis pathways (BCL2, BAX, caspases)",
+        "Iron metabolism (ferritin, transferrin receptor)",
+        "NF1/RAS/MAPK pathway (disease-specific context)"
+      ],
+      "extraction_strategy": "Phase 2 should analyze full text of high-priority PMIDs to extract specific gene mentions with context"
+    }
+  ],
+  "next_phase_recommendations": {
+    "high_priority_pmids": [
+      "41386267",
+      "32245042",
+      "39094399",
+      "37154056",
+      "38626369"
+    ],
+    "suggested_queries": [
+      "TOP2A TOP2B doxorubicin efficacy",
+      "ABCB1 MDR1 doxorubicin resistance",
+      "SOD2 GPX1 doxorubicin cardiotoxicity",
+      "NF1 RAS pathway doxorubicin response",
+      "anthracycline cardioprotection genes"
+    ],
+    "database_searches": [
+      "Search Open Targets for NF1 disease-drug associations",
+      "Search STRING/BioGRID for NF1 protein interaction network",
+      "Search ChEMBL for doxorubicin target bioactivity data"
+    ]
+  }
+}

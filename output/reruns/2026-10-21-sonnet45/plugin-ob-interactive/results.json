@@ -1,0 +1,482 @@
+{
+  "cq_id": "cq-nf1-dox-toxicity-efficacy",
+  "question": "What known genes or pathways are implicated in minimizing Doxorubicin toxicity while preserving its anti-tumor efficacy for NF1?",
+  "provenance": {
+    "catalog": "biosciences-research/docs/competency-questions-paul.md (cq3, Focus Area 1), scoped to NF1 by the user",
+    "in_huggingface_dataset": false,
+    "gold_standard_path": null,
+    "note": "No gold standard exists for this question. Validation is evidence-level (every node/edge traces to a tool call), not gold-standard comparison."
+  },
+  "execution_date": "2026-10-21",
+  "validation_status": "EVIDENCE_VALIDATED (no gold standard available)",
+  "nodes": [
+    {
+      "id": "HGNC:7765",
+      "type": "Gene",
+      "label": "NF1",
+      "properties": {
+        "symbol": "NF1",
+        "name": "neurofibromin 1",
+        "ensembl": "ENSG00000196712",
+        "uniprot": "P21359",
+        "entrez": "4763",
+        "location": "17q11.2",
+        "function": "Stimulates the GTPase activity of Ras. NF1 shows greater affinity for Ras GAP, but lower specific activity. May be a regulator of Ras activity",
+        "source": "hgnc_get_gene(HGNC:7765); uniprot_get_protein(UniProtKB:P21359)"
+      }
+    },
+    {
+      "id": "HGNC:11989",
+      "type": "Gene",
+      "label": "TOP2A",
+      "properties": {
+        "symbol": "TOP2A",
+        "name": "DNA topoisomerase II alpha",
+        "ensembl": "ENSG00000131747",
+        "uniprot": "P11388",
+        "entrez": "7153",
+        "location": "17q21.2",
+        "role": "doxorubicin anti-tumor target",
+        "orcs_hit_screens": 883,
+        "source": "hgnc_get_gene(HGNC:11989); opentargets GraphQL drug(CHEMBL53463).mechanismsOfAction; get_orcs_essentiality(7153)"
+      }
+    },
+    {
+      "id": "HGNC:11990",
+      "type": "Gene",
+      "label": "TOP2B",
+      "properties": {
+        "symbol": "TOP2B",
+        "name": "DNA topoisomerase II beta",
+        "ensembl": "ENSG00000077097",
+        "uniprot": "Q02880",
+        "entrez": "7155",
+        "location": "3p24.2",
+        "role": "cardiotoxicity mediator (toxicity-side isoform)",
+        "orcs_hit_screens": 24,
+        "source": "hgnc_get_gene(HGNC:11990); pubmed PMID:23104132; get_orcs_essentiality(7155)"
+      }
+    },
+    {
+      "id": "HGNC:992",
+      "type": "Gene",
+      "label": "BCL2L1",
+      "properties": {
+        "symbol": "BCL2L1",
+        "name": "BCL2 like 1",
+        "ensembl": "ENSG00000171552",
+        "uniprot": "Q07817",
+        "entrez": "598",
+        "location": "20q11.21",
+        "role": "NF1-loss-driven doxorubicin resistance node; inhibition restores low-dose sensitivity",
+        "source": "hgnc fetch HGNC:992; pubmed PMID:23292448"
+      }
+    },
+    {
+      "id": "HGNC:905",
+      "type": "Gene",
+      "label": "AXL",
+      "properties": {
+        "symbol": "AXL",
+        "name": "AXL receptor tyrosine kinase",
+        "ensembl": "ENSG00000167601",
+        "uniprot": "P30530",
+        "entrez": "558",
+        "location": "19q13.2",
+        "role": "post-doxorubicin kinome adaptation node in NF1-MPNST",
+        "source": "hgnc fetch HGNC:905; pubmed PMID:32245042"
+      }
+    },
+    {
+      "id": "HGNC:7794",
+      "type": "Gene",
+      "label": "NFKB1",
+      "properties": {
+        "symbol": "NFKB1",
+        "name": "nuclear factor kappa B subunit 1",
+        "ensembl": "ENSG00000109320",
+        "uniprot": "P19838",
+        "entrez": "4790",
+        "location": "4q24",
+        "role": "post-doxorubicin kinome adaptation node in NF1-MPNST",
+        "source": "hgnc fetch HGNC:7794; pubmed PMID:32245042"
+      }
+    },
+    {
+      "id": "HGNC:13575",
+      "type": "Gene",
+      "label": "BRD4",
+      "properties": {
+        "symbol": "BRD4",
+        "name": "bromodomain containing 4",
+        "ensembl": "ENSG00000141867",
+        "uniprot": "O60885",
+        "entrez": "23476",
+        "location": "19p13.12",
+        "role": "co-expressed with TOP2A in NF1-derived MPNST; candidate combination target",
+        "source": "hgnc fetch HGNC:13575; pubmed PMID:28813519"
+      }
+    },
+    {
+      "id": "HGNC:3527",
+      "type": "Gene",
+      "label": "EZH2",
+      "properties": {
+        "symbol": "EZH2",
+        "name": "enhancer of zeste 2 polycomb repressive complex 2 subunit",
+        "ensembl": "ENSG00000106462",
+        "uniprot": "Q15910",
+        "entrez": "2146",
+        "location": "7q36.1",
+        "role": "co-expressed with TOP2A in NF1-derived MPNST; candidate combination target",
+        "source": "hgnc fetch HGNC:3527; pubmed PMID:28813519"
+      }
+    },
+    {
+      "id": "HGNC:6943",
+      "type": "Gene",
+      "label": "MCL1",
+      "properties": {
+        "symbol": "MCL1",
+        "name": "MCL1 apoptosis regulator, BCL2 family member",
+        "ensembl": "ENSG00000143384",
+        "uniprot": "Q07820",
+        "entrez": "4170",
+        "location": "1q21.2",
+        "role": "BCL2-family apoptosis node in MPNST (context for BH3 combinations)",
+        "source": "hgnc fetch HGNC:6943"
+      }
+    },
+    {
+      "id": "HGNC:6407",
+      "type": "Gene",
+      "label": "KRAS",
+      "properties": {
+        "symbol": "KRAS",
+        "role": "NF1 GAP substrate; STRING score 0.998 with NF1",
+        "source": "hgnc_search_genes(\"KRAS\"); hgnc_get_gene(HGNC:6407); string_get_interactions(STRING:9606.ENSP00000351015)",
+        "name": "KRas proto-oncogene, GTPase",
+        "ensembl": "ENSG00000133703",
+        "uniprot": "P01116",
+        "entrez": "3845",
+        "location": "12p12.1"
+      }
+    },
+    {
+      "id": "CHEMBL:53463",
+      "type": "Compound",
+      "label": "DOXORUBICIN",
+      "properties": {
+        "mechanism": "DNA topoisomerase II alpha inhibitor",
+        "action_type": "INHIBITOR",
+        "max_clinical_stage": "APPROVAL",
+        "top_faers_cardiotoxicity_logLR": 1400.85,
+        "faers_cardiotoxicity_count": 618,
+        "source": "chembl_search_compounds(doxorubicin); opentargets GraphQL drug(CHEMBL53463)"
+      }
+    },
+    {
+      "id": "CHEMBL:1738",
+      "type": "Compound",
+      "label": "DEXRAZOXANE",
+      "properties": {
+        "mechanism": [
+          "Iron sequestering agent (SEQUESTERING AGENT, CHEMBL2363058)",
+          "DNA topoisomerase II inhibitor (INHIBITOR, CHEMBL2094255)"
+        ],
+        "max_phase": 4,
+        "source": "chembl_search_compounds(dexrazoxane); get_mechanism(CHEMBL:1738)"
+      }
+    },
+    {
+      "id": "MONDO:0018975",
+      "type": "Disease",
+      "label": "neurofibromatosis type 1",
+      "properties": {
+        "association_score": 0.8863726408630827,
+        "source": "opentargets_get_associations(ENSG00000196712)"
+      }
+    },
+    {
+      "id": "MONDO:0017827",
+      "type": "Disease",
+      "label": "malignant peripheral nerve sheath tumor",
+      "properties": {
+        "association_score": 0.6915658933530187,
+        "source": "opentargets_get_associations(ENSG00000196712)"
+      }
+    },
+    {
+      "id": "NCT02584309",
+      "type": "Trial",
+      "label": "Doxorubicin With Upfront Dexrazoxane for Advanced or Metastatic Soft Tissue Sarcoma (non-inferiority)",
+      "properties": {
+        "status": "COMPLETED",
+        "study_type": "INTERVENTIONAL",
+        "allocation": "NON_RANDOMIZED",
+        "primary_outcome": "Progression-free survival (Arm 1 only)",
+        "secondary_outcomes": [
+          "Cardiac-related mortality",
+          "Heart failure or cardiomyopathy (CTRCD) rate",
+          "3D vs 2D echo early detection",
+          "GLS strain vs LVEF"
+        ],
+        "conditions_include_mpnst": true,
+        "doxorubicin_starting_dose": "75 mg/m2",
+        "start_date": "2016-02-22",
+        "completion_date": "2022-07-17",
+        "sponsor": "Washington University School of Medicine",
+        "source": "clinicaltrials_get_trial(NCT:02584309)"
+      }
+    },
+    {
+      "id": "NCT05858710",
+      "type": "Trial",
+      "label": "DPPG2-TSL-DOX Combined With Hyperthermia in Soft Tissue Sarcoma",
+      "properties": {
+        "status": "COMPLETED",
+        "interventions": [
+          "DPPG2-TSL-DOX",
+          "Dexrazoxane"
+        ],
+        "source": "clinicaltrials_search_trials(dexrazoxane cardioprotection sarcoma doxorubicin)"
+      }
+    },
+    {
+      "id": "NCT06849986",
+      "type": "Trial",
+      "label": "IO Combined With AI as First-line Treatment for Soft Tissue Sarcoma (TAIS)",
+      "properties": {
+        "status": "RECRUITING",
+        "interventions": [
+          "Tislelizumab + liposomal doxorubicin + ifosfamide"
+        ],
+        "conditions_include_mpnst": true,
+        "source": "clinicaltrials_search_trials(doxorubicin malignant peripheral nerve sheath tumor)"
+      }
+    },
+    {
+      "id": "cardiotoxicity",
+      "type": "Phenotype",
+      "label": "cardiotoxicity",
+      "properties": {
+        "curie": null,
+        "curie_status": "UNRESOLVED - no MedDRA/EFO/HP lookup was performed",
+        "faers_logLR": 1400.8519706460356,
+        "faers_report_count": 618,
+        "rank_among_ae_terms": 4,
+        "source": "curl OpenTargets/graphql(drug(CHEMBL53463).adverseEvents)"
+      }
+    },
+    {
+      "id": "NCT06277154",
+      "type": "Trial",
+      "label": "MASCT-I Combined With Doxorubicin and Ifosfamide for First-line Treatment of Advanced Soft Tissue Sarcoma",
+      "properties": {
+        "status": "RECRUITING",
+        "interventions": [
+          "MASCT-I",
+          "Doxorubicin",
+          "Ifosfamide"
+        ],
+        "conditions_include_mpnst": true,
+        "verified": false,
+        "source": "clinicaltrials_search_trials(\"doxorubicin malignant peripheral nerve sheath tumor\")"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11989",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "DNA topoisomerase II alpha inhibitor",
+        "evidence": "opentargets GraphQL drug(CHEMBL53463).mechanismsOfAction"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "cardiotoxicity",
+      "type": "HAS_ADVERSE_EVENT",
+      "properties": {
+        "logLR": 1400.85,
+        "report_count": 618,
+        "evidence": "opentargets GraphQL drug(CHEMBL53463).adverseEvents (FAERS)"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "cardiotoxicity",
+      "type": "MEDIATES",
+      "properties": {
+        "evidence": "Cardiomyocyte-specific Top2b deletion protects mice from doxorubicin-induced DNA double-strand breaks, defective mitochondrial biogenesis, ROS formation and progressive heart failure (PMID:23104132, Nat Med 2012)"
+      }
+    },
+    {
+      "source": "CHEMBL:1738",
+      "target": "HGNC:11990",
+      "type": "INHIBITOR_CANDIDATE",
+      "properties": {
+        "mechanism": "DNA topoisomerase II inhibitor + iron sequestering agent",
+        "note": "ChEMBL records topo II inhibition at target CHEMBL2094255 (isoform not disambiguated in the record)",
+        "evidence": "get_mechanism(CHEMBL:1738)"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "MONDO:0018975",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.8863726408630827,
+        "evidence": "opentargets_get_associations(ENSG00000196712)"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "MONDO:0017827",
+      "type": "ASSOCIATED_WITH",
+      "properties": {
+        "score": 0.6915658933530187,
+        "evidence": "opentargets_get_associations(ENSG00000196712)"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:6407",
+      "type": "INTERACTS",
+      "properties": {
+        "string_score": 0.998,
+        "evidence": "string_get_interactions(STRING:9606.ENSP00000351015)"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:992",
+      "type": "NEGATIVELY_REGULATES",
+      "properties": {
+        "direction": "NF1 loss upregulates BCL2L1 (Bcl-xL) via Ras/Erk1/2",
+        "consequence": "increased doxorubicin resistance in MPNST-derived Schwann cells",
+        "evidence": "PMID:23292448 (Int J Oncol 2013)"
+      }
+    },
+    {
+      "source": "HGNC:992",
+      "target": "CHEMBL:53463",
+      "type": "CONFERS_RESISTANCE_TO",
+      "properties": {
+        "reversal": "BCL2L1 knockdown restores doxorubicin-induced apoptosis; very low-dose ABT-737 + doxorubicin is synergistic",
+        "evidence": "PMID:23292448"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:905",
+      "type": "INDUCES_ADAPTATION",
+      "properties": {
+        "evidence": "AXL strongly activated at 2 and 21 days after doxorubicin or kinase inhibition in NF1-MPNST tumorgrafts (PMID:32245042)"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:7794",
+      "type": "INDUCES_ADAPTATION",
+      "properties": {
+        "evidence": "NFkB strongly activated and tightly correlated with AXL regardless of treatment or genomic context (PMID:32245042)"
+      }
+    },
+    {
+      "source": "HGNC:13575",
+      "target": "MONDO:0017827",
+      "type": "EXPRESSED_IN",
+      "properties": {
+        "evidence": "BRD4, EZH2 and TOP2A expression investigated as therapeutic targets in human NF1-derived MPNSTs (PMID:28813519)"
+      }
+    },
+    {
+      "source": "HGNC:3527",
+      "target": "MONDO:0017827",
+      "type": "EXPRESSED_IN",
+      "properties": {
+        "evidence": "PMID:28813519"
+      }
+    },
+    {
+      "source": "HGNC:11989",
+      "target": "MONDO:0017827",
+      "type": "EXPRESSED_IN",
+      "properties": {
+        "evidence": "PMID:28813519"
+      }
+    },
+    {
+      "source": "NCT02584309",
+      "target": "CHEMBL:1738",
+      "type": "TESTS",
+      "properties": {
+        "design": "non-inferiority; PFS primary, cardiac endpoints secondary; MPNST an eligible histology",
+        "evidence": "clinicaltrials_get_trial(NCT:02584309)"
+      }
+    }
+  ],
+  "metadata": {
+    "total_nf1_disease_associations": 3078,
+    "nf1_string_interactions_returned": 15,
+    "nf1_string_required_score": 700,
+    "orcs_top2a_hit_screens": 883,
+    "orcs_top2b_hit_screens": 24,
+    "doxorubicin_adverse_event_terms": 21,
+    "mpnst_doxorubicin_trials_total_count": 26,
+    "tools_used": [
+      "hgnc_search_genes",
+      "hgnc_get_gene",
+      "uniprot_get_protein",
+      "string_search_proteins",
+      "string_get_interactions",
+      "opentargets_search_targets",
+      "opentargets_get_associations",
+      "chembl_search_compounds",
+      "chembl_get_compound",
+      "biosciences-mcp-edge:get_mechanism",
+      "biosciences-mcp-edge:get_orcs_essentiality",
+      "clinicaltrials_search_trials",
+      "clinicaltrials_get_trial",
+      "pubmed:search_articles",
+      "pubmed:get_article_metadata",
+      "curl (ChEMBL /mechanism, Open Targets GraphQL, HGNC REST)"
+    ],
+    "failures": [
+      {
+        "tool": "biosciences-mcp-edge:get_mechanism(CHEMBL:53463)",
+        "outcome": "ENTITY_NOT_FOUND",
+        "fallback": "curl ChEMBL /mechanism.json returned 0 mechanisms; Open Targets GraphQL supplied TOP2A inhibitor mechanism"
+      },
+      {
+        "tool": "wikipathways_get_pathways_for_gene(TOP2B / 7155)",
+        "outcome": "NO_RESULTS",
+        "fallback": "none; pathway membership not asserted"
+      },
+      {
+        "tool": "opentargets_get_associations",
+        "outcome": "evidence_count 0 and empty evidence_sources on all rows",
+        "note": "scores usable, per-source evidence not retrievable through this tool"
+      }
+    ],
+    "phases_completed": [
+      "1 ANCHOR",
+      "2 ENRICH",
+      "3 EXPAND",
+      "4a TRAVERSE_DRUGS",
+      "4b TRAVERSE_TRIALS",
+      "5 VALIDATE",
+      "6a PERSIST (local files only; Graphiti not written)",
+      "6b REPORT"
+    ],
+    "post_review_fixes": [
+      "BRD4 ensembl corrected from 'ENSG00000141867, ' to 'ENSG00000141867'",
+      "KRAS enriched via hgnc_search_genes + hgnc_get_gene(HGNC:6407) - CURIE was asserted pre-verification at report time",
+      "'cardiotoxicity' promoted from dangling edge endpoint to explicit Phenotype node flagged curie_status UNRESOLVED",
+      "NCT06277154 added - cited in report.md but missing from the graph"
+    ]
+  }
+}

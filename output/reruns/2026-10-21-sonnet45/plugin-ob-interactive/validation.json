@@ -1,0 +1,17 @@
+{
+  "cq_id": "cq-nf1-dox-toxicity-efficacy",
+  "execution_date": "2026-10-21",
+  "validation_status": "EVIDENCE_VALIDATED (no gold standard available)",
+  "gold_standard_available": false,
+  "entity_resolution": {
+    "resolved": 17,
+    "unresolved": 0,
+    "note": "all 10 gene nodes carry symbol/name/ensembl/uniprot/location except KRAS (STRING-derived, partial)"
+  },
+  "edge_count": 15,
+  "discrepancies": [
+    "KRAS node is partial (symbol + STRING score only) - not enriched via hgnc_get_gene",
+    "Dexrazoxane -> TOP2B edge is isoform-inferred: ChEMBL records 'DNA topoisomerase II inhibitor' at CHEMBL2094255 without isoform disambiguation",
+    "No gold_standard_path exists for this question; it is cq3 of the local Paul catalog, user-scoped to NF1"
+  ]
+}

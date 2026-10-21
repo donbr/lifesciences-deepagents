@@ -1,0 +1,1353 @@
+{
+  "metadata": {
+    "title": "Doxorubicin Toxicity Minimization and Efficacy Preservation in NF1 Patients - Knowledge Graph",
+    "research_question": "What known genes or pathways are implicated in minimizing Doxorubicin toxicity while preserving its anti-tumor efficacy for NF1?",
+    "date_generated": "2025-01-16",
+    "pipeline": "Fuzzy-to-Fact Protocol (Phases 1-6)",
+    "validation_status": "VALIDATED - Excludes invalidated synthetic lethality claims",
+    "node_count": 42,
+    "edge_count": 68,
+    "confidence_note": "All synthetic lethality claims (NF1×TOP2A, NF1×KRAS, NF1×TOP1/TOP3A) were invalidated in Phase 5 validation and excluded from this graph",
+    "provenance": "Integrated from phase1_anchor.json, phase2_enrich.json, phase3_expand.json, phase4a_drugs.json, phase4b_trials.json, phase5_validate.json"
+  },
+  "nodes": [
+    {
+      "id": "HGNC:7765",
+      "type": "Gene",
+      "label": "NF1",
+      "properties": {
+        "symbol": "NF1",
+        "name": "neurofibromin 1",
+        "ensembl_id": "ENSG00000196712",
+        "uniprot_id": "P21359",
+        "location": "17q11.2",
+        "function": "Tumor suppressor; GTPase activating protein (GAP) that negatively regulates RAS signaling",
+        "role": "Disease gene - mutations cause Neurofibromatosis Type 1",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "id": "MONDO:0018975",
+      "type": "Disease",
+      "label": "Neurofibromatosis Type 1",
+      "properties": {
+        "name": "Neurofibromatosis Type 1",
+        "aliases": ["NF1 disease", "von Recklinghausen disease"],
+        "mechanism": "Loss of function mutations in NF1 gene → RAS hyperactivation",
+        "cancer_risk": "Increased risk of MPNST, glioma, and other malignancies",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "id": "CHEMBL:53463",
+      "type": "Drug",
+      "label": "Doxorubicin",
+      "properties": {
+        "name": "Doxorubicin",
+        "aliases": ["Adriamycin", "doxorubicin hydrochloride"],
+        "drug_class": "Anthracycline chemotherapy",
+        "mechanism": "Topoisomerase II inhibitor",
+        "indication": "Various cancers including sarcomas",
+        "major_toxicity": "Cardiotoxicity",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "id": "HGNC:11990",
+      "type": "Gene",
+      "label": "TOP2B",
+      "properties": {
+        "symbol": "TOP2B",
+        "name": "DNA topoisomerase II beta",
+        "ensembl_id": "ENSG00000077097",
+        "uniprot_id": "Q02880",
+        "location": "3p24.2",
+        "function": "Controls DNA topology during transcription in non-dividing cells",
+        "role": "PRIMARY MEDIATOR of doxorubicin-induced cardiotoxicity",
+        "cellular_location": "Constitutively expressed in cardiomyocytes",
+        "therapeutic_strategy": "Cardioprotection via TOP2B inhibition (dexrazoxane) or selective TOP2A targeting",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:11989",
+      "type": "Gene",
+      "label": "TOP2A",
+      "properties": {
+        "symbol": "TOP2A",
+        "name": "DNA topoisomerase II alpha",
+        "ensembl_id": "ENSG00000131747",
+        "uniprot_id": "P11388",
+        "location": "17q21.2",
+        "function": "Controls DNA topology during replication and mitosis in dividing cells",
+        "role": "PRIMARY ANTI-CANCER TARGET of doxorubicin",
+        "cellular_location": "Expressed in proliferating tumor cells",
+        "therapeutic_strategy": "Maintain TOP2A inhibition for anti-tumor efficacy",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:1548",
+      "type": "Gene",
+      "label": "CBR1",
+      "properties": {
+        "symbol": "CBR1",
+        "name": "carbonyl reductase 1",
+        "ensembl_id": "ENSG00000159228",
+        "uniprot_id": "P16152",
+        "location": "21q22.12",
+        "function": "NADPH-dependent carbonyl reductase; converts doxorubicin to cardiotoxic doxorubicinol",
+        "role": "CARDIOTOXICITY MEDIATOR via metabolite formation",
+        "polymorphisms": "CBR1 V244M associated with variable cardiotoxicity risk",
+        "therapeutic_strategy": "CBR1 inhibition to reduce cardiotoxic metabolite formation",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:1551",
+      "type": "Gene",
+      "label": "CBR3",
+      "properties": {
+        "symbol": "CBR3",
+        "name": "carbonyl reductase 3",
+        "ensembl_id": "ENSG00000159231",
+        "uniprot_id": "O75828",
+        "location": "21q22.12",
+        "function": "Secondary carbonyl reductase contributing to doxorubicin metabolism",
+        "role": "CARDIOTOXICITY MEDIATOR (secondary)",
+        "therapeutic_strategy": "CBR3 inhibition may complement CBR1 targeting",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "HGNC:11180",
+      "type": "Gene",
+      "label": "SOD2",
+      "properties": {
+        "symbol": "SOD2",
+        "name": "superoxide dismutase 2",
+        "ensembl_id": "ENSG00000112096",
+        "uniprot_id": "P04179",
+        "aliases": ["MnSOD", "manganese superoxide dismutase"],
+        "function": "Mitochondrial antioxidant enzyme protecting against oxidative stress",
+        "role": "CARDIOPROTECTIVE - antioxidant defense",
+        "pathway": "NRF2/NFE2L2 antioxidant pathway",
+        "therapeutic_strategy": "Upregulation via NRF2 activators for cardioprotection",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "HGNC:4638",
+      "type": "Gene",
+      "label": "GSTP1",
+      "properties": {
+        "symbol": "GSTP1",
+        "name": "glutathione S-transferase pi 1",
+        "function": "Phase II detoxification enzyme; conjugates glutathione to electrophiles",
+        "role": "CARDIOPROTECTIVE - detoxification",
+        "pathway": "NRF2/NFE2L2 antioxidant pathway",
+        "therapeutic_strategy": "Upregulation via NRF2 activators",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "HGNC:4632",
+      "type": "Gene",
+      "label": "GSTM1",
+      "properties": {
+        "symbol": "GSTM1",
+        "name": "glutathione S-transferase mu 1",
+        "function": "Phase II detoxification enzyme",
+        "role": "CARDIOPROTECTIVE - detoxification",
+        "pathway": "NRF2/NFE2L2 antioxidant pathway",
+        "polymorphisms": "GSTM1 null genotype associated with increased toxicity susceptibility",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "HGNC:7782",
+      "type": "Gene",
+      "label": "NFE2L2",
+      "properties": {
+        "symbol": "NFE2L2",
+        "name": "NFE2 like bZIP transcription factor 2",
+        "aliases": ["NRF2"],
+        "function": "Master regulator of antioxidant response",
+        "role": "CARDIOPROTECTIVE - antioxidant pathway activation",
+        "downstream_targets": ["SOD2", "GSTP1", "GSTM1", "NQO1", "HO1"],
+        "therapeutic_strategy": "NRF2 activation (e.g., dimethyl fumarate) for cardioprotection",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "HGNC:40",
+      "type": "Gene",
+      "label": "ABCB1",
+      "properties": {
+        "symbol": "ABCB1",
+        "name": "ATP binding cassette subfamily B member 1",
+        "aliases": ["MDR1", "P-glycoprotein", "PGP"],
+        "function": "ATP-dependent drug efflux transporter",
+        "role": "RESISTANCE MECHANISM - reduces intracellular doxorubicin",
+        "therapeutic_strategy": "P-gp inhibition to overcome resistance (verapamil, tariquidar)",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:11998",
+      "type": "Gene",
+      "label": "TP53",
+      "properties": {
+        "symbol": "TP53",
+        "name": "tumor protein p53",
+        "aliases": ["p53"],
+        "function": "Master regulator of DNA damage response and apoptosis",
+        "role": "Central to doxorubicin-induced apoptosis; p53 status affects treatment response",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:3265",
+      "type": "Gene",
+      "label": "HRAS",
+      "properties": {
+        "symbol": "HRAS",
+        "name": "HRas proto-oncogene, GTPase",
+        "function": "Small GTPase involved in RAS/MAPK signaling",
+        "role": "NF1 directly regulates HRAS via GAP activity",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:3845",
+      "type": "Gene",
+      "label": "KRAS",
+      "properties": {
+        "symbol": "KRAS",
+        "name": "KRAS proto-oncogene, GTPase",
+        "function": "Small GTPase involved in RAS/MAPK signaling",
+        "role": "NF1 loss → KRAS hyperactivation; implicated in NF1-associated tumors",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG",
+        "note": "Physical interaction validated; synthetic lethality claim INVALIDATED"
+      }
+    },
+    {
+      "id": "HGNC:4893",
+      "type": "Gene",
+      "label": "NRAS",
+      "properties": {
+        "symbol": "NRAS",
+        "name": "NRAS proto-oncogene, GTPase",
+        "function": "Small GTPase involved in RAS/MAPK signaling",
+        "role": "Third RAS isoform regulated by NF1",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "ENSEMBL:ENSG00000169032",
+      "type": "Gene",
+      "label": "MAP2K1",
+      "properties": {
+        "symbol": "MAP2K1",
+        "name": "mitogen-activated protein kinase kinase 1",
+        "aliases": ["MEK1"],
+        "function": "Serine/threonine kinase in RAS/MAPK pathway",
+        "role": "THERAPEUTIC TARGET - downstream of RAS hyperactivation in NF1",
+        "therapeutic_strategy": "MEK inhibition (selumetinib, trametinib) exploits NF1-driven pathway dependence",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "VERY STRONG"
+      }
+    },
+    {
+      "id": "ENSEMBL:ENSG00000126934",
+      "type": "Gene",
+      "label": "MAP2K2",
+      "properties": {
+        "symbol": "MAP2K2",
+        "name": "mitogen-activated protein kinase kinase 2",
+        "aliases": ["MEK2"],
+        "function": "Serine/threonine kinase in RAS/MAPK pathway",
+        "role": "THERAPEUTIC TARGET - co-target with MEK1",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "VERY STRONG"
+      }
+    },
+    {
+      "id": "CHEMBL:2011159",
+      "type": "Drug",
+      "label": "Trametinib",
+      "properties": {
+        "name": "Trametinib",
+        "drug_class": "MEK inhibitor",
+        "targets": ["MAP2K1", "MAP2K2"],
+        "mechanism": "Allosteric MEK1/2 inhibitor",
+        "phase": "FDA Approved",
+        "indications": ["BRAF V600E/K-mutant melanoma", "BRAF V600E-mutant NSCLC"],
+        "mek1_ic50": "0.7 nM",
+        "mek2_ic50": "0.9 nM",
+        "rationale": "MEK inhibition exploits RAS/MAPK hyperactivation in NF1-deficient cells",
+        "compatibility_with_doxorubicin": "HIGH - may enhance doxorubicin efficacy without increasing cardiotoxicity",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "CHEMBL:1614705",
+      "type": "Drug",
+      "label": "Selumetinib",
+      "properties": {
+        "name": "Selumetinib",
+        "drug_class": "MEK inhibitor",
+        "targets": ["MAP2K1", "MAP2K2"],
+        "mechanism": "ATP-uncompetitive MEK1/2 inhibitor",
+        "phase": "FDA Approved",
+        "indications": ["NF1-associated plexiform neurofibromas (pediatric patients ≥2 years)"],
+        "approval_year": 2020,
+        "clinical_trial": "SPRINT trial (Dombi et al., NEJM 2020)",
+        "mek1_ic50": "14 nM",
+        "mek2_ic50": "530 nM",
+        "rationale": "DIRECTLY APPROVED FOR NF1 PATIENTS - established safety and efficacy profile",
+        "compatibility_with_doxorubicin": "HIGH - well-tolerated in NF1 patients",
+        "validation_status": "VALIDATED - FDA approved for NF1",
+        "evidence_grade": "VERY STRONG"
+      }
+    },
+    {
+      "id": "CHEMBL:3707375",
+      "type": "Drug",
+      "label": "Cobimetinib",
+      "properties": {
+        "name": "Cobimetinib",
+        "drug_class": "MEK inhibitor",
+        "targets": ["MAP2K1", "MAP2K2"],
+        "mechanism": "Allosteric MEK1/2 inhibitor",
+        "phase": "FDA Approved",
+        "indications": ["BRAF V600E/K-mutant melanoma"],
+        "mek1_ic50": "0.9 nM",
+        "warning": "Monitor for cardiac toxicity (reduced LVEF in 6-15% of patients) - may compound doxorubicin risk",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "DRUGBANK:DB00266",
+      "type": "Drug",
+      "label": "Dexrazoxane",
+      "properties": {
+        "name": "Dexrazoxane",
+        "drug_class": "Cardioprotectant",
+        "targets": ["TOP2B"],
+        "mechanism": "TOP2B catalytic inhibitor; prevents TOP2B-doxorubicin-DNA cleavage complex formation",
+        "phase": "FDA Approved",
+        "indications": ["Prevention of anthracycline-induced cardiotoxicity"],
+        "rationale": "Selectively inhibits TOP2B in cardiomyocytes while sparing TOP2A in tumor cells",
+        "compatibility_with_doxorubicin": "HIGH - specifically designed as cardioprotectant",
+        "validation_status": "VALIDATED - FDA approved",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "PUBCHEM:CID3033825",
+      "type": "Drug",
+      "label": "Dimethyl fumarate",
+      "properties": {
+        "name": "Dimethyl fumarate",
+        "drug_class": "NRF2 activator",
+        "targets": ["NFE2L2/NRF2 pathway"],
+        "mechanism": "Activates NRF2-mediated antioxidant response",
+        "phase": "Investigational for cardioprotection",
+        "fda_approved_for": "Multiple sclerosis",
+        "rationale": "Upregulates antioxidant genes (SOD2, GSTP1, GSTM1) for cardioprotection",
+        "validation_status": "VALIDATED (mechanism); investigational for cardioprotection",
+        "evidence_grade": "EMERGING"
+      }
+    },
+    {
+      "id": "DRUGBANK:DB00661",
+      "type": "Drug",
+      "label": "Verapamil",
+      "properties": {
+        "name": "Verapamil",
+        "drug_class": "Calcium channel blocker; P-gp inhibitor",
+        "targets": ["ABCB1/P-glycoprotein"],
+        "mechanism": "Inhibits P-gp-mediated drug efflux",
+        "phase": "FDA Approved (for cardiac indications)",
+        "rationale": "Overcomes ABCB1-mediated doxorubicin resistance",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "TRIAL:NCT00304083",
+      "type": "ClinicalTrial",
+      "label": "SARC006 - Doxorubicin in NF1-MPNST",
+      "properties": {
+        "nct_id": "NCT00304083",
+        "title": "Phase II Trial of Chemotherapy in Sporadic and NF1-Associated MPNST",
+        "status": "COMPLETED",
+        "phase": "PHASE2",
+        "start_date": "2005-12",
+        "completion_date": "2014-06",
+        "enrollment": 48,
+        "nf1_patients": 34,
+        "sporadic_patients": 14,
+        "intervention": "Doxorubicin 37.5 mg/m2/dose IV days 1-2 + Ifosfamide + Etoposide",
+        "nf1_partial_response": "17.9% (5/28)",
+        "sporadic_partial_response": "44.4% (4/9)",
+        "nf1_stable_disease": "71.4% (20/28)",
+        "key_finding": "Modest response rate in NF1-MPNST; TOPO2A amplification in 5/19 NF1 patients",
+        "relevance": "ONLY completed trial testing doxorubicin in NF1-associated MPNST",
+        "validation_status": "UNVERIFIABLE via MCP tool (CURIE format issue); data structure suggests valid source",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "PATHWAY:RAS_MAPK",
+      "type": "Pathway",
+      "label": "RAS/MAPK Signaling Pathway",
+      "properties": {
+        "name": "RAS/MAPK signaling pathway",
+        "members": ["NF1", "HRAS", "KRAS", "NRAS", "RAF1", "MAP2K1", "MAP2K2", "MAPK1", "MAPK3"],
+        "role": "NF1 loss → RAS hyperactivation → MAPK hyperactivity",
+        "therapeutic_relevance": "MEK inhibition exploits pathway dependence in NF1-deficient cells",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "VERY STRONG"
+      }
+    },
+    {
+      "id": "PATHWAY:NRF2_ANTIOXIDANT",
+      "type": "Pathway",
+      "label": "NRF2 Antioxidant Pathway",
+      "properties": {
+        "name": "NRF2/NFE2L2 antioxidant response pathway",
+        "members": ["NFE2L2", "SOD2", "GSTP1", "GSTM1", "NQO1", "HO1"],
+        "role": "Master antioxidant defense; cardioprotection against oxidative stress",
+        "therapeutic_relevance": "NRF2 activation reduces doxorubicin-induced cardiotoxicity",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "PATHWAY:DNA_DAMAGE_RESPONSE",
+      "type": "Pathway",
+      "label": "DNA Damage Response",
+      "properties": {
+        "name": "DNA damage response pathway",
+        "members": ["TP53", "ATM", "ATR", "CHEK1", "CHEK2"],
+        "role": "Central to doxorubicin-induced apoptosis and cardiotoxicity",
+        "therapeutic_relevance": "p53 status affects treatment response; ATR inhibitors under investigation",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:795",
+      "type": "Gene",
+      "label": "ATM",
+      "properties": {
+        "symbol": "ATM",
+        "name": "ataxia telangiectasia mutated",
+        "function": "Serine/threonine kinase; master regulator of DNA double-strand break response",
+        "role": "Responds to doxorubicin-induced DNA damage",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:882",
+      "type": "Gene",
+      "label": "ATR",
+      "properties": {
+        "symbol": "ATR",
+        "name": "ataxia telangiectasia and Rad3-related",
+        "function": "Serine/threonine kinase; responds to replication stress and DNA damage",
+        "role": "DNA damage checkpoint; ATR inhibitors under investigation for cancer therapy",
+        "therapeutic_strategy": "ATR inhibition may enhance doxorubicin efficacy",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "EMERGING"
+      }
+    },
+    {
+      "id": "HGNC:1956",
+      "type": "Gene",
+      "label": "EGFR",
+      "properties": {
+        "symbol": "EGFR",
+        "name": "epidermal growth factor receptor",
+        "function": "Receptor tyrosine kinase",
+        "role": "Activates RAS pathway; NF1 modulates EGFR downstream signaling",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:5894",
+      "type": "Gene",
+      "label": "RAF1",
+      "properties": {
+        "symbol": "RAF1",
+        "name": "Raf-1 proto-oncogene, serine/threonine kinase",
+        "function": "Serine/threonine kinase; downstream of RAS",
+        "role": "RAF1 is downstream of RAS; NF1 indirectly regulates via RAS inhibition",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:207",
+      "type": "Gene",
+      "label": "AKT1",
+      "properties": {
+        "symbol": "AKT1",
+        "name": "AKT serine/threonine kinase 1",
+        "function": "Serine/threonine kinase; central to PI3K/AKT pathway",
+        "role": "PI3K/AKT pathway crosswalk with RAS/MAPK signaling",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:5728",
+      "type": "Gene",
+      "label": "PTEN",
+      "properties": {
+        "symbol": "PTEN",
+        "name": "phosphatase and tensin homolog",
+        "function": "Phosphatase; tumor suppressor; negative regulator of PI3K/AKT",
+        "role": "Tumor suppressor; genetic interaction with NF1 suggests synthetic viability",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "MONDO:0005106",
+      "type": "Disease",
+      "label": "Malignant Peripheral Nerve Sheath Tumor",
+      "properties": {
+        "name": "Malignant Peripheral Nerve Sheath Tumor",
+        "abbreviation": "MPNST",
+        "association": "15-25% of NF1 patients develop MPNST",
+        "prognosis": "Poor; 5-year survival ~20-50%",
+        "standard_treatment": "Surgery + chemotherapy (often doxorubicin-based)",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "id": "HGNC:6407",
+      "type": "Gene",
+      "label": "MAPK1",
+      "properties": {
+        "symbol": "MAPK1",
+        "name": "mitogen-activated protein kinase 1",
+        "aliases": ["ERK2"],
+        "function": "Serine/threonine kinase; downstream of MEK1/2",
+        "role": "Effector of RAS/MAPK pathway; hyperactivated in NF1-deficient cells",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:6877",
+      "type": "Gene",
+      "label": "MAPK3",
+      "properties": {
+        "symbol": "MAPK3",
+        "name": "mitogen-activated protein kinase 3",
+        "aliases": ["ERK1"],
+        "function": "Serine/threonine kinase; downstream of MEK1/2",
+        "role": "Effector of RAS/MAPK pathway; hyperactivated in NF1-deficient cells",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:7498",
+      "type": "Gene",
+      "label": "NQO1",
+      "properties": {
+        "symbol": "NQO1",
+        "name": "NAD(P)H quinone dehydrogenase 1",
+        "function": "Two-electron reductase; antioxidant enzyme",
+        "role": "CARDIOPROTECTIVE - NRF2 target gene",
+        "pathway": "NRF2/NFE2L2 antioxidant pathway",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "HGNC:4779",
+      "type": "Gene",
+      "label": "HMOX1",
+      "properties": {
+        "symbol": "HMOX1",
+        "name": "heme oxygenase 1",
+        "aliases": ["HO1"],
+        "function": "Heme degradation; antioxidant and anti-inflammatory effects",
+        "role": "CARDIOPROTECTIVE - NRF2 target gene",
+        "pathway": "NRF2/NFE2L2 antioxidant pathway",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "id": "HGNC:1971",
+      "type": "Gene",
+      "label": "CHEK1",
+      "properties": {
+        "symbol": "CHEK1",
+        "name": "checkpoint kinase 1",
+        "function": "Serine/threonine kinase; cell cycle checkpoint regulator",
+        "role": "DNA damage checkpoint; activated by ATR",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "HGNC:16627",
+      "type": "Gene",
+      "label": "CHEK2",
+      "properties": {
+        "symbol": "CHEK2",
+        "name": "checkpoint kinase 2",
+        "function": "Serine/threonine kinase; cell cycle checkpoint regulator",
+        "role": "DNA damage checkpoint; activated by ATM",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "id": "BIOACTIVITY:CARDIOTOXICITY",
+      "type": "AdverseEffect",
+      "label": "Doxorubicin-Induced Cardiotoxicity",
+      "properties": {
+        "name": "Doxorubicin-induced cardiotoxicity",
+        "mechanism": "TOP2B-mediated DNA damage in cardiomyocytes + oxidative stress + cardiotoxic metabolite (doxorubicinol) accumulation",
+        "key_mediators": ["TOP2B", "CBR1", "CBR3"],
+        "manifestations": ["Cardiomyopathy", "Heart failure", "Arrhythmias"],
+        "risk_factors": ["Cumulative dose >450 mg/m²", "Age >65 years", "Pre-existing cardiac disease", "Genetic polymorphisms (CBR1, GSTP1)"],
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "id": "PHENOTYPE:DRUG_RESISTANCE",
+      "type": "Phenotype",
+      "label": "Doxorubicin Resistance",
+      "properties": {
+        "name": "Doxorubicin resistance",
+        "mechanisms": ["ABCB1/P-gp overexpression (efflux)", "TOP2A downregulation", "TP53 mutation", "Enhanced DNA repair", "Altered apoptosis"],
+        "key_genes": ["ABCB1", "TOP2A", "TP53"],
+        "strategies_to_overcome": ["P-gp inhibition (verapamil)", "Combination with targeted agents", "Alternative topoisomerase inhibitors"],
+        "validation_status": "VALIDATED"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:7765",
+      "target": "MONDO:0018975",
+      "type": "CAUSES_DISEASE",
+      "properties": {
+        "mechanism": "Loss of function mutations",
+        "inheritance": "Autosomal dominant",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11989",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Forms TOP2A-DNA cleavage complex → DNA double-strand breaks",
+        "therapeutic_effect": "Anti-tumor efficacy",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11990",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Forms TOP2B-DNA cleavage complex in cardiomyocytes",
+        "adverse_effect": "Cardiotoxicity",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:1548",
+      "target": "CHEMBL:53463",
+      "type": "METABOLIZES",
+      "properties": {
+        "mechanism": "Converts doxorubicin to doxorubicinol (C-13 hydroxyl metabolite)",
+        "product": "Doxorubicinol (cardiotoxic metabolite)",
+        "impact": "Increases cardiotoxicity",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "DRUGBANK:DB00266",
+      "target": "HGNC:11990",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "TOP2B catalytic inhibitor; prevents cleavage complex formation",
+        "therapeutic_effect": "Cardioprotection",
+        "validation_status": "VALIDATED - FDA approved mechanism",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:3265",
+      "type": "PHYSICALLY_INTERACTS",
+      "properties": {
+        "mechanism": "Direct RAS-GAP interaction; NF1 negatively regulates HRAS",
+        "experimental_system": "Two-hybrid, Proximity Label-MS, Reconstituted Complex",
+        "pubmed_ids": ["8628317", "30639242", "30655611"],
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:3845",
+      "type": "PHYSICALLY_INTERACTS",
+      "properties": {
+        "mechanism": "NF1 negatively regulates KRAS; KRAS hyperactivation in NF1-deficient cells",
+        "experimental_system": "Proximity Label-MS",
+        "pubmed_ids": ["30639242", "30194290", "34079125"],
+        "validation_status": "VALIDATED (physical interaction); synthetic lethality claim INVALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:4893",
+      "type": "PHYSICALLY_INTERACTS",
+      "properties": {
+        "mechanism": "NF1 negatively regulates NRAS",
+        "experimental_system": "Reconstituted Complex, Proximity Label-MS",
+        "pubmed_ids": ["7499408", "30194290"],
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:3845",
+      "target": "ENSEMBL:ENSG00000169032",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "RAS activates RAF → MEK signaling cascade",
+        "pathway": "RAS/MAPK",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "ENSEMBL:ENSG00000169032",
+      "target": "HGNC:6407",
+      "type": "PHOSPHORYLATES",
+      "properties": {
+        "mechanism": "MEK1 phosphorylates ERK2",
+        "pathway": "RAS/MAPK",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "ENSEMBL:ENSG00000126934",
+      "target": "HGNC:6407",
+      "type": "PHOSPHORYLATES",
+      "properties": {
+        "mechanism": "MEK2 phosphorylates ERK2",
+        "pathway": "RAS/MAPK",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "ENSEMBL:ENSG00000169032",
+      "target": "HGNC:6877",
+      "type": "PHOSPHORYLATES",
+      "properties": {
+        "mechanism": "MEK1 phosphorylates ERK1",
+        "pathway": "RAS/MAPK",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "CHEMBL:1614705",
+      "target": "ENSEMBL:ENSG00000169032",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "ATP-uncompetitive MEK1/2 inhibitor",
+        "ic50_mek1": "14 nM",
+        "therapeutic_effect": "Blocks hyperactive RAS/MAPK signaling in NF1-deficient cells",
+        "validation_status": "VALIDATED - FDA approved for NF1",
+        "evidence_grade": "VERY STRONG"
+      }
+    },
+    {
+      "source": "CHEMBL:1614705",
+      "target": "ENSEMBL:ENSG00000126934",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "ATP-uncompetitive MEK1/2 inhibitor",
+        "ic50_mek2": "530 nM",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "VERY STRONG"
+      }
+    },
+    {
+      "source": "CHEMBL:2011159",
+      "target": "ENSEMBL:ENSG00000169032",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Allosteric MEK1/2 inhibitor",
+        "ic50_mek1": "0.7 nM",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "CHEMBL:2011159",
+      "target": "ENSEMBL:ENSG00000126934",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Allosteric MEK1/2 inhibitor",
+        "ic50_mek2": "0.9 nM",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:11180",
+      "type": "UPREGULATES",
+      "properties": {
+        "mechanism": "NRF2 transcriptionally activates SOD2",
+        "pathway": "NRF2 antioxidant response",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:4638",
+      "type": "UPREGULATES",
+      "properties": {
+        "mechanism": "NRF2 transcriptionally activates GSTP1",
+        "pathway": "NRF2 antioxidant response",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:4632",
+      "type": "UPREGULATES",
+      "properties": {
+        "mechanism": "NRF2 transcriptionally activates GSTM1",
+        "pathway": "NRF2 antioxidant response",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:7498",
+      "type": "UPREGULATES",
+      "properties": {
+        "mechanism": "NRF2 transcriptionally activates NQO1",
+        "pathway": "NRF2 antioxidant response",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "HGNC:4779",
+      "type": "UPREGULATES",
+      "properties": {
+        "mechanism": "NRF2 transcriptionally activates HMOX1",
+        "pathway": "NRF2 antioxidant response",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "PUBCHEM:CID3033825",
+      "target": "HGNC:7782",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "Dimethyl fumarate activates NRF2-mediated antioxidant response",
+        "therapeutic_effect": "Cardioprotection (investigational)",
+        "validation_status": "VALIDATED (mechanism); investigational for cardioprotection",
+        "evidence_grade": "EMERGING"
+      }
+    },
+    {
+      "source": "HGNC:40",
+      "target": "CHEMBL:53463",
+      "type": "EXPORTS",
+      "properties": {
+        "mechanism": "ATP-dependent drug efflux via P-glycoprotein",
+        "impact": "Reduces intracellular doxorubicin concentration → resistance",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "DRUGBANK:DB00661",
+      "target": "HGNC:40",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Inhibits P-gp-mediated drug efflux",
+        "therapeutic_effect": "Overcomes doxorubicin resistance",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11998",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "DNA damage activates p53-mediated apoptosis",
+        "therapeutic_effect": "Anti-tumor efficacy",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:11989",
+      "target": "HGNC:11998",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "mechanism": "TOP2A-induced DNA damage activates p53 pathway",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "HGNC:795",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "mechanism": "ATM phosphorylates and activates p53 in response to DNA damage",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:795",
+      "target": "HGNC:16627",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "ATM phosphorylates CHEK2",
+        "pathway": "DNA damage response",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:882",
+      "target": "HGNC:1971",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "ATR phosphorylates CHEK1",
+        "pathway": "DNA damage response",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "TRIAL:NCT00304083",
+      "target": "CHEMBL:53463",
+      "type": "TESTS_DRUG",
+      "properties": {
+        "study_type": "Phase II clinical trial",
+        "population": "NF1-associated MPNST (n=34) and sporadic MPNST (n=14)",
+        "outcome": "NF1 partial response 17.9%; sporadic partial response 44.4%",
+        "validation_status": "UNVERIFIABLE via MCP (format issue); data structure suggests valid",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "source": "MONDO:0018975",
+      "target": "MONDO:0005106",
+      "type": "INCREASES_RISK_OF",
+      "properties": {
+        "risk": "15-25% of NF1 patients develop MPNST",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Negative regulator; loss leads to pathway hyperactivation",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:3845",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Central activator",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "ENSEMBL:ENSG00000169032",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Downstream kinase; therapeutic target",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:7782",
+      "target": "PATHWAY:NRF2_ANTIOXIDANT",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Master transcriptional regulator",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:11180",
+      "target": "PATHWAY:NRF2_ANTIOXIDANT",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Effector; mitochondrial antioxidant",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:11998",
+      "target": "PATHWAY:DNA_DAMAGE_RESPONSE",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Master regulator of apoptosis",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:795",
+      "target": "PATHWAY:DNA_DAMAGE_RESPONSE",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "DSB sensor and signaling kinase",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "BIOACTIVITY:CARDIOTOXICITY",
+      "type": "CAUSES",
+      "properties": {
+        "mechanism": "TOP2B-mediated DNA damage + oxidative stress + cardiotoxic metabolite formation",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "BIOACTIVITY:CARDIOTOXICITY",
+      "type": "MEDIATES",
+      "properties": {
+        "role": "Primary mediator via DNA cleavage complex formation",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "HGNC:1548",
+      "target": "BIOACTIVITY:CARDIOTOXICITY",
+      "type": "MEDIATES",
+      "properties": {
+        "role": "Generates cardiotoxic metabolite doxorubicinol",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "DRUGBANK:DB00266",
+      "target": "BIOACTIVITY:CARDIOTOXICITY",
+      "type": "PREVENTS",
+      "properties": {
+        "mechanism": "TOP2B inhibition prevents DNA damage in cardiomyocytes",
+        "validation_status": "VALIDATED - FDA approved",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "PATHWAY:NRF2_ANTIOXIDANT",
+      "target": "BIOACTIVITY:CARDIOTOXICITY",
+      "type": "PROTECTS_AGAINST",
+      "properties": {
+        "mechanism": "Antioxidant defense reduces oxidative stress",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "source": "HGNC:40",
+      "target": "PHENOTYPE:DRUG_RESISTANCE",
+      "type": "MEDIATES",
+      "properties": {
+        "mechanism": "Drug efflux reduces intracellular doxorubicin",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "STRONG"
+      }
+    },
+    {
+      "source": "DRUGBANK:DB00661",
+      "target": "PHENOTYPE:DRUG_RESISTANCE",
+      "type": "REVERSES",
+      "properties": {
+        "mechanism": "P-gp inhibition overcomes efflux-mediated resistance",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:1956",
+      "type": "MODULATES",
+      "properties": {
+        "mechanism": "NF1 modulates EGFR downstream signaling via RAS regulation",
+        "experimental_system": "Affinity Capture-MS",
+        "pubmed_ids": ["28065597", "25754235"],
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:5894",
+      "type": "REGULATES",
+      "properties": {
+        "mechanism": "NF1 indirectly regulates RAF1 via RAS inhibition",
+        "experimental_system": "FRET",
+        "pubmed_ids": ["28205554"],
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:207",
+      "type": "REGULATES",
+      "properties": {
+        "mechanism": "PI3K/AKT pathway crosswalk with RAS/MAPK signaling",
+        "experimental_system": "FRET",
+        "pubmed_ids": ["28205554"],
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "HGNC:5728",
+      "type": "GENETIC_INTERACTION",
+      "properties": {
+        "type": "Positive Genetic",
+        "mechanism": "Both are tumor suppressors; genetic interaction suggests synthetic viability",
+        "experimental_system": "Positive Genetic",
+        "pubmed_ids": ["28319113"],
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:3845",
+      "target": "HGNC:5894",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "KRAS activates RAF1 in MAPK cascade",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:5894",
+      "target": "ENSEMBL:ENSG00000169032",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "RAF1 phosphorylates and activates MEK1",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:5894",
+      "target": "ENSEMBL:ENSG00000126934",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "RAF1 phosphorylates and activates MEK2",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:1956",
+      "target": "HGNC:3845",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "EGFR activates RAS pathway",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "CHEMBL:3707375",
+      "target": "ENSEMBL:ENSG00000169032",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Allosteric MEK1 inhibitor",
+        "ic50_mek1": "0.9 nM",
+        "warning": "Monitor for cardiac toxicity",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "source": "HGNC:1551",
+      "target": "CHEMBL:53463",
+      "type": "METABOLIZES",
+      "properties": {
+        "mechanism": "Secondary carbonyl reductase contributing to doxorubicin metabolism",
+        "validation_status": "VALIDATED",
+        "evidence_grade": "MODERATE"
+      }
+    },
+    {
+      "source": "HGNC:6407",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Downstream effector kinase",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:6877",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Downstream effector kinase",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:882",
+      "target": "PATHWAY:DNA_DAMAGE_RESPONSE",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Replication stress sensor; investigational therapeutic target",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:1971",
+      "target": "PATHWAY:DNA_DAMAGE_RESPONSE",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Cell cycle checkpoint regulator",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:16627",
+      "target": "PATHWAY:DNA_DAMAGE_RESPONSE",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Cell cycle checkpoint regulator",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:4638",
+      "target": "PATHWAY:NRF2_ANTIOXIDANT",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Effector; detoxification enzyme",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:4632",
+      "target": "PATHWAY:NRF2_ANTIOXIDANT",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Effector; detoxification enzyme",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:7498",
+      "target": "PATHWAY:NRF2_ANTIOXIDANT",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Effector; quinone reductase",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:4779",
+      "target": "PATHWAY:NRF2_ANTIOXIDANT",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Effector; heme degradation and antioxidant",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:3265",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Small GTPase",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:4893",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Small GTPase",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "HGNC:5894",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Serine/threonine kinase",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "ENSEMBL:ENSG00000126934",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "MEMBER_OF",
+      "properties": {
+        "role": "Downstream kinase; therapeutic target",
+        "validation_status": "VALIDATED"
+      }
+    }
+  ]
+}
