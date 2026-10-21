@@ -1,0 +1,100 @@
+Tool Call Sequence — Lifesciences-Graph-Builder Skill
+Query: By what mechanism does Palovarotene treat FOP?
+Date: 2026-02-09
+
+PHASE 1: ANCHOR
+===============
+1. hgnc_search_genes(query="ACVR1 fibrodysplasia ossificans progressiva", slim=true, page_size=5)
+   → Result: EBR3 (incorrect)
+
+2. chembl_search_compounds(query="Palovarotene", slim=true, page_size=5)
+   → Result: CHEMBL:2105648
+
+3. hgnc_search_genes(query="ACVR1", slim=true, page_size=5)
+   → Result: HGNC:171 (ACVR1) ✓
+
+4. hgnc_get_gene(hgnc_id="HGNC:171")
+   → Result: Full gene record with cross-references
+
+5. chembl_get_compound(chembl_id="CHEMBL:2105648")
+   → Result: SUCCESS (no 500 error), max_phase=4
+
+
+PHASE 2: ENRICH
+================
+6. uniprot_get_protein(uniprot_id="UniProtKB:Q04771")
+   → Result: ACVR1 protein function (BMP receptor, SMAD phosphorylation)
+
+7. opentargets_get_associations(target_id="ENSG00000115170", page_size=10)
+   → Result: MONDO_0007606 (FOP), score 0.816
+
+
+PHASE 3: EXPAND
+================
+8. string_get_interactions(string_id="STRING:9606.ENSP00000405004", required_score=700, limit=15)
+   → Result: 15 interactions (ACVR2A, BMP ligands, SMAD5/9)
+
+
+PHASE 4a: TRAVERSE_DRUGS
+==========================
+9. hgnc_search_genes(query="RARG retinoic acid receptor gamma", slim=true, page_size=3)
+   → Result: HGNC:9866 (RARG)
+
+10. hgnc_get_gene(hgnc_id="HGNC:9866")
+    → Result: RARG gene record, Ensembl: ENSG00000172819
+
+11. opentargets_get_target(ensembl_id="ENSG00000172819")
+    → Result: RARG target info (but no knownDrugs field)
+
+12. Bash: curl Open Targets GraphQL (knownDrugs for RARG)
+    → Result: TRETINOIN, ALITRETINOIN, etc. (no Palovarotene)
+
+13. hgnc_search_genes(query="SMAD1", slim=true, page_size=3)
+    → Result: HGNC:6767 (SMAD1)
+
+14. hgnc_get_gene(hgnc_id="HGNC:6767")
+    → Result: SMAD1 gene record
+
+15. string_search_proteins(query="SMAD1", species=9606, limit=3)
+    → Result: STRING:9606.ENSP00000305769
+
+16. string_get_interactions(string_id="STRING:9606.ENSP00000305769", required_score=400, limit=20)
+    → Result: SMAD1 interactions (SMAD4, SMAD7, MAPK1, EP300, etc.)
+
+17. uniprot_get_protein(uniprot_id="UniProtKB:Q15797")
+    → Result: SMAD1 function
+
+18. string_search_proteins(query="RARG", species=9606, limit=3)
+    → Result: STRING:9606.ENSP00000388510
+
+19. string_get_interactions(string_id="STRING:9606.ENSP00000388510", required_score=400, limit=25)
+    → Result: RARG interactions (CYP26, RAR/RXR family) — NO SMAD1
+
+
+PHASE 4b: TRAVERSE_TRIALS
+===========================
+20. clinicaltrials_search_trials(query="fibrodysplasia ossificans progressiva palovarotene", page_size=10)
+    → Result: 8 trials, including NCT:02279095 (title reveals RARγ agonist)
+
+21. clinicaltrials_get_trial(nct_id="NCT:03312634")
+    → Result: Phase 3 trial details
+
+
+PHASE 5: VALIDATE
+==================
+22. WebSearch(query="Palovarotene RARγ SMAD1 degradation mechanism FOP 2026")
+    → Result: Mechanism found — RARγ activation promotes SMAD1/5/8 degradation
+
+23. clinicaltrials_get_trial(nct_id="NCT:02279095")
+    → Result: VALIDATED — Phase 2 trial exists
+
+
+SUMMARY
+=======
+Total MCP tool calls: 19
+Total Bash calls: 2 (curl to Open Targets GraphQL)
+Total Web searches: 1
+Total tool invocations: 22
+
+Key success: ChEMBL worked (no 500 error)
+Key fallback: Web search required for SMAD degradation mechanism (not available via MCP tools)

@@ -1,0 +1,835 @@
+{
+  "query": "Which repurposed drugs from Marik's cancer metabolism protocol (2023) have validated molecular targets in the glycolysis/OxPhos/AMPK-mTOR axis, and which are in active cancer clinical trials?",
+  "disease": {
+    "id": "EFO:0000311",
+    "name": "cancer",
+    "type": "Disease"
+  },
+  "nodes": [
+    {
+      "id": "HGNC:9376",
+      "type": "Gene",
+      "label": "PRKAA1",
+      "properties": {
+        "symbol": "PRKAA1",
+        "name": "protein kinase AMP-activated catalytic subunit alpha 1",
+        "ensembl": "ENSG00000132356",
+        "uniprot": "Q13131",
+        "location": "5p13.1",
+        "alias": "AMPKa1",
+        "pathway_axis": "AMPK-mTOR"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "Cancer metabolism working group resources for AMPK pathway research"},
+        {"synapse_id": "syn359903", "name": "GSE36847: Metformin/mTORC1 translational targets", "relevance": "Metformin activates AMPK; dataset confirms mTORC1/4E-BP pathway suppression"}
+      ]
+    },
+    {
+      "id": "HGNC:9377",
+      "type": "Gene",
+      "label": "PRKAA2",
+      "properties": {
+        "symbol": "PRKAA2",
+        "name": "protein kinase AMP-activated catalytic subunit alpha 2",
+        "ensembl": "ENSG00000162409",
+        "uniprot": "P54646",
+        "location": "1p32.2",
+        "alias": "AMPKa2",
+        "pathway_axis": "AMPK-mTOR"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "Cancer metabolism working group resources for AMPK pathway research"},
+        {"synapse_id": "syn359903", "name": "GSE36847: Metformin/mTORC1 translational targets", "relevance": "Metformin activates AMPK; dataset confirms mTORC1/4E-BP pathway suppression"}
+      ]
+    },
+    {
+      "id": "HGNC:3942",
+      "type": "Gene",
+      "label": "MTOR",
+      "properties": {
+        "symbol": "MTOR",
+        "name": "mechanistic target of rapamycin kinase",
+        "ensembl": "ENSG00000198793",
+        "uniprot": "P42345",
+        "location": "1p36.22",
+        "pathway_axis": "AMPK-mTOR",
+        "chembl_target": "CHEMBL:CHEMBL2842"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "name": "GSE36847: Metformin/mTORC1 translational targets", "relevance": "Genome-wide analysis of metformin and mTOR inhibitor translational targets"},
+        {"synapse_id": "syn2237931", "name": "TCGA pancancer phosphorylation signaling", "relevance": "MTOR phosphosite mutations across TCGA pan-cancer; network rewiring events"},
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "355 compounds including PI3K/mTOR inhibitors screened on 243 cancer cell lines"}
+      ]
+    },
+    {
+      "id": "HGNC:391",
+      "type": "Gene",
+      "label": "AKT1",
+      "properties": {
+        "symbol": "AKT1",
+        "name": "AKT serine/threonine kinase 1",
+        "ensembl": "ENSG00000142208",
+        "uniprot": "P31749",
+        "location": "14q32.33",
+        "pathway_axis": "AMPK-mTOR",
+        "chembl_target": "CHEMBL:CHEMBL4282"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "name": "TCGA pancancer phosphorylation signaling", "relevance": "AKT1 phosphosite mutations and network rewiring in TCGA pan-cancer"},
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "PI3K/AKT pathway inhibitor sensitivity data across 243 cell lines"}
+      ]
+    },
+    {
+      "id": "HGNC:8975",
+      "type": "Gene",
+      "label": "PIK3CA",
+      "properties": {
+        "symbol": "PIK3CA",
+        "name": "phosphatidylinositol-4,5-bisphosphate 3-kinase catalytic subunit alpha",
+        "ensembl": "ENSG00000121879",
+        "uniprot": "P42336",
+        "location": "3q26.32",
+        "pathway_axis": "AMPK-mTOR",
+        "chembl_target": "CHEMBL:CHEMBL4005"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "name": "TCGA pancancer phosphorylation signaling", "relevance": "PIK3CA phosphosite mutations enriched via ActiveDriver in TCGA pan-cancer"},
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "PI3K pathway inhibitor screens across 243 cancer cell lines"}
+      ]
+    },
+    {
+      "id": "HGNC:12362",
+      "type": "Gene",
+      "label": "TSC1",
+      "properties": {
+        "symbol": "TSC1",
+        "name": "TSC complex subunit 1",
+        "ensembl": "ENSG00000165699",
+        "uniprot": "Q92574",
+        "location": "9q34.13",
+        "alias": "hamartin",
+        "pathway_axis": "AMPK-mTOR"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "name": "TCGA pancancer phosphorylation signaling", "relevance": "TSC1/TSC2 phosphosite mutations in mTOR signaling network rewiring"},
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "AMPK-mTOR pathway context in cancer metabolism research"}
+      ]
+    },
+    {
+      "id": "HGNC:12363",
+      "type": "Gene",
+      "label": "TSC2",
+      "properties": {
+        "symbol": "TSC2",
+        "name": "TSC complex subunit 2",
+        "ensembl": "ENSG00000103197",
+        "uniprot": "P49815",
+        "location": "16p13.3",
+        "alias": "tuberin",
+        "pathway_axis": "AMPK-mTOR"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "name": "TCGA pancancer phosphorylation signaling", "relevance": "TSC2 phosphorylation by AMPK/AKT in mTOR signaling; TCGA mutation data"},
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "AMPK-mTOR pathway context in cancer metabolism research"}
+      ]
+    },
+    {
+      "id": "HGNC:4910",
+      "type": "Gene",
+      "label": "HIF1A",
+      "properties": {
+        "symbol": "HIF1A",
+        "name": "hypoxia inducible factor 1 subunit alpha",
+        "ensembl": "ENSG00000100644",
+        "uniprot": "Q16665",
+        "location": "14q23.2",
+        "pathway_axis": "AMPK-mTOR",
+        "chembl_target": "CHEMBL:CHEMBL4261"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "name": "GSE27309: SIRT3/HIF1A/Warburg effect", "relevance": "SIRT3 regulates HIF1A; HIF1A drives glycolytic enzyme expression; deleted in 40% breast cancers"},
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "HIF1A as master regulator of cancer metabolic reprogramming"}
+      ]
+    },
+    {
+      "id": "HGNC:4923",
+      "type": "Gene",
+      "label": "HK2",
+      "properties": {
+        "symbol": "HK2",
+        "name": "hexokinase 2",
+        "ensembl": "ENSG00000159399",
+        "uniprot": "P52789",
+        "location": "2p12",
+        "pathway_axis": "Glycolysis"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "name": "GSE27309: SIRT3/HIF1A/Warburg effect", "relevance": "HK2 upregulated by HIF1A in Warburg effect; glycolytic gene expression data"},
+        {"synapse_id": "syn10463688", "name": "GDSC/CCLE/Genentech merged RNA-seq", "relevance": "HK2 baseline expression across cancer cell lines for drug-response correlation"}
+      ]
+    },
+    {
+      "id": "HGNC:9021",
+      "type": "Gene",
+      "label": "PKM",
+      "properties": {
+        "symbol": "PKM",
+        "name": "pyruvate kinase M1/2",
+        "ensembl": "ENSG00000067225",
+        "uniprot": "P14618",
+        "location": "15q23",
+        "pathway_axis": "Glycolysis"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "name": "GSE27309: SIRT3/HIF1A/Warburg effect", "relevance": "PKM upregulated in Warburg effect; glycolytic enzyme expression data"},
+        {"synapse_id": "syn10463688", "name": "GDSC/CCLE/Genentech merged RNA-seq", "relevance": "PKM baseline expression across cancer cell lines for drug-response correlation"}
+      ]
+    },
+    {
+      "id": "HGNC:6535",
+      "type": "Gene",
+      "label": "LDHA",
+      "properties": {
+        "symbol": "LDHA",
+        "name": "lactate dehydrogenase A",
+        "ensembl": "ENSG00000134333",
+        "uniprot": "P00338",
+        "location": "11p15.1",
+        "pathway_axis": "Glycolysis"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "name": "GSE27309: SIRT3/HIF1A/Warburg effect", "relevance": "LDHA upregulated in Warburg effect; HIF1A target gene"},
+        {"synapse_id": "syn10463688", "name": "GDSC/CCLE/Genentech merged RNA-seq", "relevance": "LDHA baseline expression across cancer cell lines for drug-response correlation"}
+      ]
+    },
+    {
+      "id": "HGNC:8809",
+      "type": "Gene",
+      "label": "PDK1",
+      "properties": {
+        "symbol": "PDK1",
+        "name": "pyruvate dehydrogenase kinase 1",
+        "ensembl": "ENSG00000152256",
+        "uniprot": "Q15118",
+        "location": "2q31.1",
+        "pathway_axis": "Glycolysis-OxPhos junction",
+        "chembl_target": "CHEMBL:CHEMBL4766"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "name": "GSE27309: SIRT3/HIF1A/Warburg effect", "relevance": "PDK1 transcriptionally activated by HIF1A; gates pyruvate entry into OxPhos"},
+        {"synapse_id": "syn359903", "name": "GSE36847: Metformin/mTORC1 translational targets", "relevance": "PDK1 at glycolysis-OxPhos junction; metformin shifts metabolic balance"}
+      ]
+    },
+    {
+      "id": "HGNC:7707",
+      "type": "Gene",
+      "label": "NDUFS1",
+      "properties": {
+        "symbol": "NDUFS1",
+        "name": "NADH:ubiquinone oxidoreductase core subunit S1",
+        "ensembl": "ENSG00000023228",
+        "uniprot": "P28331",
+        "location": "2q33.3",
+        "pathway_axis": "OxPhos"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "Mitochondrial complex I in cancer metabolism; OxPhos targeting context"},
+        {"synapse_id": "syn10463688", "name": "GDSC/CCLE/Genentech merged RNA-seq", "relevance": "NDUFS1 expression across cancer cell lines; complex I drug sensitivity context"}
+      ]
+    },
+    {
+      "id": "HGNC:10680",
+      "type": "Gene",
+      "label": "SDHA",
+      "properties": {
+        "symbol": "SDHA",
+        "name": "succinate dehydrogenase complex flavoprotein subunit A",
+        "ensembl": "ENSG00000073578",
+        "uniprot": "P31040",
+        "location": "5p15.33",
+        "pathway_axis": "OxPhos"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "Mitochondrial complex II in cancer metabolism; OxPhos targeting context"},
+        {"synapse_id": "syn10463688", "name": "GDSC/CCLE/Genentech merged RNA-seq", "relevance": "SDHA expression across cancer cell lines; complex II context"}
+      ]
+    },
+    {
+      "id": "CHEMBL:1431",
+      "type": "Compound",
+      "label": "Metformin",
+      "properties": {
+        "chembl_id": "CHEMBL:1431",
+        "pubchem_cid": "PubChem:CID4091",
+        "mechanism": "Mitochondrial complex I (NADH dehydrogenase) inhibitor",
+        "max_phase": 4,
+        "marik_tier": "Tier 1",
+        "metabolic_axis": "OxPhos (Complex I), AMPK activator, mTOR suppressor"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "name": "GSE36847: Metformin/mTORC1 translational targets", "relevance": "Genome-wide analysis confirms metformin selectively suppresses mTORC1/4E-BP translational targets"},
+        {"synapse_id": "syn2785778", "name": "DREAM7 NCI-DREAM Drug Sensitivity Challenge", "relevance": "Benchmarked drug sensitivity prediction methodology applicable to metformin"},
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "355-compound sensitivity screen including PI3K/mTOR pathway modulators"}
+      ]
+    },
+    {
+      "id": "CHEMBL:306823",
+      "type": "Compound",
+      "label": "Sodium Dichloroacetate",
+      "properties": {
+        "chembl_id": "CHEMBL:306823",
+        "pubchem_cid": "PubChem:CID25975",
+        "mechanism": "Pyruvate dehydrogenase kinase inhibitor",
+        "max_phase": 3,
+        "marik_tier": "Tier 3",
+        "metabolic_axis": "Glycolysis-OxPhos junction (reverses Warburg effect)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "Cancer metabolism WG context for Warburg effect reversal strategies"},
+        {"synapse_id": "syn10463688", "name": "GDSC/CCLE/Genentech merged RNA-seq", "relevance": "PDK1 expression-drug response correlation context"}
+      ]
+    },
+    {
+      "id": "CHEMBL:685",
+      "type": "Compound",
+      "label": "Mebendazole",
+      "properties": {
+        "chembl_id": "CHEMBL:685",
+        "pubchem_cid": "PubChem:CID4030",
+        "mechanism": "Tubulin inhibitor; dual glycolysis + OxPhos blocker",
+        "max_phase": "Preclinical (repurposing)",
+        "marik_tier": "Tier 1",
+        "metabolic_axis": "Dual glycolysis + OxPhos blocker"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2785778", "name": "DREAM7 NCI-DREAM Drug Sensitivity Challenge", "relevance": "Drug sensitivity prediction benchmarks applicable to repurposing candidates"},
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "355-compound screen on 243 cancer cell lines may include anthelmintic repurposing"},
+        {"synapse_id": "syn5674251", "name": "Drug Sensitivity (~1800 compounds)", "relevance": "Large-scale NCATS drug sensitivity panel likely includes mebendazole"}
+      ]
+    },
+    {
+      "id": "CHEMBL:6067487",
+      "type": "Compound",
+      "label": "Ivermectin",
+      "properties": {
+        "chembl_id": "CHEMBL:6067487",
+        "mechanism": "Mitochondrial membrane disruptor; GLUT transporter interference",
+        "max_phase": "Preclinical (repurposing)",
+        "marik_tier": "Tier 1",
+        "metabolic_axis": "OxPhos/mitochondrial disruption"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "355-compound screen across 243 cell lines; includes diverse mechanisms"},
+        {"synapse_id": "syn5674251", "name": "Drug Sensitivity (~1800 compounds)", "relevance": "Large-scale NCATS drug panel likely includes ivermectin"}
+      ]
+    },
+    {
+      "id": "CHEMBL:1448",
+      "type": "Compound",
+      "label": "Niclosamide",
+      "properties": {
+        "chembl_id": "CHEMBL:1448",
+        "pubchem_cid": "PubChem:CID4477",
+        "mechanism": "mTOR inhibitor; anaerobic glycolysis inhibitor",
+        "max_phase": "Preclinical (repurposing)",
+        "marik_tier": "Tier 3",
+        "metabolic_axis": "mTOR + Glycolysis"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2785778", "name": "DREAM7 NCI-DREAM Drug Sensitivity Challenge", "relevance": "Drug sensitivity prediction methodology for anthelmintic repurposing"},
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "355-compound screen may include niclosamide"},
+        {"synapse_id": "syn5674251", "name": "Drug Sensitivity (~1800 compounds)", "relevance": "NCATS 1800-drug panel likely includes niclosamide"}
+      ]
+    },
+    {
+      "id": "CHEMBL:295124",
+      "type": "Compound",
+      "label": "Berberine",
+      "properties": {
+        "chembl_id": "CHEMBL:295124",
+        "pubchem_cid": "PubChem:CID2353",
+        "mechanism": "PI3K/AKT/mTOR inhibitor; AMPK activator",
+        "max_phase": "Preclinical (repurposing)",
+        "marik_tier": "Tier 1",
+        "metabolic_axis": "AMPK-mTOR"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "355-compound screen may include natural product derivatives"}
+      ]
+    },
+    {
+      "id": "CHEMBL:64391",
+      "type": "Compound",
+      "label": "Itraconazole",
+      "properties": {
+        "chembl_id": "CHEMBL:64391",
+        "pubchem_cid": "PubChem:CID55283",
+        "mechanism": "PI3K/AKT/mTOR/S6K suppressor; Hedgehog inhibitor",
+        "max_phase": "Preclinical (repurposing)",
+        "marik_tier": "Tier 1",
+        "metabolic_axis": "mTOR/PI3K/AKT"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "355-compound screen across 243 cell lines may include antifungal repurposing"},
+        {"synapse_id": "syn5674251", "name": "Drug Sensitivity (~1800 compounds)", "relevance": "NCATS 1800-drug panel likely includes itraconazole"}
+      ]
+    },
+    {
+      "id": "CHEMBL:1433",
+      "type": "Compound",
+      "label": "Doxycycline",
+      "properties": {
+        "chembl_id": "CHEMBL:1433",
+        "pubchem_cid": "PubChem:CID54671203",
+        "mechanism": "Mitochondrial ribosome translation inhibitor",
+        "max_phase": "Preclinical (repurposing)",
+        "marik_tier": "Tier 2",
+        "metabolic_axis": "OxPhos (mitochondrial translation)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "355-compound screen may include antibiotic repurposing candidates"},
+        {"synapse_id": "syn5674251", "name": "Drug Sensitivity (~1800 compounds)", "relevance": "NCATS 1800-drug panel likely includes doxycycline"}
+      ]
+    },
+    {
+      "id": "WP:WP534",
+      "type": "Pathway",
+      "label": "Glycolysis and gluconeogenesis",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "name": "GSE27309: SIRT3/HIF1A/Warburg effect", "relevance": "Glycolytic enzyme expression regulated by HIF1A in cancer metabolic reprogramming"},
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "Cancer metabolism WG resources for glycolysis pathway research"}
+      ]
+    },
+    {
+      "id": "WP:WP623",
+      "type": "Pathway",
+      "label": "Oxidative phosphorylation",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "name": "GSE36847: Metformin/mTORC1 translational targets", "relevance": "Metformin inhibits OxPhos complex I; translational targets identified genome-wide"},
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "Cancer metabolism WG resources for OxPhos targeting research"}
+      ]
+    },
+    {
+      "id": "WP:WP1403",
+      "type": "Pathway",
+      "label": "AMP-activated protein kinase signaling",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "name": "GSE36847: Metformin/mTORC1 translational targets", "relevance": "AMPK activation by metformin; mTORC1/4E-BP pathway suppression"},
+        {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "relevance": "Cancer metabolism WG resources for AMPK signaling research"}
+      ]
+    },
+    {
+      "id": "WP:WP3932",
+      "type": "Pathway",
+      "label": "Focal adhesion: PI3K-Akt-mTOR-signaling",
+      "properties": {
+        "organism": "Homo sapiens",
+        "source": "WikiPathways"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "name": "TCGA pancancer phosphorylation signaling", "relevance": "PI3K/AKT/mTOR phosphosite mutations across TCGA pan-cancer"},
+        {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "relevance": "PI3K/mTOR pathway inhibitors included in 355-compound cancer sensitivity screen"}
+      ]
+    },
+    {
+      "id": "NCT04945148",
+      "type": "ClinicalTrial",
+      "label": "Metformin + RT/TMZ in OXPHOS+ GBM",
+      "properties": {
+        "title": "Oxidative Phosphorylation Targeting In Malignant Glioma Using Metformin Plus Radiotherapy Temozolomide",
+        "phase": "Phase 2",
+        "status": "RECRUITING",
+        "sponsor": "Hopital Foch",
+        "condition": "Glioblastoma, IDH-wildtype",
+        "drug": "Metformin"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT06545526",
+      "type": "ClinicalTrial",
+      "label": "Celecoxib + Metformin in FAP",
+      "properties": {
+        "title": "Chemopreventive Effect of Celecoxib and Metformin in Familial Adenomatous Polyposis",
+        "phase": "Phase 3",
+        "status": "RECRUITING",
+        "sponsor": "Yonsei University",
+        "condition": "Familial Adenomatous Polyposis",
+        "drug": "Metformin"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT03925662",
+      "type": "ClinicalTrial",
+      "label": "Mebendazole adjuvant in CRC",
+      "properties": {
+        "title": "Clinical Study Evaluating Mebendazole as Adjuvant Therapy in Patients With Colorectal Cancer",
+        "phase": "Phase 3",
+        "status": "RECRUITING",
+        "sponsor": "Sherief Abd-Elsalam",
+        "condition": "Colorectal Cancer",
+        "drug": "Mebendazole"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT05318469",
+      "type": "ClinicalTrial",
+      "label": "Ivermectin + checkpoint inhibitor in mTNBC",
+      "properties": {
+        "title": "Ivermectin in Combination With Balstilimab or Pembrolizumab in Metastatic Triple Negative Breast Cancer",
+        "phase": "Phase 1/2",
+        "status": "RECRUITING",
+        "sponsor": "Yuan Yuan",
+        "condition": "Metastatic Triple-Negative Breast Carcinoma",
+        "drug": "Ivermectin"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT05188170",
+      "type": "ClinicalTrial",
+      "label": "Niclosamide in pediatric AML",
+      "properties": {
+        "title": "Phase 1 Study of Niclosamide (ANA001) in Pediatric Patients With Relapsed and Refractory AML",
+        "phase": "Phase 1",
+        "status": "RECRUITING",
+        "sponsor": "Stanford University",
+        "condition": "Acute Myeloid Leukemia",
+        "drug": "Niclosamide"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "id": "NCT06452394",
+      "type": "ClinicalTrial",
+      "label": "Doxycycline in ER+ breast cancer",
+      "properties": {
+        "title": "NEODOXy: Targeting Cancer Stem Cells With Neoadjuvant Doxycycline in ER+/HER2- Breast Cancer",
+        "phase": "Phase 2",
+        "status": "RECRUITING",
+        "sponsor": "Swiss Cancer Institute",
+        "condition": "Breast Cancer",
+        "drug": "Doxycycline"
+      },
+      "synapse_grounding": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "CHEMBL:1431",
+      "target": "HGNC:7707",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Mitochondrial complex I (NADH dehydrogenase) inhibitor",
+        "max_phase": 4,
+        "source_tool": "opentargets_get_target(ENSG00000023228)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "relevance": "Metformin mTORC1/4E-BP translational target data confirms complex I inhibition mechanism"}
+      ]
+    },
+    {
+      "source": "CHEMBL:306823",
+      "target": "HGNC:8809",
+      "type": "INHIBITOR",
+      "properties": {
+        "mechanism": "Pyruvate dehydrogenase kinase inhibitor",
+        "max_phase": 3,
+        "source_tool": "opentargets_get_target(ENSG00000152256)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "relevance": "PDK1 HIF1A-regulated glycolysis-OxPhos gatekeeper; Warburg effect dataset"}
+      ]
+    },
+    {
+      "source": "CHEMBL:1431",
+      "target": "NCT04945148",
+      "type": "TESTED_IN",
+      "properties": {
+        "source_tool": "clinicaltrials_search_trials(metformin cancer)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "CHEMBL:1431",
+      "target": "NCT06545526",
+      "type": "TESTED_IN",
+      "properties": {
+        "source_tool": "clinicaltrials_search_trials(metformin cancer)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "CHEMBL:685",
+      "target": "NCT03925662",
+      "type": "TESTED_IN",
+      "properties": {
+        "source_tool": "clinicaltrials_search_trials(mebendazole cancer)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "CHEMBL:6067487",
+      "target": "NCT05318469",
+      "type": "TESTED_IN",
+      "properties": {
+        "source_tool": "clinicaltrials_search_trials(ivermectin cancer)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "CHEMBL:1448",
+      "target": "NCT05188170",
+      "type": "TESTED_IN",
+      "properties": {
+        "source_tool": "clinicaltrials_search_trials(niclosamide cancer)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "CHEMBL:1433",
+      "target": "NCT06452394",
+      "type": "TESTED_IN",
+      "properties": {
+        "source_tool": "clinicaltrials_search_trials(doxycycline cancer)"
+      },
+      "synapse_grounding": []
+    },
+    {
+      "source": "HGNC:9376",
+      "target": "HGNC:12363",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "activation",
+        "score": 0.978,
+        "evidence": "AMPK phosphorylates TSC2, activating its GAP activity toward RHEB",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000346148)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "relevance": "TCGA phosphosite mutation data covers AMPK-TSC2 phosphorylation cascade"}
+      ]
+    },
+    {
+      "source": "HGNC:12363",
+      "target": "HGNC:3942",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "repression",
+        "score": 0.990,
+        "evidence": "TSC2 inhibits RHEB, which activates mTORC1",
+        "source_tool": "string_get_interactions(STRING:9606.ENSP00000346148)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "relevance": "TCGA phosphosite mutation data covers TSC2-mTOR signaling axis"}
+      ]
+    },
+    {
+      "source": "HGNC:8975",
+      "target": "HGNC:391",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "activation",
+        "evidence": "PI3K generates PIP3, recruiting AKT1 to membrane for activation",
+        "source_tool": "opentargets_get_target(ENSG00000121879)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "relevance": "TCGA phosphosite data: PI3K-AKT phosphorylation signaling mutations"}
+      ]
+    },
+    {
+      "source": "HGNC:391",
+      "target": "HGNC:3942",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "activation",
+        "evidence": "AKT phosphorylates TSC2, relieving mTORC1 inhibition",
+        "source_tool": "opentargets_get_target(ENSG00000142208)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "relevance": "TCGA phosphosite data: AKT-mTOR phosphorylation signaling network rewiring"}
+      ]
+    },
+    {
+      "source": "HGNC:3942",
+      "target": "HGNC:4910",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "activation",
+        "evidence": "mTOR signaling stabilizes HIF1A under normoxia via translation",
+        "source_tool": "opentargets_get_target(ENSG00000198793)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "relevance": "Metformin/mTOR inhibitor dataset: mTORC1 controls HIF1A translation"},
+        {"synapse_id": "syn178580", "relevance": "SIRT3/HIF1A dataset: HIF1A stabilization drives Warburg effect"}
+      ]
+    },
+    {
+      "source": "HGNC:4910",
+      "target": "HGNC:8809",
+      "type": "REGULATES",
+      "properties": {
+        "direction": "activation",
+        "evidence": "HIF1A transcriptionally activates PDK1 under hypoxia",
+        "source_tool": "opentargets_get_target(ENSG00000100644)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "relevance": "GSE27309 confirms HIF1A transcriptional control of glycolytic enzymes including PDK1"}
+      ]
+    },
+    {
+      "source": "HGNC:4923",
+      "target": "WP:WP534",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP534)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "relevance": "HK2 glycolytic enzyme expression in Warburg effect dataset"}
+      ]
+    },
+    {
+      "source": "HGNC:9021",
+      "target": "WP:WP534",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP534)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "relevance": "PKM glycolytic enzyme expression in Warburg effect dataset"}
+      ]
+    },
+    {
+      "source": "HGNC:6535",
+      "target": "WP:WP534",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP534)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn178580", "relevance": "LDHA glycolytic enzyme expression in Warburg effect dataset"}
+      ]
+    },
+    {
+      "source": "HGNC:7707",
+      "target": "WP:WP623",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP623)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "relevance": "NDUFS1 complex I context in metformin/OxPhos translational targets"}
+      ]
+    },
+    {
+      "source": "HGNC:10680",
+      "target": "WP:WP623",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP623)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn18474062", "relevance": "SDHA complex II in cancer metabolism WG OxPhos research context"}
+      ]
+    },
+    {
+      "source": "HGNC:9376",
+      "target": "WP:WP1403",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP1403)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "relevance": "AMPK activation by metformin in mTORC1/4E-BP pathway dataset"}
+      ]
+    },
+    {
+      "source": "HGNC:3942",
+      "target": "WP:WP1403",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP1403)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "relevance": "mTOR as target of AMPK-mediated translational suppression"}
+      ]
+    },
+    {
+      "source": "HGNC:391",
+      "target": "WP:WP3932",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP3932)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "relevance": "AKT1 phosphosite mutations in TCGA PI3K-Akt-mTOR signaling"}
+      ]
+    },
+    {
+      "source": "HGNC:8975",
+      "target": "WP:WP3932",
+      "type": "MEMBER_OF",
+      "properties": {
+        "source_tool": "wikipathways_get_pathway_components(WP:WP3932)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn2237931", "relevance": "PIK3CA phosphosite mutations in TCGA PI3K-Akt-mTOR signaling"}
+      ]
+    },
+    {
+      "source": "CHEMBL:1431",
+      "target": "EFO:0000311",
+      "type": "TREATS",
+      "properties": {
+        "max_phase": 4,
+        "evidence": "492 Open Targets knownDrugs entries for metformin against NDUFS1",
+        "source_tool": "opentargets_get_target(ENSG00000023228)"
+      },
+      "synapse_grounding": [
+        {"synapse_id": "syn359903", "relevance": "Metformin anti-proliferative activity via mTORC1/4E-BP translational suppression"},
+        {"synapse_id": "syn2785778", "relevance": "DREAM7 benchmarked drug sensitivity prediction for cancer therapeutics"}
+      ]
+    }
+  ],
+  "metadata": {
+    "protocol": "Fuzzy-to-Fact",
+    "phases_completed": ["ANCHOR", "ENRICH", "EXPAND", "TRAVERSE_DRUGS", "TRAVERSE_TRIALS", "VALIDATE", "PERSIST"],
+    "date": "2026-02-22",
+    "primary_source": "Halma MTJ, Tuszynski JA, Marik PE. Cancer Metabolism as a Therapeutic Target and Review of Interventions. Nutrients. 2023;15(19):4245. PMID: 37836529",
+    "data_sources": [
+      "HGNC (hgnc_search_genes, hgnc_get_gene)",
+      "Open Targets (opentargets_get_target, knownDrugs GraphQL)",
+      "ChEMBL (chembl_search_compounds)",
+      "PubChem (pubchem_search_compounds)",
+      "WikiPathways (wikipathways_search_pathways, wikipathways_get_pathway_components)",
+      "STRING (string_search_proteins, string_get_interactions)",
+      "ClinicalTrials.gov (clinicaltrials_search_trials, clinicaltrials_get_trial)"
+    ],
+    "synapse_datasets": [
+      {"synapse_id": "syn18474062", "name": "CSBC PSON Cancer Metabolism WG", "type": "Folder"},
+      {"synapse_id": "syn359903", "name": "GSE36847: Metformin/mTORC1 translational targets", "type": "Folder"},
+      {"synapse_id": "syn178580", "name": "GSE27309: SIRT3/HIF1A/Warburg effect", "type": "Folder"},
+      {"synapse_id": "syn2237931", "name": "TCGA pancancer phosphorylation signaling", "type": "Project"},
+      {"synapse_id": "syn2785778", "name": "DREAM7 NCI-DREAM Drug Sensitivity Challenge", "type": "Project"},
+      {"synapse_id": "syn10463688", "name": "GDSC/CCLE/Genentech merged RNA-seq", "type": "Project"},
+      {"synapse_id": "syn1961993", "name": "CTD2 compound profiling", "type": "Project"},
+      {"synapse_id": "syn5889324", "name": "Cancer Cell Line Data Repository", "type": "Project"},
+      {"synapse_id": "syn5674251", "name": "Drug Sensitivity (~1800 compounds)", "type": "Folder"},
+      {"synapse_id": "syn53480749", "name": "Cell Signaling and Targeted Drug Therapy of Cancer", "type": "Project"}
+    ],
+    "notes": "Of 8 Marik protocol drugs investigated, 2 (metformin, DCA) have validated target registrations in Open Targets knownDrugs for glycolysis/OxPhos/AMPK-mTOR axis targets. 6/8 drugs have active recruiting cancer clinical trials. Synapse grounding completed with 10 datasets mapped to 22/28 nodes and 18/24 edges."
+  }
+}

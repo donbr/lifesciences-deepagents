@@ -18,18 +18,22 @@ wheels/
 # LangGraph
 .langgraph_api/
 
+**/*.pptx
+!output/sage-bionetworks-collaboration-deck.pptx
+
+
 # reference/deepagents
 # reference/deep-agents-ui
 
-traces
-
-**/*.pptx
+# traces/
 
 # langsmith traces
 
-langsmith-traces-recent/
-langsmith-traces-latest/
-langsmith-traces-final/
-comparison-reports/
-skill-execution/
-fop-palovarotene-ui-validation.png
+# langsmith-traces-recent/
+# langsmith-traces-latest/
+# langsmith-traces-final/
+# comparison-reports/
+# skill-execution/
+# fop-palovarotene-ui-validation.png
+
+# .deepagents/large_tool_results/
