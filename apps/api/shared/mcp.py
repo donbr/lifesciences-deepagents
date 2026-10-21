@@ -67,13 +67,15 @@ rate_limiter = RateLimiter()
 
 
 class HTTPMCPClient:
-    def __init__(self, base_url: str, timeout: float = 30.0):
+    def __init__(self, base_url: str, timeout: float = 30.0, api_key: Optional[str] = None):
         self.base_url = base_url
         self.timeout = timeout
         self.headers = {
             "Content-Type": "application/json",
             "Accept": "application/json, text/event-stream"
         }
+        if api_key:
+            self.headers["Authorization"] = f"Bearer {api_key}"
 
     async def call_tool(self, tool_name: str, arguments: dict, apply_rate_limit: bool = True):
         # Apply rate limiting based on tool name
@@ -189,7 +191,11 @@ async def query_langchain_docs(query: str):
 # --- Life Sciences FastMCP ---
 LIFESCIENCES_MCP_URL = "https://lifesciences-research.fastmcp.app/mcp"
 # ChEMBL requires longer timeout (120s) as noted in documentation
-lifesciences_client = HTTPMCPClient(LIFESCIENCES_MCP_URL, timeout=120.0)
+lifesciences_client = HTTPMCPClient(
+    LIFESCIENCES_MCP_URL,
+    timeout=120.0,
+    api_key=os.getenv("BIOSCIENCES_API_KEY"),
+)
 
 async def _query_lifesciences(
     query: str,
@@ -300,7 +306,7 @@ async def entrez_get_gene(query: str = "", tool_args: Optional[dict[str, Any]] =
 
 @tool
 async def entrez_get_pubmed_links(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for entrez_get_pubmed_links with NCBI gene IDs."""
+    """Direct alias for entrez_get_pubmed_links. Provide tool_args: {'gene_id': '4763'} (NCBI gene ID, numeric string)."""
     return await _call_lifesciences_alias("entrez_get_pubmed_links", query, tool_args)
 
 
@@ -324,13 +330,13 @@ async def string_search_proteins(query: str, tool_args: Optional[dict[str, Any]]
 
 @tool
 async def string_get_interactions(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for string_get_interactions with STRING IDs."""
+    """Direct alias for string_get_interactions. Provide tool_args: {'string_id': '9606.ENSP00000196712', 'species': 9606, 'required_score': 700}. Get string_id from string_search_proteins first."""
     return await _call_lifesciences_alias("string_get_interactions", query, tool_args)
 
 
 @tool
 async def string_get_network_image_url(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for string_get_network_image_url."""
+    """Direct alias for string_get_network_image_url. Provide tool_args: {'identifiers': ['9606.ENSP00000196712'], 'species': 9606}."""
     return await _call_lifesciences_alias("string_get_network_image_url", query, tool_args)
 
 
@@ -360,7 +366,7 @@ async def chembl_get_compound(query: str = "", tool_args: Optional[dict[str, Any
 
 @tool
 async def chembl_get_compounds_batch(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for chembl_get_compounds_batch."""
+    """Direct alias for chembl_get_compounds_batch. Provide tool_args: {'chembl_ids': ['CHEMBL25', 'CHEMBL941']} (list of ChEMBL IDs)."""
     return await _call_lifesciences_alias("chembl_get_compounds_batch", query, tool_args)
 
 
@@ -384,7 +390,7 @@ async def iuphar_search_ligands(query: str, tool_args: Optional[dict[str, Any]] 
 
 @tool
 async def iuphar_get_ligand(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for iuphar_get_ligand."""
+    """Direct alias for iuphar_get_ligand. Provide tool_args: {'ligand_id': 123} (numeric ID from iuphar_search_ligands)."""
     return await _call_lifesciences_alias("iuphar_get_ligand", query, tool_args)
 
 
@@ -396,7 +402,7 @@ async def iuphar_search_targets(query: str, tool_args: Optional[dict[str, Any]] 
 
 @tool
 async def iuphar_get_target(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for iuphar_get_target."""
+    """Direct alias for iuphar_get_target. Provide tool_args: {'target_id': 456} (numeric ID from iuphar_search_targets)."""
     return await _call_lifesciences_alias("iuphar_get_target", query, tool_args)
 
 
@@ -408,19 +414,19 @@ async def opentargets_search_targets(query: str, tool_args: Optional[dict[str, A
 
 @tool
 async def opentargets_get_target(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for opentargets_get_target with Ensembl IDs."""
+    """Direct alias for opentargets_get_target. Provide tool_args: {'ensembl_id': 'ENSG00000171791'}. Returns knownDrugs, tractability, and gene info."""
     return await _call_lifesciences_alias("opentargets_get_target", query, tool_args)
 
 
 @tool
 async def opentargets_get_associations(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for opentargets_get_associations with Ensembl IDs."""
+    """Direct alias for opentargets_get_associations. Provide tool_args: {'ensembl_id': 'ENSG00000171791'}. Returns disease associations with scores."""
     return await _call_lifesciences_alias("opentargets_get_associations", query, tool_args)
 
 
 @tool
 async def wikipathways_get_pathways_for_gene(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for wikipathways_get_pathways_for_gene."""
+    """Direct alias for wikipathways_get_pathways_for_gene. Provide tool_args: {'gene_id': 'TP53'} (gene symbol)."""
     return await _call_lifesciences_alias("wikipathways_get_pathways_for_gene", query, tool_args)
 
 
@@ -432,13 +438,13 @@ async def wikipathways_search_pathways(query: str, tool_args: Optional[dict[str,
 
 @tool
 async def wikipathways_get_pathway(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for wikipathways_get_pathway."""
+    """Direct alias for wikipathways_get_pathway. Provide tool_args: {'pathway_id': 'WP5228'} (WikiPathways ID without 'WP:' prefix)."""
     return await _call_lifesciences_alias("wikipathways_get_pathway", query, tool_args)
 
 
 @tool
 async def wikipathways_get_pathway_components(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for wikipathways_get_pathway_components."""
+    """Direct alias for wikipathways_get_pathway_components. Provide tool_args: {'pathway_id': 'WP5228'} (WikiPathways ID)."""
     return await _call_lifesciences_alias("wikipathways_get_pathway_components", query, tool_args)
 
 
@@ -456,7 +462,7 @@ async def clinicaltrials_get_trial(query: str = "", tool_args: Optional[dict[str
 
 @tool
 async def clinicaltrials_get_trial_locations(query: str = "", tool_args: Optional[dict[str, Any]] = None):
-    """Direct alias for clinicaltrials_get_trial_locations."""
+    """Direct alias for clinicaltrials_get_trial_locations. Provide tool_args: {'nct_id': 'NCT:12345678'}."""
     return await _call_lifesciences_alias("clinicaltrials_get_trial_locations", query, tool_args)
 
 

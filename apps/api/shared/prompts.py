@@ -17,17 +17,30 @@ Goal: resolve entities in the user question to canonical IDs and disease context
 
 {LIFESCIENCES_SHARED_CONTRACT}
 
+<entity_extraction>
+Before calling any tools:
+1. Extract ALL gene symbols explicitly named in the query (e.g., "NF1" from "NF1 toxicity" → search hgnc_search_genes for "NF1")
+2. Extract drug names (e.g., "Doxorubicin" → search chembl_search_compounds for "Doxorubicin")
+3. Extract disease names for disease context
+4. Search for each entity INDIVIDUALLY — never pass the full question as a search query
+5. For drug-related queries, also search for the drug's known direct targets via PubMed or Open Targets
+</entity_extraction>
+
 <tools>
-Primary: hgnc_search_genes, chembl_search_compounds, clinicaltrials_search_trials, query_pubmed
-Fallback: query_api_direct
+Available: hgnc_search_genes, ensembl_search_genes, entrez_search_genes, uniprot_search_proteins,
+           chembl_search_compounds, pubchem_search_compounds, iuphar_search_ligands, iuphar_search_targets,
+           wikipathways_search_pathways, clinicaltrials_search_trials, query_pubmed, think_tool
+Note: query_api_direct is NOT available to this specialist. Use MCP tools only.
 </tools>
 
 <instructions>
-1. Resolve genes first via HGNC.
-2. Resolve drugs/diseases/trials as available.
-3. Record unresolved entities explicitly.
-4. Write JSON to `workspace/phase1_anchor.json` using write_file.
-5. If file persistence fails after one corrective attempt, return partial JSON and stop.
+1. Extract individual entities from the query (genes, drugs, diseases).
+2. Resolve genes first via hgnc_search_genes (fastest, most reliable).
+3. Resolve drugs via chembl_search_compounds or pubchem_search_compounds.
+4. Use query_pubmed to find drug targets if the query involves drug mechanisms.
+5. Record unresolved entities explicitly.
+6. Write JSON to `workspace/phase1_anchor.json` using write_file.
+7. If file persistence fails after one corrective attempt, return partial JSON and stop.
 </instructions>
 
 <output_contract>
@@ -45,8 +58,12 @@ Goal: enrich anchored entities with cross-references and functional metadata.</r
 {LIFESCIENCES_SHARED_CONTRACT}
 
 <tools>
-Primary: hgnc_get_gene, ensembl_get_gene, uniprot_get_protein, chembl_get_compound, opentargets_get_associations
-Fallback: query_pubmed, query_api_direct
+Available: hgnc_get_gene, ensembl_search_genes, ensembl_get_gene, ensembl_get_transcript,
+           entrez_get_gene, entrez_get_pubmed_links, uniprot_search_proteins, uniprot_get_protein,
+           chembl_get_compound, chembl_get_compounds_batch, pubchem_get_compound,
+           iuphar_get_ligand, iuphar_get_target, opentargets_get_associations,
+           query_pubmed, think_tool
+Note: query_api_direct is NOT available to this specialist. Use MCP tools only.
 </tools>
 
 <instructions>
@@ -72,9 +89,10 @@ Goal: discover pathways/interactions connected to enriched targets.</role>
 {LIFESCIENCES_SHARED_CONTRACT}
 
 <tools>
-Primary: string_search_proteins, string_get_interactions, wikipathways_get_pathways_for_gene,
-         wikipathways_get_pathway_components, biogrid_get_interactions
-Fallback: query_api_direct
+Available: string_search_proteins, string_get_interactions, string_get_network_image_url,
+           wikipathways_get_pathways_for_gene, wikipathways_get_pathway_components, wikipathways_get_pathway,
+           biogrid_search_genes, biogrid_get_interactions, think_tool
+Note: query_api_direct is NOT available to this specialist. Use MCP tools only.
 </tools>
 
 <instructions>
@@ -101,9 +119,14 @@ Goal: find therapeutically relevant drugs for expanded targets.</role>
 {LIFESCIENCES_SHARED_CONTRACT}
 
 <tools>
-Primary: chembl_search_compounds, chembl_get_compound, opentargets_search_targets,
-         opentargets_get_target, opentargets_get_associations
-Fallback: query_api_direct
+Available: chembl_search_compounds, chembl_get_compound, pubchem_search_compounds, pubchem_get_compound,
+           iuphar_search_ligands, iuphar_get_ligand,
+           opentargets_search_targets, opentargets_get_target, opentargets_get_associations,
+           query_api_direct, think_tool
+Fallback: query_api_direct (for Open Targets GraphQL when ChEMBL returns 500 errors).
+  Use method="POST", body='...' for GraphQL. Example:
+  query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="POST",
+    body='{{"query": "{{ target(ensemblId: \\"ENSG00000171791\\") {{ knownDrugs(size: 25) {{ rows {{ drug {{ name id }} mechanismOfAction phase }} }} }} }}"}}')
 </tools>
 
 <instructions>
@@ -132,8 +155,10 @@ Goal: find clinical trials for candidate drugs and disease context.</role>
 {LIFESCIENCES_SHARED_CONTRACT}
 
 <tools>
-Primary: clinicaltrials_search_trials, clinicaltrials_get_trial, clinicaltrials_get_trial_locations
-Fallback: query_api_direct
+Available: clinicaltrials_search_trials, clinicaltrials_get_trial, clinicaltrials_get_trial_locations,
+           query_api_direct, think_tool
+Fallback: query_api_direct (for ClinicalTrials.gov v2 API direct access).
+  Example: query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?query.cond=NF1&query.intr=doxorubicin&pageSize=5&format=json", method="GET")
 </tools>
 
 <instructions>
@@ -158,8 +183,9 @@ Goal: validate high-impact claims and reject unsupported facts.</role>
 {LIFESCIENCES_SHARED_CONTRACT}
 
 <tools>
-Primary: clinicaltrials_get_trial, chembl_get_compound, ensembl_get_gene, query_pubmed
-Fallback: query_api_direct
+Available: clinicaltrials_get_trial, pubchem_get_compound, chembl_get_compound,
+           ensembl_get_gene, query_pubmed, think_tool
+Note: query_api_direct is NOT available to this specialist. Use MCP tools only.
 </tools>
 
 <instructions>

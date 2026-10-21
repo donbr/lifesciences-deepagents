@@ -1,18 +1,18 @@
 ---
 name: lifesciences-proteomics
-description: "Queries protein databases (UniProt, STRING, BioGRID) via MCP tools for protein lookups, protein-protein interactions, functional enrichment analysis, and cross-database ID mapping. Falls back to query_api_direct when MCP is unavailable. This skill should be used when the user asks to \"find protein interactions\", \"analyze interaction networks\", \"perform GO enrichment\", \"map protein IDs\", or mentions PPI networks, UniProt accessions, STRING scores, BioGRID interactions, or protein ID conversion between databases."
+description: "Queries protein databases (UniProt, STRING, BioGRID) via MCP tools for protein lookups, protein-protein interactions, functional enrichment analysis, and cross-database ID mapping. Falls back to curl when MCP is unavailable. This skill should be used when the user asks to \"find protein interactions\", \"analyze interaction networks\", \"perform GO enrichment\", \"map protein IDs\", or mentions PPI networks, UniProt accessions, STRING scores, BioGRID interactions, or protein ID conversion between databases."
 ---
 
-
 ## Runtime constraints (DeepAgents)
-- Prefer MCP tools first; use query_api_direct for HTTP fallbacks.
-- Do not run shell curl in this runtime.
+- Prefer MCP tools first; use `query_api_direct` for HTTP fallbacks.
+- Do NOT run shell `curl` — translate curl examples below to `query_api_direct(url=..., method=..., body=...)`.
+- For POST endpoints (e.g., Open Targets GraphQL): use `method="POST"` and pass the JSON payload as `body=`.
+- For multi-step shell workflows (pipes, variables): execute each step as a separate `query_api_direct` call, passing results between steps manually.
 - Use relative file paths under `workspace/`.
-- Graphiti persistence is optional/best-effort.
 
 # Proteomics API Skills
 
-Query protein databases via MCP tools (primary) or query_api_direct (fallback).
+Query protein databases via MCP tools (primary) or curl (fallback).
 
 ## Grounding Rule
 
@@ -59,9 +59,10 @@ Call `uniprot_search_proteins` with: {"query": "TP53", "organism": "9606"}
 → Returns protein accessions, names, gene names
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://rest.uniprot.org/uniprotkb/search?query=gene:TP53+AND+organism_id:9606&format=json&size=3", method="GET")  # runtime fallback (no shell)
+curl -s "https://rest.uniprot.org/uniprotkb/search?query=gene:TP53+AND+organism_id:9606&format=json&size=3" \
+  | jq '.results[:1][] | {accession: .primaryAccession, name: .proteinDescription.recommendedName.fullName.value}'
 ```
 
 **RETRIEVE**: Get protein by accession (function text is most valuable output)
@@ -73,26 +74,30 @@ Call `uniprot_get_protein` with: {"uniprot_id": "P04637"}
 → Parse function text for interactor mentions and pathway clues
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://rest.uniprot.org/uniprotkb/P04637.json", method="GET")  # runtime fallback (no shell)
+curl -s "https://rest.uniprot.org/uniprotkb/P04637.json" \
+  | jq '{accession: .primaryAccession, gene: .genes[0].geneName.value, function: .comments[] | select(.commentType=="FUNCTION") | .texts[0].value}'
 ```
 
-**RETRIEVE**: Get protein sequence (FASTA) — query_api_direct fallback
+**RETRIEVE**: Get protein sequence (FASTA) — curl only
 ```bash
-query_api_direct(url="https://rest.uniprot.org/uniprotkb/P04637.fasta", method="GET")  # runtime fallback (no shell)
+curl -s "https://rest.uniprot.org/uniprotkb/P04637.fasta"
 ```
 
-### UniProt: Batch ID Mapping (Async) — query_api_direct fallback
+### UniProt: Batch ID Mapping (Async) — curl only
 
 **LOCATE** + **RETRIEVE** (two-step async pattern):
 ```bash
 # Step 1: Submit ID mapping job
-query_api_direct(url="https://rest.uniprot.org/idmapping/run", method="GET")  # runtime fallback (no shell)
+JOB_ID=$(curl -s "https://rest.uniprot.org/idmapping/run" \
+  --form 'ids=P04637,P38398,P51587' \
+  --form 'from=UniProtKB_AC-ID' \
+  --form 'to=Ensembl' | jq -r '.jobId')
 
 # Step 2: Check status then get results
-query_api_direct(url="https://rest.uniprot.org/idmapping/status/$JOB_ID", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://rest.uniprot.org/idmapping/results/$JOB_ID", method="GET")  # runtime fallback (no shell)
+curl -s "https://rest.uniprot.org/idmapping/status/$JOB_ID"
+curl -s "https://rest.uniprot.org/idmapping/results/$JOB_ID" | jq '.results'
 ```
 
 ### STRING: Protein-Protein Interactions
@@ -105,9 +110,10 @@ Call `string_search_proteins` with: {"query": "TP53", "species": 9606}
 → Returns: 9606.ENSP00000269305
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://string-db.org/api/json/get_string_ids?identifiers=TP53&species=9606", method="GET")  # runtime fallback (no shell)
+curl -s "https://string-db.org/api/json/get_string_ids?identifiers=TP53&species=9606" \
+  | jq '.[0].stringId'
 ```
 
 **RETRIEVE**: Get interaction network
@@ -118,21 +124,24 @@ Call `string_get_interactions` with: {"string_id": "9606.ENSP00000269305", "spec
 → Returns: interaction partners with confidence scores
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://string-db.org/api/json/network?identifiers=TP53&species=9606&required_score=700&limit=10", method="GET")  # runtime fallback (no shell)
+curl -s "https://string-db.org/api/json/network?identifiers=TP53&species=9606&required_score=700&limit=10" \
+  | jq '.[] | {proteinA: .preferredName_A, proteinB: .preferredName_B, score}'
 ```
 
 **RETRIEVE**: Network for multiple proteins (batch — returns protein names in response)
 ```bash
-query_api_direct(url="https://string-db.org/api/json/network?identifiers=TP53%0dMDM2%0dATM&species=9606", method="GET")  # runtime fallback (no shell)
+curl -s "https://string-db.org/api/json/network?identifiers=TP53%0dMDM2%0dATM&species=9606" \
+  | jq '.[] | {A: .preferredName_A, B: .preferredName_B, score}'
 ```
 
-### STRING: Functional Enrichment — query_api_direct fallback
+### STRING: Functional Enrichment — curl only
 
 **RETRIEVE**: GO/KEGG/Reactome enrichment for protein set
 ```bash
-query_api_direct(url="https://string-db.org/api/json/enrichment?identifiers=9606.ENSP00000269305%0d9606.ENSP00000258149%0d9606.ENSP00000278616&species=9606", method="GET")  # runtime fallback (no shell)
+curl -s "https://string-db.org/api/json/enrichment?identifiers=9606.ENSP00000269305%0d9606.ENSP00000258149%0d9606.ENSP00000278616&species=9606" \
+  | jq '.[:5][] | {category, term, description, fdr}'
 ```
 
 ### STRING: Network Visualization
@@ -143,7 +152,7 @@ Call `string_get_network_image_url` with: {"identifiers": ["TP53", "MDM2", "ATM"
 → Returns URL for network image
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
 echo "https://string-db.org/api/highres_image/network?identifiers=TP53%0dMDM2%0dATM&species=9606&network_flavor=confidence"
 ```
@@ -166,9 +175,10 @@ Call `biogrid_get_interactions` with: {"gene_id": "TP53", "organism": 9606}
 → Returns: interaction partners, experimental systems
 ```
 
-FALLBACK (query_api_direct — requires API key):
+FALLBACK (curl — requires API key):
 ```bash
-query_api_direct(url="https://webservice.thebiogrid.org/interactions?geneList=TP53&taxId=9606&format=json&accesskey=${BIOGRID_API_KEY}", method="GET")  # runtime fallback (no shell)
+curl -s "https://webservice.thebiogrid.org/interactions?geneList=TP53&taxId=9606&format=json&accesskey=${BIOGRID_API_KEY}" \
+  | jq 'to_entries[:5][] | .value | {geneA: .OFFICIAL_SYMBOL_A, geneB: .OFFICIAL_SYMBOL_B, system: .EXPERIMENTAL_SYSTEM}'
 ```
 
 ## ID Resolution Patterns
@@ -180,8 +190,9 @@ query_api_direct(url="https://webservice.thebiogrid.org/interactions?geneList=TP
 Call `string_search_proteins` with: {"query": "TP53", "species": 9606}
 → "9606.ENSP00000269305"
 
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://rest.ensembl.org/xrefs/id/ENSP00000269305?content-type=application/json", method="GET")  # runtime fallback (no shell)
+# Step 2: STRING ID → UniProt (curl RETRIEVE via Ensembl xrefs)
+curl -s "https://rest.ensembl.org/xrefs/id/ENSP00000269305?content-type=application/json" \
+  | jq '.[] | select(.dbname=="Uniprot/SWISSPROT") | .primary_id'
 ```
 
 ## Quick Reference
@@ -190,10 +201,10 @@ query_api_direct(url="https://rest.ensembl.org/xrefs/id/ENSP00000269305?content-
 |------|---------|-------------------|--------------------------|
 | Search proteins | LOCATE | `uniprot_search_proteins` | UniProt `/uniprotkb/search` |
 | Get protein details | RETRIEVE | `uniprot_get_protein` | UniProt `/uniprotkb/{accession}` |
-| Batch ID mapping | LOCATE+RETRIEVE | (query_api_direct fallback) | UniProt `/idmapping/run` |
+| Batch ID mapping | LOCATE+RETRIEVE | (curl only) | UniProt `/idmapping/run` |
 | Resolve to STRING ID | LOCATE | `string_search_proteins` | STRING `/get_string_ids` |
 | Protein interactions | RETRIEVE | `string_get_interactions` | STRING `/network` |
-| Functional enrichment | RETRIEVE | (query_api_direct fallback) | STRING `/enrichment` |
+| Functional enrichment | RETRIEVE | (curl only) | STRING `/enrichment` |
 | Gene interactions | RETRIEVE | `biogrid_get_interactions` | BioGRID `/interactions` |
 
 ## ID Format Reference

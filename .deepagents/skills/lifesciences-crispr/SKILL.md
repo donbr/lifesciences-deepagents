@@ -3,12 +3,12 @@ name: lifesciences-crispr
 description: "Validates synthetic lethality claims from CRISPR knockout screens using BioGRID ORCS 5-phase workflow. This skill should be used when the user asks to \"validate synthetic lethality\", \"query CRISPR essentiality data\", \"find gene dependencies\", \"compare cell line screens\", or mentions BioGRID ORCS, gene knockout data, essentiality scores (CERES, MAGeCK, BAGEL), or asks to validate claims from published CRISPR papers."
 ---
 
-
 ## Runtime constraints (DeepAgents)
-- Prefer MCP tools first; use query_api_direct for HTTP fallbacks.
-- Do not run shell curl in this runtime.
+- Prefer MCP tools first; use `query_api_direct` for HTTP fallbacks.
+- Do NOT run shell `curl` — translate curl examples below to `query_api_direct(url=..., method=..., body=...)`.
+- For POST endpoints (e.g., Open Targets GraphQL): use `method="POST"` and pass the JSON payload as `body=`.
+- For multi-step shell workflows (pipes, variables): execute each step as a separate `query_api_direct` call, passing results between steps manually.
 - Use relative file paths under `workspace/`.
-- Graphiti persistence is optional/best-effort.
 
 # CRISPR Essentiality & Synthetic Lethality Validation
 
@@ -22,11 +22,11 @@ All essentiality scores, screen IDs, cell line names, and CRISPR data MUST come 
 
 | Task | Pattern | MCP Tool (primary) | Curl Endpoint (fallback) |
 |------|---------|-------------------|--------------------------|
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
-| Get essential screens | RETRIEVE | (query_api_direct fallback) | `/gene/{entrez_id}?hit=yes` |
-| Get all screens | RETRIEVE | (query_api_direct fallback) | `/gene/{entrez_id}` |
-| Get screen annotations | RETRIEVE | (query_api_direct fallback) | `/screens/?screenID=1\|2\|3` |
-| Find cell line screens | LOCATE | (query_api_direct fallback) | `/screens/?cellLine={name}` |
+| Resolve gene ID | LOCATE | `hgnc_search_genes` / `entrez_search_genes` | HGNC / NCBI curl |
+| Get essential screens | RETRIEVE | (curl only) | `/gene/{entrez_id}?hit=yes` |
+| Get all screens | RETRIEVE | (curl only) | `/gene/{entrez_id}` |
+| Get screen annotations | RETRIEVE | (curl only) | `/screens/?screenID=1\|2\|3` |
+| Find cell line screens | LOCATE | (curl only) | `/screens/?cellLine={name}` |
 
 ## BioGRID ORCS API
 
@@ -78,9 +78,10 @@ Call `entrez_search_genes` with: {"query": "DHODH", "organism": "human"}
 → Returns Entrez gene ID directly: "1723"
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://rest.genenames.org/search/symbol/DHODH", method="GET")  # runtime fallback (no shell)
+curl -s "https://rest.genenames.org/search/symbol/DHODH" \
+  -H "Accept: application/json" | jq '.response.docs[0] | {hgnc_id, symbol, entrez_id}'
 ```
 
 ### Phase 2: RETRIEVE — Query ORCS for Essential Screens Only
@@ -89,7 +90,7 @@ query_api_direct(url="https://rest.genenames.org/search/symbol/DHODH", method="G
 
 ```bash
 # RETRIEVE: Get ONLY screens where gene is essential
-query_api_direct(url="https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json" > gene_essential.json
 
 # Count essential screens
 cat gene_essential.json | jq '. | length'
@@ -102,10 +103,12 @@ Two-step pattern: query gene for screen IDs, then query screens for annotations.
 
 ```bash
 # Step 3a: Extract unique screen IDs from essential screens
-query_api_direct(url="https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json", method="GET")  # runtime fallback (no shell)
+SCREEN_IDS=$(curl -s "https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json" | \
+  jq -r '.[].SCREEN_ID' | sort -u | head -20 | tr '\n' '|' | sed 's/|$//')
 
 # Step 3b: RETRIEVE screen annotations (cell line, PubMed, author)
-query_api_direct(url="https://orcsws.thebiogrid.org/screens/?accesskey=${BIOGRID_API_KEY}&screenID=${SCREEN_IDS}&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://orcsws.thebiogrid.org/screens/?accesskey=${BIOGRID_API_KEY}&screenID=${SCREEN_IDS}&format=json" | \
+  jq '.[] | {SCREEN_ID, SOURCE_ID, AUTHOR, CELL_LINE, PHENOTYPE}'
 ```
 
 **Example output:**
@@ -123,7 +126,8 @@ query_api_direct(url="https://orcsws.thebiogrid.org/screens/?accesskey=${BIOGRID
 
 ```bash
 # RETRIEVE: Get essential screens with scores
-query_api_direct(url="https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json" | \
+  jq '.[] | select(.SCREEN_ID == "16" or .SCREEN_ID == "17") | {SCREEN_ID, SCORE: .["SCORE.1"], symbol: .OFFICIAL_SYMBOL}'
 ```
 
 **Score interpretation:**
@@ -138,15 +142,17 @@ Calculate essentiality rate across all screens:
 
 ```bash
 # Count essential vs total screens
-query_api_direct(url="https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&format=json", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json", method="GET")  # runtime fallback (no shell)
+TOTAL=$(curl -s "https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&format=json" | jq '. | length')
+ESSENTIAL=$(curl -s "https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json" | jq '. | length')
 echo "TYMS essential in $ESSENTIAL / $TOTAL screens ($(echo "scale=1; $ESSENTIAL * 100 / $TOTAL" | bc)%)"
 # Output: TYMS essential in 352 / 1446 screens (24.3%)
 
 # Get cell lines where gene is essential
-query_api_direct(url="https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://orcsws.thebiogrid.org/gene/7298?accesskey=${BIOGRID_API_KEY}&hit=yes&format=json" | \
+  jq -r '.[].SCREEN_ID' | sort -u | head -10 | tr '\n' '|' | sed 's/|$//' > screen_ids.txt
 
-query_api_direct(url="https://orcsws.thebiogrid.org/screens/?accesskey=${BIOGRID_API_KEY}&screenID=$(cat screen_ids.txt)&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://orcsws.thebiogrid.org/screens/?accesskey=${BIOGRID_API_KEY}&screenID=$(cat screen_ids.txt)&format=json" | \
+  jq '.[] | .CELL_LINE' | sort | uniq -c | sort -rn | head -10
 ```
 
 **Context-dependent essentiality**: If a gene is essential in ~25% of screens, it's likely synthetic lethal with a genetic background present in ~25% of cancer cell lines.

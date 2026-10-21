@@ -1,18 +1,18 @@
 ---
 name: lifesciences-clinical
-description: "Queries clinical databases (Open Targets, ClinicalTrials.gov) via MCP tools for target-disease associations, target tractability assessment, and clinical trial discovery. Falls back to query_api_direct when MCP is unavailable. This skill should be used when the user asks to \"validate drug targets\", \"find clinical trials\", \"assess target tractability\", \"discover disease associations\", or mentions Open Targets scores, NCT identifiers, target-disease evidence, druggability assessment, or translational research workflows."
+description: "Queries clinical databases (Open Targets, ClinicalTrials.gov) via MCP tools for target-disease associations, target tractability assessment, and clinical trial discovery. Falls back to curl when MCP is unavailable. This skill should be used when the user asks to \"validate drug targets\", \"find clinical trials\", \"assess target tractability\", \"discover disease associations\", or mentions Open Targets scores, NCT identifiers, target-disease evidence, druggability assessment, or translational research workflows."
 ---
 
-
 ## Runtime constraints (DeepAgents)
-- Prefer MCP tools first; use query_api_direct for HTTP fallbacks.
-- Do not run shell curl in this runtime.
+- Prefer MCP tools first; use `query_api_direct` for HTTP fallbacks.
+- Do NOT run shell `curl` — translate curl examples below to `query_api_direct(url=..., method=..., body=...)`.
+- For POST endpoints (e.g., Open Targets GraphQL): use `method="POST"` and pass the JSON payload as `body=`.
+- For multi-step shell workflows (pipes, variables): execute each step as a separate `query_api_direct` call, passing results between steps manually.
 - Use relative file paths under `workspace/`.
-- Graphiti persistence is optional/best-effort.
 
 # Clinical & Translational API Skills
 
-Query clinical databases via MCP tools (primary) or query_api_direct (fallback).
+Query clinical databases via MCP tools (primary) or curl (fallback).
 
 ## Grounding Rule
 
@@ -59,9 +59,12 @@ Call `opentargets_search_targets` with: {"query": "breast cancer"}
 → Returns: target/disease IDs and names
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ search(queryString: \"breast cancer\", entityNames: [\"disease\"]) { hits { id name } } }"}' \
+  | jq '.data.search.hits[:3]'
 ```
 
 **RETRIEVE**: Get diseases associated with target
@@ -72,16 +75,22 @@ Call `opentargets_get_associations` with: {"ensembl_id": "ENSG00000141510"}
 → Returns: associated diseases with scores and evidence types
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ target(ensemblId: \"ENSG00000141510\") { approvedSymbol associatedDiseases(page: {index: 0, size: 5}) { rows { disease { id name } score } } } }"}' \
+  | jq '.data.target.associatedDiseases.rows[] | {disease: .disease.name, id: .disease.id, score}'
 ```
 
-### Open Targets: Target Tractability — query_api_direct fallback
+### Open Targets: Target Tractability — curl only
 
 **RETRIEVE**: Get druggability assessment
 ```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ target(ensemblId: \"ENSG00000141510\") { approvedSymbol biotype tractability { label modality value } } }"}' \
+  | jq '.data.target | {symbol: .approvedSymbol, tractability}'
 ```
 
 ### Open Targets: Known Drugs for Target
@@ -94,18 +103,23 @@ Call `opentargets_get_target` with: {"ensembl_id": "ENSG00000171791"}
 → Returns: knownDrugs with drug name, phase, mechanismOfAction
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ target(ensemblId: \"ENSG00000171791\") { approvedSymbol knownDrugs(page: {index: 0, size: 5}) { rows { drug { name id } phase mechanismOfAction } } } }"}' \
+  | jq '.data.target.knownDrugs.rows[] | {drug: .drug.name, phase, mechanism: .mechanismOfAction}'
 ```
 
 **Note**: Always include `index: 0` in pagination — omitting it causes errors.
 
-### Open Targets: All-in-One Nested Query — query_api_direct fallback
+### Open Targets: All-in-One Nested Query — curl only
 
 **RETRIEVE**: Get target + diseases + drugs + tractability in single call
 ```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{
     "query": "{
       target(ensemblId: \"ENSG00000141510\") {
         approvedSymbol
@@ -122,11 +136,14 @@ query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", meth
   }' | jq '.data.target'
 ```
 
-### Open Targets: Disease-Centric Queries — query_api_direct fallback
+### Open Targets: Disease-Centric Queries — curl only
 
 **RETRIEVE**: Get targets associated with disease
 ```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ disease(efoId: \"EFO_0000305\") { name associatedTargets(page: {index: 0, size: 5}) { rows { target { approvedSymbol } score } } } }"}' \
+  | jq '.data.disease.associatedTargets.rows[] | {target: .target.approvedSymbol, score}'
 ```
 
 ## ClinicalTrials.gov API v2
@@ -141,9 +158,10 @@ Call `clinicaltrials_search_trials` with: {"query": "breast cancer"}
 → Returns: NCT IDs, titles, phases, statuses
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?query.cond=breast+cancer&pageSize=3&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://clinicaltrials.gov/api/v2/studies?query.cond=breast+cancer&pageSize=3&format=json" \
+  | jq '.studies[] | {nct: .protocolSection.identificationModule.nctId, title: .protocolSection.identificationModule.briefTitle, status: .protocolSection.statusModule.overallStatus}'
 ```
 
 **By intervention (drug)**:
@@ -153,19 +171,22 @@ PRIMARY (MCP tool):
 Call `clinicaltrials_search_trials` with: {"query": "venetoclax"}
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?query.intr=venetoclax&pageSize=3&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://clinicaltrials.gov/api/v2/studies?query.intr=venetoclax&pageSize=3&format=json" \
+  | jq '.studies[] | {nct: .protocolSection.identificationModule.nctId, phase: .protocolSection.designModule.phases, status: .protocolSection.statusModule.overallStatus}'
 ```
 
-**By status** (query_api_direct fallback — more parameter control):
+**By status** (curl only — more parameter control):
 ```bash
-query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?filter.overallStatus=RECRUITING&query.cond=leukemia&pageSize=3&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://clinicaltrials.gov/api/v2/studies?filter.overallStatus=RECRUITING&query.cond=leukemia&pageSize=3&format=json" \
+  | jq '.studies[] | {nct: .protocolSection.identificationModule.nctId, title: .protocolSection.identificationModule.briefTitle}'
 ```
 
 **By study type** (use `query.term` with AREA syntax — `filter.studyType` is NOT valid in v2):
 ```bash
-query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?query.term=AREA[StudyType]INTERVENTIONAL&query.cond=cancer&pageSize=3&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://clinicaltrials.gov/api/v2/studies?query.term=AREA[StudyType]INTERVENTIONAL&query.cond=cancer&pageSize=3&format=json" \
+  | jq '.studies[] | {nct: .protocolSection.identificationModule.nctId}'
 ```
 
 ### RETRIEVE: Get Trial Details
@@ -178,9 +199,10 @@ Call `clinicaltrials_get_trial` with: {"nct_id": "NCT00461032"}
 → Returns: title, status, phase, conditions, interventions
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://clinicaltrials.gov/api/v2/studies/NCT00461032?format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://clinicaltrials.gov/api/v2/studies/NCT00461032?format=json" \
+  | jq '{
     nct: .protocolSection.identificationModule.nctId,
     title: .protocolSection.identificationModule.briefTitle,
     status: .protocolSection.statusModule.overallStatus,
@@ -198,9 +220,10 @@ Call `clinicaltrials_get_trial_locations` with: {"nct_id": "NCT00461032"}
 → Returns: trial site locations
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://clinicaltrials.gov/api/v2/studies/NCT00461032?format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://clinicaltrials.gov/api/v2/studies/NCT00461032?format=json" \
+  | jq '.protocolSection.contactsLocationsModule.locations[:5]'
 ```
 
 ## Quick Reference
@@ -209,9 +232,9 @@ query_api_direct(url="https://clinicaltrials.gov/api/v2/studies/NCT00461032?form
 |------|---------|-------------------|--------------------------|
 | Search diseases | LOCATE | `opentargets_search_targets` | Open Targets GraphQL `search` |
 | Target-disease associations | RETRIEVE | `opentargets_get_associations` | Open Targets GraphQL `associatedDiseases` |
-| Target tractability | RETRIEVE | (query_api_direct fallback) | Open Targets GraphQL `tractability` |
+| Target tractability | RETRIEVE | (curl only) | Open Targets GraphQL `tractability` |
 | Known drugs for target | LOCATE | `opentargets_get_target` | Open Targets GraphQL `knownDrugs` |
-| Disease → targets | RETRIEVE | (query_api_direct fallback) | Open Targets GraphQL `associatedTargets` |
+| Disease → targets | RETRIEVE | (curl only) | Open Targets GraphQL `associatedTargets` |
 | Search trials | LOCATE | `clinicaltrials_search_trials` | ClinicalTrials.gov `/studies?query.*` |
 | Get trial details | RETRIEVE | `clinicaltrials_get_trial` | ClinicalTrials.gov `/studies/{NCT}` |
 
@@ -245,8 +268,11 @@ query_api_direct(url="https://clinicaltrials.gov/api/v2/studies/NCT00461032?form
 # Step 1: RETRIEVE — Get target-disease association score (MCP)
 Call `opentargets_get_associations` with: {"ensembl_id": "ENSG00000171791"}
 
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+# Step 2: RETRIEVE — Check tractability (curl — no MCP tool for this)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ target(ensemblId: \"ENSG00000171791\") { tractability { label modality value } } }"}' \
+  | jq '.data.target.tractability'
 
 # Step 3: LOCATE — Find clinical trials (MCP)
 Call `clinicaltrials_search_trials` with: {"query": "BCL2 RECRUITING"}
@@ -255,8 +281,10 @@ Call `clinicaltrials_search_trials` with: {"query": "BCL2 RECRUITING"}
 ### Disease → Targets → Drugs → Trials (Full Chain)
 
 ```
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+# Step 1: LOCATE — Find top targets for disease (curl — disease-centric query)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ disease(efoId: \"EFO_0000574\") { name associatedTargets(page: {index: 0, size: 3}) { rows { target { approvedSymbol ensemblId: id } score } } } }"}'
 
 # Step 2: LOCATE — Get drugs for top target (MCP)
 Call `opentargets_get_target` with: {"ensembl_id": "ENSG00000171791"}
@@ -277,13 +305,13 @@ Call `clinicaltrials_search_trials` with: {"query": "venetoclax leukemia RECRUIT
 | API | Limit | Notes |
 |-----|-------|-------|
 | Open Targets | ~5 req/s (practical) | No auth required; 0.2s delay in production |
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
+| ClinicalTrials.gov | Varies | May block automated clients; curl is reliable |
 
 ## Pitfalls
 
 - **Open Targets requires Ensembl Gene IDs** (ENSG*) for target queries; use EFO IDs for disease queries.
 - **Always include `index: 0`** in Open Targets pagination: `page: {index: 0, size: N}`.
-- **ClinicalTrials.gov** uses Cloudflare protection that may block Python httpx clients. Use query_api_direct for reliable access.
+- **ClinicalTrials.gov** uses Cloudflare protection that may block Python httpx clients. Use curl for reliable access.
 - **`filter.studyType` is NOT valid** in v2 API. Use `query.term=AREA[StudyType]INTERVENTIONAL`.
 
 ## See Also

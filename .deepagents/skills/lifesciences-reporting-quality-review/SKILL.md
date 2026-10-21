@@ -3,12 +3,12 @@ name: lifesciences-reporting-quality-review
 description: "Structured quality review framework for Fuzzy-to-Fact life sciences reports. Evaluates reports against protocol requirements using template-specific criteria, distinguishes presentation failures from protocol failures, and applies consistent standards for paraphrasing vs hallucination. Use when the user asks to 'review this report', 'evaluate report quality', 'check protocol compliance', 'validate CQ report', or similar quality assessment requests."
 ---
 
-
 ## Runtime constraints (DeepAgents)
-- Prefer MCP tools first; use query_api_direct for HTTP fallbacks.
-- Do not run shell curl in this runtime.
+- Prefer MCP tools first; use `query_api_direct` for HTTP fallbacks.
+- Do NOT run shell `curl` — translate curl examples below to `query_api_direct(url=..., method=..., body=...)`.
+- For POST endpoints (e.g., Open Targets GraphQL): use `method="POST"` and pass the JSON payload as `body=`.
+- For multi-step shell workflows (pipes, variables): execute each step as a separate `query_api_direct` call, passing results between steps manually.
 - Use relative file paths under `workspace/`.
-- Graphiti persistence is optional/best-effort.
 
 # Report Quality Review Skill
 
@@ -33,8 +33,8 @@ Structured evaluation framework for assessing Fuzzy-to-Fact life sciences report
 **Required reads** (in order):
 1. The report markdown file being reviewed
 2. Associated knowledge graph JSON file (if exists) — usually `{report-name}-knowledge-graph.json`
-3. The `lifesciences-graph-builder` skill
-4. The `lifesciences-reporting` skill
+3. The lifesciences-graph-builder skill (`/home/donbr/ai2026/lifesciences-deepagents/.claude/skills/lifesciences-graph-builder/SKILL.md`)
+4. The lifesciences-reporting skill (`/home/donbr/ai2026/lifesciences-deepagents/.claude/skills/lifesciences-reporting/SKILL.md`)
 
 **Optional reads** (if specific databases/tools are central to the report):
 - lifesciences-pharmacology skill (for drug discovery reports)
@@ -264,7 +264,7 @@ Was the protocol step executed (check knowledge graph, tool call history)?
 
 **What to check**:
 - If report uses Open Targets `knownDrugs`, does it mention pagination issues?
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
+- Does the curl command use `size` only (not `page` or `index`)?
 
 **Scoring**:
 - PASS: No pagination failures; uses `size`-only pattern

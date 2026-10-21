@@ -1,18 +1,18 @@
 ---
 name: lifesciences-pharmacology
-description: "Queries pharmacology databases (ChEMBL, PubChem, IUPHAR, Open Targets) via MCP tools for drug mechanisms, target identification, bioactivity profiling, and indication discovery. Falls back to query_api_direct when MCP is unavailable. This skill should be used when the user asks to \"find drug mechanisms\", \"identify drug targets\", \"analyze bioactivity data\", \"discover drug indications\", or mentions ChEMBL IDs, mechanisms of action, IC50/Ki values, drug-target relationships, or compound similarity searches."
+description: "Queries pharmacology databases (ChEMBL, PubChem, IUPHAR, Open Targets) via MCP tools for drug mechanisms, target identification, bioactivity profiling, and indication discovery. Falls back to curl when MCP is unavailable. This skill should be used when the user asks to \"find drug mechanisms\", \"identify drug targets\", \"analyze bioactivity data\", \"discover drug indications\", or mentions ChEMBL IDs, mechanisms of action, IC50/Ki values, drug-target relationships, or compound similarity searches."
 ---
 
-
 ## Runtime constraints (DeepAgents)
-- Prefer MCP tools first; use query_api_direct for HTTP fallbacks.
-- Do not run shell curl in this runtime.
+- Prefer MCP tools first; use `query_api_direct` for HTTP fallbacks.
+- Do NOT run shell `curl` — translate curl examples below to `query_api_direct(url=..., method=..., body=...)`.
+- For POST endpoints (e.g., Open Targets GraphQL): use `method="POST"` and pass the JSON payload as `body=`.
+- For multi-step shell workflows (pipes, variables): execute each step as a separate `query_api_direct` call, passing results between steps manually.
 - Use relative file paths under `workspace/`.
-- Graphiti persistence is optional/best-effort.
 
 # Pharmacology API Skills
 
-Query pharmacology databases via MCP tools (primary) or query_api_direct (fallback).
+Query pharmacology databases via MCP tools (primary) or curl (fallback).
 
 ## Grounding Rule
 
@@ -59,9 +59,10 @@ Call `chembl_search_compounds` with: {"query": "venetoclax"}
 → Returns: ChEMBL IDs, preferred names, max phase
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/molecule/search?q=venetoclax&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.ebi.ac.uk/chembl/api/data/molecule/search?q=venetoclax&format=json" \
+  | jq '.molecules[:1][] | {chembl_id: .molecule_chembl_id, name: .pref_name, max_phase: .max_phase}'
 ```
 
 **RETRIEVE**: Get compound by ChEMBL ID
@@ -72,9 +73,10 @@ Call `chembl_get_compound` with: {"chembl_id": "CHEMBL3137309"}
 → May return 500 error (common for detail endpoints) — fall back to Open Targets
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/molecule/CHEMBL3137309?format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.ebi.ac.uk/chembl/api/data/molecule/CHEMBL3137309?format=json" \
+  | jq '{id: .molecule_chembl_id, name: .pref_name, formula: .molecule_properties.full_molformula, mw: .molecule_properties.full_mwt}'
 ```
 
 ### Open Targets: Drug Discovery (PRIMARY — More Reliable Than ChEMBL)
@@ -87,9 +89,11 @@ Call `opentargets_get_target` with: {"ensembl_id": "ENSG00000171791"}
 → Returns: knownDrugs with drug name, mechanismOfAction, phase in one call
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+curl -s -X POST "https://api.platform.opentargets.org/api/v4/graphql" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ target(ensemblId: \"ENSG00000171791\") { knownDrugs(size: 25) { rows { drug { name id } mechanismOfAction phase } } } }"}'
 ```
 
 **Open Targets `knownDrugs` Pagination**:
@@ -100,30 +104,34 @@ query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", meth
 
 **Note**: Requires Ensembl Gene ID (ENSG...). Get this from HGNC cross-references or Ensembl lookup.
 
-### ChEMBL: Drug Mechanisms (Critical for Graph Edges) — query_api_direct fallback
+### ChEMBL: Drug Mechanisms (Critical for Graph Edges) — curl only
 
 **RETRIEVE**: Get mechanism for drug (Drug → Target edge)
 ```bash
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/mechanism?molecule_chembl_id=CHEMBL3137309&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.ebi.ac.uk/chembl/api/data/mechanism?molecule_chembl_id=CHEMBL3137309&format=json" \
+  | jq '.mechanisms[] | {action: .action_type, mechanism: .mechanism_of_action, target_id: .target_chembl_id}'
 ```
 
 **RETRIEVE**: Find all drugs for target (Target → Drugs edge)
 ```bash
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/mechanism?target_chembl_id=CHEMBL4860&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.ebi.ac.uk/chembl/api/data/mechanism?target_chembl_id=CHEMBL4860&format=json" \
+  | jq '.mechanisms[] | {drug_id: .molecule_chembl_id, action: .action_type, mechanism: .mechanism_of_action}'
 ```
 
-### ChEMBL: Drug Indications — query_api_direct fallback
+### ChEMBL: Drug Indications — curl only
 
 **RETRIEVE**: Get indications for drug (Drug → Disease edge)
 ```bash
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/drug_indication?molecule_chembl_id=CHEMBL3137309&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.ebi.ac.uk/chembl/api/data/drug_indication?molecule_chembl_id=CHEMBL3137309&format=json" \
+  | jq '.drug_indications[:5][] | {disease: .mesh_heading, efo: .efo_term, phase: .max_phase_for_ind}'
 ```
 
-### ChEMBL: Bioactivity Data (Potency Metrics) — query_api_direct fallback
+### ChEMBL: Bioactivity Data (Potency Metrics) — curl only
 
 **RETRIEVE**: Get activity data (IC50, Ki, EC50)
 ```bash
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/activity?molecule_chembl_id=CHEMBL3137309&format=json&limit=10", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.ebi.ac.uk/chembl/api/data/activity?molecule_chembl_id=CHEMBL3137309&format=json&limit=10" \
+  | jq '.activities[] | {target: .target_pref_name, type: .standard_type, value: .standard_value, units: .standard_units}'
 ```
 
 ### PubChem: Compound Data
@@ -136,9 +144,10 @@ Call `pubchem_search_compounds` with: {"query": "aspirin"}
 → Returns: CID, molecular formula, properties
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/JSON", method="GET")  # runtime fallback (no shell)
+curl -s "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/JSON" \
+  | jq '.PC_Compounds[0] | {cid: .id.id.cid}'
 ```
 
 **RETRIEVE**: Get properties by CID
@@ -149,9 +158,10 @@ Call `pubchem_get_compound` with: {"cid": "2244"}
 → Returns: molecular formula, weight, IUPAC name
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularFormula,MolecularWeight,IUPACName/JSON", method="GET")  # runtime fallback (no shell)
+curl -s "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularFormula,MolecularWeight,IUPACName/JSON" \
+  | jq '.PropertyTable.Properties[0]'
 ```
 
 ### IUPHAR/GtoPdb: Pharmacology
@@ -164,9 +174,10 @@ Call `iuphar_search_ligands` with: {"query": "ibuprofen"}
 → Returns: ligand ID, name, type, approved status
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://www.guidetopharmacology.org/services/ligands?name=ibuprofen", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.guidetopharmacology.org/services/ligands?name=ibuprofen" \
+  | jq '.[:1][] | {id: .ligandId, name, type, approved}'
 ```
 
 **RETRIEVE**: Get ligand-target interactions
@@ -177,22 +188,26 @@ Call `iuphar_get_ligand` with: {"ligand_id": "2713"}
 → Returns: target interactions, action types, affinities
 ```
 
-FALLBACK (query_api_direct):
+FALLBACK (curl):
 ```bash
-query_api_direct(url="https://www.guidetopharmacology.org/services/ligands/2713/interactions", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.guidetopharmacology.org/services/ligands/2713/interactions" \
+  | jq '.[:3][] | {target: .targetName, action: .action, affinity}'
 ```
 
 ## Drug Repurposing Workflow (LOCATE → RETRIEVE Chain)
 
 ```bash
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/mechanism?molecule_chembl_id=CHEMBL3137309&format=json", method="GET")  # runtime fallback (no shell)
+# Step 1: LOCATE — Find target for known drug (curl — mechanism endpoint)
+TARGET=$(curl -s "https://www.ebi.ac.uk/chembl/api/data/mechanism?molecule_chembl_id=CHEMBL3137309&format=json" \
+  | jq -r '.mechanisms[0].target_chembl_id')
 
 # Step 2: RETRIEVE — Find other drugs for same target
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/mechanism?target_chembl_id=$TARGET&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.ebi.ac.uk/chembl/api/data/mechanism?target_chembl_id=$TARGET&format=json" \
+  | jq '.mechanisms[] | {drug: .molecule_chembl_id, mechanism: .mechanism_of_action}'
 
 # Step 3: RETRIEVE — Get indications for alternative drug
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/drug_indication?molecule_chembl_id=CHEMBL2107358&format=json", method="GET")  # runtime fallback (no shell)
+curl -s "https://www.ebi.ac.uk/chembl/api/data/drug_indication?molecule_chembl_id=CHEMBL2107358&format=json" \
+  | jq '.drug_indications[:3][] | {disease: .mesh_heading, phase: .max_phase_for_ind}'
 ```
 
 ## Quick Reference
@@ -201,9 +216,9 @@ query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/drug_indication?mole
 |------|---------|-------------------|--------------------------|
 | Search compounds | LOCATE | `chembl_search_compounds` | ChEMBL `/molecule/search` |
 | Get compound | RETRIEVE | `chembl_get_compound` | ChEMBL `/molecule/{id}` |
-| Drug mechanism | RETRIEVE | (query_api_direct fallback) | ChEMBL `/mechanism` |
-| Drug indications | RETRIEVE | (query_api_direct fallback) | ChEMBL `/drug_indication` |
-| Bioactivity data | RETRIEVE | (query_api_direct fallback) | ChEMBL `/activity` |
+| Drug mechanism | RETRIEVE | (curl only) | ChEMBL `/mechanism` |
+| Drug indications | RETRIEVE | (curl only) | ChEMBL `/drug_indication` |
+| Bioactivity data | RETRIEVE | (curl only) | ChEMBL `/activity` |
 | Find drugs for target | LOCATE | `opentargets_get_target` | Open Targets GraphQL `knownDrugs` |
 | Compound by name | LOCATE | `pubchem_search_compounds` | PubChem `/compound/name/{name}` |
 | Ligand interactions | RETRIEVE | `iuphar_get_ligand` | IUPHAR `/ligands/{id}/interactions` |

@@ -130,6 +130,7 @@ SUBAGENT_SKILL_NAMES = {
     "persistence_specialist": (
         "lifesciences-reporting",
         "lifesciences-reporting-quality-review",
+        "lifesciences-publication-pipeline",
     ),
 }
 
@@ -203,21 +204,21 @@ def _resolve_knowledge_paths(
             if entry.is_dir() and (entry / "SKILL.md").exists():
                 available_skill_names.add(entry.name)
 
-    def _paths_for(skill_names: tuple[str, ...]) -> list[str]:
-        return [
-            f"/skills/{name}" for name in skill_names if name in available_skill_names
-        ]
+    # SkillsMiddleware expects parent-directory paths (e.g., "/skills/") so it can
+    # scan child directories for SKILL.md files. Passing individual skill paths
+    # like "/skills/lifesciences-graph-builder" causes _alist_skills to find only
+    # SKILL.md (a file, not a directory), resulting in skill_dirs=[] and no skills
+    # being injected into agent system prompts.
+    #
+    # We pass ["/skills/"] as the single source for all agents. Tool isolation is
+    # enforced via the tools list on each specialist, not via skill visibility.
+    skills_source = ["/skills/"] if available_skill_names else []
 
     memory_paths = ["/AGENTS.md"] if memory_file.exists() else []
-    supervisor_skill_paths = _paths_for(SUPERVISOR_SKILL_NAMES)
-    subagent_skill_paths = {
-        subagent_name: _paths_for(skill_names)
-        for subagent_name, skill_names in SUBAGENT_SKILL_NAMES.items()
-    }
     return (
         memory_paths,
-        supervisor_skill_paths,
-        subagent_skill_paths,
+        skills_source,  # supervisor gets all skills
+        {name: skills_source for name in SUBAGENT_SKILL_NAMES},  # subagents too
         len(available_skill_names),
     )
 
@@ -268,15 +269,15 @@ STRICT ROUTING RULES:
     workspace_dir = runtime_root / "workspace"
     runtime_root.mkdir(parents=True, exist_ok=True)
     workspace_dir.mkdir(parents=True, exist_ok=True)
-    memory_paths, supervisor_skills, subagent_skills, skill_count = (
+    memory_paths, skills_source, subagent_skills, skill_count = (
         _resolve_knowledge_paths(runtime_root)
     )
 
     logger.info(
-        "Lifesciences knowledge config: runtime_root=%s memory_enabled=%s supervisor_skills_enabled=%s skill_count=%d",
+        "Lifesciences knowledge config: runtime_root=%s memory_enabled=%s skills_source=%s skill_count=%d",
         str(runtime_root),
         bool(memory_paths),
-        bool(supervisor_skills),
+        skills_source,
         skill_count,
     )
 
@@ -302,7 +303,7 @@ STRICT ROUTING RULES:
         middleware=[LifesciencesSubagentGuardMiddleware()],
         backend=make_backend,
         memory=memory_paths or None,
-        skills=supervisor_skills or None,
+        skills=skills_source or None,
         subagents=[
             {
                 "name": "anchor_specialist",

@@ -3,10 +3,10 @@ name: lifesciences-graph-builder
 description: "Orchestrates life sciences APIs to build knowledge graphs using the Fuzzy-to-Fact protocol, combining MCP tools for entity resolution and query_api_direct for edge discovery, then persisting to Graphiti. This skill should be used when the user asks to \"build knowledge graphs\", \"find biological connections\", \"explore drug repurposing\", \"validate drug targets\", or mentions traversing gene→protein→pathway→drug→disease paths, multi-API orchestration, or graph persistence workflows."
 ---
 
-
 ## Runtime constraints (DeepAgents)
-- Prefer MCP tools first; use query_api_direct for HTTP fallbacks.
-- Do not run shell curl in this runtime.
+- Prefer MCP tools first; use `query_api_direct` for HTTP fallbacks.
+- Do NOT run shell `curl` in this runtime. Use `query_api_direct(url=..., method=..., body=...)` instead.
+- For POST endpoints (e.g., Open Targets GraphQL), use `method="POST"` and pass the JSON payload as `body=`.
 - Use relative file paths under `workspace/`.
 - Graphiti persistence is optional/best-effort.
 
@@ -56,7 +56,7 @@ This prevents calling the wrong tool or guessing parameters.
 
 ## Tool Access
 
-The `lifesciences-research` MCP server provides 34 tools across 12 databases. **Use MCP tools as the primary method.** Fall back to query_api_direct fallback when the MCP server is unavailable.
+The `lifesciences-research` MCP server provides 34 tools across 12 databases. **Use MCP tools as the primary method.** Fall back to `query_api_direct` when the MCP server is unavailable.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
@@ -92,7 +92,7 @@ The `lifesciences-research` MCP server provides 34 tools across 12 databases. **
 │  └── Entrez: entrez_search_genes (LOCATE), entrez_get_gene,                  │
 │              entrez_get_pubmed_links                                          │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│  DIRECT API (query_api_direct — for GraphQL & edge discovery when MCP unavailable)        │
+│  DIRECT API (query_api_direct — for GraphQL & edge discovery)                 │
 │  ├── Open Targets GraphQL: knownDrugs, associatedDiseases, tractability      │
 │  ├── ChEMBL /mechanism: Drug → Target edges                                  │
 │  └── STRING /enrichment: Protein Set → GO/KEGG terms                         │
@@ -155,12 +155,13 @@ Use `PREFIX:LOCAL_ID` format for persistence:
 
 - [ ] Phase 1 ANCHOR: LOCATE gene/drug/disease → RETRIEVE canonical CURIEs
 - [ ] Phase 2 ENRICH: RETRIEVE metadata for each CURIE (UniProt function, cross-refs)
-- [ ] Phase 3 EXPAND: LOCATE interaction partners → RETRIEVE pathway membership
+- [ ] Phase 3 EXPAND: LOCATE interaction partners → RETRIEVE pathway membership → ENRICH secondary entities (hgnc_get_gene + wikipathways for each new KG node)
 - [ ] Phase 4a TRAVERSE_DRUGS: LOCATE drugs targeting identified proteins → RETRIEVE mechanisms
 - [ ] Phase 4b TRAVERSE_TRIALS: LOCATE trials for identified drugs → RETRIEVE trial details
 - [ ] Phase 5 VALIDATE: RETRIEVE verification for every NCT ID, drug mechanism, gene-disease link
-- [ ] Phase 6a PERSIST: Format validated graph as JSON → persist to Graphiti
+- [ ] Phase 6a PERSIST: Pre-emit validation (all gene nodes have symbol/name/ensembl/uniprot/location) → format as JSON → persist to Graphiti
 - [ ] Phase 6b REPORT: Select template → grade evidence → format final report (lifesciences-reporting skill)
+- [ ] Phase 7 PUBLISH (optional): Generate 5 publication files via lifesciences-publication-pipeline skill
 
 ## Phase 1: ANCHOR — Entity Resolution
 
@@ -175,8 +176,8 @@ Call `hgnc_search_genes` with: {"query": "TP53"}
 ```
 
 FALLBACK (query_api_direct):
-```bash
-query_api_direct(url="https://rest.genenames.org/search/symbol/TP53", method="GET")  # runtime fallback (no shell)
+```
+query_api_direct(url="https://rest.genenames.org/search/symbol/TP53", method="GET")
 ```
 
 **RETRIEVE** (get full record with cross-references):
@@ -188,8 +189,8 @@ Call `hgnc_get_gene` with: {"hgnc_id": "HGNC:11998"}
 ```
 
 FALLBACK (query_api_direct):
-```bash
-query_api_direct(url="https://rest.genenames.org/fetch/hgnc_id/11998", method="GET")  # runtime fallback (no shell)
+```
+query_api_direct(url="https://rest.genenames.org/fetch/hgnc_id/11998", method="GET")
 ```
 
 **For drugs** (try ChEMBL search, note failure for Phase 4a fallback):
@@ -261,9 +262,13 @@ Call `opentargets_get_associations` with: {"ensembl_id": "ENSG00000115170"}
 - OPTIONAL for gene network questions (Template 2) without therapeutic focus
 - If query is about biological mechanisms (not therapeutics), disease CURIE may be omitted
 
-FALLBACK (query_api_direct):
-```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+FALLBACK (query_api_direct — Open Targets GraphQL requires POST):
+```
+query_api_direct(
+  url="https://api.platform.opentargets.org/api/v4/graphql",
+  method="POST",
+  body='{"query": "{ target(ensemblId: \"ENSG00000115170\") { associatedDiseases(page: {index: 0, size: 5}) { rows { disease { name id } score } } } }"}'
+)
 ```
 
 **Critical outputs for downstream phases**:
@@ -307,9 +312,13 @@ Call `opentargets_get_associations` with: {"ensembl_id": "ENSG00000141510"}
 → Returns associated diseases with scores
 ```
 
-FALLBACK (query_api_direct — for custom GraphQL queries):
-```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+FALLBACK (query_api_direct — Open Targets GraphQL requires POST):
+```
+query_api_direct(
+  url="https://api.platform.opentargets.org/api/v4/graphql",
+  method="POST",
+  body='{"query": "{ target(ensemblId: \"ENSG00000141510\") { associatedDiseases(page: {index: 0, size: 5}) { rows { disease { name id } score } } } }"}'
+)
 ```
 
 **Pitfalls**:
@@ -317,6 +326,24 @@ query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", meth
 - STRING rate limit is 1 req/s.
 - Always use `species=9606` (human) unless explicitly doing comparative genomics.
 - BioGRID requires `BIOGRID_API_KEY` — check with `grep BIOGRID_API_KEY .env`.
+
+### Secondary Entity Enrichment (CRITICAL)
+
+For each high-confidence interactor (STRING score >= 0.700) that will become a KG node, run a dedicated LOCATE-RETRIEVE enrichment cycle **before** leaving Phase 3:
+
+```
+For each discovered interactor (e.g., KRAS from NF1 STRING network, NQO1 from NRF2 pathway):
+1. hgnc_search_genes → hgnc_get_gene: Get full cross-references (Ensembl, UniProt, locus)
+2. wikipathways_get_pathways_for_gene: Get pathway membership with tool-call-backed citations
+3. string_get_interactions (if the interactor is a network hub): Get its own interaction partners
+
+This ensures ALL nodes in the final KG have:
+- Proper CURIEs (not just symbol + name)
+- Tool-call-backed pathway citations (not "skill reference")
+- Complete cross-references for Phase 6a validation
+```
+
+**Why this matters**: Without this step, secondary entities discovered during EXPAND end up in the KG with only `symbol` and `name` fields. The report then cites "reporting skill reference" instead of specific tool calls, and the KG JSON lacks Ensembl/UniProt/locus data. This is the #1 source of quality deductions.
 
 ## Phase 4a: TRAVERSE_DRUGS — Drug Discovery
 
@@ -330,9 +357,13 @@ Call `opentargets_get_target` with: {"ensembl_id": "ENSG00000171791"}
 → Returns knownDrugs with drug name, mechanismOfAction, phase
 ```
 
-FALLBACK (query_api_direct — for full GraphQL control):
-```bash
-query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="GET")  # runtime fallback (no shell)
+FALLBACK (query_api_direct — Open Targets GraphQL requires POST):
+```
+query_api_direct(
+  url="https://api.platform.opentargets.org/api/v4/graphql",
+  method="POST",
+  body='{"query": "{ target(ensemblId: \"ENSG00000171791\") { knownDrugs(size: 25) { rows { drug { name id } mechanismOfAction phase } } } }"}'
+)
 ```
 
 **Open Targets `knownDrugs` Pagination**:
@@ -378,13 +409,13 @@ Call `clinicaltrials_search_trials` with: {"query": "venetoclax AND leukemia"}
 ```
 
 FALLBACK (query_api_direct):
-```bash
-query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?query.cond=cancer&query.intr=venetoclax&pageSize=5&format=json", method="GET")  # runtime fallback (no shell)
+```
+query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?query.cond=cancer&query.intr=venetoclax&pageSize=5&format=json", method="GET")
 ```
 
 **Fallback** — disease-only search (when drug-specific search returns zero):
-```bash
-query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?query.cond=fibrodysplasia+ossificans+progressiva&pageSize=10&format=json", method="GET")  # runtime fallback (no shell)
+```
+query_api_direct(url="https://clinicaltrials.gov/api/v2/studies?query.cond=fibrodysplasia+ossificans+progressiva&pageSize=10&format=json", method="GET")
 ```
 
 **ClinicalTrials.gov v2 Valid Parameters**:
@@ -417,8 +448,8 @@ Call `clinicaltrials_get_trial` with: {"nct_id": "NCT03312634"}
 **RETRIEVE** cross-database ID verification:
 
 FALLBACK (query_api_direct — for Ensembl xrefs):
-```bash
-query_api_direct(url="https://rest.ensembl.org/xrefs/id/ENSG00000141510?content-type=application/json", method="GET")  # runtime fallback (no shell)
+```
+query_api_direct(url="https://rest.ensembl.org/xrefs/id/ENSG00000141510?content-type=application/json", method="GET")
 ```
 
 **Validation checklist**:
@@ -433,13 +464,39 @@ query_api_direct(url="https://rest.ensembl.org/xrefs/id/ENSG00000141510?content-
 
 **Goal**: Format validated graph as JSON and persist to Graphiti.
 
+### Pre-Emit Validation (CRITICAL)
+
+Before writing KG JSON, validate that every gene node has the minimum required fields. If any are missing, issue the necessary tool calls to fill them:
+
+```
+Required fields for Gene nodes:
+  - symbol     (from hgnc_get_gene)
+  - name       (from hgnc_get_gene)
+  - ensembl    (ENSG... from hgnc_get_gene cross-refs)
+  - uniprot    (from hgnc_get_gene cross-refs)
+  - location   (from hgnc_get_gene)
+
+Validation procedure:
+1. For each Gene node in the graph, check that all 5 fields are present and non-empty
+2. If any field is missing, call hgnc_search_genes → hgnc_get_gene for that entity
+3. Extract cross-references from the HGNC response to populate ensembl, uniprot, location
+4. Do NOT persist a gene node with only symbol + name — this produces quality deductions
+
+Required fields for Compound nodes:
+  - chembl_id or pubchem_cid (at least one compound identifier)
+  - mechanism (from Phase 4a)
+  - max_phase (from Open Targets knownDrugs)
+```
+
+**Why this matters**: Gene nodes persisted with only `symbol` and `name` (missing ensembl, uniprot, location) lose points in CURIE Resolution and Completeness scoring. This validation catches entities that were discovered in Phase 3 EXPAND but not fully enriched.
+
 **Structure** (only include VALIDATED entities and relationships):
 ```python
 graph_data = {
     "nodes": [
-        {"id": "HGNC:11998", "type": "Gene", "label": "TP53", "properties": {"ensembl": "ENSG00000141510"}},
-        {"id": "HGNC:990", "type": "Gene", "label": "BCL2", "properties": {"ensembl": "ENSG00000171791"}},
-        {"id": "CHEMBL:3137309", "type": "Compound", "label": "Venetoclax", "properties": {"phase": 4}}
+        {"id": "HGNC:11998", "type": "Gene", "label": "TP53", "properties": {"symbol": "TP53", "name": "tumor protein p53", "ensembl": "ENSG00000141510", "uniprot": "P04637", "location": "17p13.1"}},
+        {"id": "HGNC:990", "type": "Gene", "label": "BCL2", "properties": {"symbol": "BCL2", "name": "BCL2 apoptosis regulator", "ensembl": "ENSG00000171791", "uniprot": "P10415", "location": "18q21.33"}},
+        {"id": "CHEMBL:3137309", "type": "Compound", "label": "Venetoclax", "properties": {"phase": 4, "mechanism": "BCL2 inhibitor"}}
     ],
     "edges": [
         {"source": "HGNC:11998", "target": "HGNC:990", "type": "REGULATES", "properties": {}},
@@ -479,19 +536,35 @@ The reporting skill consumes Phases 1-5 output and the graph structure from Phas
 [State that full evidence grading was not performed and why]
 ```
 
-## Edge Discovery Commands
+## Phase 7: PUBLISH — Publication Pipeline (Optional)
 
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
+**Goal**: Produce 5 publication-quality files from completed Phases 1-6 output.
 
-| Edge Type | Command |
-|-----------|---------|
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/mechanism?molecule_chembl_id={ID}&format=json", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/mechanism?target_chembl_id={ID}&format=json", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/drug_indication?molecule_chembl_id={ID}&format=json", method="GET")  # runtime fallback (no shell)
-| Gene → Disease | Open Targets `associatedDiseases` GraphQL |
-query_api_direct(url="https://rest.ensembl.org/homology/id/human/{ENSG}?type=orthologues&content-type=application/json", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://string-db.org/api/json/enrichment?identifiers={IDs}&species=9606", method="GET")  # runtime fallback (no shell)
-query_api_direct(url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=gene&db=pubmed&id={ID}&retmode=json", method="GET")  # runtime fallback (no shell)
+Use the `lifesciences-publication-pipeline` skill to generate:
+1. `{slug}-report.md` — Template-formatted report with evidence grading
+2. `{slug}-knowledge-graph.json` — Structured graph with Synapse grounding
+3. `{slug}-synapse-grounding.md` — Maps Synapse.org datasets to graph entities
+4. `{slug}-quality-review.md` — 10-dimension quality assessment
+5. `{slug}-biorxiv-draft.md` — Preprint manuscript (IMRaD format)
+
+**Trigger**: After Phase 6b, ask: "Generate publication outputs?" If yes, invoke the
+publication pipeline skill with the CQ slug and output directory.
+
+**Output directory**: `output/cqs/{slug}/`
+
+## Edge Discovery via query_api_direct
+
+These `query_api_direct` calls cover edge types not available via MCP tools:
+
+| Edge Type | query_api_direct Call |
+|-----------|---------------------|
+| Drug → Target | `query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/mechanism?molecule_chembl_id={ID}&format=json", method="GET")` |
+| Target → Drugs | `query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="POST", body='{"query": "{ target(ensemblId: \"{ENSG}\") { knownDrugs(size: 25) { rows { drug { name id } mechanismOfAction phase } } } }"}')` |
+| Drug → Disease | `query_api_direct(url="https://www.ebi.ac.uk/chembl/api/data/drug_indication?molecule_chembl_id={ID}&format=json", method="GET")` |
+| Gene → Disease | `query_api_direct(url="https://api.platform.opentargets.org/api/v4/graphql", method="POST", body='{"query": "{ target(ensemblId: \"{ENSG}\") { associatedDiseases(page: {index: 0, size: 5}) { rows { disease { name id } score } } } }"}')` |
+| Gene → Orthologs | `query_api_direct(url="https://rest.ensembl.org/homology/id/human/{ENSG}?type=orthologues&content-type=application/json", method="GET")` |
+| Protein Set → GO | `query_api_direct(url="https://string-db.org/api/json/enrichment?identifiers={IDs}&species=9606", method="GET")` |
+| Gene → PubMed | `query_api_direct(url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=gene&db=pubmed&id={ID}&retmode=json", method="GET")` |
 
 ## Node Types
 
@@ -554,6 +627,7 @@ query_api_direct(url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?d
 - **lifesciences-clinical**: Open Targets associations, ClinicalTrials.gov trial endpoints (Phases 4b, 5)
 - **lifesciences-crispr**: BioGRID ORCS essentiality validation (extends Phase 3 with CRISPR screen data)
 - **lifesciences-reporting**: Domain-specific report templates and evidence grading (Phase 6b)
+- **lifesciences-publication-pipeline**: Post-pipeline publication workflow (Phase 7: PUBLISH)
 
 ### MCP Server Reference
 
@@ -561,7 +635,3 @@ All 34 tools are available via the `lifesciences-research` MCP server.
 Endpoint: `https://lifesciences-research.fastmcp.app/mcp`
 
 Graphiti persistence is optional/best-effort. Core workflow completion is producing validated graph and report artifacts.
-
-## Runtime Note
-- Graphiti persistence is OPTIONAL and best-effort.
-- Core completion requires local artifact writes to `workspace/graph.json` and `workspace/report.md`.

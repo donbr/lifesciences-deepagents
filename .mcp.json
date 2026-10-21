@@ -2,7 +2,14 @@
   "mcpServers": {
     "lifesciences-research": {
       "type": "http",
-      "url": "https://lifesciences-research.fastmcp.app/mcp"
+      "url": "https://lifesciences-research.fastmcp.app/mcp",
+      "headers": {
+        "Authorization": "Bearer ${BIOSCIENCES_API_KEY}"
+      }
+    },
+    "synapse": {
+      "type": "http",
+      "url": "https://mcp.synapse.org/mcp"
     },
     "graphiti-aura": {
       "type": "stdio",

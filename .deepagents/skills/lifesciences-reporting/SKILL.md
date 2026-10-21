@@ -3,12 +3,12 @@ name: lifesciences-reporting
 description: "Formats professional reports from Fuzzy-to-Fact pipeline output using domain-specific templates, claim-level evidence grading, and standardized citations. This skill should be used when the user asks to \"format a report\", \"summarize findings\", \"grade evidence\", \"write up results\", or mentions report templates, confidence scoring, evidence levels, or presentation of pipeline output."
 ---
 
-
 ## Runtime constraints (DeepAgents)
-- Prefer MCP tools first; use query_api_direct for HTTP fallbacks.
-- Do not run shell curl in this runtime.
+- Prefer MCP tools first; use `query_api_direct` for HTTP fallbacks.
+- Do NOT run shell `curl` — translate curl examples below to `query_api_direct(url=..., method=..., body=...)`.
+- For POST endpoints (e.g., Open Targets GraphQL): use `method="POST"` and pass the JSON payload as `body=`.
+- For multi-step shell workflows (pipes, variables): execute each step as a separate `query_api_direct` call, passing results between steps manually.
 - Use relative file paths under `workspace/`.
-- Graphiti persistence is optional/best-effort.
 
 # Life Sciences Reporting
 
@@ -397,7 +397,7 @@ Every factual claim must cite the tool call that produced it. Formats:
 | Context | Format | Example |
 |---------|--------|---------|
 | MCP tool | `[Source: tool(param)]` | `[Source: hgnc_search_genes("TP53")]` |
-query_api_direct(url="<set-url>", method="GET")  # runtime fallback (no shell)
+| Curl | `[Source: curl endpoint(param)]` | `[Source: curl OpenTargets/graphql(knownDrugs, ENSG00000171791)]` |
 | Multi-source | `[Sources: tool1(p1), tool2(p2)]` | `[Sources: hgnc_get_gene(HGNC:11998), uniprot_get_protein(P04637)]` |
 | No data | `[No data: tool(param) returned error/0]` | `[No data: chembl_get_compound(CHEMBL3137309) returned 500]` |
 
