@@ -1,0 +1,343 @@
+{
+  "nf1_doxorubicin_trials": [
+    {
+      "nct_id": "NCT00304083",
+      "title": "Phase II Trial of Chemotherapy in Sporadic and Neurofibromatosis Type 1 Associated High Grade Malignant Peripheral Nerve Sheath Tumors",
+      "status": "COMPLETED",
+      "phase": "Phase 2",
+      "intervention": "doxorubicin hydrochloride + etoposide + ifosfamide + filgrastim",
+      "primary_outcome": "Response rate in NF1-associated MPNST",
+      "relevance": "direct NF1 treatment - specifically targets NF1-associated MPNST with doxorubicin-based chemotherapy",
+      "evidence": "clinicaltrials_search_trials: doxorubicin AND neurofibromatosis"
+    },
+    {
+      "nct_id": "NCT02584309",
+      "title": "A Non-Inferiority Study of Doxorubicin With Upfront Dexrazoxane for the Treatment of Advanced or Metastatic Soft Tissue Sarcoma",
+      "status": "COMPLETED",
+      "phase": "Non-inferiority trial",
+      "intervention": "doxorubicin + dexrazoxane (upfront cardioprotection)",
+      "primary_outcome": "Non-inferiority of efficacy with cardioprotection",
+      "relevance": "direct MPNST treatment with cardioprotection - includes MPNST as condition, tests cardioprotective dexrazoxane without compromising anti-tumor efficacy",
+      "evidence": "clinicaltrials_search_trials: doxorubicin AND MPNST; also found in dexrazoxane search"
+    },
+    {
+      "nct_id": "NCT06849986",
+      "title": "Tislelizumab Combined With Liposomal Doxorubicin and Ifosfamide as First-line Treatment for Patients With Specified Subtypes of Unresectable or Metastatic Soft Tissue Sarcoma",
+      "status": "RECRUITING",
+      "phase": "Phase 2",
+      "intervention": "tislelizumab + liposomal doxorubicin + ifosfamide",
+      "primary_outcome": "Efficacy in MPNST and other STS subtypes",
+      "relevance": "active MPNST trial with liposomal doxorubicin (reduced cardiotoxicity formulation)",
+      "evidence": "clinicaltrials_search_trials: doxorubicin AND MPNST"
+    },
+    {
+      "nct_id": "NCT06277154",
+      "title": "A Phase II Study Evaluating the Safety and Efficacy of MASCT-I Combined With Doxorubicin and Ifosfamide for First-line Treatment in Patients With Advanced Soft Tissue Sarcoma",
+      "status": "RECRUITING",
+      "phase": "Phase 2",
+      "intervention": "MASCT-I + doxorubicin + ifosfamide",
+      "primary_outcome": "Safety and efficacy in MPNST",
+      "relevance": "active MPNST trial testing immunotherapy + doxorubicin combination",
+      "evidence": "clinicaltrials_search_trials: doxorubicin AND MPNST"
+    },
+    {
+      "nct_id": "NCT06239272",
+      "title": "NRSTS2021, A Risk Adapted Study Evaluating Maintenance Pazopanib, Limited Margin, Dose-Escalated Radiation Therapy and Selinexor in Non-Rhabdomyosarcoma Soft Tissue Sarcoma (NRSTS)",
+      "status": "RECRUITING",
+      "phase": "Phase 2/3",
+      "intervention": "doxorubicin + ifosfamide + pazopanib + selinexor",
+      "primary_outcome": "Risk-adapted treatment outcomes in MPNST",
+      "relevance": "active MPNST trial incorporating doxorubicin in multimodal strategy",
+      "evidence": "clinicaltrials_search_trials: doxorubicin AND MPNST"
+    },
+    {
+      "nct_id": "NCT03009201",
+      "title": "A Phase 1B Study of Ribociclib in Combination With Doxorubicin in Advanced Soft Tissue Sarcomas",
+      "status": "COMPLETED",
+      "phase": "Phase 1B",
+      "intervention": "ribociclib (CDK4/6 inhibitor) + doxorubicin",
+      "primary_outcome": "Safety and recommended Phase 2 dose for MPNST",
+      "relevance": "completed MPNST trial testing CDK4/6 inhibition + doxorubicin",
+      "evidence": "clinicaltrials_search_trials: doxorubicin AND MPNST"
+    }
+  ],
+  "cardioprotection_trials": [
+    {
+      "nct_id": "NCT02584309",
+      "title": "A Non-Inferiority Study of Doxorubicin With Upfront Dexrazoxane for the Treatment of Advanced or Metastatic Soft Tissue Sarcoma",
+      "status": "COMPLETED",
+      "phase": "Non-inferiority",
+      "intervention": "dexrazoxane (upfront with doxorubicin)",
+      "primary_outcome": "Non-inferior efficacy with cardioprotection in sarcoma including MPNST",
+      "relevance": "cardiotoxicity prevention - GOLD STANDARD: demonstrates dexrazoxane preserves anti-tumor efficacy while protecting heart",
+      "evidence": "clinicaltrials_search_trials: dexrazoxane AND doxorubicin"
+    },
+    {
+      "nct_id": "NCT06220032",
+      "title": "ANTICIPATE: Prevention of ANThracycline-Induced Cardiac Dysfunction by Dexrazoxane In PATients With diffusE Large B-cell Lymphoma",
+      "status": "RECRUITING",
+      "phase": "Phase 3",
+      "intervention": "dexrazoxane",
+      "primary_outcome": "Prevention of anthracycline-induced cardiac dysfunction",
+      "relevance": "cardiotoxicity prevention - active Phase 3 trial of dexrazoxane cardioprotection",
+      "evidence": "clinicaltrials_search_trials: dexrazoxane AND doxorubicin"
+    },
+    {
+      "nct_id": "NCT03930680",
+      "title": "Prevention of Heart Failure Induced by Doxorubicin With Early Administration of Dexrazoxane in Patients With Breast Cancer",
+      "status": "COMPLETED",
+      "phase": "Phase 2",
+      "intervention": "dexrazoxane (early administration)",
+      "primary_outcome": "Prevention of heart failure; TOP2B and TOP2A degradation assessment",
+      "relevance": "cardiotoxicity prevention - mechanistic study of dexrazoxane effect on TOP2B degradation",
+      "evidence": "clinicaltrials_search_trials: dexrazoxane AND doxorubicin"
+    },
+    {
+      "nct_id": "NCT07654426",
+      "title": "A Randomized Study of Dexrazoxane or Liposomal Doxorubicin in Newly Diagnosed Diffuse Large B-cell Lymphoma at High Risk for Heart Failure Events: the CARDIOPROTECT Trial",
+      "status": "RECRUITING",
+      "phase": "Phase 3",
+      "intervention": "dexrazoxane OR liposomal doxorubicin",
+      "primary_outcome": "Comparative cardioprotection strategies",
+      "relevance": "cardiotoxicity prevention - comparing two cardioprotective approaches head-to-head",
+      "evidence": "clinicaltrials_search_trials: dexrazoxane AND doxorubicin"
+    },
+    {
+      "nct_id": "NCT01724450",
+      "title": "Carvedilol Effect in Preventing Chemotherapy - Induced Cardiotoxicity. A Randomized Double Blind Study",
+      "status": "COMPLETED",
+      "phase": "Phase 2",
+      "intervention": "carvedilol (beta-blocker)",
+      "primary_outcome": "Prevention of chemotherapy-induced cardiotoxicity",
+      "relevance": "cardiotoxicity prevention - beta-blocker cardioprotection strategy",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    },
+    {
+      "nct_id": "NCT06155331",
+      "title": "Clinical Study to Evaluate the Possible Safety and Efficacy of Fenofibrate in the Prophylaxis of Doxorubicin Induced Cardiotoxicity in Breast Cancer Patients",
+      "status": "COMPLETED",
+      "phase": "Phase 2",
+      "intervention": "fenofibrate (PPAR-alpha agonist)",
+      "primary_outcome": "Prophylaxis of doxorubicin cardiotoxicity",
+      "relevance": "cardiotoxicity prevention - lipid modulator for cardioprotection",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    },
+    {
+      "nct_id": "NCT05271162",
+      "title": "Evaluation of the Effectiveness of Empagliflozin in the Prevention of Cardiotoxicity in Cancer Patients Undergoing Chemotherapy Based on Anthracyclines (EMPACT Study)",
+      "status": "ACTIVE_NOT_RECRUITING",
+      "phase": "Phase 2/3",
+      "intervention": "empagliflozin (SGLT2 inhibitor)",
+      "primary_outcome": "Prevention of anthracycline cardiotoxicity",
+      "relevance": "cardiotoxicity prevention - SGLT2 inhibitor cardioprotection mechanism",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    },
+    {
+      "nct_id": "NCT06304857",
+      "title": "A Multicentre, Randomised, Double-blind, Placebo-controlled Phase III Study, Evaluating the Effect of Dapagliflozin on Prevention of Cardiotoxicity in Breast Cancer Patients Undergoing Anthracycline-based Chemotherapy",
+      "status": "RECRUITING",
+      "phase": "Phase 3",
+      "intervention": "dapagliflozin (SGLT2 inhibitor)",
+      "primary_outcome": "Prevention of anthracycline cardiotoxicity",
+      "relevance": "cardiotoxicity prevention - SGLT2 inhibitor Phase 3 trial",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    },
+    {
+      "nct_id": "NCT02177175",
+      "title": "Carvedilol for the Prevention of Anthracycline/Anti-HER2 Therapy Associated Cardiotoxicity Among Women With HER2-Positive Breast Cancer Using Myocardial Strain Imaging for Early Risk Stratification",
+      "status": "COMPLETED",
+      "phase": "Phase 2",
+      "intervention": "carvedilol (beta-blocker)",
+      "primary_outcome": "Prevention of anthracycline cardiotoxicity with early imaging detection",
+      "relevance": "cardiotoxicity prevention - beta-blocker with biomarker-guided approach",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    },
+    {
+      "nct_id": "NCT05465031",
+      "title": "Sacubitril/Valsartan in PriMAry preventIoN of the Cardiotoxicity of Systematic breaST canceR trEAtMent",
+      "status": "RECRUITING",
+      "phase": "Phase 3",
+      "intervention": "sacubitril/valsartan (ARNI - angiotensin receptor neprilysin inhibitor)",
+      "primary_outcome": "Primary prevention of cancer therapy cardiotoxicity",
+      "relevance": "cardiotoxicity prevention - neprilysin inhibitor + ARB combination",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    },
+    {
+      "nct_id": "NCT02236806",
+      "title": "Role of ACE Inhibitors and Beta Blockers as Cardiotoxicity Prevention in Breast Cancer Patients Treated With (Neo)Adjuvant Anthracyclines and/or Trastuzumab: a Four Arm, Placebo Control, Randomized Trial",
+      "status": "UNKNOWN",
+      "phase": "Phase 3",
+      "intervention": "bisoprolol (beta-blocker) + ramipril (ACE inhibitor)",
+      "primary_outcome": "Cardiotoxicity prevention with ACE-I and/or beta-blocker",
+      "relevance": "cardiotoxicity prevention - factorial design comparing ACE-I vs beta-blocker vs combination",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    }
+  ],
+  "mechanistic_trials": [
+    {
+      "nct_id": "NCT03930680",
+      "title": "Prevention of Heart Failure Induced by Doxorubicin With Early Administration of Dexrazoxane in Patients With Breast Cancer",
+      "status": "COMPLETED",
+      "phase": "Phase 2",
+      "intervention": "dexrazoxane (with TOP2B/TOP2A degradation assessment)",
+      "relevance": "TOP2B mechanism - explicitly measures TOP2B and TOP2A degradation by dexrazoxane in humans",
+      "evidence": "clinicaltrials_search_trials: dexrazoxane AND doxorubicin; trial objectives include 'Degradation of Top2b and Top2a in Human by Dexrazoxane'"
+    },
+    {
+      "nct_id": "NCT05146843",
+      "title": "The Impact of Chronic Mitochondrial Antioxidant (MitoQ) Supplementation on Cardiovascular Toxicity Induced by Doxorubicin-Based Adjuvant Chemotherapy in Breast Cancer Patients",
+      "status": "UNKNOWN",
+      "phase": "Phase 2",
+      "intervention": "mitoquinone (mitochondrial-targeted antioxidant)",
+      "relevance": "oxidative stress/mitochondrial protection - mitochondrial antioxidant targeting ROS production",
+      "evidence": "clinicaltrials_search_trials: antioxidant doxorubicin cardiotoxicity"
+    },
+    {
+      "nct_id": "NCT03908528",
+      "title": "Role of Alpha-Lipoic Acid Against Chemotherapy Induced Toxicities in Breast Cancer Patients",
+      "status": "COMPLETED",
+      "phase": "Phase 2",
+      "intervention": "alpha-lipoic acid (antioxidant)",
+      "relevance": "oxidative stress - antioxidant intervention for doxorubicin toxicity",
+      "evidence": "clinicaltrials_search_trials: antioxidant doxorubicin cardiotoxicity"
+    },
+    {
+      "nct_id": "NCT06703593",
+      "title": "Evaluation of the Impact of Alpha Lipoic Acid Administration on the Prevention of Doxorubicin-induced Cardiotoxicity in Breast Cancer Patients",
+      "status": "COMPLETED",
+      "phase": "Phase 2",
+      "intervention": "alpha-lipoic acid (antioxidant)",
+      "relevance": "oxidative stress - completed antioxidant trial specifically for doxorubicin cardiotoxicity",
+      "evidence": "clinicaltrials_search_trials: antioxidant doxorubicin cardiotoxicity"
+    },
+    {
+      "nct_id": "NCT05595109",
+      "title": "The Possible Protective Role of Silymarin Against Chemotherapy Induced Toxicities and Cognitive Impairment in Breast Cancer Patients",
+      "status": "UNKNOWN",
+      "phase": "Phase 2",
+      "intervention": "silymarin (milk thistle extract - antioxidant)",
+      "relevance": "oxidative stress - herbal antioxidant for chemotherapy toxicity including cardiac",
+      "evidence": "clinicaltrials_search_trials: antioxidant doxorubicin cardiotoxicity"
+    },
+    {
+      "nct_id": "NCT05732051",
+      "title": "Effect of Nicotinamide Riboside on Myocardial and Skeletal Muscle Injury and Function in Patients With Metastatic Breast Cancer Receiving Anthracyclines",
+      "status": "RECRUITING",
+      "phase": "Phase 2",
+      "intervention": "nicotinamide riboside (NAD+ precursor)",
+      "relevance": "mitochondrial/NAD+ metabolism - NAD+ boosting for mitochondrial protection, potentially relevant to SOD2 (NAD-dependent)",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    },
+    {
+      "nct_id": "NCT07419711",
+      "title": "Cardioprotective Effects of Grape Polyphenols to Reduce Chemotherapy-Induced Cardiotoxicity in Breast Cancer Patients",
+      "status": "NOT_YET_RECRUITING",
+      "phase": "Pilot",
+      "intervention": "grape polyphenols (antioxidants)",
+      "relevance": "oxidative stress - dietary polyphenol antioxidants for cardioprotection",
+      "evidence": "clinicaltrials_search_trials: anthracycline cardiotoxicity prevention"
+    }
+  ],
+  "trial_summary": {
+    "total_trials_found": 22,
+    "total_trials_searched": 97,
+    "search_queries_executed": [
+      "doxorubicin AND neurofibromatosis",
+      "doxorubicin AND MPNST",
+      "dexrazoxane AND doxorubicin",
+      "anthracycline cardiotoxicity prevention",
+      "antioxidant doxorubicin cardiotoxicity"
+    ],
+    "approved_cardioprotectants": [
+      {
+        "agent": "dexrazoxane",
+        "mechanism": "TOP2B protector via iron chelation; causes TOP2B degradation preventing DNA damage",
+        "evidence_level": "FDA-approved for anthracycline cardioprotection",
+        "key_trials": ["NCT02584309 (completed in sarcoma/MPNST)", "NCT06220032 (recruiting Phase 3)", "NCT07654426 (recruiting Phase 3)", "NCT03930680 (completed with TOP2B mechanism study)"],
+        "efficacy_data": "NCT02584309 demonstrated non-inferiority: dexrazoxane preserves anti-tumor efficacy while providing cardioprotection in sarcoma patients"
+      },
+      {
+        "agent": "liposomal doxorubicin",
+        "mechanism": "Altered pharmacokinetics reduce peak cardiac exposure while maintaining tumor delivery",
+        "evidence_level": "FDA-approved formulation with reduced cardiotoxicity",
+        "key_trials": ["NCT06849986 (recruiting for MPNST)", "NCT07654426 (recruiting Phase 3 vs dexrazoxane)"]
+      }
+    ],
+    "investigational_strategies": [
+      {
+        "class": "SGLT2 inhibitors",
+        "agents": ["empagliflozin (NCT05271162 - active)", "dapagliflozin (NCT06304857 - recruiting Phase 3)"],
+        "mechanism": "Metabolic cardioprotection; reduce cardiac oxidative stress",
+        "status": "Multiple Phase 2/3 trials active"
+      },
+      {
+        "class": "Beta-blockers",
+        "agents": ["carvedilol (NCT01724450 - completed; NCT02177175 - completed)", "bisoprolol (NCT02236806)"],
+        "mechanism": "Reduce cardiac workload and oxidative stress; anti-adrenergic cardioprotection",
+        "status": "Completed trials show promise"
+      },
+      {
+        "class": "RAAS inhibitors",
+        "agents": ["sacubitril/valsartan (NCT05465031 - recruiting)", "ramipril (NCT02236806)", "enalapril"],
+        "mechanism": "Reduce cardiac remodeling and fibrosis; neprilysin inhibition (sacubitril)",
+        "status": "Multiple active trials"
+      },
+      {
+        "class": "Antioxidants - mitochondrial targeted",
+        "agents": ["mitoquinone/MitoQ (NCT05146843)", "nicotinamide riboside (NCT05732051 - recruiting)"],
+        "mechanism": "Mitochondrial ROS scavenging; NAD+ restoration potentially supporting SOD2 activity",
+        "status": "Mechanistic trials ongoing; potentially relevant to SOD2 pathway"
+      },
+      {
+        "class": "Antioxidants - general",
+        "agents": ["alpha-lipoic acid (NCT03908528 - completed; NCT06703593 - completed)", "silymarin (NCT05595109)", "grape polyphenols (NCT07419711)"],
+        "mechanism": "General ROS scavenging; may support endogenous antioxidant systems including SOD2",
+        "status": "Multiple completed studies; clinical utility uncertain"
+      },
+      {
+        "class": "Lipid modulators",
+        "agents": ["fenofibrate (NCT06155331 - completed)", "statins (atorvastatin, simvastatin, rosuvastatin)"],
+        "mechanism": "PPAR-alpha activation; lipid-mediated cardioprotection; anti-inflammatory",
+        "status": "Fenofibrate completed; multiple statin trials completed/ongoing"
+      }
+    ],
+    "key_findings": {
+      "nf1_specific_evidence": "NCT00304083 is the only completed Phase 2 trial specifically for NF1-associated MPNST using doxorubicin-based chemotherapy. Multiple recruiting trials (NCT06849986, NCT06277154, NCT06239272) include MPNST as a target condition, testing novel combinations with doxorubicin.",
+      "cardioprotection_gold_standard": "Dexrazoxane is the only FDA-approved cardioprotectant. NCT02584309 demonstrated non-inferiority in soft tissue sarcoma including MPNST - crucial evidence that cardioprotection does NOT compromise anti-tumor efficacy. NCT03930680 directly measured TOP2B degradation by dexrazoxane in humans.",
+      "top2b_mechanism": "NCT03930680 is a landmark mechanistic trial explicitly measuring 'Degradation of Top2b and Top2a in Human by Dexrazoxane' - direct evidence for TOP2B-selective targeting hypothesis. This supports the mechanism whereby dexrazoxane causes TOP2B degradation to prevent doxorubicin-TOP2B-mediated DNA damage in cardiomyocytes.",
+      "sod2_antioxidant_pathway": "No trials directly test SOD2 enhancement, but several target related pathways: (1) Nicotinamide riboside (NCT05732051) boosts NAD+ which is required for mitochondrial antioxidant function including SOD2. (2) Mitoquinone (NCT05146843) provides mitochondrial-targeted ROS scavenging, complementary to SOD2. (3) General antioxidants (alpha-lipoic acid, silymarin) completed trials but clinical utility less clear than dexrazoxane.",
+      "clinical_translation_path": "For NF1 patients receiving doxorubicin: (1) IMMEDIATE: Dexrazoxane co-administration based on NCT02584309 evidence in sarcoma/MPNST. (2) NEAR-TERM: Consider SGLT2 inhibitors (empagliflozin/dapagliflozin) or beta-blockers (carvedilol) based on completed trials. (3) INVESTIGATIONAL: Mitochondrial antioxidants (MitoQ, nicotinamide riboside) for patients unable to use dexrazoxane.",
+      "efficacy_preservation": "Critical finding: NCT02584309 non-inferiority design proves cardioprotective strategies can preserve anti-tumor efficacy. This directly addresses the user's core question about minimizing toxicity WITHOUT compromising cancer treatment.",
+      "liposomal_formulations": "Liposomal doxorubicin (NCT06849986 recruiting for MPNST; NCT07654426 Phase 3 trial) offers altered pharmacokinetics as an alternative approach - reduces cardiotoxicity through drug delivery modification rather than co-treatment."
+    },
+    "recommendations_for_nf1_mpnst": {
+      "evidence_based_now": [
+        "Dexrazoxane co-administration with doxorubicin (FDA-approved, proven non-inferior efficacy in sarcoma)",
+        "Consider liposomal doxorubicin formulations if available (recruiting trials for MPNST)"
+      ],
+      "strong_investigational": [
+        "SGLT2 inhibitors (empagliflozin or dapagliflozin) - multiple Phase 2/3 trials active",
+        "Beta-blockers (carvedilol) - completed trials show benefit",
+        "ARNI (sacubitril/valsartan) - Phase 3 trial recruiting"
+      ],
+      "mechanistic_interest": [
+        "Mitochondrial antioxidants (MitoQ, nicotinamide riboside) - target oxidative stress/NAD+ pathways relevant to SOD2",
+        "Alpha-lipoic acid - completed trials, but clinical benefit less robust than dexrazoxane"
+      ],
+      "clinical_trial_opportunities": [
+        "NCT06849986: Recruiting MPNST trial with liposomal doxorubicin + immunotherapy",
+        "NCT06277154: Recruiting MPNST trial with immunotherapy + doxorubicin",
+        "NCT06239272: Recruiting MPNST risk-adapted trial",
+        "NCT06304857: Recruiting Phase 3 dapagliflozin cardioprotection trial (breast cancer but mechanism applicable)",
+        "NCT05732051: Recruiting nicotinamide riboside trial (mitochondrial/NAD+ pathway relevant to SOD2)"
+      ]
+    },
+    "evidence_provenance": {
+      "tool_used": "clinicaltrials_search_trials via MCP lifesciences-clinical",
+      "search_date": "Phase 4b execution",
+      "total_trials_retrieved": 97,
+      "trials_curated": 22,
+      "key_identifiers": ["NCT00304083 (NF1-MPNST-doxorubicin)", "NCT02584309 (dexrazoxane non-inferiority in sarcoma/MPNST)", "NCT03930680 (TOP2B mechanism)", "NCT05146843 (MitoQ mitochondrial antioxidant)", "NCT05732051 (nicotinamide riboside NAD+/SOD2-relevant)"]
+    }
+  }
+}

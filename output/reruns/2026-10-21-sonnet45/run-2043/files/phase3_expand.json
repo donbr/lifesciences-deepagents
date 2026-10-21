@@ -1,0 +1,586 @@
+{
+  "phase": "EXPAND",
+  "objective": "Discover protein-protein interactions, pathway memberships, and genetic interactions for enriched genes related to doxorubicin toxicity vs efficacy in NF1 patients",
+  "methodology": "Queried WikiPathways for pathway memberships, BioGRID for genetic/physical interactions. STRING PPI queries failed due to API parameter issues.",
+  "interactions": [
+    {
+      "source": "BioGRID",
+      "query_gene": "NF1",
+      "key_physical_interactions": [
+        {
+          "gene_a": "HRAS",
+          "gene_b": "NF1",
+          "type": "physical",
+          "experimental_system": "Two-hybrid, Proximity Label-MS, Reconstituted Complex",
+          "significance": "Direct RAS-GAP interaction; NF1 negatively regulates HRAS signaling",
+          "entrez_gene_a": 3265,
+          "entrez_gene_b": 4763,
+          "pubmed_ids": [8628317, 30639242, 30655611]
+        },
+        {
+          "gene_a": "KRAS",
+          "gene_b": "NF1",
+          "type": "physical",
+          "experimental_system": "Proximity Label-MS (multiple studies)",
+          "significance": "NF1 negatively regulates KRAS; KRAS hyperactivation implicated in NF1-associated tumors",
+          "entrez_gene_a": 3845,
+          "entrez_gene_b": 4763,
+          "pubmed_ids": [30639242, 30194290, 34079125]
+        },
+        {
+          "gene_a": "NRAS",
+          "gene_b": "NF1",
+          "type": "physical",
+          "experimental_system": "Reconstituted Complex, Proximity Label-MS",
+          "significance": "Third RAS isoform regulated by NF1",
+          "entrez_gene_a": 4893,
+          "entrez_gene_b": 4763,
+          "pubmed_ids": [7499408, 30194290]
+        },
+        {
+          "gene_a": "TP53",
+          "gene_b": "NF1",
+          "type": "indirect",
+          "experimental_system": "Shared pathways (no direct interaction detected)",
+          "significance": "Both involved in DNA damage response and tumor suppression; co-occur in cancer pathways"
+        },
+        {
+          "gene_a": "EGFR",
+          "gene_b": "NF1",
+          "type": "physical",
+          "experimental_system": "Affinity Capture-MS",
+          "significance": "EGFR activates RAS pathway; NF1 modulates EGFR downstream signaling",
+          "entrez_gene_a": 1956,
+          "entrez_gene_b": 4763,
+          "pubmed_ids": [28065597, 25754235]
+        },
+        {
+          "gene_a": "RAF1",
+          "gene_b": "NF1",
+          "type": "physical",
+          "experimental_system": "FRET",
+          "significance": "RAF1 is downstream of RAS; NF1 indirectly regulates via RAS inhibition",
+          "entrez_gene_a": 5894,
+          "entrez_gene_b": 4763,
+          "pubmed_ids": [28205554]
+        },
+        {
+          "gene_a": "AKT1",
+          "gene_b": "NF1",
+          "type": "physical",
+          "experimental_system": "FRET",
+          "significance": "PI3K/AKT pathway crosswalk with RAS/MAPK signaling",
+          "entrez_gene_a": 207,
+          "entrez_gene_b": 4763,
+          "pubmed_ids": [28205554]
+        },
+        {
+          "gene_a": "PTEN",
+          "gene_b": "NF1",
+          "type": "genetic",
+          "experimental_system": "Positive Genetic",
+          "significance": "Both are tumor suppressors; genetic interaction suggests synthetic viability",
+          "entrez_gene_a": 5728,
+          "entrez_gene_b": 4763,
+          "pubmed_ids": [28319113]
+        }
+      ],
+      "key_genetic_interactions": [
+        {
+          "gene_a": "KRAS",
+          "gene_b": "NF1",
+          "type": "genetic",
+          "experimental_system": "Synthetic Lethality",
+          "significance": "CRITICAL: KRAS and NF1 show synthetic lethal interaction - suggests dual targeting opportunity",
+          "entrez_gene_a": 3845,
+          "entrez_gene_b": 4763,
+          "pubmed_id": 19490893
+        },
+        {
+          "gene_a": "TOP1",
+          "gene_b": "NF1",
+          "type": "genetic",
+          "experimental_system": "Synthetic Lethality",
+          "significance": "Topoisomerase I synthetic lethality with NF1 deficiency",
+          "entrez_gene_a": 7150,
+          "entrez_gene_b": 4763,
+          "pubmed_id": 27453043
+        },
+        {
+          "gene_a": "TOP2A",
+          "gene_b": "NF1",
+          "type": "genetic",
+          "experimental_system": "Synthetic Lethality",
+          "significance": "CRITICAL: TOP2A (anti-tumor target) shows synthetic lethality with NF1 - supports doxorubicin efficacy in NF1 context",
+          "entrez_gene_a": 7153,
+          "entrez_gene_b": 4763,
+          "pubmed_id": 27453043
+        },
+        {
+          "gene_a": "TOP3A",
+          "gene_b": "NF1",
+          "type": "genetic",
+          "experimental_system": "Synthetic Lethality",
+          "significance": "Third topoisomerase with synthetic lethal relationship to NF1",
+          "entrez_gene_a": 7156,
+          "entrez_gene_b": 4763,
+          "pubmed_id": 27453043
+        },
+        {
+          "gene_a": "EGFR",
+          "gene_b": "NF1",
+          "type": "genetic",
+          "experimental_system": "Positive Genetic",
+          "significance": "EGFR inhibition may compensate for NF1 loss",
+          "entrez_gene_a": 1956,
+          "entrez_gene_b": 4763,
+          "pubmed_id": 31741433
+        },
+        {
+          "gene_a": "ATG7",
+          "gene_b": "NF1",
+          "type": "genetic",
+          "experimental_system": "Phenotypic Suppression",
+          "significance": "Autophagy modulation suppresses NF1-associated phenotypes",
+          "entrez_gene_a": 10533,
+          "entrez_gene_b": 4763,
+          "pubmed_id": 33226137
+        }
+      ],
+      "total_interactions": 150,
+      "data_file": "/large_tool_results/toolu_019ehjzbUYex6RQpDRMj5Buq"
+    },
+    {
+      "source": "BioGRID",
+      "query_gene": "TP53",
+      "note": "TP53 has extensive interaction network (>2000 interactions in BioGRID)",
+      "key_interactions_summary": "TP53 interacts with DNA damage response machinery (ATM, ATR, CHK1/2), apoptosis regulators, and cell cycle checkpoints",
+      "data_file": "/large_tool_results/toolu_011ToXuhu4fXugayhpToS9iw"
+    },
+    {
+      "source": "BioGRID",
+      "query_gene": "TOP2A",
+      "note": "TOP2A shows interactions with chromatin remodeling complexes and DNA repair machinery",
+      "key_interactions_summary": "TOP2A interacts with HDAC1/2 (chromatin regulation), DHX9 (DNA helicase), and cell cycle regulators",
+      "data_file": "/large_tool_results/toolu_01Rhbkr5g2sfH71EURyfewpD"
+    }
+  ],
+  "pathways": [
+    {
+      "gene": "NF1",
+      "source": "WikiPathways",
+      "pathway_count": 13,
+      "key_pathways": [
+        {
+          "pathway_id": "WP:WP4223",
+          "name": "Ras signaling",
+          "relevance": "Core pathway - NF1 is RAS-GAP that negatively regulates RAS proteins",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP382",
+          "name": "MAPK signaling",
+          "relevance": "NF1 regulates MAPK cascade through RAS inhibition; dysregulated in NF1-deficient cells",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP5366",
+          "name": "NF1 copy number variation syndrome",
+          "relevance": "Disease-specific pathway covering NF1 haploinsufficiency effects",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP1984",
+          "name": "Integrated breast cancer pathway",
+          "relevance": "NF1 loss implicated in breast cancer development",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP2261",
+          "name": "Glioblastoma signaling",
+          "relevance": "NF1 patients have increased glioma risk",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP4685",
+          "name": "Melanoma",
+          "relevance": "NF1 mutations common in melanoma",
+          "organism": "Homo sapiens"
+        }
+      ]
+    },
+    {
+      "gene": "TP53",
+      "source": "WikiPathways",
+      "pathway_count": 91,
+      "key_pathways": [
+        {
+          "pathway_id": "WP:WP1742",
+          "name": "TP53 network",
+          "relevance": "Core TP53 signaling including p63/p73 family members",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP1530",
+          "name": "miRNA regulation of DNA damage response",
+          "relevance": "TP53-centered DNA damage response with ATM/ATR signaling",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP2516",
+          "name": "ATM signaling",
+          "relevance": "ATM activates TP53 in response to DNA double-strand breaks",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP3878",
+          "name": "ATM signaling in development and disease",
+          "relevance": "Broader ATM-TP53 pathway in development and cancer",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP254",
+          "name": "Apoptosis",
+          "relevance": "TP53 triggers apoptosis in response to irreparable DNA damage",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP1772",
+          "name": "Apoptosis modulation and signaling",
+          "relevance": "Intrinsic and extrinsic apoptosis pathways regulated by TP53",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP179",
+          "name": "Cell cycle",
+          "relevance": "TP53 regulates G1/S and G2/M checkpoints",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP4313",
+          "name": "Ferroptosis",
+          "relevance": "CRITICAL: TP53 regulates ferroptosis (iron-dependent cell death); relevant to doxorubicin-induced cardiotoxicity via iron accumulation",
+          "organism": "Homo sapiens"
+        }
+      ]
+    },
+    {
+      "gene": "ABCB1",
+      "source": "WikiPathways",
+      "pathway_count": 14,
+      "key_pathways": [
+        {
+          "pathway_id": "WP:WP1604",
+          "name": "Codeine and morphine metabolism",
+          "relevance": "ABCB1 (MDR1/P-glycoprotein) mediates drug efflux",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP2289",
+          "name": "Drug induction of bile acid pathway",
+          "relevance": "ABCB1 in hepatic drug elimination",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP2875",
+          "name": "Constitutive androstane receptor pathway",
+          "relevance": "CAR regulates ABCB1 expression in response to xenobiotics",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP2876",
+          "name": "Pregnane X receptor pathway",
+          "relevance": "PXR (NR1I2) upregulates ABCB1 for xenobiotic detoxification",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP2882",
+          "name": "Nuclear receptors meta-pathway",
+          "relevance": "ABCB1 transcriptionally regulated by multiple nuclear receptors",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP3672",
+          "name": "lncRNA-mediated mechanisms of therapeutic resistance",
+          "relevance": "CRITICAL: ABCB1 overexpression causes doxorubicin resistance via drug efflux",
+          "organism": "Homo sapiens"
+        }
+      ]
+    },
+    {
+      "gene": "SOD2",
+      "source": "WikiPathways",
+      "pathway_count": 7,
+      "key_pathways": [
+        {
+          "pathway_id": "WP:WP408",
+          "name": "Oxidative stress response",
+          "relevance": "CRITICAL: SOD2 (mitochondrial superoxide dismutase) protects against ROS-induced cardiotoxicity",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP5477",
+          "name": "Molecular pathway for oxidative stress",
+          "relevance": "SOD2 converts superoxide to H2O2 in mitochondria; cardioprotective against anthracyclines",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP15",
+          "name": "Selenium micronutrient network",
+          "relevance": "Selenium-dependent antioxidant enzymes coordinate with SOD2",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP5318",
+          "name": "Female steroid hormones in cardiomyocyte energy metabolism",
+          "relevance": "SOD2 expression modulated by estrogen in cardiomyocytes",
+          "organism": "Homo sapiens"
+        }
+      ]
+    },
+    {
+      "gene": "GSTP1",
+      "source": "WikiPathways",
+      "pathway_count": 9,
+      "key_pathways": [
+        {
+          "pathway_id": "WP:WP2884",
+          "name": "NRF2 pathway",
+          "relevance": "CRITICAL: NRF2 transcriptionally activates GSTP1; master regulator of antioxidant response",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP702",
+          "name": "Metapathway biotransformation Phase I and II",
+          "relevance": "GSTP1 catalyzes Phase II conjugation of doxorubicin metabolites for detoxification",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP3612",
+          "name": "Photodynamic therapy-induced NFE2L2 (NRF2) survival signaling",
+          "relevance": "GSTP1 part of NRF2-mediated cytoprotective response to oxidative stress",
+          "organism": "Homo sapiens"
+        },
+        {
+          "pathway_id": "WP:WP678",
+          "name": "Arachidonate epoxygenase / epoxide hydrolase",
+          "relevance": "GSTP1 metabolizes lipid peroxidation products",
+          "organism": "Homo sapiens"
+        }
+      ]
+    },
+    {
+      "gene": "TOP2B",
+      "source": "WikiPathways",
+      "pathway_count": 0,
+      "note": "TOP2B not found in WikiPathways - likely due to pathway database focus on signaling over enzymatic mechanisms. TOP2B is well-documented as doxorubicin cardiotoxicity mediator in literature."
+    }
+  ],
+  "candidate_targets": [
+    {
+      "gene": "ATM",
+      "rationale": "Central DNA damage response kinase; activates TP53; appears in WP2516, WP3878 pathways; potential synthetic lethal target with NF1",
+      "pathway_links": ["WP:WP2516", "WP:WP3878", "WP:WP1530"],
+      "mechanism": "ATM phosphorylates TP53 in response to DSBs induced by TOP2A; modulating ATM may affect efficacy vs toxicity balance"
+    },
+    {
+      "gene": "ATR",
+      "rationale": "Parallel DNA damage response kinase; mentioned in WP1530, WP4016; responds to replication stress",
+      "pathway_links": ["WP:WP1530", "WP:WP4016"],
+      "mechanism": "ATR activation may compensate for TOP2A inhibition; ATR inhibitors could synergize with doxorubicin"
+    },
+    {
+      "gene": "NFE2L2",
+      "rationale": "NRF2 transcription factor; master regulator of antioxidant response including GSTP1, SOD2",
+      "pathway_links": ["WP:WP2884", "WP:WP3612"],
+      "mechanism": "NRF2 activators could upregulate protective antioxidant enzymes to reduce cardiotoxicity without affecting TOP2A-mediated tumor killing"
+    },
+    {
+      "gene": "KEAP1",
+      "rationale": "Negative regulator of NRF2; KEAP1 inhibition releases NRF2 for antioxidant gene transcription",
+      "pathway_links": ["WP:WP2884"],
+      "mechanism": "KEAP1 inhibitors (e.g., dimethyl fumarate) could boost cardioprotective antioxidants"
+    },
+    {
+      "gene": "MAPK1",
+      "rationale": "ERK2 kinase downstream of RAS/NF1; central to WP382 MAPK signaling",
+      "pathway_links": ["WP:WP382", "WP:WP4223"],
+      "mechanism": "MAPK inhibition in NF1-deficient cells could reduce RAS-driven proliferation; MEK inhibitors (trametinib) already used in NF1 neurofibromas"
+    },
+    {
+      "gene": "MAPK3",
+      "rationale": "ERK1 kinase; parallel to MAPK1 in MAPK cascade",
+      "pathway_links": ["WP:WP382", "WP:WP4223"],
+      "mechanism": "Dual ERK1/2 inhibition may be necessary for full efficacy in RAS-driven tumors"
+    },
+    {
+      "gene": "MEK1",
+      "rationale": "MAP2K1; direct upstream activator of ERK1/2; NF1 pathway node",
+      "pathway_links": ["WP:WP382", "WP:WP4223"],
+      "mechanism": "MEK inhibitors clinically validated in NF1-associated tumors; could enhance doxorubicin efficacy"
+    },
+    {
+      "gene": "MEK2",
+      "rationale": "MAP2K2; parallel MEK isoform",
+      "pathway_links": ["WP:WP382", "WP:WP4223"],
+      "mechanism": "Dual MEK1/2 inhibition standard approach"
+    },
+    {
+      "gene": "BRAF",
+      "rationale": "RAF isoform downstream of RAS; frequently mutated in cancer",
+      "pathway_links": ["WP:WP382", "WP:WP4223"],
+      "mechanism": "BRAF V600E inhibitors (vemurafenib) could synergize in BRAF-mutant tumors; less relevant in NF1-driven RAS hyperactivation"
+    },
+    {
+      "gene": "RAF1",
+      "rationale": "C-RAF isoform; interacts with NF1 (BioGRID FRET data)",
+      "pathway_links": ["WP:WP382", "WP:WP4223"],
+      "mechanism": "Pan-RAF inhibitors may be needed in NF1 context"
+    },
+    {
+      "gene": "PI3K",
+      "rationale": "PI3K pathway parallels MAPK; both activated by RAS; crosstalk with NF1/PTEN",
+      "pathway_links": ["WP:WP4172"],
+      "mechanism": "Dual MAPK + PI3K inhibition may overcome resistance in NF1-deficient tumors"
+    },
+    {
+      "gene": "AKT1",
+      "rationale": "Downstream of PI3K; interacts with NF1 (BioGRID FRET); survival signaling",
+      "pathway_links": ["WP:WP4172"],
+      "mechanism": "AKT inhibitors could enhance doxorubicin-induced apoptosis"
+    },
+    {
+      "gene": "MTOR",
+      "rationale": "Downstream of PI3K/AKT; regulates metabolism and autophagy",
+      "pathway_links": ["WP:WP4172", "WP:WP4191"],
+      "mechanism": "mTOR inhibitors (rapamycin analogs) may synergize with doxorubicin; autophagy modulation affects toxicity"
+    },
+    {
+      "gene": "NR1I2",
+      "rationale": "PXR nuclear receptor; upregulates ABCB1 causing doxorubicin resistance",
+      "pathway_links": ["WP:WP2876", "WP:WP2882"],
+      "mechanism": "PXR antagonists could reduce ABCB1-mediated drug efflux, increasing tumor doxorubicin exposure"
+    },
+    {
+      "gene": "NR1I3",
+      "rationale": "CAR nuclear receptor; also upregulates ABCB1",
+      "pathway_links": ["WP:WP2875", "WP:WP2882"],
+      "mechanism": "CAR inverse agonists could prevent adaptive ABCB1 upregulation"
+    },
+    {
+      "gene": "TOP1",
+      "rationale": "Topoisomerase I; synthetic lethal with NF1 (BioGRID genetic interaction)",
+      "pathway_links": [],
+      "mechanism": "TOP1 inhibitors (irinotecan, topotecan) may synergize with TOP2A targeting in NF1 tumors"
+    },
+    {
+      "gene": "PARP1",
+      "rationale": "DNA repair enzyme; synthetic lethal with HR-deficient tumors; NF1 impairs DNA repair",
+      "pathway_links": [],
+      "mechanism": "PARP inhibitors could exploit NF1-associated DNA repair defects; synergy with doxorubicin-induced DSBs"
+    },
+    {
+      "gene": "CHK1",
+      "rationale": "Cell cycle checkpoint kinase downstream of ATR",
+      "pathway_links": [],
+      "mechanism": "CHK1 inhibitors force mitotic entry with damaged DNA, enhancing doxorubicin lethality in tumors"
+    },
+    {
+      "gene": "CHK2",
+      "rationale": "Cell cycle checkpoint kinase downstream of ATM",
+      "pathway_links": [],
+      "mechanism": "CHK2 inhibition may sensitize to doxorubicin; must avoid excessive cardiotoxicity"
+    },
+    {
+      "gene": "MDM2",
+      "rationale": "TP53 negative regulator; MDM2 inhibition restores TP53 function",
+      "pathway_links": ["WP:WP1742"],
+      "mechanism": "MDM2 inhibitors (nutlins) could enhance TP53-mediated apoptosis in tumors with wild-type TP53"
+    },
+    {
+      "gene": "BCL2",
+      "rationale": "Anti-apoptotic protein; overexpression causes chemoresistance",
+      "pathway_links": ["WP:WP254", "WP:WP1772"],
+      "mechanism": "BCL2 inhibitors (venetoclax) could overcome apoptosis resistance; synergy with doxorubicin"
+    },
+    {
+      "gene": "DHODH",
+      "rationale": "Dihydroorotate dehydrogenase; ferroptosis regulator linked to WP4313",
+      "pathway_links": ["WP:WP4313"],
+      "mechanism": "DHODH in mitochondrial ferroptosis pathway; modulation could affect doxorubicin cardiotoxicity (iron-dependent)"
+    }
+  ],
+  "network_insights": {
+    "toxicity_mechanisms": {
+      "primary": "TOP2B-mediated DNA damage in cardiomyocytes → persistent DSBs → cell death",
+      "secondary": [
+        "CBR1/CBR3-mediated conversion of doxorubicin to cardiotoxic doxorubicinol metabolite",
+        "ROS generation → oxidative damage (mitigated by SOD2, GSTP1)",
+        "Iron accumulation → ferroptosis (TP53 pathway WP4313)"
+      ],
+      "protective_pathways": [
+        "NRF2 (NFE2L2) → GSTP1, SOD2 antioxidant response",
+        "ABCB1 drug efflux (protective in heart, detrimental in tumors)"
+      ]
+    },
+    "efficacy_mechanisms": {
+      "primary": "TOP2A-mediated DNA damage in tumor cells → apoptosis",
+      "secondary": [
+        "TP53 activation → cell cycle arrest and apoptosis",
+        "RAS/MAPK hyperactivation in NF1-deficient tumors → increased proliferation and TOP2A expression",
+        "Synthetic lethality: TOP2A × NF1 (BioGRID PMID:27453043)"
+      ]
+    },
+    "therapeutic_window_opportunities": [
+      {
+        "strategy": "Separate toxicity from efficacy",
+        "approach": "Cardioprotection via NRF2 activation (upregulates SOD2, GSTP1) without affecting tumor TOP2A activity",
+        "candidate_drugs": ["Dimethyl fumarate (NRF2 activator)", "Sulforaphane", "Bardoxolone methyl"]
+      },
+      {
+        "strategy": "Exploit NF1 deficiency in tumors",
+        "approach": "Combine doxorubicin with MEK/ERK inhibitors to target hyperactive RAS/MAPK signaling",
+        "candidate_drugs": ["Trametinib (MEK inhibitor)", "Selumetinib", "Ulixertinib (ERK inhibitor)"]
+      },
+      {
+        "strategy": "Enhance efficacy via synthetic lethality",
+        "approach": "Combine TOP2A targeting (doxorubicin) with TOP1 inhibitors or PARP inhibitors in NF1-deficient tumors",
+        "candidate_drugs": ["Irinotecan (TOP1 inhibitor)", "Olaparib (PARP inhibitor)", "Talazoparib"]
+      },
+      {
+        "strategy": "Overcome resistance",
+        "approach": "Inhibit ABCB1-mediated drug efflux by blocking PXR/CAR upregulation",
+        "candidate_drugs": ["Tariquidar (ABCB1 inhibitor)", "PXR antagonists"]
+      },
+      {
+        "strategy": "Reduce cardiotoxicity via TOP2B protection",
+        "approach": "Develop TOP2A-selective inhibitors that spare TOP2B in cardiomyocytes",
+        "candidate_drugs": ["Next-generation anthracyclines", "Dexrazoxane (iron chelator)"]
+      }
+    ]
+  },
+  "key_findings": [
+    "NF1 shows synthetic lethality with TOP2A (PMID:27453043) - validates doxorubicin efficacy in NF1-deficient tumors",
+    "NF1 shows synthetic lethality with KRAS (PMID:19490893) - suggests combination MEK/ERK + doxorubicin",
+    "TP53 ferroptosis pathway (WP4313) links to iron-dependent doxorubicin cardiotoxicity",
+    "NRF2 pathway (WP2884) coordinates SOD2 and GSTP1 antioxidant response - cardioprotective target",
+    "ABCB1 regulated by PXR (WP2876) and CAR (WP2875) - resistance mechanism",
+    "NF1 physical interactions with HRAS, KRAS, NRAS (BioGRID) confirm RAS-GAP function",
+    "NF1 genetic interactions with PTEN, EGFR suggest PI3K/AKT pathway crosstalk",
+    "ATM/ATR DNA damage response pathways (WP2516, WP3878, WP4016) are druggable nodes for modulating efficacy"
+  ],
+  "limitations": [
+    "STRING PPI API calls failed due to parameter issues - WikiPathways and BioGRID data compensated",
+    "TOP2B not in WikiPathways database - cardiotoxicity mechanism well-documented in literature",
+    "BioGRID datasets very large (>2000 interactions for TP53) - sampled key interactions",
+    "No direct TOP2A-TOP2B interaction data - isoforms have distinct tissue expression patterns",
+    "Genetic interaction data from cell line screens may not fully reflect in vivo NF1 patient context"
+  ],
+  "data_provenance": {
+    "wikipathways_queries": ["NF1", "TP53", "ABCB1", "SOD2", "GSTP1"],
+    "biogrid_queries": ["NF1", "TP53", "TOP2A"],
+    "string_queries": "Failed due to API parameter issues",
+    "total_pathways_retrieved": 124,
+    "total_interactions_retrieved": "~4000+ (BioGRID, large files)"
+  }
+}

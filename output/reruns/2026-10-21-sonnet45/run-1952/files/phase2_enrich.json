@@ -1,0 +1,287 @@
+{
+  "enriched_entities": [
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:7765",
+      "symbol": "NF1",
+      "name": "neurofibromin 1",
+      "uniprot_id": "UniProtKB:P21359",
+      "ensembl_id": "ENSG00000196712",
+      "entrez_id": "4763",
+      "function": "Stimulates the GTPase activity of Ras. NF1 shows greater affinity for Ras GAP, but lower specific activity. May be a regulator of Ras activity. Functions as a negative regulator of RAS/MAPK signaling.",
+      "pathways": [
+        "RAS signaling pathway",
+        "MAPK signaling pathway",
+        "RAS GTPase activating protein (GAP) activity"
+      ],
+      "context": "primary",
+      "disease_association": "Loss-of-function mutations in NF1 cause Neurofibromatosis Type 1, leading to constitutive RAS activation",
+      "provenance": ["hgnc_get_gene[HGNC:7765]", "uniprot_get_protein[P21359]"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:11989",
+      "symbol": "TOP2A",
+      "name": "DNA topoisomerase II alpha",
+      "uniprot_id": "UniProtKB:P11388",
+      "ensembl_id": "ENSG00000131747",
+      "entrez_id": "7153",
+      "function": "Controls and alters the topologic states of DNA during transcription. Catalyzes the transient breaking and rejoining of DNA strands to relieve tension and enable DNA replication and transcription. Primary molecular target of anthracyclines including doxorubicin.",
+      "pathways": [
+        "DNA replication",
+        "DNA topological change",
+        "Cell cycle regulation"
+      ],
+      "context": "efficacy",
+      "drug_target_relationship": "Direct target of doxorubicin - TOP2A inhibition leads to DNA damage and apoptosis in cancer cells",
+      "provenance": ["ensembl_search_genes[TOP2A]", "ensembl_get_gene[ENSG00000131747]", "literature"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:11990",
+      "symbol": "TOP2B",
+      "name": "DNA topoisomerase II beta",
+      "uniprot_id": "UniProtKB:Q02880",
+      "ensembl_id": "ENSG00000077097",
+      "entrez_id": "7155",
+      "function": "Controls and alters the topologic states of DNA during transcription. Unlike TOP2A, TOP2B is constitutively expressed and not cell cycle-dependent. Implicated in doxorubicin-induced cardiotoxicity.",
+      "pathways": [
+        "DNA topological change",
+        "Transcription regulation",
+        "Cardiac development and maintenance"
+      ],
+      "context": "toxicity",
+      "drug_target_relationship": "TOP2B inhibition by doxorubicin in cardiomyocytes contributes to cardiotoxicity through mitochondrial dysfunction and DNA damage",
+      "provenance": ["literature", "standard_gene_databases"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:40",
+      "symbol": "ABCB1",
+      "name": "ATP binding cassette subfamily B member 1",
+      "synonyms": ["MDR1", "P-glycoprotein"],
+      "uniprot_id": "UniProtKB:P08183",
+      "ensembl_id": "ENSG00000085563",
+      "entrez_id": "5243",
+      "function": "Energy-dependent efflux pump responsible for multidrug resistance. Exports various substrates across cell membranes including anticancer drugs like doxorubicin, reducing intracellular drug accumulation.",
+      "pathways": [
+        "ABC transporter pathway",
+        "Xenobiotic metabolism",
+        "Drug resistance mechanisms"
+      ],
+      "context": "resistance",
+      "drug_target_relationship": "Overexpression of ABCB1 confers doxorubicin resistance by actively pumping drug out of cells",
+      "provenance": ["ensembl_search_genes[ABCB1]", "ensembl_get_gene[ENSG00000085563]", "literature"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:29",
+      "symbol": "ABCC1",
+      "name": "ATP binding cassette subfamily C member 1",
+      "synonyms": ["MRP1"],
+      "uniprot_id": "UniProtKB:P33527",
+      "ensembl_id": "ENSG00000103222",
+      "entrez_id": "4363",
+      "function": "Multispecific organic anion transporter that confers resistance to anticancer drugs. Mediates ATP-dependent export of organic anions and drug conjugates.",
+      "pathways": [
+        "ABC transporter pathway",
+        "Glutathione conjugate export",
+        "Multidrug resistance"
+      ],
+      "context": "resistance",
+      "drug_target_relationship": "ABCC1 exports doxorubicin and its conjugates, reducing intracellular drug concentration and conferring resistance",
+      "provenance": ["literature", "standard_gene_databases"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:10837",
+      "symbol": "SOD2",
+      "name": "superoxide dismutase 2",
+      "uniprot_id": "UniProtKB:P04179",
+      "ensembl_id": "ENSG00000112096",
+      "entrez_id": "6648",
+      "function": "Mitochondrial enzyme that destroys superoxide radicals normally produced within cells. Critical for protection against oxidative stress. Cardioprotective against anthracycline-induced cardiotoxicity.",
+      "pathways": [
+        "Oxidative stress response",
+        "Mitochondrial reactive oxygen species detoxification",
+        "Apoptosis regulation"
+      ],
+      "context": "toxicity",
+      "drug_target_relationship": "SOD2 protects cardiomyocytes from doxorubicin-induced oxidative damage; genetic variants or reduced expression associated with increased cardiotoxicity risk",
+      "provenance": ["literature", "standard_gene_databases"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:4553",
+      "symbol": "GPX1",
+      "name": "glutathione peroxidase 1",
+      "uniprot_id": "UniProtKB:P07203",
+      "ensembl_id": "ENSG00000233276",
+      "entrez_id": "2876",
+      "function": "Protects cells from oxidative damage by catalyzing the reduction of hydrogen peroxide and lipid peroxides using glutathione. Major antioxidant enzyme in cardiovascular system.",
+      "pathways": [
+        "Glutathione metabolism",
+        "Oxidative stress response",
+        "Cellular antioxidant defense"
+      ],
+      "context": "toxicity",
+      "drug_target_relationship": "GPX1 reduces doxorubicin-induced cardiotoxicity by neutralizing reactive oxygen species; lower activity correlates with increased cardiac damage",
+      "provenance": ["literature", "standard_gene_databases"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:1516",
+      "symbol": "CAT",
+      "name": "catalase",
+      "uniprot_id": "UniProtKB:P04040",
+      "ensembl_id": "ENSG00000121691",
+      "entrez_id": "847",
+      "function": "Catalyzes the decomposition of hydrogen peroxide to water and oxygen. Key enzyme in cellular protection against oxidative stress. Provides cardioprotection against anthracycline toxicity.",
+      "pathways": [
+        "Hydrogen peroxide catabolic process",
+        "Oxidative stress response",
+        "Peroxisome function"
+      ],
+      "context": "toxicity",
+      "drug_target_relationship": "Catalase provides cardioprotection by degrading H2O2 generated during doxorubicin metabolism, reducing oxidative cardiac injury",
+      "provenance": ["literature", "standard_gene_databases"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:11998",
+      "symbol": "TP53",
+      "name": "tumor protein p53",
+      "uniprot_id": "UniProtKB:P04637",
+      "ensembl_id": "ENSG00000141510",
+      "entrez_id": "7157",
+      "function": "Tumor suppressor that regulates cell cycle arrest, apoptosis, senescence, DNA repair, and metabolism in response to cellular stress. Critical mediator of DNA damage response to genotoxic agents like doxorubicin.",
+      "pathways": [
+        "p53 signaling pathway",
+        "DNA damage response",
+        "Apoptosis",
+        "Cell cycle checkpoint"
+      ],
+      "context": "efficacy",
+      "drug_target_relationship": "TP53 mediates doxorubicin-induced apoptosis in cancer cells through DNA damage signaling; TP53 mutations common in resistant tumors",
+      "provenance": ["literature", "standard_gene_databases"]
+    },
+    {
+      "entity_type": "gene",
+      "hgnc_id": "HGNC:795",
+      "symbol": "ATM",
+      "name": "ATM serine/threonine kinase",
+      "uniprot_id": "UniProtKB:Q13315",
+      "ensembl_id": "ENSG00000149311",
+      "entrez_id": "472",
+      "function": "Serine/threonine protein kinase that recruits and activates key proteins in DNA damage response, including p53. Central coordinator of cellular response to DNA double-strand breaks induced by genotoxic agents.",
+      "pathways": [
+        "ATM signaling pathway",
+        "DNA damage response",
+        "Double-strand break repair",
+        "Cell cycle checkpoint activation"
+      ],
+      "context": "efficacy",
+      "drug_target_relationship": "ATM senses doxorubicin-induced DNA damage and activates cell cycle checkpoints and apoptosis; ATM status affects tumor sensitivity to anthracyclines",
+      "provenance": ["literature", "standard_gene_databases"]
+    }
+  ],
+  "drug": {
+    "chembl_id": "CHEMBL:53463",
+    "name": "DOXORUBICIN",
+    "synonyms": ["Adriamycin", "Adriblastin", "Hydroxydaunorubicin"],
+    "molecular_weight": 543.53,
+    "max_phase": 4,
+    "mechanism": "Topoisomerase II (TOP2A/TOP2B) poison that intercalates DNA and stabilizes TOP2-DNA cleavage complexes, leading to DNA double-strand breaks, cell cycle arrest, and apoptosis. Also generates reactive oxygen species through redox cycling.",
+    "primary_targets": [
+      "TOP2A (DNA topoisomerase II alpha)",
+      "TOP2B (DNA topoisomerase II beta)"
+    ],
+    "indications": [
+      "Breast Neoplasms",
+      "Leukemia, Myeloid, Acute",
+      "Lymphoma, Non-Hodgkin",
+      "Multiple Myeloma",
+      "Ovarian Neoplasms",
+      "Sarcoma",
+      "Neuroblastoma",
+      "Wilms Tumor",
+      "Thyroid Neoplasms",
+      "Gastric Carcinoma",
+      "Lung Neoplasms",
+      "Bladder Cancer",
+      "Hepatocellular Carcinoma"
+    ],
+    "total_indications": 119,
+    "major_toxicity": "Cardiotoxicity (dose-limiting), mediated by TOP2B inhibition in cardiomyocytes and oxidative stress",
+    "resistance_mechanisms": [
+      "ABCB1/MDR1 overexpression",
+      "ABCC1/MRP1 overexpression",
+      "TOP2A mutations or reduced expression",
+      "Enhanced DNA repair capacity",
+      "TP53 mutations"
+    ],
+    "provenance": ["chembl_get_compound[CHEMBL:53463]", "literature"]
+  },
+  "disease": {
+    "mondo_id": "MONDO:0018975",
+    "name": "Neurofibromatosis type 1",
+    "synonyms": ["NF1", "von Recklinghausen disease"],
+    "description": "Autosomal dominant tumor predisposition syndrome caused by loss-of-function mutations in the NF1 gene. Characterized by café-au-lait spots, neurofibromas, optic pathway gliomas, and increased risk of malignant peripheral nerve sheath tumors (MPNSTs) and other cancers.",
+    "inheritance": "Autosomal dominant",
+    "primary_gene": "NF1 (HGNC:7765)",
+    "disease_mechanism": "loss_of_function",
+    "pathophysiology": "Loss of neurofibromin (NF1 protein) function impairs RAS-GTPase activity, leading to constitutive RAS/MAPK pathway activation, increased cell proliferation, and tumor formation.",
+    "associated_genes": [
+      "NF1 (primary causal gene)"
+    ],
+    "relevant_pathways": [
+      "RAS/MAPK signaling (constitutively activated)",
+      "mTOR signaling (dysregulated)",
+      "Cell cycle control (altered)"
+    ],
+    "cancer_risk": "Increased risk of benign and malignant tumors including neurofibromas, MPNSTs, gliomas, pheochromocytomas, and myeloid leukemias",
+    "treatment_context": "Doxorubicin may be used in chemotherapy regimens for NF1-associated malignancies such as MPNSTs and aggressive gliomas",
+    "provenance": ["literature", "standard_disease_databases", "MONDO:0018975"]
+  },
+  "disease_mechanism": "loss_of_function",
+  "evidence": [
+    "NF1 gene encodes neurofibromin, a RAS-GTPase activating protein (GAP) - uniprot_get_protein[P21359]",
+    "Loss-of-function mutations in NF1 lead to constitutive RAS activation - established pathophysiology",
+    "NF1 haploinsufficiency and complete loss in tumors drive RAS/MAPK hyperactivation - literature consensus",
+    "Disease mechanism classification: loss_of_function based on tumor suppressor role of NF1",
+    "Doxorubicin mechanism: TOP2A/TOP2B poison causing DNA damage - chembl_get_compound[CHEMBL:53463]",
+    "TOP2A inhibition drives anti-tumor efficacy - ensembl_get_gene[ENSG00000131747]",
+    "TOP2B inhibition in cardiomyocytes contributes to cardiotoxicity - literature",
+    "ABC transporters (ABCB1/ABCC1) confer doxorubicin resistance - established pharmacology",
+    "Antioxidant enzymes (SOD2, GPX1, CAT) provide cardioprotection - literature",
+    "DNA damage response genes (TP53, ATM) mediate efficacy - established cancer biology"
+  ],
+  "cross_references": {
+    "nf1_gene": {
+      "hgnc": "HGNC:7765",
+      "ensembl": "ENSG00000196712",
+      "uniprot": "UniProtKB:P21359",
+      "entrez": "4763",
+      "omim": "613113"
+    },
+    "doxorubicin": {
+      "chembl": "CHEMBL:53463"
+    },
+    "nf1_disease": {
+      "mondo": "MONDO:0018975",
+      "orphanet": "ORPHA:636"
+    }
+  },
+  "metadata": {
+    "phase": "ENRICH",
+    "tool_calls_used": 8,
+    "primary_sources": [
+      "HGNC",
+      "Ensembl",
+      "UniProt",
+      "ChEMBL"
+    ],
+    "enrichment_scope": "Core entities fully enriched via MCP tools; additional genes enriched using standard database knowledge and literature consensus",
+    "notes": "NF1 disease mechanism confirmed as loss-of-function based on tumor suppressor role and RAS-GAP activity loss leading to pathway hyperactivation"
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "interactions": [
+    {
+      "source": "string_search_proteins",
+      "note": "Tool budget (8 calls) reached after STRING ID resolution. Interaction queries not performed. Known biological interactions documented below based on enrichment phase data.",
+      "protein_interactions_documented": [
+        {
+          "protein_a": "ENSG00000196712",
+          "protein_a_symbol": "NF1",
+          "protein_a_string_id": "9606.ENSP00000351015",
+          "protein_b": "RAS family members (KRAS, NRAS, HRAS)",
+          "context": "disease_mechanism",
+          "relationship": "NF1 protein functions as RAS-GAP, directly regulating RAS GTPase activity. Loss of NF1 leads to constitutive RAS/MAPK activation.",
+          "evidence": "uniprot_get_protein[P21359], pathway databases",
+          "relevance": "Primary disease mechanism in NF1 - constitutive pathway activation drives tumor formation"
+        },
+        {
+          "protein_a": "ENSG00000131747",
+          "protein_a_symbol": "TOP2A",
+          "protein_a_string_id": "9606.ENSP00000411532",
+          "protein_b": "ENSG00000141510",
+          "protein_b_symbol": "TP53",
+          "context": "efficacy",
+          "relationship": "TOP2A-induced DNA damage activates TP53-mediated apoptotic pathways in cancer cells",
+          "evidence": "literature - DNA damage response pathway",
+          "relevance": "Critical for doxorubicin anti-tumor efficacy through DNA damage → p53 → apoptosis axis"
+        },
+        {
+          "protein_a": "ENSG00000131747",
+          "protein_a_symbol": "TOP2A",
+          "protein_a_string_id": "9606.ENSP00000411532",
+          "protein_b": "ENSG00000149311",
+          "protein_b_symbol": "ATM",
+          "context": "efficacy",
+          "relationship": "ATM senses TOP2A-induced DNA double-strand breaks and activates checkpoint signaling",
+          "evidence": "literature - ATM signaling pathway",
+          "relevance": "ATM status affects tumor sensitivity to doxorubicin; enhances efficacy through checkpoint activation"
+        },
+        {
+          "protein_a": "ENSG00000077097",
+          "protein_a_symbol": "TOP2B",
+          "protein_a_string_id": "9606.ENSP00000264331",
+          "protein_b": "mitochondrial proteins",
+          "context": "toxicity",
+          "relationship": "TOP2B inhibition in cardiomyocytes leads to mitochondrial dysfunction and ROS generation",
+          "evidence": "literature - cardiotoxicity mechanism",
+          "relevance": "Primary driver of doxorubicin cardiotoxicity; selective TOP2B inhibition could reduce toxicity"
+        },
+        {
+          "protein_a": "ENSG00000112096",
+          "protein_a_symbol": "SOD2",
+          "protein_a_string_id": "9606.ENSP00000446252",
+          "protein_b": "ENSG00000121691",
+          "protein_b_symbol": "CAT",
+          "context": "toxicity_protection",
+          "relationship": "SOD2 converts superoxide to H2O2; CAT subsequently degrades H2O2 to water and oxygen",
+          "evidence": "oxidative stress response pathway - sequential enzymatic cascade",
+          "relevance": "Coordinated antioxidant defense - both required for complete ROS detoxification in cardiomyocytes"
+        },
+        {
+          "protein_a": "ENSG00000112096",
+          "protein_a_symbol": "SOD2",
+          "protein_a_string_id": "9606.ENSP00000446252",
+          "protein_b": "ENSG00000233276",
+          "protein_b_symbol": "GPX1",
+          "context": "toxicity_protection",
+          "relationship": "SOD2 and GPX1 work in parallel antioxidant pathways - SOD2 in mitochondria, GPX1 neutralizes H2O2 and lipid peroxides",
+          "evidence": "oxidative stress response - complementary ROS defense systems",
+          "relevance": "Dual cardioprotective mechanism - enhancing either could reduce doxorubicin cardiac injury"
+        },
+        {
+          "protein_a": "ENSG00000085563",
+          "protein_a_symbol": "ABCB1",
+          "protein_a_string_id": "9606.ENSP00000478255",
+          "protein_b": "ENSG00000103222",
+          "protein_b_symbol": "ABCC1",
+          "context": "resistance",
+          "relationship": "Both ABC transporters export doxorubicin from cells via different mechanisms - direct efflux (ABCB1) vs glutathione conjugate export (ABCC1)",
+          "evidence": "ABC transporter pathway, multidrug resistance mechanisms",
+          "relevance": "Redundant resistance mechanisms - inhibiting one may not overcome resistance if other is active"
+        }
+      ]
+    }
+  ],
+  "pathways": [
+    {
+      "pathway_id": "RAS_MAPK_signaling",
+      "source": "phase2_enrich - NF1 gene annotation",
+      "name": "RAS/MAPK signaling pathway",
+      "genes": ["NF1", "KRAS", "NRAS", "HRAS", "RAF", "MEK", "ERK"],
+      "our_genes": ["NF1 (ENSG00000196712)"],
+      "relevance": "disease_mechanism",
+      "description": "NF1 negatively regulates RAS by stimulating GTPase activity. Loss of NF1 causes constitutive RAS/MAPK activation, driving cell proliferation and tumor formation in NF1 disease.",
+      "therapeutic_implication": "Hyperactive RAS/MAPK signaling in NF1-deficient tumors may alter response to DNA-damaging agents like doxorubicin",
+      "evidence": "uniprot_get_protein[P21359], NF1 disease pathophysiology"
+    },
+    {
+      "pathway_id": "DNA_damage_response",
+      "source": "phase2_enrich - TP53, ATM annotations",
+      "name": "DNA damage response pathway",
+      "genes": ["ATM", "ATR", "TP53", "CHEK1", "CHEK2", "H2AX", "BRCA1", "BRCA2"],
+      "our_genes": ["TP53 (ENSG00000141510)", "ATM (ENSG00000149311)", "TOP2A (ENSG00000131747)"],
+      "relevance": "efficacy",
+      "description": "ATM senses DNA double-strand breaks induced by TOP2A inhibition, phosphorylates TP53, leading to cell cycle arrest and apoptosis in cancer cells",
+      "therapeutic_implication": "Intact DNA damage response pathway is critical for doxorubicin efficacy. TP53 mutations or ATM deficiency may confer resistance.",
+      "evidence": "literature - established cancer biology, chembl_get_compound[CHEMBL:53463]"
+    },
+    {
+      "pathway_id": "oxidative_stress_response",
+      "source": "phase2_enrich - SOD2, GPX1, CAT annotations",
+      "name": "Oxidative stress response and ROS detoxification",
+      "genes": ["SOD2", "SOD1", "GPX1", "GPX4", "CAT", "PRDX family", "TXN", "TXNRD"],
+      "our_genes": ["SOD2 (ENSG00000112096)", "GPX1 (ENSG00000233276)", "CAT (ENSG00000121691)"],
+      "relevance": "toxicity_protection",
+      "description": "Coordinated antioxidant enzyme system. SOD2 converts mitochondrial superoxide to H2O2. GPX1 reduces H2O2 and lipid peroxides using glutathione. CAT degrades H2O2 to water and oxygen.",
+      "therapeutic_implication": "Upregulation of these cardioprotective genes could reduce doxorubicin-induced oxidative cardiac injury without affecting anti-tumor efficacy (tumor selectivity)",
+      "evidence": "literature - doxorubicin cardiotoxicity mechanism"
+    },
+    {
+      "pathway_id": "ABC_transporter",
+      "source": "phase2_enrich - ABCB1, ABCC1 annotations",
+      "name": "ABC transporter-mediated drug efflux",
+      "genes": ["ABCB1", "ABCC1", "ABCG2", "ABCC2", "ABCC3"],
+      "our_genes": ["ABCB1 (ENSG00000085563)", "ABCC1 (ENSG00000103222)"],
+      "relevance": "resistance",
+      "description": "ATP-dependent efflux pumps export doxorubicin from cells. ABCB1 directly transports drug. ABCC1 exports glutathione conjugates and drug metabolites.",
+      "therapeutic_implication": "ABC transporter inhibition could overcome resistance but may increase systemic toxicity. Tumor-selective inhibition strategies needed.",
+      "evidence": "ensembl annotations, literature on multidrug resistance"
+    },
+    {
+      "pathway_id": "TOP2_DNA_damage",
+      "source": "phase2_enrich - TOP2A, TOP2B annotations",
+      "name": "Topoisomerase II-mediated DNA damage",
+      "genes": ["TOP2A", "TOP2B"],
+      "our_genes": ["TOP2A (ENSG00000131747)", "TOP2B (ENSG00000077097)"],
+      "relevance": "efficacy_and_toxicity",
+      "description": "Doxorubicin inhibits both TOP2A (in proliferating cancer cells) and TOP2B (in cardiomyocytes), stabilizing DNA-topoisomerase cleavage complexes and causing DNA strand breaks",
+      "therapeutic_implication": "Critical pathway bifurcation: TOP2A inhibition = efficacy (tumor DNA damage), TOP2B inhibition = toxicity (cardiac DNA damage and mitochondrial dysfunction). Isoform-selective TOP2A inhibitors could preserve efficacy while reducing cardiotoxicity.",
+      "evidence": "chembl_get_compound[CHEMBL:53463], literature"
+    },
+    {
+      "pathway_id": "mTOR_signaling",
+      "source": "phase2_enrich - NF1 disease pathophysiology",
+      "name": "mTOR signaling pathway",
+      "genes": ["MTOR", "TSC1", "TSC2", "RHEB", "AKT", "PI3K"],
+      "our_genes": ["NF1 (indirect regulation)"],
+      "relevance": "disease_mechanism",
+      "description": "NF1 loss leads to dysregulated mTOR signaling downstream of RAS activation, contributing to increased cell growth and metabolism in NF1 tumors",
+      "therapeutic_implication": "mTOR pathway alterations in NF1 disease may affect cellular stress responses and drug sensitivity",
+      "evidence": "NF1 disease literature, relevant_pathways in phase2"
+    }
+  ],
+  "genetic_interactions": [
+    {
+      "note": "Tool budget reached before BioGRID queries. Known genetic interactions documented from literature and database knowledge:",
+      "interactions": [
+        {
+          "gene_a": "NF1",
+          "gene_b": "TP53",
+          "interaction_type": "synthetic_effect",
+          "evidence": "literature - NF1/TP53 double mutants show accelerated tumorigenesis",
+          "relevance": "NF1-deficient tumors with TP53 mutations may be resistant to doxorubicin due to impaired apoptotic response"
+        },
+        {
+          "gene_a": "TOP2A",
+          "gene_b": "TP53",
+          "interaction_type": "epistatic_relationship",
+          "evidence": "literature - TP53 required for TOP2A inhibitor-induced apoptosis",
+          "relevance": "TP53 status predicts doxorubicin efficacy; wild-type TP53 enhances response"
+        },
+        {
+          "gene_a": "ATM",
+          "gene_b": "TP53",
+          "interaction_type": "epistatic_relationship",
+          "evidence": "literature - ATM phosphorylates TP53 in DNA damage response",
+          "relevance": "ATM→TP53 axis critical for doxorubicin-induced cell death; defects in either confer resistance"
+        },
+        {
+          "gene_a": "ABCB1",
+          "gene_b": "ABCC1",
+          "interaction_type": "redundant_function",
+          "evidence": "literature - both confer doxorubicin resistance via efflux",
+          "relevance": "Dual ABC transporter expression provides robust resistance mechanism"
+        }
+      ]
+    }
+  ],
+  "candidate_targets": [
+    {
+      "gene": "TOP2B",
+      "ensembl_id": "ENSG00000077097",
+      "string_id": "9606.ENSP00000264331",
+      "rationale": "TOP2B is the primary driver of doxorubicin cardiotoxicity but not required for anti-tumor efficacy (which depends on TOP2A). Selective TOP2B inhibition or cardioprotective strategies targeting TOP2B-mediated mitochondrial dysfunction could reduce toxicity while preserving efficacy.",
+      "priority": "high",
+      "context": "toxicity_reduction",
+      "therapeutic_strategy": "Develop TOP2A-selective inhibitors, or cardioprotective agents that block TOP2B-mediated mitochondrial damage",
+      "evidence": "phase2_enrich TOP2B annotation, cardiotoxicity literature"
+    },
+    {
+      "gene": "SOD2",
+      "ensembl_id": "ENSG00000112096",
+      "string_id": "9606.ENSP00000446252",
+      "rationale": "Mitochondrial superoxide dismutase provides cardioprotection against doxorubicin-induced oxidative stress. Upregulation in cardiomyocytes (but not tumor cells) could reduce toxicity. SOD2 interacts with CAT and GPX1 in coordinated ROS detoxification network.",
+      "priority": "high",
+      "context": "toxicity_reduction",
+      "therapeutic_strategy": "Gene therapy, small molecule activators, or exercise/dietary interventions to upregulate cardiac SOD2 expression before chemotherapy",
+      "evidence": "phase2_enrich SOD2 annotation, oxidative stress pathway"
+    },
+    {
+      "gene": "CAT",
+      "ensembl_id": "ENSG00000121691",
+      "string_id": "9606.ENSP00000241052",
+      "rationale": "Works downstream of SOD2 to degrade H2O2. Appears in oxidative stress pathway with SOD2 and GPX1. Cardiac-specific catalase upregulation could provide additive cardioprotection.",
+      "priority": "high",
+      "context": "toxicity_reduction",
+      "therapeutic_strategy": "Catalase mimetics, antioxidant supplementation, or cardiac-targeted gene therapy",
+      "evidence": "phase2_enrich CAT annotation, sequential ROS detoxification with SOD2"
+    },
+    {
+      "gene": "GPX1",
+      "ensembl_id": "ENSG00000233276",
+      "rationale": "Glutathione peroxidase neutralizes H2O2 and lipid peroxides. Parallel pathway to CAT. Lower GPX1 activity correlates with increased cardiac damage from doxorubicin.",
+      "priority": "medium",
+      "context": "toxicity_reduction",
+      "therapeutic_strategy": "Selenium supplementation (GPX1 cofactor), glutathione precursors (N-acetylcysteine), or GPX1 gene therapy",
+      "evidence": "phase2_enrich GPX1 annotation, oxidative stress pathway",
+      "note": "STRING ID not resolved due to search failure; may use alternative identifier"
+    },
+    {
+      "gene": "TP53",
+      "ensembl_id": "ENSG00000141510",
+      "string_id": "9606.ENSP00000269305",
+      "rationale": "Central mediator of doxorubicin efficacy through DNA damage→apoptosis pathway. Interacts with both ATM (upstream activator) and TOP2A (DNA damage inducer). TP53 status predicts treatment response.",
+      "priority": "high",
+      "context": "efficacy_biomarker",
+      "therapeutic_strategy": "TP53 status should be evaluated as predictive biomarker for doxorubicin response in NF1-associated tumors. Wild-type TP53 predicts better efficacy. TP53-mutant tumors may require alternative strategies.",
+      "evidence": "phase2_enrich TP53 annotation, DNA damage response pathway"
+    },
+    {
+      "gene": "ATM",
+      "ensembl_id": "ENSG00000149311",
+      "string_id": "9606.ENSP00000278616",
+      "rationale": "DNA damage sensor that activates TP53-mediated apoptosis. ATM status affects tumor sensitivity to anthracyclines. Appears in DNA damage response pathway with TP53 and TOP2A.",
+      "priority": "medium",
+      "context": "efficacy_biomarker",
+      "therapeutic_strategy": "ATM status evaluation as predictive biomarker. ATM-deficient tumors may be resistant to doxorubicin but potentially sensitive to PARP inhibitors (synthetic lethality).",
+      "evidence": "phase2_enrich ATM annotation, DNA damage response pathway"
+    },
+    {
+      "gene": "ABCB1",
+      "ensembl_id": "ENSG00000085563",
+      "string_id": "9606.ENSP00000478255",
+      "rationale": "Major doxorubicin resistance mechanism. Direct drug efflux pump. Overexpression in tumors reduces intracellular drug accumulation. Works redundantly with ABCC1.",
+      "priority": "medium",
+      "context": "resistance_mechanism",
+      "therapeutic_strategy": "ABC transporter inhibitors (e.g., verapamil, cyclosporine) or tumor-selective delivery systems to bypass efflux. Monitor expression as resistance biomarker.",
+      "evidence": "phase2_enrich ABCB1 annotation, ABC transporter pathway"
+    },
+    {
+      "gene": "ABCC1",
+      "ensembl_id": "ENSG00000103222",
+      "string_id": "9606.ENSP00000382342",
+      "rationale": "Exports doxorubicin-glutathione conjugates. Complementary resistance mechanism to ABCB1. Dual transporter expression provides robust resistance.",
+      "priority": "medium",
+      "context": "resistance_mechanism",
+      "therapeutic_strategy": "Combination ABC transporter inhibition or alternative drug delivery approaches. Expression profiling for treatment stratification.",
+      "evidence": "phase2_enrich ABCC1 annotation, ABC transporter pathway"
+    },
+    {
+      "gene": "NF1",
+      "ensembl_id": "ENSG00000196712",
+      "string_id": "9606.ENSP00000351015",
+      "rationale": "Primary disease gene. Loss causes constitutive RAS/MAPK activation. RAS pathway status may alter cellular stress responses and drug sensitivity. NF1-deficient tumors show altered metabolic and proliferative signatures.",
+      "priority": "medium",
+      "context": "disease_context",
+      "therapeutic_strategy": "RAS/MAPK pathway hyperactivation in NF1 tumors may affect doxorubicin response. Potential combination strategies: MEK inhibitors + doxorubicin to target both RAS pathway and DNA damage. Evaluate if RAS pathway status predicts anthracycline sensitivity in NF1 disease.",
+      "evidence": "phase2_enrich NF1 annotation, RAS/MAPK pathway, disease pathophysiology"
+    },
+    {
+      "gene": "PRDX1/PRDX3",
+      "note": "Expansion candidates - not in original enriched set",
+      "rationale": "Peroxiredoxins appear in oxidative stress pathway alongside SOD2, GPX1, CAT. PRDX3 is mitochondrial (like SOD2) and could provide additional cardioprotection against doxorubicin-induced ROS.",
+      "priority": "low",
+      "context": "toxicity_reduction_expansion",
+      "therapeutic_strategy": "Explore as additional cardioprotective targets if primary antioxidant strategies (SOD2/CAT/GPX1) prove insufficient",
+      "evidence": "pathway knowledge - oxidative stress response network"
+    },
+    {
+      "gene": "BRCA1/BRCA2",
+      "note": "Expansion candidates - not in original enriched set",
+      "rationale": "DNA repair genes in the same pathway as ATM and TP53. BRCA-deficient tumors show altered sensitivity to DNA-damaging agents. May interact with TOP2A-induced damage response.",
+      "priority": "low",
+      "context": "efficacy_modulation",
+      "therapeutic_strategy": "BRCA status evaluation in NF1-associated tumors may predict anthracycline response. BRCA-deficient tumors may show altered doxorubicin sensitivity.",
+      "evidence": "DNA damage response pathway knowledge"
+    }
+  ],
+  "cross_network_analysis": {
+    "genes_in_multiple_contexts": [
+      {
+        "gene": "TP53",
+        "contexts": ["efficacy", "DNA_damage_response", "apoptosis"],
+        "key_relationships": [
+          "Activated by ATM in response to TOP2A-induced DNA damage",
+          "Central hub in efficacy pathway",
+          "TP53 status predicts doxorubicin response"
+        ],
+        "clinical_implication": "TP53 wild-type status should be prioritized biomarker for NF1 patients receiving doxorubicin"
+      },
+      {
+        "gene": "TOP2B",
+        "contexts": ["toxicity", "cardiotoxicity", "mitochondrial_dysfunction"],
+        "key_relationships": [
+          "Primary driver of cardiotoxicity",
+          "NOT required for anti-tumor efficacy",
+          "Causes mitochondrial DNA damage in cardiomyocytes"
+        ],
+        "clinical_implication": "TOP2B-selective inhibition or cardioprotection is highest-priority strategy for improving therapeutic index"
+      },
+      {
+        "gene": "SOD2",
+        "contexts": ["toxicity_protection", "oxidative_stress", "cardioprotection"],
+        "key_relationships": [
+          "Works with CAT and GPX1 in coordinated ROS defense",
+          "Mitochondrial localization matches site of doxorubicin ROS generation",
+          "Does NOT interfere with tumor cell killing"
+        ],
+        "clinical_implication": "Cardiac-specific SOD2 upregulation could reduce toxicity without compromising efficacy"
+      }
+    ],
+    "pathway_crosstalk": [
+      {
+        "pathway_a": "RAS/MAPK signaling (disease)",
+        "pathway_b": "DNA damage response (efficacy)",
+        "crosstalk_genes": ["potential: TP53 (can be regulated by MAPK)", "potential: ATM (stress response)"],
+        "implication": "Constitutive RAS/MAPK activation in NF1 disease may alter cellular stress responses and affect doxorubicin efficacy. Combination MEK inhibitor + doxorubicin may be synergistic.",
+        "priority": "medium"
+      },
+      {
+        "pathway_a": "Oxidative stress response (cardioprotection)",
+        "pathway_b": "ABC transporters (resistance)",
+        "crosstalk_genes": ["ABCC1 exports glutathione conjugates", "GPX1 uses glutathione as cofactor"],
+        "implication": "Glutathione metabolism links antioxidant defense and drug resistance. Strategies to enhance cardiac antioxidants must consider potential impact on tumor drug resistance.",
+        "priority": "medium"
+      },
+      {
+        "pathway_a": "TOP2A/TOP2B damage",
+        "pathway_b": "ATM/TP53 response",
+        "crosstalk_genes": ["TOP2A", "ATM", "TP53"],
+        "implication": "This is the core efficacy pathway: TOP2A inhibition → DNA damage → ATM activation → TP53 → apoptosis. Any disruption reduces efficacy.",
+        "priority": "high"
+      }
+    ],
+    "selective_toxicity_opportunities": [
+      {
+        "strategy": "Tissue-selective TOP2 isoform targeting",
+        "rationale": "TOP2A (proliferating cells/tumors) vs TOP2B (cardiomyocytes). Selective TOP2A inhibitors preserve efficacy, reduce toxicity.",
+        "genes_involved": ["TOP2A", "TOP2B"],
+        "feasibility": "high - isoform-selective compounds in development"
+      },
+      {
+        "strategy": "Cardiac-specific antioxidant upregulation",
+        "rationale": "Enhance SOD2/CAT/GPX1 only in cardiomyocytes, not in tumor cells. Protects heart without reducing tumor oxidative stress.",
+        "genes_involved": ["SOD2", "CAT", "GPX1"],
+        "feasibility": "medium - requires tissue-targeted delivery or cardiac-specific promoters"
+      },
+      {
+        "strategy": "Tumor-selective ABC transporter inhibition",
+        "rationale": "Inhibit ABCB1/ABCC1 to enhance tumor drug accumulation without increasing cardiac exposure",
+        "genes_involved": ["ABCB1", "ABCC1"],
+        "feasibility": "low - achieving tumor selectivity challenging; systemic inhibition increases toxicity"
+      }
+    ]
+  },
+  "string_ids_resolved": {
+    "NF1": "9606.ENSP00000351015",
+    "TOP2A": "9606.ENSP00000411532",
+    "TP53": "9606.ENSP00000269305",
+    "ATM": "9606.ENSP00000278616",
+    "TOP2B": "9606.ENSP00000264331",
+    "SOD2": "9606.ENSP00000446252",
+    "GPX1": "not_resolved",
+    "CAT": "9606.ENSP00000241052",
+    "ABCB1": "9606.ENSP00000478255",
+    "ABCC1": "9606.ENSP00000382342"
+  },
+  "metadata": {
+    "phase": "EXPAND",
+    "tool_calls_used": 8,
+    "tool_budget": 8,
+    "limitation": "Tool budget reached after STRING ID resolution. Full PPI network queries, WikiPathways API searches, and BioGRID genetic interaction queries were not performed. Output constructed using enriched gene data from phase2_enrich.json, resolved STRING IDs, and established biological pathway knowledge from literature and database annotations.",
+    "data_sources": [
+      "string_search_proteins (ID resolution only)",
+      "phase2_enrich.json (gene functions, pathways, contexts)",
+      "literature knowledge (pathway interactions, genetic interactions)",
+      "database annotations (UniProt, pathway databases)"
+    ],
+    "genes_analyzed": 9,
+    "string_ids_resolved": 8,
+    "pathways_documented": 6,
+    "candidate_targets_identified": 12,
+    "recommendation": "Phase 4 (TRAVERSE) should prioritize: (1) TOP2B as toxicity reduction target, (2) SOD2/CAT as cardioprotective targets, (3) TP53 as efficacy biomarker, (4) Evaluate RAS/MAPK pathway crosstalk with DNA damage response in NF1 context"
+  }
+}

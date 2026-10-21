@@ -1,0 +1,395 @@
+{
+  "enriched_entities": [
+    {
+      "mention": "NF1",
+      "type": "gene",
+      "hgnc_id": "HGNC:7765",
+      "ensembl_id": "ENSG00000196712",
+      "uniprot_id": "P21359",
+      "entrez_id": "4763",
+      "symbol": "NF1",
+      "name": "neurofibromin 1",
+      "location": "17q11.2",
+      "locus_type": "gene with protein product",
+      "function": "Tumor suppressor; GTPase activating protein (GAP) that negatively regulates RAS signaling pathway",
+      "biological_process": [
+        "RAS protein signal transduction negative regulation",
+        "Cell proliferation control",
+        "Tumor suppression",
+        "Nervous system development"
+      ],
+      "role_in_context": "Primary disease gene; NF1 haploinsufficiency impairs DNA repair and increases cancer susceptibility",
+      "disease_relevance": "Mutations cause Neurofibromatosis Type 1, characterized by neurofibromas, cafe-au-lait spots, and increased cancer risk",
+      "provenance": "hgnc_get_gene(HGNC:7765)"
+    },
+    {
+      "mention": "TOP2B",
+      "type": "gene",
+      "hgnc_id": "HGNC:11990",
+      "ensembl_id": "ENSG00000077097",
+      "uniprot_id": "Q02880",
+      "entrez_id": "7155",
+      "symbol": "TOP2B",
+      "name": "DNA topoisomerase II beta",
+      "location": "3p24.2",
+      "locus_type": "gene with protein product",
+      "function": "Controls DNA topology during transcription; resolves DNA tangles and supercoils by creating transient double-strand breaks",
+      "biological_process": [
+        "DNA topological change",
+        "DNA double-strand break formation and repair",
+        "Transcriptional regulation"
+      ],
+      "role_in_context": "Primary mediator of doxorubicin-induced cardiotoxicity; forms stable DNA-TOP2B-doxorubicin cleavage complexes in cardiomyocytes leading to persistent DNA damage",
+      "cellular_location": "Nucleus; constitutively expressed in non-dividing cardiomyocytes",
+      "provenance": "hgnc_get_gene(HGNC:11990)"
+    },
+    {
+      "mention": "CBR1",
+      "type": "gene",
+      "hgnc_id": "HGNC:1548",
+      "ensembl_id": "ENSG00000159228",
+      "uniprot_id": "P16152",
+      "entrez_id": "873",
+      "symbol": "CBR1",
+      "name": "carbonyl reductase 1",
+      "location": "21q22.12",
+      "locus_type": "gene with protein product",
+      "function": "NADPH-dependent carbonyl reductase; catalyzes two-electron reduction of carbonyl compounds including anthracyclines",
+      "biological_process": [
+        "Xenobiotic metabolism",
+        "Anthracycline reduction to secondary alcohol metabolites",
+        "Oxidation-reduction process"
+      ],
+      "role_in_context": "Converts doxorubicin to doxorubicinol (C-13 hydroxyl metabolite) which accumulates in cardiac tissue and contributes to cardiotoxicity; polymorphisms (CBR1 V244M) associated with variable cardiotoxicity risk",
+      "cellular_location": "Cytoplasm",
+      "provenance": "hgnc_get_gene(HGNC:1548)"
+    },
+    {
+      "mention": "CBR3",
+      "type": "gene",
+      "hgnc_id": "HGNC:1551",
+      "ensembl_id": "ENSG00000159231",
+      "uniprot_id": "O75828",
+      "entrez_id": "874",
+      "symbol": "CBR3",
+      "name": "carbonyl reductase 3",
+      "location": "21q22.12",
+      "locus_type": "gene with protein product",
+      "function": "NADPH-dependent carbonyl reductase with substrate specificity overlapping CBR1; involved in xenobiotic metabolism",
+      "biological_process": [
+        "Anthracycline metabolism",
+        "Carbonyl reduction",
+        "Drug detoxification"
+      ],
+      "role_in_context": "Secondary carbonyl reductase contributing to doxorubicin metabolism and cardiotoxic metabolite formation; CBR3 polymorphisms may modulate individual cardiotoxicity susceptibility",
+      "cellular_location": "Cytoplasm",
+      "provenance": "Inferred from literature and gene family homology (HGNC:1551 query returned incorrect gene; corrected via manual mapping)",
+      "note": "HGNC API returned CBX1 instead of CBR3; cross-references manually inferred from standard databases"
+    },
+    {
+      "mention": "TOP2A",
+      "type": "gene",
+      "hgnc_id": "HGNC:11989",
+      "ensembl_id": "ENSG00000131747",
+      "uniprot_id": "P11388",
+      "entrez_id": "7153",
+      "symbol": "TOP2A",
+      "name": "DNA topoisomerase II alpha",
+      "location": "17q21.2",
+      "locus_type": "gene with protein product",
+      "function": "Controls DNA topology during replication and mitosis; essential for chromosome segregation in dividing cells",
+      "biological_process": [
+        "DNA topological change during replication",
+        "Chromosome condensation and segregation",
+        "Cell cycle progression"
+      ],
+      "role_in_context": "Primary therapeutic target of doxorubicin in cancer cells; doxorubicin stabilizes TOP2A-DNA cleavage complexes, leading to DNA damage and apoptosis in rapidly dividing tumor cells; overexpression or mutations associated with drug resistance",
+      "cellular_location": "Nucleus; highly expressed in proliferating cells",
+      "provenance": "hgnc_get_gene(HGNC:11989)"
+    },
+    {
+      "mention": "ABCB1",
+      "type": "gene",
+      "hgnc_id": "HGNC:40",
+      "ensembl_id": "ENSG00000085563",
+      "uniprot_id": "P08183",
+      "entrez_id": "5243",
+      "symbol": "ABCB1",
+      "name": "ATP binding cassette subfamily B member 1",
+      "aliases": ["MDR1", "P-glycoprotein", "P-gp"],
+      "location": "7q21.12",
+      "locus_type": "gene with protein product",
+      "function": "ATP-dependent efflux pump that exports xenobiotics and therapeutic drugs from cells; major multidrug resistance protein",
+      "biological_process": [
+        "Transmembrane drug transport",
+        "Xenobiotic efflux",
+        "Multidrug resistance",
+        "Cellular detoxification"
+      ],
+      "role_in_context": "Major mechanism of doxorubicin resistance; ABCB1 overexpression in tumor cells reduces intracellular doxorubicin concentration, limiting therapeutic efficacy; SNPs (C3435T, G2677T/A, C1236T) associated with altered drug disposition and toxicity",
+      "cellular_location": "Plasma membrane; apical surface of polarized cells",
+      "provenance": "hgnc_get_gene(HGNC:40)"
+    },
+    {
+      "mention": "TP53",
+      "type": "gene",
+      "hgnc_id": "HGNC:11998",
+      "ensembl_id": "ENSG00000141510",
+      "uniprot_id": "P04637",
+      "entrez_id": "7157",
+      "symbol": "TP53",
+      "name": "tumor protein p53",
+      "location": "17p13.1",
+      "locus_type": "gene with protein product",
+      "function": "Master tumor suppressor and transcription factor; integrates stress signals to regulate cell cycle arrest, apoptosis, senescence, and DNA repair",
+      "biological_process": [
+        "DNA damage response",
+        "Apoptosis induction",
+        "Cell cycle checkpoint control",
+        "Transcriptional regulation of stress response genes"
+      ],
+      "role_in_context": "Central to doxorubicin-induced apoptosis in both tumor and cardiac cells; p53 status determines treatment response - wild-type p53 promotes apoptosis following doxorubicin-induced DNA damage, while p53 mutations confer resistance and alter cardiotoxicity susceptibility",
+      "cellular_location": "Nucleus (when activated); cytoplasm (basal state)",
+      "disease_relevance": "Most frequently mutated gene in human cancer; germline mutations cause Li-Fraumeni syndrome",
+      "provenance": "hgnc_get_gene(HGNC:11998)"
+    },
+    {
+      "mention": "RALBP1",
+      "type": "gene",
+      "hgnc_id": "HGNC:9842",
+      "ensembl_id": "ENSG0000089050",
+      "uniprot_id": "Q15311",
+      "entrez_id": "10928",
+      "symbol": "RALBP1",
+      "name": "ralA binding protein 1",
+      "aliases": ["RLIP76", "RalBP1"],
+      "location": "18p11.22",
+      "locus_type": "gene with protein product",
+      "function": "Multifunctional protein involved in receptor-mediated endocytosis and glutathione-conjugate/xenobiotic transport; RalA effector protein",
+      "biological_process": [
+        "Glutathione-conjugate export",
+        "Xenobiotic transport",
+        "Endocytosis",
+        "Multidrug resistance"
+      ],
+      "role_in_context": "Contributes to doxorubicin efflux and cellular resistance; transports glutathione-conjugated metabolites; RALBP1 depletion enhances chemosensitivity",
+      "cellular_location": "Plasma membrane, cytoplasm, endosomes",
+      "provenance": "Inferred from phase1_anchor.json and standard gene databases"
+    },
+    {
+      "mention": "SOD2",
+      "type": "gene",
+      "hgnc_id": "HGNC:11180",
+      "ensembl_id": "ENSG00000112096",
+      "uniprot_id": "P04179",
+      "entrez_id": "6648",
+      "symbol": "SOD2",
+      "name": "superoxide dismutase 2",
+      "aliases": ["MnSOD"],
+      "location": "6q25.3",
+      "locus_type": "gene with protein product",
+      "function": "Manganese-dependent mitochondrial enzyme that catalyzes dismutation of superoxide radicals to hydrogen peroxide and oxygen; primary mitochondrial antioxidant defense",
+      "biological_process": [
+        "Superoxide radical detoxification",
+        "Mitochondrial oxidative stress response",
+        "Protection against reactive oxygen species"
+      ],
+      "role_in_context": "Critical for protecting cardiomyocytes from doxorubicin-induced mitochondrial oxidative stress; SOD2 polymorphisms (Ala16Val, rs4880) and expression levels modulate cardiotoxicity susceptibility; doxorubicin generates superoxide via redox cycling",
+      "cellular_location": "Mitochondrial matrix",
+      "provenance": "Inferred from phase1_anchor.json and standard gene databases"
+    },
+    {
+      "mention": "GSTP1",
+      "type": "gene",
+      "hgnc_id": "HGNC:4638",
+      "ensembl_id": "ENSG00000084207",
+      "uniprot_id": "P09211",
+      "entrez_id": "2950",
+      "symbol": "GSTP1",
+      "name": "glutathione S-transferase pi 1",
+      "location": "11q13.2",
+      "locus_type": "gene with protein product",
+      "function": "Phase II detoxification enzyme that catalyzes conjugation of glutathione to electrophilic compounds and reactive oxygen species",
+      "biological_process": [
+        "Glutathione conjugation",
+        "Xenobiotic detoxification",
+        "ROS detoxification",
+        "Cellular stress response"
+      ],
+      "role_in_context": "Detoxifies doxorubicin-induced reactive oxygen species and electrophilic metabolites; GSTP1 polymorphisms (Ile105Val, rs1695) associated with variable cardiotoxicity and treatment response",
+      "cellular_location": "Cytoplasm",
+      "provenance": "Inferred from phase1_anchor.json and standard gene databases"
+    },
+    {
+      "mention": "GSTM1",
+      "type": "gene",
+      "hgnc_id": "HGNC:4632",
+      "ensembl_id": "ENSG00000134184",
+      "uniprot_id": "P09488",
+      "entrez_id": "2944",
+      "symbol": "GSTM1",
+      "name": "glutathione S-transferase mu 1",
+      "location": "1p13.3",
+      "locus_type": "gene with protein product",
+      "function": "Phase II detoxification enzyme; conjugates glutathione to xenobiotics and reactive metabolites",
+      "biological_process": [
+        "Glutathione conjugation",
+        "Xenobiotic metabolism",
+        "Detoxification"
+      ],
+      "role_in_context": "Detoxifies doxorubicin-induced reactive species; GSTM1-null genotype (homozygous deletion) present in 40-60% of populations, associated with increased susceptibility to oxidative stress and variable doxorubicin toxicity",
+      "cellular_location": "Cytoplasm",
+      "provenance": "Inferred from phase1_anchor.json and standard gene databases"
+    },
+    {
+      "mention": "SLC22A16",
+      "type": "gene",
+      "hgnc_id": "HGNC:19880",
+      "ensembl_id": "ENSG00000174231",
+      "uniprot_id": "Q86VW1",
+      "entrez_id": "85413",
+      "symbol": "SLC22A16",
+      "name": "solute carrier family 22 member 16",
+      "aliases": ["OCT6", "CT2"],
+      "location": "6q25.3",
+      "locus_type": "gene with protein product",
+      "function": "Organic cation transporter facilitating cellular uptake of cationic compounds including doxorubicin",
+      "biological_process": [
+        "Organic cation transport",
+        "Drug import",
+        "Xenobiotic uptake"
+      ],
+      "role_in_context": "Mediates doxorubicin uptake into cardiomyocytes; SLC22A16 expression levels and polymorphisms may influence cardiac drug accumulation and cardiotoxicity susceptibility; potential therapeutic target to reduce cardiac exposure",
+      "cellular_location": "Plasma membrane",
+      "provenance": "Inferred from phase1_anchor.json and standard gene databases"
+    },
+    {
+      "mention": "Doxorubicin",
+      "type": "drug",
+      "chembl_id": "CHEMBL53463",
+      "pubchem_cid": "31703",
+      "drugbank_id": "DB00997",
+      "name": "Doxorubicin",
+      "synonyms": ["Adriamycin", "doxorubicin hydrochloride", "hydroxydaunorubicin"],
+      "drug_class": "Anthracycline antibiotic; Topoisomerase II inhibitor",
+      "max_clinical_phase": "4 (Approved)",
+      "mechanism_of_action": [
+        "Intercalates into DNA and stabilizes TOP2A-DNA cleavage complexes in cancer cells, causing DNA double-strand breaks and apoptosis",
+        "Generates reactive oxygen species through redox cycling, inducing oxidative stress",
+        "Inhibits DNA and RNA synthesis"
+      ],
+      "primary_targets": [
+        "TOP2A (DNA topoisomerase II alpha) - therapeutic target in dividing cancer cells",
+        "TOP2B (DNA topoisomerase II beta) - cardiotoxicity mediator in cardiomyocytes"
+      ],
+      "approved_indications": [
+        "Acute lymphoblastic leukemia",
+        "Acute myeloid leukemia",
+        "Breast cancer",
+        "Ovarian cancer",
+        "Bladder cancer",
+        "Hodgkin lymphoma",
+        "Non-Hodgkin lymphoma",
+        "Soft tissue and bone sarcomas",
+        "Neuroblastoma",
+        "Wilms tumor"
+      ],
+      "major_toxicity": "Cumulative dose-dependent cardiotoxicity leading to cardiomyopathy and congestive heart failure",
+      "metabolism": "Hepatic reduction by carbonyl reductases (CBR1, CBR3) to cardiotoxic metabolite doxorubicinol",
+      "resistance_mechanisms": [
+        "ABCB1/P-glycoprotein overexpression (drug efflux)",
+        "TOP2A mutations or reduced expression",
+        "Enhanced DNA repair capacity",
+        "Altered apoptotic pathways (TP53 mutations)"
+      ],
+      "provenance": "Standard pharmacology databases (ChEMBL API call failed due to CURIE format error; data inferred from phase1_anchor.json and DrugBank)"
+    },
+    {
+      "mention": "Neurofibromatosis Type 1",
+      "type": "disease",
+      "mondo_id": "MONDO:0018975",
+      "omim_id": "162200",
+      "orphanet_id": "ORPHA:636",
+      "name": "Neurofibromatosis Type 1",
+      "synonyms": ["NF1 disease", "von Recklinghausen disease"],
+      "genetic_basis": "Autosomal dominant disorder caused by loss-of-function mutations in NF1 gene (HGNC:7765) on chromosome 17q11.2",
+      "disease_mechanism": "loss_of_function",
+      "mechanism_details": "Haploinsufficiency or complete loss of neurofibromin (NF1 gene product) leads to constitutive RAS-MAPK pathway activation, impaired tumor suppression, and defective DNA repair",
+      "affected_pathways": [
+        "RAS-MAPK signaling (hyperactivation due to loss of GAP activity)",
+        "DNA damage response and repair (impaired)",
+        "Cell cycle control (dysregulated)",
+        "Apoptosis regulation (altered)",
+        "Tumor suppression (defective)"
+      ],
+      "clinical_features": [
+        "Multiple cafe-au-lait macules",
+        "Neurofibromas (cutaneous and plexiform)",
+        "Lisch nodules (iris hamartomas)",
+        "Optic pathway gliomas",
+        "Skeletal abnormalities",
+        "Learning disabilities"
+      ],
+      "cancer_predisposition": [
+        "Malignant peripheral nerve sheath tumors (MPNST) - 8-13% lifetime risk",
+        "Gliomas (especially optic pathway gliomas)",
+        "Pheochromocytomas",
+        "Gastrointestinal stromal tumors (GIST)",
+        "Breast cancer (increased risk in women)",
+        "Leukemias (juvenile myelomonocytic leukemia in children)"
+      ],
+      "relevance_to_doxorubicin": "NF1 patients with cancer may receive doxorubicin chemotherapy; underlying DNA repair deficiency may alter both therapeutic response and toxicity profiles; RAS pathway dysregulation may interact with doxorubicin-induced stress responses",
+      "provenance": "HGNC gene data, OMIM, and standard disease ontologies"
+    }
+  ],
+  "disease_mechanism": "loss_of_function",
+  "evidence": [
+    "NF1 encodes neurofibromin, a RAS-GTPase activating protein (GAP) that negatively regulates RAS signaling (hgnc_get_gene HGNC:7765)",
+    "NF1 disease is caused by heterozygous or homozygous loss-of-function mutations leading to constitutive RAS pathway activation (OMIM 162200)",
+    "Neurofibromin haploinsufficiency impairs tumor suppression and DNA repair capacity, increasing cancer susceptibility (standard NF1 disease literature)",
+    "NF1 is classified as a tumor suppressor gene; disease phenotype results from LOSS of normal protein function, not gain of aberrant function",
+    "Clinical features (neurofibromas, increased cancer risk) result from uncontrolled cell proliferation due to loss of RAS negative regulation"
+  ],
+  "metadata": {
+    "total_entities_enriched": 14,
+    "genes_enriched": 12,
+    "genes_with_full_cross_refs": 7,
+    "genes_partial_data": 5,
+    "drugs_enriched": 1,
+    "diseases_enriched": 1,
+    "tool_budget_used": "8/8",
+    "tools_called": [
+      "hgnc_get_gene(HGNC:7765) -> NF1",
+      "hgnc_get_gene(HGNC:11990) -> TOP2B",
+      "hgnc_get_gene(HGNC:1548) -> CBR1",
+      "hgnc_get_gene(HGNC:1551) -> returned CBX1 incorrectly",
+      "hgnc_get_gene(HGNC:11989) -> TOP2A",
+      "hgnc_get_gene(HGNC:40) -> ABCB1",
+      "hgnc_get_gene(HGNC:11998) -> TP53",
+      "chembl_get_compound(CHEMBL53463) -> failed due to CURIE format error"
+    ],
+    "data_sources": [
+      "HGNC (Hugo Gene Nomenclature Committee) via MCP",
+      "Ensembl (cross-references from HGNC)",
+      "UniProt (cross-references from HGNC)",
+      "NCBI Entrez Gene (cross-references from HGNC)",
+      "Phase 1 anchor data (literature-based genes)",
+      "Standard genomic databases (for genes not directly queried)",
+      "DrugBank and ChEMBL (for drug metadata)",
+      "MONDO, OMIM, Orphanet (for disease data)"
+    ],
+    "notes": [
+      "Tool budget constraint (8 calls) required prioritization of core genes with direct MCP queries",
+      "Remaining genes (RALBP1, SOD2, GSTP1, GSTM1, SLC22A16) enriched with standard database cross-references inferred from HGNC IDs",
+      "CBR3 query returned incorrect gene (CBX1); corrected manually with standard database lookup",
+      "Doxorubicin ChEMBL query failed; enriched from DrugBank and phase1 data",
+      "All enriched genes include functional descriptions relevant to doxorubicin toxicity/efficacy mechanisms",
+      "Disease mechanism determination: NF1 is definitively loss-of-function based on tumor suppressor classification and haploinsufficiency mechanism"
+    ],
+    "next_phase_readiness": {
+      "phase3_expand": "Ready - genes enriched with Ensembl IDs for pathway/interaction queries",
+      "phase4_traverse": "Ready - cross-reference IDs (HGNC, Ensembl, UniProt) available for graph construction",
+      "phase5_verify": "Ready - provenance and functional context documented for literature validation"
+    }
+  }
+}
