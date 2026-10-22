@@ -49,6 +49,19 @@ async def test_timeout_is_retryable():
     assert err.value.service == "default"
 
 
+async def test_408_is_retryable():
+    with pytest.raises(MCPCallError) as err:
+        await _call(lambda request: httpx.Response(408), "string_search_proteins")
+    assert err.value.retryable is True
+
+
+@pytest.mark.parametrize("status", [400, 404, 409, 422])
+async def test_other_4xx_is_not_retryable(status):
+    with pytest.raises(MCPCallError) as err:
+        await _call(lambda request: httpx.Response(status))
+    assert err.value.retryable is False
+
+
 async def test_400_is_not_retryable():
     with pytest.raises(MCPCallError) as err:
         await _call(lambda request: httpx.Response(400), "string_get_interactions")
@@ -120,6 +133,36 @@ async def test_langgraph_host_turns_error_into_error_toolmessage(monkeypatch):
     assert message.status == "error"
     assert message.tool_call_id == "call-1"
     assert "400 Bad Request" in message.content
+
+
+async def test_persist_to_graphiti_failure_raises(monkeypatch):
+    """A failed persist must not look like success to the agent."""
+    async def failing_call_tool(tool_name, arguments, apply_rate_limit=True):
+        raise MCPCallError("ConnectError calling Graphiti", service="default", retryable=True)
+
+    monkeypatch.setattr(mcp.graphiti_client, "call_tool", failing_call_tool)
+    with pytest.raises(MCPCallError) as err:
+        await mcp.persist_to_graphiti.coroutine(name="NF1", nodes=[], edges=[])
+    assert err.value.retryable is False
+    assert "ConnectError calling Graphiti" in str(err.value)
+
+
+async def test_langgraph_host_reports_failed_persist_as_error(monkeypatch):
+    async def failing_call_tool(tool_name, arguments, apply_rate_limit=True):
+        raise MCPCallError("ConnectError calling Graphiti", service="default", retryable=True)
+
+    monkeypatch.setattr(mcp.graphiti_client, "call_tool", failing_call_tool)
+    message = await all_tools()["persist_to_graphiti"].ainvoke(
+        {
+            "name": "persist_to_graphiti",
+            "args": {"name": "NF1", "nodes": [], "edges": []},
+            "id": "call-1",
+            "type": "tool_call",
+        }
+    )
+    assert isinstance(message, ToolMessage)
+    assert message.status == "error"
+    assert "Graphiti" in message.content
 
 
 def test_temporal_host_tools_raise():

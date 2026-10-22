@@ -30,8 +30,15 @@ def configure_tracing(env: MutableMapping[str, str]) -> bool:
     """
     opted_in = env.get("LIFESCIENCES_TEMPORAL_TRACE") == "1"
     if not opted_in:
-        env["LANGSMITH_TRACING"] = "false"
-        env["LANGCHAIN_TRACING_V2"] = "false"
+        # langsmith checks the *_TRACING_V2 names before *_TRACING (and both
+        # LANGSMITH_ and LANGCHAIN_ prefixes); any one left "true" enables it.
+        for name in (
+            "LANGSMITH_TRACING_V2",
+            "LANGSMITH_TRACING",
+            "LANGCHAIN_TRACING_V2",
+            "LANGCHAIN_TRACING",
+        ):
+            env[name] = "false"
     # langsmith caches env lookups (populated at import time, before load_dotenv
     # and this override), so drop the cache for the new values to be seen.
     try:

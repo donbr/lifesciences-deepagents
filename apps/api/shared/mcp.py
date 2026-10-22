@@ -182,8 +182,8 @@ class HTTPMCPClient:
 def _http_error(exc: Exception, *, service: str, what: str) -> MCPCallError:
     """Classify a failed HTTP call.
 
-    Transient (``retryable=True``): timeouts, transport errors, HTTP 429 and
-    5xx. Permanent: any other HTTP status and anything unexpected.
+    Transient (``retryable=True``): timeouts, transport errors, HTTP 408, 429
+    and 5xx. Permanent: any other HTTP status and anything unexpected.
     """
     if isinstance(exc, httpx.HTTPStatusError):
         status = exc.response.status_code
@@ -191,7 +191,7 @@ def _http_error(exc: Exception, *, service: str, what: str) -> MCPCallError:
         return MCPCallError(
             f"HTTP {status} from {what}: {detail}",
             service=service,
-            retryable=status == 429 or status >= 500,
+            retryable=status in (408, 429) or status >= 500,
         )
     if isinstance(exc, (httpx.TimeoutException, httpx.TransportError)):
         return MCPCallError(
@@ -701,6 +701,11 @@ async def persist_to_graphiti(
             apply_rate_limit=False  # Graphiti doesn't need rate limiting
         )
     except Exception as e:
-        # Graceful fallback if Graphiti is unavailable
+        # Never report a failed persist as success. Permanent: retrying an
+        # episode write is not worth the duplicate risk; the agent gets an
+        # error ToolMessage (handle_tool_error on the LangGraph host,
+        # ToolFailureMiddleware under Temporal) and the graph stays in /workspace/.
         logger.warning(f"Graphiti persistence failed: {e}")
-        return f"Note: Graphiti persistence unavailable ({e}). Graph data preserved in response."
+        raise MCPCallError(
+            f"Graphiti persistence failed: {e}", service="graphiti", retryable=False
+        ) from e

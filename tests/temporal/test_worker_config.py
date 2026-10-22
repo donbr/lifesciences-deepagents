@@ -1,7 +1,11 @@
-"""Worker tracing configuration (offline: plain dicts, no Temporal server)."""
+"""Worker configuration: tracing, activity options (offline, no Temporal server)."""
+
+from datetime import timedelta
 
 import pytest
+from temporalio.common import RetryPolicy
 
+from apps.temporal.durable import BACKEND_ACTIVITY_OPTIONS, MODEL_ACTIVITY_OPTIONS
 from apps.temporal.worker import configure_tracing
 
 
@@ -10,6 +14,8 @@ def test_tracing_disabled_by_default():
     assert configure_tracing(env) is False
     assert env["LANGSMITH_TRACING"] == "false"
     assert env["LANGCHAIN_TRACING_V2"] == "false"
+    assert env["LANGSMITH_TRACING_V2"] == "false"
+    assert env["LANGCHAIN_TRACING"] == "false"
 
 
 def test_tracing_opt_in_leaves_env_untouched():
@@ -35,6 +41,8 @@ def test_override_takes_effect_despite_langsmith_env_cache(monkeypatch):
     monkeypatch.delenv("LIFESCIENCES_TEMPORAL_TRACE", raising=False)
     monkeypatch.setenv("LANGSMITH_TRACING", "true")
     monkeypatch.setenv("LANGCHAIN_TRACING_V2", "true")
+    # langsmith reads LANGSMITH_TRACING_V2 before LANGSMITH_TRACING.
+    monkeypatch.setenv("LANGSMITH_TRACING_V2", "true")
     ls_utils.get_env_var.cache_clear()
     try:
         assert ls_utils.tracing_is_enabled()  # primes the cache with True
@@ -44,6 +52,25 @@ def test_override_takes_effect_despite_langsmith_env_cache(monkeypatch):
     finally:
         monkeypatch.undo()
         ls_utils.get_env_var.cache_clear()
+
+
+def test_model_retry_budget_outlasts_a_sustained_overload():
+    # ~7.5 minutes of backoff (5, 10, 20, 40, then 60s) before a model call fails.
+    assert MODEL_ACTIVITY_OPTIONS == {
+        "start_to_close_timeout": timedelta(minutes=5),
+        "retry_policy": RetryPolicy(
+            initial_interval=timedelta(seconds=5),
+            backoff_coefficient=2.0,
+            maximum_interval=timedelta(seconds=60),
+            maximum_attempts=10,
+        ),
+    }
+
+
+def test_backend_activities_have_bounded_retries():
+    """A deterministic backend exception must not retry forever."""
+    assert BACKEND_ACTIVITY_OPTIONS["retry_policy"].maximum_attempts == 3
+    assert BACKEND_ACTIVITY_OPTIONS["start_to_close_timeout"] == timedelta(seconds=30)
 
 
 async def test_payload_storage_disabled_without_bucket_env():
