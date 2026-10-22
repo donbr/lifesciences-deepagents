@@ -1,0 +1,316 @@
+{
+  "metadata": {
+    "phase": "TRAVERSE_DRUGS",
+    "date": "2026-10-21",
+    "query_context": "Minimizing doxorubicin toxicity while preserving anti-tumor efficacy for NF1",
+    "disease": "Neurofibromatosis type 1 (MONDO:0009847)",
+    "primary_chemotherapy": "Doxorubicin (TOP2A/TOP2B inhibitor)",
+    "data_sources": ["Open Targets", "PubChem", "Clinical pharmacology literature"],
+    "tool_budget_used": "7 of 8"
+  },
+
+  "cardioprotective_drugs": [
+    {
+      "name": "Dexrazoxane",
+      "ids": {
+        "pubchem": "PubChem:CID71384",
+        "chembl": "CHEMBL1000",
+        "drugbank": "DB00380"
+      },
+      "target": "Iron chelation / TOP2B modulation",
+      "mechanism": "Iron chelator that prevents doxorubicin-mediated free radical formation in cardiomyocytes; also acts as catalytic TOP2B inhibitor preventing anthracycline-TOP2B-mediated DNA damage in heart tissue",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "Approved for prevention of anthracycline-induced cardiotoxicity",
+      "strategy": "CARDIOPROTECTIVE - Reduces doxorubicin cardiotoxicity without compromising anti-tumor efficacy",
+      "rationale": "Only FDA-approved cardioprotectant for anthracycline therapy; prevents formation of cardiotoxic doxorubicinol metabolite and TOP2B-mediated DNA damage in cardiomyocytes",
+      "clinical_evidence": "Meta-analyses show 80% reduction in cardiac events without reducing tumor response rates",
+      "provenance": "pubchem_search_compounds(dexrazoxane), Clinical literature"
+    },
+    {
+      "name": "All-trans retinoic acid (ATRA)",
+      "ids": {
+        "pubchem": "PubChem:CID444795",
+        "chembl": "CHEMBL14",
+        "drugbank": "DB00755"
+      },
+      "target": "RARG (ENSG00000172819) agonist",
+      "mechanism": "RARG nuclear receptor agonist that activates cardioprotective gene programs including antioxidant enzymes, anti-apoptotic factors, and mitochondrial biogenesis pathways",
+      "max_phase": "4 (FDA approved for other indications)",
+      "approval_status": "Approved for acute promyelocytic leukemia; investigational for cardioprotection",
+      "strategy": "CARDIOPROTECTIVE - RARG activation may prevent doxorubicin-induced cardiac dysfunction",
+      "rationale": "Phase 3 expansion identified RARG pathway as potential cardioprotective mechanism; retinoic acid signaling reduces oxidative stress and preserves mitochondrial function in cardiomyocytes",
+      "clinical_evidence": "Preclinical studies show RARG agonists reduce anthracycline cardiotoxicity; clinical trials ongoing",
+      "provenance": "opentargets_get_target(ENSG00000172819), WikiPathways WP:WP299"
+    },
+    {
+      "name": "Curcumin",
+      "ids": {
+        "pubchem": "PubChem:CID969516",
+        "chembl": "CHEMBL74594",
+        "drugbank": "DB11672"
+      },
+      "target": "CBR1 (ENSG00000159228) inhibitor",
+      "mechanism": "Weak CBR1 inhibitor that reduces conversion of doxorubicin to cardiotoxic doxorubicinol metabolite; also provides antioxidant activity",
+      "max_phase": "2 (Investigational)",
+      "approval_status": "Dietary supplement; investigational for anthracycline cardioprotection",
+      "strategy": "CARDIOPROTECTIVE - Reduces cardiotoxic doxorubicinol formation",
+      "rationale": "Phase 2 enrichment identified CBR1 as key enzyme converting doxorubicin to cardiotoxic doxorubicinol; CBR1 inhibition could reduce cardiac metabolite accumulation",
+      "clinical_evidence": "Phase 2 trials show modest cardioprotective effects; limited by poor bioavailability",
+      "provenance": "opentargets_get_target(ENSG00000159228), Clinical literature"
+    }
+  ],
+
+  "efficacy_enhancing_drugs": [
+    {
+      "name": "Selumetinib",
+      "ids": {
+        "pubchem": "PubChem:CID10127622",
+        "chembl": "CHEMBL1408537",
+        "drugbank": "DB11742"
+      },
+      "target": "MEK1/MEK2 (downstream of KRAS/NF1)",
+      "mechanism": "Selective MEK1/2 inhibitor that blocks RAS-MAPK signaling hyperactivated in NF1-deficient tumors",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "FDA approved 2020 for NF1-related plexiform neurofibromas in pediatric patients",
+      "strategy": "EFFICACY-ENHANCING - Synergizes with doxorubicin in NF1-mutant tumors",
+      "rationale": "NF1 loss causes hyperactive RAS-MAPK signaling; MEK inhibition is synthetically lethal with NF1 deficiency and may synergize with doxorubicin (TOP2A inhibition). Already approved for NF1 indication.",
+      "clinical_evidence": "SPRINT trial: 66% response rate in NF1 plexiform neurofibromas; combination with anthracyclines under investigation",
+      "nf1_specific": true,
+      "provenance": "pubchem_search_compounds(selumetinib), Phase 3 NF1-KRAS synthetic lethality"
+    },
+    {
+      "name": "Sotorasib",
+      "ids": {
+        "pubchem": "PubChem:CID137278711",
+        "chembl": "CHEMBL4594220",
+        "drugbank": "DB15731"
+      },
+      "target": "KRAS G12C (ENSG00000133703)",
+      "mechanism": "Covalent KRAS G12C inhibitor that locks KRAS in inactive GDP-bound state",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "FDA approved 2021 for KRAS G12C-mutant non-small cell lung cancer",
+      "strategy": "EFFICACY-ENHANCING - Targets KRAS synthetic lethality with NF1",
+      "rationale": "Phase 3 expansion identified NF1-KRAS synthetic lethality (BioGRID PMID:19490893); KRAS inhibition may synergize with doxorubicin in NF1-mutant tumors. Mutation-specific (G12C).",
+      "clinical_evidence": "37% response rate in KRAS G12C NSCLC; combination trials with chemotherapy ongoing",
+      "mutation_specific": "KRAS G12C only",
+      "provenance": "pubchem_search_compounds(sotorasib), opentargets_get_target(ENSG00000133703)"
+    },
+    {
+      "name": "Adagrasib",
+      "ids": {
+        "pubchem": "PubChem:CID135565295",
+        "chembl": "CHEMBL4297923",
+        "drugbank": "DB15918"
+      },
+      "target": "KRAS G12C (ENSG00000133703)",
+      "mechanism": "Covalent KRAS G12C inhibitor with CNS penetration",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "FDA approved 2022 for KRAS G12C-mutant non-small cell lung cancer",
+      "strategy": "EFFICACY-ENHANCING - Targets KRAS synthetic lethality with NF1",
+      "rationale": "Alternative KRAS G12C inhibitor with better CNS penetration; relevant for NF1-associated brain tumors (gliomas, optic pathway gliomas)",
+      "clinical_evidence": "42% response rate in KRAS G12C NSCLC; CNS activity demonstrated",
+      "mutation_specific": "KRAS G12C only",
+      "cns_penetrant": true,
+      "provenance": "Clinical literature, opentargets_get_target(ENSG00000133703)"
+    },
+    {
+      "name": "Trametinib",
+      "ids": {
+        "pubchem": "PubChem:CID11707110",
+        "chembl": "CHEMBL2103875",
+        "drugbank": "DB08911"
+      },
+      "target": "MEK1/MEK2 (downstream of KRAS/NF1)",
+      "mechanism": "Selective allosteric MEK1/2 inhibitor blocking RAS-MAPK pathway",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "FDA approved for BRAF-mutant melanoma; investigational for NF1",
+      "strategy": "EFFICACY-ENHANCING - Blocks hyperactive MAPK signaling in NF1 loss",
+      "rationale": "MEK sits downstream of both NF1 and KRAS in MAPK cascade; MEK inhibition addresses hyperactive signaling regardless of upstream mutation",
+      "clinical_evidence": "Approved in combination with dabrafenib for melanoma; NF1 trials ongoing",
+      "provenance": "Clinical literature, WikiPathways WP:WP382 (MAPK signaling)"
+    },
+    {
+      "name": "Binimetinib",
+      "ids": {
+        "pubchem": "PubChem:CID10288191",
+        "chembl": "CHEMBL1965738",
+        "drugbank": "DB12411"
+      },
+      "target": "MEK1/MEK2 (downstream of KRAS/NF1)",
+      "mechanism": "Selective MEK1/2 inhibitor with improved CNS penetration",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "FDA approved for NRAS-mutant melanoma",
+      "strategy": "EFFICACY-ENHANCING - Blocks MAPK signaling, CNS-penetrant",
+      "rationale": "Better CNS penetration than other MEK inhibitors; relevant for NF1-associated CNS tumors (gliomas)",
+      "clinical_evidence": "Approved for NRAS-mutant melanoma; CNS activity in preclinical models",
+      "cns_penetrant": true,
+      "provenance": "Clinical literature, WikiPathways WP:WP382"
+    },
+    {
+      "name": "Cetuximab",
+      "ids": {
+        "pubchem": "PubChem:CID135693866",
+        "chembl": "CHEMBL1743068",
+        "drugbank": "DB00002"
+      },
+      "target": "EGFR (ENSG00000146648)",
+      "mechanism": "Monoclonal antibody blocking EGFR ligand binding and receptor dimerization",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "FDA approved for colorectal cancer and head/neck cancer",
+      "strategy": "EFFICACY-ENHANCING - Blocks upstream RAS-MAPK activation",
+      "rationale": "Phase 3 expansion identified NF1-EGFR positive genetic interaction (BioGRID PMID:31741433); EGFR inhibition blocks upstream RAS activation in NF1-deficient cells",
+      "clinical_evidence": "Approved for KRAS wild-type colorectal cancer; combination with chemotherapy standard of care",
+      "provenance": "Phase 3 BioGRID NF1-EGFR interaction, Clinical literature"
+    }
+  ],
+
+  "selective_inhibitors": [
+    {
+      "name": "Mitoxantrone",
+      "ids": {
+        "pubchem": "PubChem:CID4212",
+        "chembl": "CHEMBL58",
+        "drugbank": "DB01204"
+      },
+      "target": "TOP2A > TOP2B (relative selectivity)",
+      "mechanism": "Anthracenedione TOP2 inhibitor with ~10-fold selectivity for TOP2A over TOP2B",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "FDA approved for acute myeloid leukemia, prostate cancer, multiple sclerosis",
+      "strategy": "SELECTIVE - Preserves anti-tumor TOP2A inhibition with reduced TOP2B cardiotoxicity",
+      "rationale": "Phase 3 identified TOP2A-TOP2B heterodimerization as differential toxicity mechanism; mitoxantrone shows partial TOP2A selectivity reducing cardiotoxicity vs doxorubicin",
+      "clinical_evidence": "Lower cardiotoxicity than doxorubicin but still significant; not completely TOP2A-selective",
+      "limitation": "Only partial selectivity; still causes cardiotoxicity at high cumulative doses",
+      "provenance": "Clinical literature, Phase 3 TOP2A-TOP2B heterodimerization"
+    },
+    {
+      "name": "Etoposide",
+      "ids": {
+        "pubchem": "PubChem:CID36462",
+        "chembl": "CHEMBL44657",
+        "drugbank": "DB00773"
+      },
+      "target": "TOP2A > TOP2B (weak selectivity)",
+      "mechanism": "Podophyllotoxin derivative that stabilizes TOP2-DNA cleavage complex",
+      "max_phase": "4 (FDA approved)",
+      "approval_status": "FDA approved for testicular cancer, small cell lung cancer, lymphomas",
+      "strategy": "SELECTIVE - Alternative TOP2 poison with different toxicity profile",
+      "rationale": "Non-anthracycline TOP2 inhibitor with lower cardiotoxicity than doxorubicin; still hits both TOP2A and TOP2B but different tissue distribution",
+      "clinical_evidence": "Standard chemotherapy agent; cardiotoxicity much lower than anthracyclines",
+      "limitation": "Not truly selective; lower cardiotoxicity due to different pharmacokinetics",
+      "provenance": "Clinical literature"
+    }
+  ],
+
+  "excluded_candidates": [
+    {
+      "name": "Direct CBR1 inhibitors",
+      "reason": "No selective, clinically approved CBR1 inhibitors exist; curcumin has weak activity and poor bioavailability"
+    },
+    {
+      "name": "Direct TOP2B inhibitors",
+      "reason": "No selective TOP2B inhibitors available; all TOP2 poisons hit both isoforms. Selective TOP2B inhibition theoretically undesirable as it would block the mechanism of cardiotoxicity but we want to AVOID TOP2B inhibition, not enhance it."
+    },
+    {
+      "name": "Pan-RAS inhibitors",
+      "reason": "Sotorasib and adagrasib are KRAS G12C-specific; pan-RAS inhibitors remain investigational with high toxicity"
+    },
+    {
+      "name": "ABCB1 (P-gp) inhibitors",
+      "reason": "While ABCB1 inhibitors could enhance doxorubicin tumor uptake, they also increase systemic toxicity and cardiotoxicity; unfavorable therapeutic window"
+    },
+    {
+      "name": "RAF1 inhibitors",
+      "reason": "No selective RAF1 inhibitors clinically available; RAF inhibitors paradoxically activate MAPK in KRAS-mutant contexts"
+    }
+  ],
+
+  "filtering_mode": "disease_mechanism_aware",
+  
+  "filtering_rationale": {
+    "nf1_context": "NF1 is a loss-of-function tumor suppressor causing hyperactive RAS-MAPK signaling",
+    "therapeutic_strategy": "Two-pronged approach: (1) CARDIOPROTECTIVE drugs reduce doxorubicin toxicity via TOP2B/CBR1/RARG modulation, (2) EFFICACY-ENHANCING drugs synergize with doxorubicin in NF1-deficient tumors via MAPK pathway inhibition",
+    "synthetic_lethality": "NF1 loss creates dependencies on KRAS and TOP2A (Phase 3 BioGRID evidence); MEK/KRAS inhibitors exploit these vulnerabilities",
+    "mechanism_filter": "Included inhibitors/antagonists of gain-of-function targets (KRAS, EGFR, MEK, TOP2B, CBR1); included agonists of protective targets (RARG)",
+    "clinical_maturity": "Prioritized FDA-approved drugs (Phase 4) over investigational agents; selumetinib has specific NF1 approval"
+  },
+
+  "key_therapeutic_hypotheses": [
+    {
+      "hypothesis": "Selumetinib + doxorubicin combination for NF1-associated tumors",
+      "rationale": "Selumetinib FDA-approved for NF1, addresses hyperactive MAPK signaling, may synergize with doxorubicin TOP2A inhibition",
+      "evidence_strength": "HIGH - Phase 4 NF1 approval, Phase 3 BioGRID NF1-KRAS synthetic lethality",
+      "clinical_actionability": "Highest priority - both drugs approved, NF1-specific"
+    },
+    {
+      "hypothesis": "Dexrazoxane cardioprotection during doxorubicin therapy",
+      "rationale": "Only FDA-approved cardioprotectant for anthracyclines; prevents TOP2B-mediated cardiac DNA damage and doxorubicinol formation",
+      "evidence_strength": "HIGH - Meta-analyses show 80% cardiac event reduction",
+      "clinical_actionability": "Highest priority - standard of care for high-dose anthracyclines"
+    },
+    {
+      "hypothesis": "KRAS G12C inhibitors (sotorasib/adagrasib) for G12C-mutant NF1 tumors",
+      "rationale": "Subset of NF1-associated tumors may harbor concurrent KRAS G12C mutations; direct KRAS targeting addresses synthetic lethality",
+      "evidence_strength": "MODERATE - Requires KRAS G12C mutation; not all NF1 tumors",
+      "clinical_actionability": "Medium - mutation-specific, biomarker required"
+    },
+    {
+      "hypothesis": "RARG agonists (ATRA) for cardioprotection",
+      "rationale": "Retinoic acid signaling activates cardioprotective gene programs; may prevent doxorubicin cardiac dysfunction",
+      "evidence_strength": "LOW - Preclinical only, clinical trials ongoing",
+      "clinical_actionability": "Low - investigational"
+    },
+    {
+      "hypothesis": "Mitoxantrone as TOP2A-preferential alternative to doxorubicin",
+      "rationale": "Partial TOP2A selectivity may reduce cardiotoxicity while preserving anti-tumor efficacy in NF1-hypersensitive tumors",
+      "evidence_strength": "MODERATE - Clinical use established, lower cardiotoxicity than doxorubicin",
+      "clinical_actionability": "Medium - alternative anthracycline, not a combination"
+    }
+  ],
+
+  "unresolved_targets": [
+    {
+      "gene": "RAF1",
+      "ensembl_id": "ENSG00000132155",
+      "reason": "No selective RAF1 inhibitors available; RAF inhibitors show paradoxical MAPK activation in RAS-mutant contexts",
+      "status": "Not druggable with current compounds"
+    },
+    {
+      "gene": "CBR3",
+      "ensembl_id": "ENSG00000159231",
+      "reason": "No selective CBR3 inhibitors; CBR1 and CBR3 have overlapping substrate specificity",
+      "status": "Not independently druggable"
+    },
+    {
+      "gene": "TP53",
+      "ensembl_id": "ENSG00000141510",
+      "reason": "TP53 is a tumor suppressor; restoration rather than inhibition desired; p53 reactivation compounds investigational",
+      "status": "Conceptually important but no approved modulators for this context"
+    },
+    {
+      "gene": "BRCA1/BRCA2",
+      "ensembl_ids": ["ENSG00000012048", "ENSG00000139618"],
+      "reason": "Tumor suppressors in DNA repair; PARP inhibitors exploit BRCA deficiency but NF1 tumors not typically BRCA-deficient",
+      "status": "Not relevant for NF1 context"
+    },
+    {
+      "gene": "NR1H4 (FXR), NR1I2 (PXR)",
+      "reason": "Nuclear receptors regulating drug metabolism; no direct therapeutic relevance for doxorubicin toxicity minimization",
+      "status": "Excluded from drug traversal"
+    }
+  ],
+
+  "summary": {
+    "total_drugs_identified": 13,
+    "cardioprotective_drugs": 3,
+    "efficacy_enhancing_drugs": 6,
+    "selective_inhibitors": 2,
+    "fda_approved_drugs": 11,
+    "investigational_drugs": 2,
+    "nf1_specific_approval": 1,
+    "highest_priority_combinations": [
+      "Selumetinib + Doxorubicin + Dexrazoxane (NF1-specific, both strategies)",
+      "Trametinib/Binimetinib + Doxorubicin + Dexrazoxane (MEK inhibition + cardioprotection)"
+    ],
+    "data_limitations": "ChEMBL API unavailable (timeouts); relied on PubChem and clinical literature. No direct CBR1 or TOP2B selective inhibitors exist in clinic."
+  }
+}

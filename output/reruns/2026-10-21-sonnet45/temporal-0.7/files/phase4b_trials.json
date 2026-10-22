@@ -1,0 +1,191 @@
+{
+  "trials": [
+    {
+      "nct_id": "NCT00304083",
+      "title": "Phase II Trial of Chemotherapy in Sporadic and Neurofibromatosis Type 1 Associated High Grade Malignant Peripheral Nerve Sheath Tumors",
+      "status": "COMPLETED",
+      "phase": "PHASE2",
+      "drug": "doxorubicin",
+      "conditions": ["Neurofibromatosis Type 1", "Malignant Peripheral Nerve Sheath Tumor (MPNST)", "Sarcoma"],
+      "interventions": [
+        "Doxorubicin hydrochloride 37.5 mg/m2/dose IV over 15 minutes on days 1, 2",
+        "Ifosfamide 1,800 mg/m2/dose IV over 60 minutes on days 1-5",
+        "Etoposide 100 mg/m2/dose IV over 60 minutes on days 1-5",
+        "Radiation therapy",
+        "Surgery"
+      ],
+      "enrollment": 48,
+      "start_date": "2005-12",
+      "completion_date": "2014-06",
+      "primary_outcomes": "Response rate (complete and partial response)",
+      "results_summary": {
+        "nf1_mpnst_patients": 34,
+        "sporadic_mpnst_patients": 14,
+        "partial_response_nf1": "5/28 evaluable (18%)",
+        "partial_response_sporadic": "4/9 evaluable (44%)",
+        "stable_disease_nf1": "20/28 (71%)",
+        "stable_disease_sporadic": "4/9 (44%)"
+      },
+      "adverse_events": {
+        "serious": [
+          "Febrile neutropenia (6/48, 13%)",
+          "Anemia (4/48, 8%)",
+          "Somnolence (4/48, 8%)",
+          "Secondary acute myeloid leukemia (1/48, 2%)"
+        ],
+        "neurotoxicity_dose_reductions": "3/48 patients had dose reductions due to ifosfamide neurotoxicity",
+        "cardiotoxicity_monitoring": "Ejection fraction required to be normal by echocardiogram or MUGA at baseline; doxorubicin could not be administered concurrently with radiation therapy"
+      },
+      "addresses_toxicity": false,
+      "toxicity_mitigation_notes": "Standard monitoring only; no active cardioprotection strategy employed",
+      "relevance": "Direct evidence for doxorubicin efficacy in NF1-associated MPNST; demonstrates anthracycline responsiveness (18% PR in NF1 patients) but highlights hematologic toxicity. No cardioprotection beyond baseline screening.",
+      "evidence": "ClinicalTrials.gov NCT00304083, completed Phase 2 trial with published results"
+    },
+    {
+      "nct_id": "NCT06735820",
+      "title": "Early Phase Study to Evaluate the MEK Inhibitor Selumetinib With the MDM2 Inhibitor APG-115 in Patients With Neurofibromatosis Type 1 and Pre-malignant and Malignant Peripheral Nerve Sheath Tumors",
+      "status": "RECRUITING",
+      "phase": "EARLY_PHASE1",
+      "drug": "selumetinib + APG-115",
+      "conditions": ["Neurofibromatosis Type 1", "MPNST", "Pre-malignant Peripheral Nerve Sheath Tumors"],
+      "interventions": [
+        "Selumetinib (MEK1/2 inhibitor)",
+        "APG-115 (MDM2 inhibitor)"
+      ],
+      "enrollment": "Not specified",
+      "start_date": "2026-06-01",
+      "completion_date": "2028-10-01 (estimated)",
+      "primary_outcomes": "Safety, tolerability, and preliminary efficacy of MEK + MDM2 inhibition",
+      "addresses_toxicity": false,
+      "relevance": "Novel combination strategy for NF1-MPNST using targeted therapy (MEK inhibitor) instead of cytotoxic chemotherapy. Could represent alternative to anthracycline-based regimens with different toxicity profile.",
+      "evidence": "ClinicalTrials.gov NCT06735820, actively recruiting early-phase trial"
+    },
+    {
+      "nct_id": "NCT02096471",
+      "title": "A Phase 2 Trial of the MEK Inhibitor PD-0325901 in Adolescents and Adults With NF1-Associated Morbid Plexiform Neurofibromas",
+      "status": "COMPLETED",
+      "phase": "PHASE2",
+      "drug": "PD-0325901",
+      "conditions": ["Neurofibromatosis Type 1", "Plexiform Neurofibromas"],
+      "interventions": ["PD-0325901 (MEK inhibitor)"],
+      "enrollment": "Not specified in preview",
+      "start_date": "2014-06",
+      "completion_date": "2018-08-01",
+      "primary_outcomes": "Tumor response in plexiform neurofibromas",
+      "addresses_toxicity": false,
+      "relevance": "Demonstrates MEK inhibitor efficacy in NF1 benign tumors (not MPNST). Potential combination partner with doxorubicin for synergistic anti-tumor effect while potentially allowing dose reduction of anthracycline.",
+      "evidence": "ClinicalTrials.gov NCT02096471, completed Phase 2 trial with results"
+    }
+  ],
+  "cardioprotection_trials": [
+    {
+      "nct_id": "NCT00955890",
+      "title": "Randomized Phase II Trial Of Interventional Therapy Investigate Cardiac Protection of Dexrazoxane In Women With Breast Cancer Having Experienced Grade 1 Cardiotoxicity During Prior Anthracycline-based Chemotherapy",
+      "status": "TERMINATED",
+      "reason_terminated": "Enrolled too slow",
+      "phase": "PHASE2",
+      "drug": "dexrazoxane",
+      "conditions": ["Breast Cancer", "Anthracycline-induced cardiotoxicity"],
+      "interventions": ["Dexrazoxane (cardioprotective agent)"],
+      "start_date": "2009-06",
+      "completion_date": "2012-02",
+      "addresses_toxicity": true,
+      "toxicity_type": "Cardiotoxicity from anthracyclines (doxorubicin)",
+      "relevance": "Directly addresses anthracycline cardioprotection using dexrazoxane, the only FDA-approved cardioprotectant for anthracyclines. Could be adapted for NF1 patients receiving doxorubicin-based regimens.",
+      "evidence": "ClinicalTrials.gov NCT00955890, terminated trial but establishes precedent for dexrazoxane use"
+    },
+    {
+      "nct_id": "NCT03589729",
+      "title": "Cardioprotection With Dexrazoxane in Acute Myeloid Leukemia (AML), High-Risk Myelodysplastic Syndrome (MDS), Myeloid Blast Phase of Chronic Myeloid Leukemia (CML), Ph+ AML, and Myeloid Blast Phase of Myeloproliferative Neoplasms",
+      "status": "RECRUITING",
+      "phase": "Not specified (interventional)",
+      "drug": "dexrazoxane",
+      "conditions": ["Acute Myeloid Leukemia", "Myelodysplastic Syndrome", "Chronic Myeloid Leukemia"],
+      "interventions": ["Dexrazoxane hydrochloride (cardioprotective agent with anthracycline-based chemotherapy)"],
+      "start_date": "2018-09-19",
+      "enrollment": "Recruiting",
+      "addresses_toxicity": true,
+      "toxicity_type": "Anthracycline-induced cardiotoxicity",
+      "relevance": "Active trial demonstrating contemporary use of dexrazoxane for cardioprotection during anthracycline therapy in hematologic malignancies. Provides safety/efficacy data applicable to NF1-MPNST patients receiving doxorubicin.",
+      "evidence": "ClinicalTrials.gov NCT03589729, actively recruiting trial at MD Anderson Cancer Center"
+    }
+  ],
+  "combination_therapy_trials": [
+    {
+      "nct_id": "NCT06735820",
+      "title": "MEK Inhibitor Selumetinib + MDM2 Inhibitor APG-115 in NF1-MPNST",
+      "status": "RECRUITING",
+      "phase": "EARLY_PHASE1",
+      "drugs": ["selumetinib", "APG-115"],
+      "conditions": ["NF1", "MPNST"],
+      "strategy": "Targeted therapy combination (MEK + MDM2 inhibition) for pre-malignant and malignant peripheral nerve sheath tumors",
+      "start_date": "2026-06-01",
+      "completion_date": "2028-10-01",
+      "relevance": "Novel non-cytotoxic combination approach for NF1-MPNST that could avoid anthracycline toxicity entirely or be combined with lower-dose doxorubicin.",
+      "evidence": "ClinicalTrials.gov NCT06735820, actively recruiting"
+    },
+    {
+      "nct_id": "NCT03363217",
+      "title": "Trametinib for Patients With Pediatric Glioma or Plexiform Neurofibroma With Refractory Tumor and Activation of the MAPK/ERK Pathway",
+      "status": "ACTIVE_NOT_RECRUITING",
+      "phase": "PHASE2",
+      "drug": "trametinib",
+      "conditions": ["Pediatric Glioma", "Plexiform Neurofibroma", "MAPK/ERK pathway activation"],
+      "start_date": "2018-08-16",
+      "completion_date": "2027-03-01 (estimated)",
+      "strategy": "MEK inhibitor monotherapy for MAPK-driven tumors including NF1-associated neurofibromas",
+      "relevance": "Demonstrates MEK inhibitor efficacy in NF1-related tumors; potential for combination with reduced-dose anthracyclines in MPNST to maintain efficacy while reducing cardiotoxicity.",
+      "evidence": "ClinicalTrials.gov NCT03363217, active Phase 2 trial"
+    }
+  ],
+  "search_summary": {
+    "total_searches_performed": 5,
+    "date_searched": "2026-10-21",
+    "databases": ["ClinicalTrials.gov v2 API"],
+    "search_strategies": [
+      {
+        "query": "Neurofibromatosis AND doxorubicin",
+        "trials_found": 1,
+        "key_finding": "NCT00304083 - completed Phase 2 trial of doxorubicin + ifosfamide + etoposide in NF1-MPNST with published results"
+      },
+      {
+        "query": "NF1 AND anthracycline",
+        "trials_found": 1,
+        "key_finding": "Same trial as above (NCT00304083)"
+      },
+      {
+        "query": "Neurofibromatosis AND cardiotoxicity",
+        "trials_found": 1,
+        "key_finding": "NCT07707947 - NF2 trial with selumetinib (not directly relevant to NF1 + doxorubicin cardiotoxicity)"
+      },
+      {
+        "query": "NF1 AND MEK inhibitor",
+        "trials_found": 10,
+        "key_finding": "Multiple trials of MEK inhibitors (selumetinib, trametinib, PD-0325901) in NF1 plexiform neurofibromas; NCT06735820 specifically targets MPNST with selumetinib + MDM2 inhibitor combination"
+      },
+      {
+        "query": "Dexrazoxane AND cardioprotection",
+        "trials_found": 7,
+        "key_finding": "NCT03589729 (recruiting) and NCT00955890 (terminated) demonstrate dexrazoxane use for anthracycline cardioprotection"
+      }
+    ],
+    "key_insights": {
+      "nf1_doxorubicin_evidence": "Limited to one completed Phase 2 trial (NCT00304083) showing 18% partial response rate in NF1-MPNST with doxorubicin-based combination chemotherapy. No trials specifically address cardiotoxicity mitigation in this population.",
+      "cardioprotection_options": "Dexrazoxane is FDA-approved cardioprotectant with active trials in hematologic malignancies (NCT03589729). No NF1-specific cardioprotection trials identified.",
+      "alternative_strategies": "Multiple MEK inhibitor trials in NF1 (selumetinib, trametinib, PD-0325901) suggest targeted therapy alternatives or combination strategies that could reduce anthracycline exposure while maintaining anti-tumor efficacy.",
+      "combination_potential": "NCT06735820 (MEK + MDM2 inhibition in NF1-MPNST) represents novel targeted combination approach that could be synergistic with reduced-dose anthracyclines.",
+      "evidence_gaps": [
+        "No trials specifically examining doxorubicin + dexrazoxane in NF1-MPNST",
+        "No trials testing MEK inhibitor + anthracycline combinations in NF1",
+        "Limited long-term cardiac safety data for anthracyclines in NF1 population",
+        "No pediatric-specific cardioprotection trials in NF1-MPNST despite disease occurrence in children"
+      ]
+    },
+    "clinical_implications": {
+      "current_standard": "Doxorubicin + ifosfamide + etoposide remains the only tested cytotoxic regimen in NF1-MPNST based on NCT00304083, but showed modest response rates (18% PR) with significant toxicity.",
+      "toxicity_concerns": "13% febrile neutropenia, 8% anemia, neurotoxicity requiring dose reductions in 6% of patients. Cardiac monitoring required but no active cardioprotection employed.",
+      "emerging_options": "MEK inhibitor monotherapy or combinations may offer less toxic alternatives; ongoing trials (NCT06735820) will provide data on targeted therapy efficacy in MPNST.",
+      "cardioprotection_strategy": "Dexrazoxane could be considered off-label for NF1-MPNST patients receiving anthracyclines, based on evidence from other cancers (NCT03589729, NCT00955890)."
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "enriched_entities": [
+    {
+      "hgnc_id": "HGNC:7765",
+      "symbol": "NF1",
+      "name": "neurofibromin 1",
+      "uniprot_id": "P21359",
+      "ensembl_id": "ENSG00000196712",
+      "entrez_id": "4763",
+      "chromosome": "17q11.2",
+      "function": "Neurofibromin 1 is a GTPase-activating protein that negatively regulates RAS signaling. Loss-of-function mutations cause neurofibromatosis type 1, leading to hyperactive RAS-MAPK signaling and tumor predisposition.",
+      "role_in_context": "Disease gene - NF1 mutations drive the primary disease pathology",
+      "enrichment_status": "complete",
+      "provenance": "hgnc_get_gene(HGNC:7765)"
+    },
+    {
+      "hgnc_id": "HGNC:40",
+      "symbol": "ABCB1",
+      "name": "ATP binding cassette subfamily B member 1",
+      "aliases": ["MDR1", "P-gp", "P-glycoprotein"],
+      "uniprot_id": "P08183",
+      "ensembl_id": "ENSG00000085563",
+      "entrez_id": "5243",
+      "chromosome": "7q21.12",
+      "function": "ATP-dependent efflux transporter (P-glycoprotein) that pumps drugs and xenobiotics out of cells. Key determinant of multidrug resistance. Reduces intracellular doxorubicin accumulation.",
+      "role_in_context": "Drug efflux - reduces doxorubicin intracellular concentration, potentially protecting normal cells from toxicity",
+      "enrichment_status": "complete",
+      "provenance": "hgnc_get_gene(HGNC:40)"
+    },
+    {
+      "hgnc_id": "HGNC:11989",
+      "symbol": "TOP2A",
+      "name": "DNA topoisomerase II alpha",
+      "uniprot_id": "P11388",
+      "ensembl_id": "ENSG00000131747",
+      "entrez_id": "7153",
+      "chromosome": "17q21.2",
+      "function": "Nuclear enzyme that controls DNA topology during replication and transcription by creating transient double-strand breaks. Primary anti-cancer target of doxorubicin. Highly expressed in proliferating cells.",
+      "role_in_context": "Primary anti-cancer target - doxorubicin intercalates DNA and stabilizes TOP2A-DNA cleavage complexes, inducing cell death in tumor cells",
+      "enrichment_status": "complete",
+      "provenance": "hgnc_get_gene(HGNC:11989)"
+    },
+    {
+      "hgnc_id": "HGNC:11990",
+      "symbol": "TOP2B",
+      "name": "DNA topoisomerase II beta",
+      "uniprot_id": "Q02880",
+      "ensembl_id": "ENSG00000077097",
+      "entrez_id": "7155",
+      "chromosome": "3p24.2",
+      "function": "Nuclear enzyme controlling DNA topology, expressed constitutively in both proliferating and quiescent cells. Doxorubicin-induced TOP2B-mediated DNA damage in cardiomyocytes is implicated in cardiotoxicity mechanism.",
+      "role_in_context": "Cardiotoxicity mediator - TOP2B inhibition by doxorubicin in non-dividing cardiomyocytes drives cardiotoxic side effects",
+      "enrichment_status": "complete",
+      "provenance": "hgnc_get_gene(HGNC:11990)"
+    },
+    {
+      "hgnc_id": "HGNC:1548",
+      "symbol": "CBR1",
+      "name": "carbonyl reductase 1",
+      "uniprot_id": "P16152",
+      "ensembl_id": "ENSG00000159228",
+      "entrez_id": "873",
+      "chromosome": "21q22.12",
+      "function": "NADPH-dependent enzyme that reduces doxorubicin to doxorubicinol, a secondary alcohol metabolite with reduced anti-cancer activity but increased cardiotoxicity. CBR1 activity is a major determinant of doxorubicin cardiotoxicity.",
+      "role_in_context": "Cardiotoxic metabolism - converts doxorubicin to cardiotoxic doxorubicinol metabolite",
+      "enrichment_status": "complete",
+      "provenance": "hgnc_get_gene(HGNC:1548)"
+    },
+    {
+      "hgnc_id": "HGNC:1549",
+      "symbol": "CBR3",
+      "name": "carbonyl reductase 3",
+      "uniprot_id": "O75828",
+      "ensembl_id": "ENSG00000159231",
+      "entrez_id": "874",
+      "chromosome": "21q22.12",
+      "function": "NADPH-dependent carbonyl reductase with similar activity to CBR1. Also reduces anthracyclines to cardiotoxic alcohol metabolites. Polymorphisms in CBR3 affect doxorubicin metabolism and toxicity risk.",
+      "role_in_context": "Cardiotoxic metabolism - secondary carbonyl reductase contributing to doxorubicinol formation",
+      "enrichment_status": "complete",
+      "provenance": "hgnc_get_gene(HGNC:1549)"
+    },
+    {
+      "hgnc_id": "HGNC:9866",
+      "symbol": "RARG",
+      "name": "retinoic acid receptor gamma",
+      "uniprot_id": "P13631",
+      "ensembl_id": "ENSG00000172819",
+      "entrez_id": "5916",
+      "chromosome": "12q13.13",
+      "function": "Nuclear receptor that binds retinoic acid and regulates gene transcription. Involved in cell differentiation, proliferation, and apoptosis. May modulate cardioprotective pathways against anthracycline toxicity.",
+      "role_in_context": "Potential cardioprotection - retinoic acid signaling may protect against doxorubicin-induced cardiotoxicity",
+      "enrichment_status": "complete",
+      "provenance": "hgnc_get_gene(HGNC:9866)"
+    },
+    {
+      "hgnc_id": "HGNC:16484",
+      "symbol": "SLC28A3",
+      "name": "solute carrier family 28 member 3",
+      "aliases": ["CNT3"],
+      "uniprot_id": "Q9HAS3",
+      "ensembl_id": "ENSG00000197506",
+      "entrez_id": "64078",
+      "chromosome": "9q21.32-q21.33",
+      "function": "Sodium-coupled concentrative nucleoside transporter. Transports nucleosides and nucleoside analogs. Genetic variants associated with anthracycline-induced cardiotoxicity in childhood cancer survivors.",
+      "role_in_context": "Cardiotoxicity risk - polymorphisms in SLC28A3 linked to increased doxorubicin cardiotoxicity susceptibility",
+      "enrichment_status": "complete",
+      "provenance": "hgnc_get_gene(HGNC:16484)"
+    },
+    {
+      "hgnc_id": "HGNC:51",
+      "symbol": "ABCC1",
+      "name": "ATP binding cassette subfamily C member 1",
+      "aliases": ["MRP1"],
+      "uniprot_id": "not_enriched",
+      "ensembl_id": "not_enriched",
+      "chromosome": "not_enriched",
+      "function": "ATP-dependent efflux transporter (MRP1) involved in multidrug resistance. Exports doxorubicin and glutathione conjugates from cells.",
+      "role_in_context": "Drug efflux - reduces intracellular doxorubicin, contributing to resistance and potentially protecting normal tissues",
+      "enrichment_status": "partial_tool_budget_exceeded",
+      "provenance": "phase1_anchor only"
+    },
+    {
+      "hgnc_id": "HGNC:53",
+      "symbol": "ABCC2",
+      "name": "ATP binding cassette subfamily C member 2",
+      "aliases": ["MRP2"],
+      "uniprot_id": "not_enriched",
+      "ensembl_id": "not_enriched",
+      "chromosome": "not_enriched",
+      "function": "ATP-dependent canalicular efflux transporter (MRP2) that exports drug conjugates and organic anions. Involved in hepatic and renal drug excretion.",
+      "role_in_context": "Drug efflux - exports doxorubicin conjugates, affects systemic clearance and tissue distribution",
+      "enrichment_status": "partial_tool_budget_exceeded",
+      "provenance": "phase1_anchor only"
+    },
+    {
+      "hgnc_id": "HGNC:12538",
+      "symbol": "UGT1A6",
+      "name": "UDP glucuronosyltransferase family 1 member A6",
+      "uniprot_id": "not_enriched",
+      "ensembl_id": "not_enriched",
+      "chromosome": "not_enriched",
+      "function": "UDP-glucuronosyltransferase enzyme that catalyzes glucuronidation of xenobiotics and endogenous compounds. May contribute to doxorubicin metabolism and clearance.",
+      "role_in_context": "Phase II metabolism - glucuronidation pathway for doxorubicin detoxification",
+      "enrichment_status": "partial_tool_budget_exceeded",
+      "provenance": "phase1_anchor only"
+    }
+  ],
+  "drug": {
+    "chembl_id": "CHEMBL:53463",
+    "name": "Doxorubicin",
+    "max_phase": "not_enriched",
+    "drug_class": "Anthracycline antibiotic, topoisomerase II inhibitor",
+    "mechanism": "Intercalates DNA and stabilizes TOP2A/TOP2B-DNA cleavage complexes, leading to DNA damage and cell death. Also generates reactive oxygen species contributing to cardiotoxicity.",
+    "indications": ["Breast cancer", "Lymphomas", "Leukemias", "Sarcomas", "Various solid tumors"],
+    "enrichment_status": "partial_tool_budget_exceeded",
+    "provenance": "phase1_anchor + domain knowledge"
+  },
+  "disease": {
+    "mondo_id": "MONDO:0009847",
+    "name": "Neurofibromatosis type 1",
+    "description": "Autosomal dominant disorder caused by loss-of-function mutations in NF1 gene. Characterized by neurofibromas, café-au-lait spots, optic gliomas, and increased cancer risk due to hyperactive RAS signaling.",
+    "associated_genes": ["NF1"],
+    "enrichment_status": "partial_tool_budget_exceeded",
+    "provenance": "phase1_anchor + domain knowledge"
+  },
+  "disease_mechanism": "loss_of_function",
+  "evidence": [
+    "NF1 is a tumor suppressor encoding neurofibromin, a RAS-GAP protein (hgnc_get_gene HGNC:7765)",
+    "Loss-of-function NF1 mutations drive neurofibromatosis type 1 pathogenesis (HGNC cross-references to OMIM:613113, ORPHANET:123772)",
+    "Disease mechanism classified as loss_of_function based on NF1 tumor suppressor role and disease-causing mutation pattern"
+  ],
+  "enrichment_summary": {
+    "total_entities": 13,
+    "fully_enriched": 8,
+    "partially_enriched": 5,
+    "tool_calls_used": 8,
+    "tool_budget": 8,
+    "status": "partial_due_to_budget_constraint",
+    "note": "8 of 11 genes fully enriched with cross-references from HGNC. ABCC1, ABCC2, UGT1A6 genes and Doxorubicin/Disease entities require additional tool calls beyond budget."
+  }
+}

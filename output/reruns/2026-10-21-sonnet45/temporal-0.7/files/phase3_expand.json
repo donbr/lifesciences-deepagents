@@ -1,0 +1,352 @@
+{
+  "metadata": {
+    "phase": "EXPAND",
+    "date": "2026-10-21",
+    "query_context": "Minimizing doxorubicin toxicity while preserving anti-tumor efficacy for NF1",
+    "data_sources": ["BioGRID", "WikiPathways"],
+    "enriched_targets_analyzed": ["NF1", "ABCB1", "TOP2A", "TOP2B", "CBR1", "CBR3", "RARG"]
+  },
+  
+  "interactions": {
+    "NF1": {
+      "gene_symbol": "NF1",
+      "description": "Neurofibromin 1 - RAS-GAP tumor suppressor",
+      "biogrid_interaction_count": 215,
+      "key_ras_mapk_interactions": [
+        {
+          "partner": "HRAS",
+          "experimental_system": "Two-hybrid",
+          "relevance": "Direct RAS protein interaction - core GTPase activating function",
+          "pubmed_id": 8628317
+        },
+        {
+          "partner": "KRAS",
+          "experimental_system": "Synthetic Lethality",
+          "relevance": "Synthetic lethality suggests therapeutic targeting opportunity",
+          "pubmed_id": 19490893
+        },
+        {
+          "partner": "NRAS",
+          "experimental_system": "Reconstituted Complex",
+          "relevance": "Direct RAS protein interaction",
+          "pubmed_id": 7499408
+        },
+        {
+          "partner": "RAF1",
+          "experimental_system": "FRET",
+          "relevance": "MAPK pathway connection",
+          "pubmed_id": 28205554
+        },
+        {
+          "partner": "EGFR",
+          "experimental_system": "Positive Genetic",
+          "relevance": "Upstream growth factor signaling - potential combination target",
+          "pubmed_id": 31741433
+        },
+        {
+          "partner": "PTEN",
+          "experimental_system": "Positive Genetic",
+          "relevance": "Dual tumor suppressor genetic interaction",
+          "pubmed_id": 28319113
+        },
+        {
+          "partner": "TOP2A",
+          "experimental_system": "Synthetic Lethality",
+          "relevance": "NF1 loss sensitizes to TOP2A inhibition (doxorubicin target)",
+          "pubmed_id": 27453043
+        }
+      ],
+      "provenance": "biogrid_get_interactions(NF1)"
+    },
+    
+    "TOP2A": {
+      "gene_symbol": "TOP2A",
+      "description": "DNA topoisomerase II alpha - primary doxorubicin target",
+      "biogrid_interaction_count": 377,
+      "key_cancer_relevant_interactions": [
+        {
+          "partner": "TOP2B",
+          "experimental_system": "Reconstituted Complex",
+          "relevance": "TOP2A/TOP2B heterodimerization - differential toxicity mechanism",
+          "pubmed_id": 8710863
+        },
+        {
+          "partner": "TP53",
+          "experimental_system": "Affinity Capture-Western",
+          "relevance": "p53-mediated cell death response to TOP2A inhibition",
+          "pubmed_id": 10666337
+        },
+        {
+          "partner": "BRCA1",
+          "experimental_system": "Affinity Capture-Western",
+          "relevance": "DNA repair pathway connection",
+          "pubmed_id": 15965487
+        },
+        {
+          "partner": "HDAC1",
+          "experimental_system": "Affinity Capture-Western",
+          "relevance": "Chromatin remodeling regulation",
+          "pubmed_id": 11062478
+        },
+        {
+          "partner": "MYC",
+          "experimental_system": "Affinity Capture-MS",
+          "relevance": "Oncogenic driver interaction",
+          "pubmed_id": 17314511
+        },
+        {
+          "partner": "NF1",
+          "experimental_system": "Synthetic Lethality",
+          "relevance": "NF1 loss sensitizes to TOP2A inhibition",
+          "pubmed_id": 27453043
+        },
+        {
+          "partner": "CHEK1",
+          "experimental_system": "Synthetic Lethality",
+          "relevance": "DNA damage checkpoint interaction",
+          "pubmed_id": 27453043
+        },
+        {
+          "partner": "BRCA2",
+          "experimental_system": "Synthetic Lethality",
+          "relevance": "DNA repair pathway synthetic lethality",
+          "pubmed_id": 27453043
+        }
+      ],
+      "provenance": "biogrid_get_interactions(TOP2A)"
+    }
+  },
+  
+  "pathways": {
+    "nf1_tumor_pathways": [
+      {
+        "pathway_id": "WP:WP4223",
+        "pathway_name": "Ras signaling",
+        "organism": "Homo sapiens",
+        "gene": "NF1",
+        "description": "Ras proteins are small GTPases involved in transmitting signals within cells. Ras signaling controls many downstream processes, including cell proliferation, survival, growth",
+        "relevance": "Core NF1 tumor suppressor mechanism - loss drives hyperactive RAS signaling",
+        "provenance": "wikipathways_get_pathways_for_gene(NF1)"
+      },
+      {
+        "pathway_id": "WP:WP382",
+        "pathway_name": "MAPK signaling",
+        "organism": "Homo sapiens",
+        "gene": "NF1",
+        "description": "Mitogen-activated protein kinase cascade involved in cell proliferation, differentiation and migration",
+        "relevance": "Downstream effector of NF1 loss - drives tumor proliferation",
+        "provenance": "wikipathways_get_pathways_for_gene(NF1)"
+      },
+      {
+        "pathway_id": "WP:WP5366",
+        "pathway_name": "NF1 copy number variation syndrome",
+        "organism": "Homo sapiens",
+        "gene": "NF1",
+        "description": "NF1 deletion ranging from chr17: 29,100,000 to chr17: 30,280,000 can result in loss of up to 14 protein coding genes",
+        "relevance": "Disease-specific pathway for NF1 genetic alterations",
+        "provenance": "wikipathways_get_pathways_for_gene(NF1)"
+      },
+      {
+        "pathway_id": "WP:WP2261",
+        "pathway_name": "Glioblastoma signaling",
+        "organism": "Homo sapiens",
+        "gene": "NF1",
+        "description": "Most frequently altered genes in glioblastoma",
+        "relevance": "NF1 is a key driver in NF1-associated gliomas",
+        "provenance": "wikipathways_get_pathways_for_gene(NF1)"
+      },
+      {
+        "pathway_id": "WP:WP4685",
+        "pathway_name": "Melanoma",
+        "organism": "Homo sapiens",
+        "gene": "NF1",
+        "description": "Commonly mutated genes in melanoma including NF1",
+        "relevance": "NF1 is mutated in subset of melanomas",
+        "provenance": "wikipathways_get_pathways_for_gene(NF1)"
+      }
+    ],
+    
+    "doxorubicin_metabolism_pathways": [
+      {
+        "pathway_id": "WP:WP1604",
+        "pathway_name": "Codeine and morphine metabolism",
+        "organism": "Homo sapiens",
+        "gene": "ABCB1",
+        "description": "Principal pathways for drug metabolism in liver",
+        "relevance": "ABCB1 (P-gp) drug efflux pathway - reduces doxorubicin intracellular concentration",
+        "provenance": "wikipathways_get_pathways_for_gene(ABCB1)"
+      },
+      {
+        "pathway_id": "WP:WP2875",
+        "pathway_name": "Constitutive androstane receptor pathway",
+        "organism": "Homo sapiens",
+        "gene": "ABCB1",
+        "description": "CAR is a nuclear receptor and xenobiotic sensor regulating drug metabolism",
+        "relevance": "Nuclear receptor regulation of ABCB1 expression",
+        "provenance": "wikipathways_get_pathways_for_gene(ABCB1)"
+      },
+      {
+        "pathway_id": "WP:WP2876",
+        "pathway_name": "Pregnane X receptor pathway",
+        "organism": "Homo sapiens",
+        "gene": "ABCB1",
+        "description": "PXR primary function is sensing xenobiotics and regulating drug metabolism",
+        "relevance": "Nuclear receptor regulation of ABCB1 expression",
+        "provenance": "wikipathways_get_pathways_for_gene(ABCB1)"
+      },
+      {
+        "pathway_id": "WP:WP3672",
+        "pathway_name": "lncRNA-mediated mechanisms of therapeutic resistance",
+        "organism": "Homo sapiens",
+        "gene": "ABCB1",
+        "description": "Mechanisms of tumor cell resistance to chemotherapy involving lncRNA including drug transporters",
+        "relevance": "ABCB1-mediated multidrug resistance mechanism",
+        "provenance": "wikipathways_get_pathways_for_gene(ABCB1)"
+      },
+      {
+        "pathway_id": "WP:WP167",
+        "pathway_name": "Eicosanoid synthesis",
+        "organism": "Homo sapiens",
+        "gene": "CBR1",
+        "description": "Signaling molecules made by oxidation of fatty acids",
+        "relevance": "CBR1 oxidoreductase activity - converts doxorubicin to cardiotoxic doxorubicinol",
+        "provenance": "wikipathways_get_pathways_for_gene(CBR1)"
+      },
+      {
+        "pathway_id": "WP:WP2884",
+        "pathway_name": "NRF2 pathway",
+        "organism": "Homo sapiens",
+        "gene": "CBR1",
+        "description": "NRF2 activated under oxidative stress conditions and activates antioxidative genes",
+        "relevance": "Oxidative stress response - CBR1-mediated doxorubicinol generation causes oxidative damage",
+        "provenance": "wikipathways_get_pathways_for_gene(CBR1)"
+      }
+    ],
+    
+    "cardioprotection_pathways": [
+      {
+        "pathway_id": "WP:WP170",
+        "pathway_name": "Nuclear receptors",
+        "organism": "Homo sapiens",
+        "gene": "RARG",
+        "description": "Proteins responsible for sensing steroid and thyroid hormones",
+        "relevance": "RARG is a nuclear receptor potentially mediating cardioprotection",
+        "provenance": "wikipathways_get_pathways_for_gene(RARG)"
+      },
+      {
+        "pathway_id": "WP:WP299",
+        "pathway_name": "Nuclear receptors in lipid metabolism and toxicity",
+        "organism": "Homo sapiens",
+        "gene": "RARG",
+        "description": "Nuclear receptors activated upon binding ligands",
+        "relevance": "RARG signaling may protect against anthracycline cardiotoxicity",
+        "provenance": "wikipathways_get_pathways_for_gene(RARG)"
+      },
+      {
+        "pathway_id": "WP:WP716",
+        "pathway_name": "Vitamin A and carotenoid metabolism",
+        "organism": "Homo sapiens",
+        "gene": "RARG",
+        "description": "Retinoic acid metabolism and signaling",
+        "relevance": "Retinoic acid-RARG axis potential cardioprotective pathway",
+        "provenance": "wikipathways_get_pathways_for_gene(RARG)"
+      }
+    ],
+    
+    "cancer_cell_cycle_pathways": [
+      {
+        "pathway_id": "WP:WP2361",
+        "pathway_name": "Gastric cancer network 1",
+        "organism": "Homo sapiens",
+        "gene": "TOP2A",
+        "description": "Network of oncogenes and tumor suppressors",
+        "relevance": "TOP2A as proliferation marker and therapeutic target",
+        "provenance": "wikipathways_get_pathways_for_gene(TOP2A)"
+      },
+      {
+        "pathway_id": "WP:WP2446",
+        "pathway_name": "Retinoblastoma gene in cancer",
+        "organism": "Homo sapiens",
+        "gene": "TOP2A",
+        "description": "Role of retinoblastoma gene in cancer",
+        "relevance": "TOP2A regulated by RB pathway - cell cycle control",
+        "provenance": "wikipathways_get_pathways_for_gene(TOP2A)"
+      }
+    ]
+  },
+  
+  "candidate_targets": {
+    "description": "Proteins and pathways identified as candidate expansion nodes for drug traversal",
+    "therapeutic_hypotheses": [
+      {
+        "target": "NF1-KRAS synthetic lethality",
+        "rationale": "NF1 loss creates synthetic lethal dependency on KRAS; KRAS inhibitors may synergize with doxorubicin",
+        "evidence": "BioGRID synthetic lethality NF1-KRAS (PMID:19490893)"
+      },
+      {
+        "target": "TOP2A-NF1 synthetic lethality",
+        "rationale": "NF1-mutant tumors are hypersensitive to TOP2A inhibition (doxorubicin); lower doses may be effective",
+        "evidence": "BioGRID synthetic lethality TOP2A-NF1 (PMID:27453043)"
+      },
+      {
+        "target": "CBR1 inhibition",
+        "rationale": "CBR1 converts doxorubicin to cardiotoxic doxorubicinol; CBR1 inhibitors could reduce cardiotoxicity",
+        "evidence": "WikiPathways NRF2 oxidative stress pathway (CBR1)"
+      },
+      {
+        "target": "ABCB1 modulation",
+        "rationale": "ABCB1 efflux reduces doxorubicin in both tumor and cardiac cells; selective inhibition in tumor may enhance efficacy",
+        "evidence": "WikiPathways lncRNA therapeutic resistance (WP:WP3672)"
+      },
+      {
+        "target": "RARG agonism",
+        "rationale": "Retinoic acid receptor gamma activation may provide cardioprotection against doxorubicin",
+        "evidence": "WikiPathways nuclear receptors in toxicity (WP:WP299)"
+      },
+      {
+        "target": "RAS-MAPK pathway inhibitors",
+        "rationale": "Combined MAPK inhibition + doxorubicin may be synergistic in NF1-mutant tumors",
+        "evidence": "WikiPathways MAPK signaling (WP:WP382), Ras signaling (WP:WP4223)"
+      },
+      {
+        "target": "TOP2B selective sparing",
+        "rationale": "TOP2B mediates cardiotoxicity; TOP2A-selective inhibitors could preserve efficacy while reducing cardiotoxicity",
+        "evidence": "BioGRID TOP2A-TOP2B heterodimerization (PMID:8710863)"
+      }
+    ],
+    
+    "expansion_nodes": [
+      "KRAS",
+      "HRAS",
+      "NRAS",
+      "RAF1",
+      "EGFR",
+      "PTEN",
+      "TOP2B",
+      "TP53",
+      "BRCA1",
+      "BRCA2",
+      "CHEK1",
+      "CBR3",
+      "ABCC1",
+      "ABCC2",
+      "NRF2",
+      "HDAC1",
+      "MYC"
+    ]
+  },
+  
+  "summary": {
+    "total_interactions_retrieved": 592,
+    "total_pathways_retrieved": 40,
+    "key_findings": [
+      "NF1 shows synthetic lethality with both KRAS and TOP2A, suggesting NF1-mutant tumors are hypersensitive to doxorubicin",
+      "TOP2A and TOP2B heterodimerize, explaining differential toxicity: TOP2A (tumor) vs TOP2B (cardiac)",
+      "CBR1/CBR3 convert doxorubicin to cardiotoxic doxorubicinol via oxidoreductase activity",
+      "ABCB1 efflux reduces doxorubicin in both tumor and heart - complex therapeutic target",
+      "RARG nuclear receptor pathway may provide cardioprotection via retinoic acid signaling",
+      "NF1 loss drives hyperactive RAS-MAPK signaling - combination therapy opportunity",
+      "Multiple DNA damage response proteins interact with TOP2A (BRCA1, BRCA2, CHEK1, TP53)"
+    ]
+  }
+}

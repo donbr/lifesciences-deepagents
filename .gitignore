@@ -37,3 +37,4 @@ wheels/
 # fop-palovarotene-ui-validation.png
 
 .deepagents/large_tool_results/
+.deepagents/tmp/

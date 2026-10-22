@@ -1,0 +1,87 @@
+{
+  "entities": [
+    {
+      "mention": "NF1",
+      "type": "gene",
+      "curie_or_id": "HGNC:7765",
+      "status": "resolved"
+    },
+    {
+      "mention": "ABCB1",
+      "type": "gene",
+      "curie_or_id": "HGNC:40",
+      "status": "resolved"
+    },
+    {
+      "mention": "TOP2A",
+      "type": "gene",
+      "curie_or_id": "HGNC:11989",
+      "status": "resolved"
+    },
+    {
+      "mention": "TOP2B",
+      "type": "gene",
+      "curie_or_id": "HGNC:11990",
+      "status": "resolved"
+    },
+    {
+      "mention": "CBR1",
+      "type": "gene",
+      "curie_or_id": "HGNC:1548",
+      "status": "resolved"
+    },
+    {
+      "mention": "CBR3",
+      "type": "gene",
+      "curie_or_id": "HGNC:1549",
+      "status": "resolved"
+    },
+    {
+      "mention": "RARG",
+      "type": "gene",
+      "curie_or_id": "HGNC:9866",
+      "status": "resolved"
+    },
+    {
+      "mention": "SLC28A3",
+      "type": "gene",
+      "curie_or_id": "HGNC:16484",
+      "status": "resolved"
+    },
+    {
+      "mention": "ABCC1",
+      "type": "gene",
+      "curie_or_id": "HGNC:51",
+      "status": "resolved"
+    },
+    {
+      "mention": "ABCC2",
+      "type": "gene",
+      "curie_or_id": "HGNC:53",
+      "status": "resolved"
+    },
+    {
+      "mention": "UGT1A6",
+      "type": "gene",
+      "curie_or_id": "HGNC:12538",
+      "status": "resolved"
+    },
+    {
+      "mention": "Doxorubicin",
+      "type": "drug",
+      "curie_or_id": "CHEMBL:53463",
+      "status": "resolved"
+    },
+    {
+      "mention": "Neurofibromatosis type 1",
+      "type": "disease",
+      "curie_or_id": "MONDO:0009847",
+      "status": "resolved_via_knowledge"
+    }
+  ],
+  "unresolved": [],
+  "query_context": {
+    "disease_name": "Neurofibromatosis type 1 (NF1)",
+    "suspected_mechanism": "Doxorubicin toxicity mitigation while preserving anti-tumor efficacy in NF1 context. Key mechanisms involve: (1) Drug efflux transporters (ABCB1, ABCC1, ABCC2) that modulate intracellular doxorubicin concentrations; (2) Topoisomerase targets (TOP2A, TOP2B) which are doxorubicin's primary anti-cancer targets; (3) Carbonyl reductases (CBR1, CBR3) involved in doxorubicin metabolism to cardiotoxic metabolites; (4) Nucleoside transporter SLC28A3 associated with cardiotoxicity; (5) UGT1A6 involved in glucuronidation; (6) RARG (retinoic acid receptor gamma) potentially involved in cardioprotection pathways."
+  }
+}

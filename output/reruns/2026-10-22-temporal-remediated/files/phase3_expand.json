@@ -1,0 +1,941 @@
+{
+  "expansion_metadata": {
+    "phase": "PHASE_3_EXPAND",
+    "objective": "Discover biological connections (protein-protein interactions, pathways) linking genes/proteins that minimize doxorubicin toxicity while preserving anti-tumor efficacy in NF1",
+    "data_sources": [
+      "BioGRID v4.4+ (protein-protein interactions)",
+      "WikiPathways (pathway memberships)",
+      "STRING (planned but MCP interface errors)",
+      "Phase 2 enrichment data"
+    ],
+    "tool_calls_used": 7,
+    "tool_budget": 8,
+    "completion_status": "partial_ids_inferred_from_context"
+  },
+  "completed_gene_ids": [
+    {
+      "symbol": "CAT",
+      "hgnc_id": "HGNC:1516",
+      "ensembl_id": "ENSG00000121691",
+      "uniprot_id": "P04040",
+      "entrez_id": "847",
+      "name": "catalase",
+      "note": "IDs inferred from standard gene nomenclature databases; not directly queried due to STRING MCP errors"
+    },
+    {
+      "symbol": "GPX1",
+      "hgnc_id": "HGNC:4553",
+      "ensembl_id": "ENSG00000233276",
+      "uniprot_id": "P07203",
+      "entrez_id": "2876",
+      "name": "glutathione peroxidase 1",
+      "note": "IDs inferred from standard gene nomenclature databases; not directly queried due to STRING MCP errors"
+    }
+  ],
+  "protein_interactions": {
+    "summary": "BioGRID returned 196 high-confidence physical interactions for TOP2B, including key DNA damage response proteins, chromatin remodelers, transcription factors, and importantly TOP2A itself",
+    "data_source": "BioGRID:biogrid_get_interactions",
+    "query_gene": "TOP2B",
+    "total_interactions": 196,
+    "key_interaction_partners": [
+      {
+        "symbol": "TOP2A",
+        "entrez_gene": "7153",
+        "experimental_systems": [
+          "Reconstituted Complex",
+          "Co-fractionation",
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["8710863", "22939629", "35271311"],
+        "significance": "CRITICAL - Both TOP2A and TOP2B form physical complexes, suggesting coordinated regulation. Differential inhibition may be challenging but pathway-level regulation possible",
+        "mechanism_class": "toxicity_efficacy_interface"
+      },
+      {
+        "symbol": "TP53",
+        "entrez_gene": "7157",
+        "experimental_systems": [
+          "Affinity Capture-Western",
+          "Reconstituted Complex",
+          "Proximity Label-MS"
+        ],
+        "pubmed_ids": ["10666337", "34795231"],
+        "significance": "DNA damage checkpoint - TP53 activation by TOP2B-DNA complexes may contribute to cardiotoxicity apoptosis",
+        "mechanism_class": "toxicity_mediator"
+      },
+      {
+        "symbol": "HDAC1",
+        "entrez_gene": "3065",
+        "experimental_systems": [
+          "Affinity Capture-Western",
+          "Reconstituted Complex",
+          "Two-hybrid"
+        ],
+        "pubmed_ids": ["11062478", "11136718"],
+        "significance": "Chromatin remodeling - HDAC inhibitors shown to modulate TOP2 activity and doxorubicin sensitivity",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "HDAC2",
+        "entrez_gene": "3066",
+        "experimental_systems": [
+          "Affinity Capture-Western",
+          "Reconstituted Complex"
+        ],
+        "pubmed_ids": ["11062478"],
+        "significance": "Chromatin remodeling partner with HDAC1",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "PARP1",
+        "entrez_gene": "142",
+        "experimental_systems": [
+          "Affinity Capture-Western",
+          "Proximity Label-MS",
+          "Affinity Capture-MS",
+          "Co-fractionation"
+        ],
+        "pubmed_ids": ["16794079", "34079125", "35013556", "35271311", "35831314"],
+        "significance": "MAJOR - DNA damage response enzyme. PARP inhibitors synergize with doxorubicin in tumor cells but may increase cardiotoxicity. Key hub protein",
+        "mechanism_class": "toxicity_efficacy_hub"
+      },
+      {
+        "symbol": "BRCA1",
+        "entrez_gene": "672",
+        "experimental_systems": [
+          "Co-localization",
+          "Biochemical Activity"
+        ],
+        "pubmed_ids": ["34610268"],
+        "significance": "DNA repair - BRCA1 loss sensitizes to TOP2 poisons. Cardioprotective role via DNA repair maintenance",
+        "mechanism_class": "protective"
+      },
+      {
+        "symbol": "ATM",
+        "entrez_gene": "472",
+        "experimental_systems": [
+          "Affinity Capture-Western"
+        ],
+        "pubmed_ids": ["32015321"],
+        "significance": "Master DNA damage kinase - ATM activation by TOP2B-mediated DSBs triggers apoptosis in cardiomyocytes",
+        "mechanism_class": "toxicity_mediator"
+      },
+      {
+        "symbol": "MSH2",
+        "entrez_gene": "4436",
+        "experimental_systems": [
+          "Co-fractionation"
+        ],
+        "pubmed_ids": ["22939629"],
+        "significance": "Mismatch repair - may influence response to TOP2-induced DNA damage",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "XRCC6",
+        "entrez_gene": "2547",
+        "experimental_systems": [
+          "Proximity Label-MS",
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["30585729"],
+        "significance": "Ku70 - NHEJ pathway for DSB repair. Critical for survival following TOP2B-mediated breaks",
+        "mechanism_class": "protective"
+      },
+      {
+        "symbol": "FANCD2",
+        "entrez_gene": "2177",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["31180492"],
+        "significance": "Fanconi anemia pathway - crosslink repair and genomic stability",
+        "mechanism_class": "protective"
+      },
+      {
+        "symbol": "RAD18",
+        "entrez_gene": "56852",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["31076518"],
+        "significance": "DNA damage tolerance - translesion synthesis pathway",
+        "mechanism_class": "protective"
+      },
+      {
+        "symbol": "ERCC6",
+        "entrez_gene": "2074",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["26030138"],
+        "significance": "CSB protein - nucleotide excision repair and transcription-coupled repair",
+        "mechanism_class": "protective"
+      },
+      {
+        "symbol": "SMARCA2",
+        "entrez_gene": "6595",
+        "experimental_systems": [
+          "Co-fractionation"
+        ],
+        "pubmed_ids": ["22939629", "35831314"],
+        "significance": "BRM - SWI/SNF chromatin remodeling complex ATPase subunit",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "SMARCA4",
+        "entrez_gene": "6597",
+        "experimental_systems": [
+          "Co-fractionation"
+        ],
+        "pubmed_ids": ["22939629", "35831314"],
+        "significance": "BRG1 - SWI/SNF chromatin remodeling complex ATPase subunit, regulates accessibility",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "SMARCB1",
+        "entrez_gene": "6598",
+        "experimental_systems": [
+          "Co-fractionation"
+        ],
+        "pubmed_ids": ["22939629", "35831314"],
+        "significance": "BAF47/INI1 - core SWI/SNF subunit",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "SMARCC1",
+        "entrez_gene": "6599",
+        "experimental_systems": [
+          "Co-fractionation"
+        ],
+        "pubmed_ids": ["22939629", "35831314"],
+        "significance": "BAF155 - SWI/SNF subunit",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "SMARCC2",
+        "entrez_gene": "6601",
+        "experimental_systems": [
+          "Co-fractionation"
+        ],
+        "pubmed_ids": ["22939629", "35831314"],
+        "significance": "BAF170 - SWI/SNF subunit",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "SMARCE1",
+        "entrez_gene": "6605",
+        "experimental_systems": [
+          "Co-fractionation"
+        ],
+        "pubmed_ids": ["22939629", "35831314"],
+        "significance": "BAF57 - SWI/SNF subunit",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "CHD3",
+        "entrez_gene": "1107",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["28977666"],
+        "significance": "Mi-2α - NuRD complex chromatin remodeler",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "CHD4",
+        "entrez_gene": "1108",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["28977666", "32744500"],
+        "significance": "Mi-2β - NuRD complex chromatin remodeler",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "CTCF",
+        "entrez_gene": "10664",
+        "experimental_systems": [
+          "Affinity Capture-Western"
+        ],
+        "pubmed_ids": ["19450526"],
+        "significance": "CTCF - master chromatin organizer, regulates 3D genome architecture and TOP2 recruitment",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "ESR1",
+        "entrez_gene": "2099",
+        "experimental_systems": [
+          "Affinity Capture-Western",
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["16794079", "21182205"],
+        "significance": "Estrogen receptor α - hormone signaling may influence TOP2B expression and cardiotoxicity (sex differences)",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "MYC",
+        "entrez_gene": "4609",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["29467282"],
+        "significance": "MYC oncogene - drives TOP2A expression in tumors. Differential MYC activity between tumor/heart may enable selective targeting",
+        "mechanism_class": "efficacy_driver"
+      },
+      {
+        "symbol": "BRD4",
+        "entrez_gene": "23476",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["32416067", "30554943"],
+        "significance": "BET bromodomain protein - regulates transcription. BET inhibitors alter TOP2 expression",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "EZH2",
+        "entrez_gene": "2146",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["27634302"],
+        "significance": "Polycomb repressive complex 2 - histone methyltransferase, epigenetic regulator",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "EP300",
+        "entrez_gene": "2033",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["30110629"],
+        "significance": "p300 - histone acetyltransferase, transcriptional coactivator",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "SUMO1",
+        "entrez_gene": "7341",
+        "experimental_systems": [
+          "Two-hybrid"
+        ],
+        "pubmed_ids": ["10862613"],
+        "significance": "SUMOylation regulates TOP2B localization and activity",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "SUMO2",
+        "entrez_gene": "6613",
+        "experimental_systems": [
+          "Reconstituted Complex"
+        ],
+        "pubmed_ids": ["19394292"],
+        "significance": "SUMOylation pathway",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "UBE2I",
+        "entrez_gene": "7329",
+        "experimental_systems": [
+          "Two-hybrid",
+          "Reconstituted Complex",
+          "Affinity Capture-Western",
+          "Biochemical Activity"
+        ],
+        "pubmed_ids": ["10862613", "15561718"],
+        "significance": "UBC9 - SUMO E2 conjugating enzyme, critical for TOP2B SUMOylation",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "RNF4",
+        "entrez_gene": "6047",
+        "experimental_systems": [
+          "Affinity Capture-MS",
+          "Biochemical Activity"
+        ],
+        "pubmed_ids": ["29180619", "33188014"],
+        "significance": "SUMO-targeted ubiquitin ligase - regulates TOP2B degradation after DNA damage",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "PIAS4",
+        "entrez_gene": "51588",
+        "experimental_systems": [
+          "Affinity Capture-MS",
+          "Affinity Capture-Western",
+          "Biochemical Activity"
+        ],
+        "pubmed_ids": ["33188014", "33961781"],
+        "significance": "SUMO E3 ligase - regulates TOP2B SUMOylation and activity",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "FBXW7",
+        "entrez_gene": "55294",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["33658012"],
+        "significance": "F-box E3 ubiquitin ligase - degrades oncoproteins including MYC",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "BTRC",
+        "entrez_gene": "8945",
+        "experimental_systems": [
+          "Affinity Capture-Western"
+        ],
+        "pubmed_ids": ["32015321"],
+        "significance": "β-TrCP - SCF E3 ubiquitin ligase component, regulates TOP2B stability",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "SMC3",
+        "entrez_gene": "9126",
+        "experimental_systems": [
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["31010829"],
+        "significance": "Cohesin complex - sister chromatid cohesion, works with TOP2",
+        "mechanism_class": "modulator"
+      },
+      {
+        "symbol": "TOP1",
+        "entrez_gene": "7150",
+        "experimental_systems": [
+          "Co-fractionation",
+          "Affinity Capture-MS"
+        ],
+        "pubmed_ids": ["26344197", "35271311"],
+        "significance": "Topoisomerase I - alternative topoisomerase, compensatory upregulation possible",
+        "mechanism_class": "modulator"
+      }
+    ],
+    "interaction_network_summary": {
+      "hub_proteins": [
+        "PARP1 (DNA repair hub - 5 experimental systems)",
+        "TP53 (apoptosis hub - 3 experimental systems)",
+        "UBE2I/SUMO pathway (post-translational modification hub)",
+        "SWI/SNF complex (chromatin remodeling hub - 6+ subunits)",
+        "TOP2A (direct TOP2B paralog - 3 experimental systems)"
+      ],
+      "functional_clusters": [
+        {
+          "cluster": "DNA damage response",
+          "proteins": ["PARP1", "TP53", "ATM", "BRCA1", "XRCC6", "FANCD2", "RAD18", "ERCC6", "MSH2"],
+          "relevance": "Proteins mediating cell death response to TOP2B-DNA damage. ATM/TP53 axis drives cardiotoxicity apoptosis"
+        },
+        {
+          "cluster": "Chromatin remodeling",
+          "proteins": ["HDAC1", "HDAC2", "HDAC3", "SMARCA2", "SMARCA4", "SMARCB1", "SMARCC1", "SMARCC2", "SMARCE1", "CHD3", "CHD4", "CTCF", "BRD4", "EZH2", "EP300"],
+          "relevance": "Regulate chromatin accessibility and TOP2 recruitment. HDAC/BET inhibitors modulate doxorubicin sensitivity"
+        },
+        {
+          "cluster": "Ubiquitin/SUMO modification",
+          "proteins": ["SUMO1", "SUMO2", "UBE2I", "RNF4", "PIAS4", "FBXW7", "BTRC"],
+          "relevance": "Post-translational control of TOP2B stability, localization, and activity. Potential therapeutic targets"
+        },
+        {
+          "cluster": "Transcriptional regulation",
+          "proteins": ["ESR1", "MYC", "BRD4", "EZH2", "EP300"],
+          "relevance": "Control TOP2A/TOP2B expression levels. MYC drives TOP2A in tumors, tissue-specific regulators may enable selective modulation"
+        }
+      ]
+    }
+  },
+  "pathways": {
+    "summary": "WikiPathways identified 7 oxidative stress/antioxidant pathways for SOD2, 13 RAS/MAPK/cancer pathways for NF1, and 4 cancer-related pathways for TOP2A",
+    "data_source": "WikiPathways:wikipathways_get_pathways_for_gene",
+    "pathways_by_gene": {
+      "SOD2": [
+        {
+          "pathway_id": "WP:WP15",
+          "title": "Selenium micronutrient network",
+          "organism": "Homo sapiens",
+          "relevance": "SOD2 protective network - selenium-dependent antioxidant system. GPX1 (glutathione peroxidase) also in this pathway",
+          "mechanism_class": "protective_antioxidant"
+        },
+        {
+          "pathway_id": "WP:WP408",
+          "title": "Oxidative stress response",
+          "organism": "Homo sapiens",
+          "relevance": "CRITICAL - Core oxidative stress response pathway. Contains SOD2, CAT, GPX1, GST enzymes. Central to cardioprotection",
+          "mechanism_class": "protective_antioxidant",
+          "expected_members": ["SOD2", "CAT", "GPX1", "GSTP1", "GSTM1"]
+        },
+        {
+          "pathway_id": "WP:WP5477",
+          "title": "Molecular pathway for oxidative stress",
+          "organism": "Homo sapiens",
+          "relevance": "CRITICAL - Detailed ROS handling pathway. Likely contains antioxidant enzyme cascade: SOD2→CAT/GPX1",
+          "mechanism_class": "protective_antioxidant"
+        },
+        {
+          "pathway_id": "WP:WP176",
+          "title": "Folate metabolism",
+          "organism": "Homo sapiens",
+          "relevance": "One-carbon metabolism linked to oxidative stress via NADPH production for glutathione recycling",
+          "mechanism_class": "metabolic_support"
+        },
+        {
+          "pathway_id": "WP:WP1533",
+          "title": "Vitamin B12 metabolism",
+          "organism": "Homo sapiens",
+          "relevance": "Nutritional cofactor for methionine synthase, links to folate cycle",
+          "mechanism_class": "metabolic_support"
+        },
+        {
+          "pathway_id": "WP:WP3888",
+          "title": "VEGFA-VEGFR2 signaling",
+          "organism": "Homo sapiens",
+          "relevance": "Angiogenesis and endothelial function - ROS regulation in vasculature",
+          "mechanism_class": "vascular_protection"
+        },
+        {
+          "pathway_id": "WP:WP5318",
+          "title": "Female steroid hormones in cardiomyocyte energy metabolism",
+          "organism": "Homo sapiens",
+          "relevance": "Sex-specific cardioprotection - estrogen upregulates antioxidant enzymes including SOD2. May explain female protection from doxorubicin cardiotoxicity",
+          "mechanism_class": "cardioprotection_sex_specific"
+        }
+      ],
+      "NF1": [
+        {
+          "pathway_id": "WP:WP382",
+          "title": "MAPK signaling",
+          "organism": "Homo sapiens",
+          "relevance": "CRITICAL - NF1 loss causes hyperactive MAPK signaling. MAPK pathway influences both tumor drug sensitivity and cardiac stress responses",
+          "mechanism_class": "disease_driver"
+        },
+        {
+          "pathway_id": "WP:WP4223",
+          "title": "Ras signaling",
+          "organism": "Homo sapiens",
+          "relevance": "CRITICAL - NF1 is RAS-GAP. Hyperactive RAS may affect: (1) tumor anthracycline sensitivity, (2) cardiac mitochondrial function",
+          "mechanism_class": "disease_driver"
+        },
+        {
+          "pathway_id": "WP:WP5366",
+          "title": "NF1 copy number variation syndrome",
+          "organism": "Homo sapiens",
+          "relevance": "CRITICAL - NF1-specific pathway covering genomic deletions and duplications at chr17:29.1-30.28Mb affecting up to 14 genes",
+          "mechanism_class": "disease_specific"
+        },
+        {
+          "pathway_id": "WP:WP2253",
+          "title": "Pilocytic astrocytoma",
+          "organism": "Homo sapiens",
+          "relevance": "NF1-associated tumor - BRAF/MAPK activation. Illustrates tissue-specific oncogenic mechanisms",
+          "mechanism_class": "cancer_context"
+        },
+        {
+          "pathway_id": "WP:WP2261",
+          "title": "Glioblastoma signaling",
+          "organism": "Homo sapiens",
+          "relevance": "NF1 among frequently altered genes in glioblastoma",
+          "mechanism_class": "cancer_context"
+        },
+        {
+          "pathway_id": "WP:WP4806",
+          "title": "EGFR tyrosine kinase inhibitor resistance",
+          "organism": "Homo sapiens",
+          "relevance": "NF1 loss causes TKI resistance via RAS bypass signaling",
+          "mechanism_class": "therapy_resistance"
+        },
+        {
+          "pathway_id": "WP:WP4685",
+          "title": "Melanoma",
+          "organism": "Homo sapiens",
+          "relevance": "NF1 mutations in melanoma - MAPK activation and drug resistance",
+          "mechanism_class": "cancer_context"
+        },
+        {
+          "pathway_id": "WP:WP1984",
+          "title": "Integrated breast cancer pathway",
+          "organism": "Homo sapiens",
+          "relevance": "Breast cancer context where NF1 patients may receive doxorubicin",
+          "mechanism_class": "cancer_context"
+        },
+        {
+          "pathway_id": "WP:WP4549",
+          "title": "Fragile X syndrome",
+          "organism": "Homo sapiens",
+          "relevance": "mTOR/TSC pathway regulation - potential crosstalk with NF1/RAS signaling",
+          "mechanism_class": "pathway_crosstalk"
+        },
+        {
+          "pathway_id": "WP:WP4539",
+          "title": "Synaptic signaling associated with autism spectrum disorder",
+          "organism": "Homo sapiens",
+          "relevance": "mTOR activation - NF1 patients have neurological symptoms, mTOR is downstream of RAS",
+          "mechanism_class": "pathway_crosstalk"
+        },
+        {
+          "pathway_id": "WP:WP3584",
+          "title": "MECP2 and associated Rett syndrome",
+          "organism": "Homo sapiens",
+          "relevance": "Neurological development - NF1 context",
+          "mechanism_class": "neurological_context"
+        },
+        {
+          "pathway_id": "WP:WP2586",
+          "title": "Aryl hydrocarbon receptor response to main mediators PAH and TCDD",
+          "organism": "Homo sapiens",
+          "relevance": "Xenobiotic metabolism and detoxification - may influence anthracycline metabolism",
+          "mechanism_class": "detoxification"
+        },
+        {
+          "pathway_id": "WP:WP4533",
+          "title": "Transcription co-factors SKI and SKIL protein partners",
+          "organism": "Homo sapiens",
+          "relevance": "Transcriptional regulation context",
+          "mechanism_class": "transcription"
+        }
+      ],
+      "TOP2A": [
+        {
+          "pathway_id": "WP:WP2361",
+          "title": "Gastric cancer network 1",
+          "organism": "Homo sapiens",
+          "relevance": "Oncogene network - TOP2A as proliferation marker in cancer",
+          "mechanism_class": "cancer_context"
+        },
+        {
+          "pathway_id": "WP:WP2363",
+          "title": "Gastric cancer network 2",
+          "organism": "Homo sapiens",
+          "relevance": "Tumor suppressor/oncogene network",
+          "mechanism_class": "cancer_context"
+        },
+        {
+          "pathway_id": "WP:WP2446",
+          "title": "Retinoblastoma gene in cancer",
+          "organism": "Homo sapiens",
+          "relevance": "RB pathway - cell cycle regulation. TOP2A is E2F target gene, expressed in S/G2 phases",
+          "mechanism_class": "cell_cycle_regulation"
+        },
+        {
+          "pathway_id": "WP:WP3594",
+          "title": "Circadian rhythm genes",
+          "organism": "Homo sapiens",
+          "relevance": "Circadian regulation - TOP2A expression may be time-dependent. Chronotherapy implications for doxorubicin administration",
+          "mechanism_class": "temporal_regulation"
+        }
+      ],
+      "TOP2B": [],
+      "GSTM1": [],
+      "GSTP1": [],
+      "CBR1": [],
+      "ABCB1": [],
+      "CAT": [],
+      "GPX1": []
+    },
+    "pathway_crosstalk_analysis": {
+      "oxidative_stress_DNA_damage_axis": {
+        "description": "SOD2/CAT/GPX1 antioxidant pathway (WP:WP408, WP:WP5477) protects against doxorubicin-induced ROS. ROS damages DNA triggering TOP2B-DNA damage response (PARP1, ATM, TP53). Antioxidant upregulation reduces DNA damage burden",
+        "therapeutic_opportunity": "Enhance antioxidant pathway in cardiomyocytes via NRF2 activation or direct enzyme supplementation",
+        "evidence": "SOD2 overexpression cardioprotective in preclinical models"
+      },
+      "glutathione_detoxification_network": {
+        "description": "GSTM1/GSTP1 conjugate glutathione to doxorubicin metabolites and ROS-damaged lipids. Linked to oxidative stress pathway via glutathione recycling (folate/B12 pathways WP:WP176, WP:WP1533 provide NADPH)",
+        "therapeutic_opportunity": "Boost glutathione synthesis (NAC supplementation) or GST enzyme activity",
+        "evidence": "GSTM1-null genotype associated with increased cardiotoxicity in clinical studies"
+      },
+      "RAS_MAPK_tumor_specificity": {
+        "description": "NF1 loss causes hyperactive RAS/MAPK (WP:WP382, WP:WP4223). MAPK activity regulates: (1) TOP2A expression via MYC/E2F in tumors, (2) oxidative stress responses, (3) mitochondrial function. Differential pathway activity tumor vs. heart",
+        "therapeutic_opportunity": "MEK inhibitors may reduce tumor TOP2A expression while preserving cardiac function. Combined MEK inhibitor + doxorubicin may improve therapeutic index",
+        "evidence": "RAS-driven cancers often have high TOP2A expression and anthracycline sensitivity"
+      },
+      "chromatin_remodeling_accessibility": {
+        "description": "SWI/SNF complex (SMARCA2/4, SMARCB1, SMARCC1/2, SMARCE1) and HDAC1/2 regulate chromatin accessibility at TOP2 binding sites. Chromatin state differs between cardiomyocytes (post-mitotic, condensed) and tumor cells (proliferating, open)",
+        "therapeutic_opportunity": "HDAC inhibitors or BET inhibitors (BRD4) could modulate TOP2A/TOP2B expression tissue-specifically. May reduce TOP2B in heart while maintaining TOP2A in tumor",
+        "evidence": "BioGRID shows TOP2B interacts with HDAC1/2/3, SMARCA2/4, CHD3/4, BRD4. Epigenetic drugs in clinical trials for cancer"
+      },
+      "sumoylation_degradation_control": {
+        "description": "TOP2B is regulated by SUMOylation (SUMO1/2, UBE2I, PIAS4) and ubiquitin-mediated degradation (RNF4, BTRC). SUMO-ubiquitin crosstalk controls TOP2B protein levels post-DNA damage",
+        "therapeutic_opportunity": "Small molecules targeting SUMO or ubiquitin pathways could accelerate TOP2B degradation in cardiomyocytes after doxorubicin exposure, reducing sustained DNA damage",
+        "evidence": "RNF4 is SUMO-targeted ubiquitin ligase - degrades SUMOylated TOP2B. Upregulation could be cardioprotective"
+      },
+      "estrogen_sex_difference": {
+        "description": "Estrogen receptor ESR1 interacts with TOP2B. Female steroid hormones regulate cardiomyocyte energy metabolism and antioxidant enzymes (WP:WP5318). Estrogen upregulates SOD2 expression",
+        "therapeutic_opportunity": "Estrogen or selective ER modulators may provide cardioprotection in postmenopausal women receiving doxorubicin. Sex-stratified clinical trials needed",
+        "evidence": "Premenopausal women have lower cardiotoxicity rates than men or postmenopausal women"
+      }
+    }
+  },
+  "candidate_targets": {
+    "description": "Genes/proteins identified as high-priority therapeutic targets for selective cardioprotection while preserving anti-tumor efficacy",
+    "selection_criteria": [
+      "Hub position in interaction networks",
+      "Differential expression or activity between cardiomyocytes and tumor cells",
+      "Druggable protein class",
+      "Pathway position enabling selective intervention",
+      "Preclinical or clinical evidence of cardioprotection"
+    ],
+    "targets": [
+      {
+        "symbol": "TOP2B",
+        "priority": "HIGHEST",
+        "rationale": "Primary cardiotoxicity mediator. Direct TOP2B-selective inhibitors (dexrazoxane metabolites target both TOP2A/B but may have isoform selectivity) or TOP2B expression suppressors",
+        "druggability": "HIGH - existing topoisomerase inhibitors, developing isoform-selective compounds",
+        "approach": "Isoform-selective inhibition or cardiac-specific TOP2B suppression",
+        "risk": "Must preserve TOP2A for anti-tumor efficacy",
+        "provenance": "Phase 2 enrichment + BioGRID interactions"
+      },
+      {
+        "symbol": "CBR1",
+        "priority": "HIGH",
+        "rationale": "Converts doxorubicin to cardiotoxic doxorubicinol. CBR1 inhibition reduces cardiotoxicity without affecting tumor TOP2 poisoning",
+        "druggability": "MODERATE - small molecule enzyme inhibitors in development",
+        "approach": "CBR1 selective inhibitors co-administered with doxorubicin",
+        "risk": "Low - CBR1 not required for anti-tumor effect",
+        "provenance": "Phase 2 enrichment"
+      },
+      {
+        "symbol": "PARP1",
+        "priority": "HIGH",
+        "rationale": "DNA damage response hub (5 experimental systems). PARP inhibitors synergize with doxorubicin in tumors but may increase cardiotoxicity. Tissue-specific PARP modulation challenging but high impact",
+        "druggability": "VERY HIGH - multiple FDA-approved PARP inhibitors (olaparib, rucaparib, niraparib, talazoparib)",
+        "approach": "Careful dosing/scheduling of PARP inhibitors + doxorubicin, or cardiac-protective PARP activation",
+        "risk": "Biphasic - PARP inhibition potentiates tumor kill but may worsen cardiotoxicity",
+        "provenance": "BioGRID TOP2B interactions"
+      },
+      {
+        "symbol": "ATM",
+        "priority": "MODERATE-HIGH",
+        "rationale": "Master DNA damage kinase driving apoptosis. ATM inhibitors prevent TOP2B-mediated cardiotoxicity but may reduce tumor cell killing",
+        "druggability": "HIGH - ATM inhibitors in clinical trials (AZD0156, AZD1390)",
+        "approach": "Transient ATM inhibition during doxorubicin peak cardiac exposure",
+        "risk": "May reduce tumor response if not carefully timed",
+        "provenance": "BioGRID TOP2B interactions"
+      },
+      {
+        "symbol": "TP53",
+        "priority": "MODERATE",
+        "rationale": "Apoptosis hub downstream of TOP2B-DNA damage. TP53 inhibition cardioprotective but tumor cells often have mutant TP53 (enabling selective protection of TP53-WT heart)",
+        "druggability": "MODERATE - p53 modulators exist but challenging",
+        "approach": "Transient p53 inhibition in WT cardiomyocytes; tumors with p53 mutations unaffected",
+        "risk": "Timing critical to avoid protecting p53-WT tumor cells",
+        "provenance": "BioGRID TOP2B interactions"
+      },
+      {
+        "symbol": "NRF2_pathway",
+        "priority": "HIGH",
+        "rationale": "Master regulator of antioxidant response including SOD2, CAT, GPX1, GSTM1, GSTP1. NRF2 activators upregulate entire protective network",
+        "druggability": "MODERATE - NRF2 activators include bardoxolone, sulforaphane, dimethyl fumarate",
+        "approach": "NRF2 activation before/during doxorubicin to boost antioxidant capacity",
+        "risk": "May protect tumors if they retain NRF2 function",
+        "provenance": "WikiPathways WP:WP408, WP:WP5477 + Phase 2 gene enrichment"
+      },
+      {
+        "symbol": "SOD2",
+        "priority": "HIGH",
+        "rationale": "Mitochondrial antioxidant enzyme. SOD2 mimetics or gene therapy upregulation directly scavenges doxorubicin-induced superoxide",
+        "druggability": "MODERATE - SOD mimetics (MnTBAP, GC4419) in development",
+        "approach": "SOD mimetic co-administration or cardiac-targeted SOD2 gene therapy",
+        "risk": "Low - antioxidants generally cardioprotective without reducing tumor response",
+        "provenance": "Phase 2 enrichment + WikiPathways WP:WP408"
+      },
+      {
+        "symbol": "HDAC1/HDAC2",
+        "priority": "MODERATE-HIGH",
+        "rationale": "Chromatin remodelers physically interacting with TOP2B. HDAC inhibitors modulate TOP2 activity and expression. May enable tissue-specific TOP2B suppression",
+        "druggability": "VERY HIGH - multiple FDA-approved HDAC inhibitors (vorinostat, romidepsin, belinostat, panobinostat)",
+        "approach": "HDAC inhibitors to suppress cardiac TOP2B expression or modify chromatin accessibility",
+        "risk": "HDAC inhibitors have broad effects; isoform-selective HDACs preferred",
+        "provenance": "BioGRID TOP2B interactions (PMID:11062478, 11136718)"
+      },
+      {
+        "symbol": "BRD4",
+        "priority": "MODERATE",
+        "rationale": "BET bromodomain protein regulating transcription including TOP2A/B. BET inhibitors alter TOP2 expression",
+        "druggability": "HIGH - BET inhibitors in clinical trials (JQ1, OTX015, BMS-986158)",
+        "approach": "BET inhibition to suppress cardiac TOP2B while preserving tumor TOP2A",
+        "risk": "BET inhibitors have anti-tumor effects themselves; complex interaction with doxorubicin",
+        "provenance": "BioGRID TOP2B interactions (PMID:32416067, 30554943)"
+      },
+      {
+        "symbol": "MYC",
+        "priority": "MODERATE",
+        "rationale": "Drives TOP2A expression in tumors. MYC is hyperactive in RAS-driven NF1-associated cancers. MYC inhibition reduces TOP2A (reducing efficacy) but may spare heart",
+        "druggability": "LOW-MODERATE - MYC inhibitors challenging but OMO-103, MYCi361 in development",
+        "approach": "Tumor-specific context - unlikely to be cardioprotective but important for efficacy side",
+        "risk": "Would reduce anti-tumor efficacy",
+        "provenance": "BioGRID TOP2B interactions + NF1 pathway context"
+      },
+      {
+        "symbol": "RNF4",
+        "priority": "MODERATE",
+        "rationale": "SUMO-targeted ubiquitin ligase degrading TOP2B. RNF4 upregulation could accelerate TOP2B degradation in cardiomyocytes post-damage",
+        "druggability": "LOW - E3 ligase modulation challenging but emerging (PROTACs, molecular glues)",
+        "approach": "Enhance RNF4 activity to promote TOP2B degradation in heart",
+        "risk": "Timing important - need TOP2B degradation after doxorubicin clears",
+        "provenance": "BioGRID TOP2B interactions (PMID:29180619, 33188014)"
+      },
+      {
+        "symbol": "UBE2I",
+        "priority": "LOW-MODERATE",
+        "rationale": "SUMO E2 enzyme (UBC9) - critical for TOP2B SUMOylation which regulates activity. Modulation complex due to broad SUMO pathway effects",
+        "druggability": "LOW - SUMO pathway modulators limited",
+        "approach": "Research tool to understand SUMOylation contribution to cardiotoxicity",
+        "risk": "Broad pathway - many off-target effects",
+        "provenance": "BioGRID TOP2B interactions (PMID:10862613, 15561718)"
+      },
+      {
+        "symbol": "MEK1/MEK2",
+        "priority": "MODERATE-HIGH",
+        "rationale": "MAPK pathway kinases downstream of hyperactive RAS in NF1-deficient cells. MEK inhibitors reduce proliferation and TOP2A expression in tumors",
+        "druggability": "VERY HIGH - FDA-approved MEK inhibitors (trametinib, cobimetinib, binimetinib, selumetinib)",
+        "approach": "MEK inhibitor + doxorubicin combination for NF1-associated tumors. MEK inhibition may reduce cardiac MAPK stress responses too",
+        "risk": "Need to validate MEK inhibition doesn't reduce doxorubicin efficacy (may actually synergize in RAS-driven tumors)",
+        "provenance": "WikiPathways WP:WP382, WP:WP4223 + Phase 2 NF1 enrichment"
+      },
+      {
+        "symbol": "ESR1",
+        "priority": "MODERATE (female patients)",
+        "rationale": "Estrogen receptor regulates SOD2 and cardiac energy metabolism. Estrogen cardioprotective. Relevant for female NF1 patients",
+        "druggability": "VERY HIGH - selective estrogen receptor modulators (SERMs) FDA-approved",
+        "approach": "SERM co-administration to provide cardioprotection especially in postmenopausal women",
+        "risk": "Estrogen effects on hormone-sensitive tumors need consideration",
+        "provenance": "BioGRID TOP2B interactions + WikiPathways WP:WP5318"
+      },
+      {
+        "symbol": "GLUTATHIONE_SYNTHESIS",
+        "priority": "HIGH",
+        "rationale": "Glutathione is substrate for GST-mediated detoxification and GPX1 antioxidant function. Boosting glutathione supports both pathways",
+        "druggability": "HIGH - N-acetylcysteine (NAC) is FDA-approved glutathione precursor",
+        "approach": "NAC supplementation before/during doxorubicin treatment",
+        "risk": "Very low - NAC well-tolerated, some evidence of cardioprotection without reducing tumor response",
+        "provenance": "Phase 2 enrichment (GSTM1, GSTP1, GPX1) + WikiPathways WP:WP15, WP:WP408"
+      }
+    ]
+  },
+  "key_network_findings": {
+    "hub_genes": [
+      {
+        "symbol": "PARP1",
+        "interaction_count": "5+ experimental systems with TOP2B",
+        "hub_type": "DNA damage response coordinator",
+        "significance": "Central node linking TOP2B-DNA damage to cell fate decisions. Highly druggable"
+      },
+      {
+        "symbol": "TOP2A",
+        "interaction_count": "3 experimental systems with TOP2B (forms heterocomplexes)",
+        "hub_type": "Paralog interaction",
+        "significance": "CRITICAL - TOP2A and TOP2B physically interact, complicating selective inhibition strategies. Tissue-specific expression/regulation may be key"
+      },
+      {
+        "symbol": "SWI/SNF_complex",
+        "interaction_count": "6+ subunits co-fractionate with TOP2B",
+        "hub_type": "Chromatin remodeling master complex",
+        "significance": "Controls chromatin accessibility at TOP2 sites. Differential SWI/SNF composition in heart vs. tumor cells enables selective targeting"
+      },
+      {
+        "symbol": "SUMO_pathway",
+        "interaction_count": "UBE2I (4 systems), SUMO1, SUMO2, PIAS4, RNF4",
+        "hub_type": "Post-translational modification cascade",
+        "significance": "Regulates TOP2B stability and activity. SUMOylation-ubiquitination crosstalk controls protein degradation"
+      },
+      {
+        "symbol": "ATM/TP53_axis",
+        "interaction_count": "Multiple interactions, well-validated",
+        "hub_type": "Apoptosis decision hub",
+        "significance": "Mediates cell death response to TOP2B-DNA damage. Direct target for cardioprotection"
+      }
+    ],
+    "pathway_crosstalk_points": [
+      {
+        "crosstalk": "ROS_generation → DNA_damage → Apoptosis",
+        "nodes": "Doxorubicin redox cycling → SOD2/CAT/GPX1 overwhelmed → Mitochondrial ROS → DNA damage → TOP2B-DNA complexes → ATM → TP53 → Apoptosis",
+        "therapeutic_leverage": "Block at multiple points: (1) Boost antioxidants (SOD2, NAC), (2) Inhibit TOP2B, (3) Block ATM/TP53"
+      },
+      {
+        "crosstalk": "Chromatin_state → TOP2_recruitment → DNA_damage",
+        "nodes": "SWI/SNF + HDAC + BRD4 → Chromatin accessibility → TOP2B recruitment → DNA damage severity",
+        "therapeutic_leverage": "Modify chromatin to reduce TOP2B recruitment in cardiomyocytes: HDAC inhibitors or BET inhibitors"
+      },
+      {
+        "crosstalk": "Transcription → Protein_levels → Damage_susceptibility",
+        "nodes": "MYC/E2F → TOP2A expression (tumor) vs. constitutive TOP2B (heart) → Differential damage",
+        "therapeutic_leverage": "Exploit proliferation-dependent TOP2A in tumors vs. constitutive TOP2B in quiescent cardiomyocytes"
+      },
+      {
+        "crosstalk": "RAS/MAPK → Proliferation → TOP2A_expression",
+        "nodes": "NF1 loss → Hyperactive RAS → MAPK → MYC → TOP2A upregulation in tumors",
+        "therapeutic_leverage": "NF1-specific: MEK inhibitor + doxorubicin may reduce tumor TOP2A while sparing cardiac TOP2B"
+      },
+      {
+        "crosstalk": "Hormones → Antioxidants → Cardioprotection",
+        "nodes": "Estrogen → ESR1 → SOD2/antioxidant gene expression → ROS scavenging",
+        "therapeutic_leverage": "Sex-specific cardioprotection: SERMs for postmenopausal women receiving doxorubicin"
+      }
+    ],
+    "therapeutic_opportunities_for_selective_protection": [
+      {
+        "strategy": "Isoform-selective TOP2 inhibition",
+        "description": "Develop or repurpose TOP2B-selective inhibitors for cardiac protection while maintaining TOP2A-mediated tumor kill",
+        "feasibility": "MODERATE - chemical selectivity challenging but dexrazoxane shows isoform effects",
+        "evidence": "TOP2A/TOP2B have 70% sequence homology but distinct tissue expression; dexrazoxane cardioprotective"
+      },
+      {
+        "strategy": "Tissue-specific TOP2B suppression",
+        "description": "Use chromatin modifiers (HDAC inhibitors, BET inhibitors) to epigenetically suppress TOP2B in cardiomyocytes",
+        "feasibility": "MODERATE-HIGH - existing drugs, need cardiac delivery optimization",
+        "evidence": "BioGRID shows TOP2B interacts with HDAC1/2/3, BRD4, CHD3/4; these are druggable"
+      },
+      {
+        "strategy": "Multi-pathway antioxidant boost",
+        "description": "Activate NRF2 (master regulator) to upregulate SOD2, CAT, GPX1, GSTs simultaneously",
+        "feasibility": "HIGH - NRF2 activators available (bardoxolone, sulforaphane, DMF)",
+        "evidence": "WikiPathways WP:WP408, WP:WP5477 show coordinated antioxidant response"
+      },
+      {
+        "strategy": "Metabolic intervention - CBR1 inhibition",
+        "description": "Block doxorubicin → doxorubicinol conversion to prevent cardiotoxic metabolite formation",
+        "feasibility": "MODERATE - CBR1 inhibitors in development",
+        "evidence": "CBR1 polymorphisms associated with cardiotoxicity; knockout mice protected"
+      },
+      {
+        "strategy": "DNA damage checkpoint modulation",
+        "description": "Transiently inhibit ATM or p53 in cardiomyocytes during doxorubicin exposure to prevent apoptosis",
+        "feasibility": "MODERATE - ATM inhibitors in trials; timing critical",
+        "evidence": "ATM/p53 axis drives cardiomyocyte apoptosis; p53 often mutant in tumors (enabling selectivity)"
+      },
+      {
+        "strategy": "NF1-specific: MEK inhibition combination",
+        "description": "For NF1-associated tumors, combine MEK inhibitor with doxorubicin to reduce hyperactive MAPK-driven TOP2A expression",
+        "feasibility": "HIGH - FDA-approved MEK inhibitors available",
+        "evidence": "NF1 loss → RAS/MAPK hyperactivation → TOP2A upregulation. MEK inhibition may reduce both tumor burden and cardiac stress"
+      },
+      {
+        "strategy": "Glutathione augmentation",
+        "description": "NAC supplementation to boost glutathione for GST-mediated detoxification and GPX1 antioxidant activity",
+        "feasibility": "VERY HIGH - NAC FDA-approved, well-tolerated",
+        "evidence": "GSTM1-null genotype increases cardiotoxicity; glutathione required for GSTP1 and GPX1 function"
+      },
+      {
+        "strategy": "Post-translational TOP2B degradation",
+        "description": "Enhance SUMO-ubiquitin pathway (RNF4 activity) to accelerate TOP2B degradation after doxorubicin exposure",
+        "feasibility": "LOW - E3 ligase activation challenging but emerging field (molecular glues, PROTACs)",
+        "evidence": "RNF4 degrades SUMOylated TOP2B; enhanced degradation could limit sustained DNA damage in heart"
+      },
+      {
+        "strategy": "Sex hormone cardioprotection",
+        "description": "SERM co-administration in postmenopausal women to provide estrogen-like cardioprotection (SOD2 upregulation, metabolic support)",
+        "feasibility": "HIGH - SERMs FDA-approved, well-characterized",
+        "evidence": "Premenopausal women have lower cardiotoxicity; estrogen upregulates SOD2 and antioxidant enzymes"
+      }
+    ]
+  },
+  "limitations_and_notes": {
+    "missing_data": [
+      "STRING protein-protein interaction database not successfully queried due to MCP interface errors. Would provide scored interaction networks and functional enrichment",
+      "Direct pathway component queries (wikipathways_get_pathway_components) not performed due to tool budget - would show which genes co-occur in specific pathways",
+      "CAT and GPX1 Ensembl/UniProt IDs inferred from standard nomenclature rather than directly queried",
+      "No genetic interaction data from BioGRID (would require additional queries)",
+      "Reactome and KEGG pathway databases not queried (WikiPathways used as representative pathway source)"
+    ],
+    "tool_budget_status": "Used 7 of 8 allocated tool calls. Remaining 1 call reserved for error correction",
+    "data_quality": "High - BioGRID data comprehensive (196 TOP2B interactions), WikiPathways provided relevant oxidative stress and RAS/MAPK pathways",
+    "expansion_completeness": "GOOD - Achieved core objectives: (1) TOP2B interaction network mapped, (2) Key pathways identified for SOD2, NF1, TOP2A, (3) Hub proteins and crosstalk points identified, (4) Therapeutic targets prioritized",
+    "next_phase_readiness": "Data sufficient for PHASE 4 TRAVERSE - candidate targets identified with druggability assessment, mechanistic rationale, and pathway context"
+  }
+}
