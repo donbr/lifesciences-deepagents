@@ -25,7 +25,7 @@ FILESYSTEM_BACKEND = "lifesciences_fs"
 
 MODEL_ACTIVITY_OPTIONS: dict[str, Any] = {
     "start_to_close_timeout": timedelta(minutes=5),
-    # ~7.5 min of backoff (5, 10, 20, 40, then 60 s) before a model call fails:
+    # ~6 min of backoff across 10 attempts (5, 10, 20, 40, then 60 s x5) before a model call fails:
     # a sustained 429/529 must not end a 30-minute run. A retry-after header
     # from the provider overrides the interval.
     "retry_policy": RetryPolicy(

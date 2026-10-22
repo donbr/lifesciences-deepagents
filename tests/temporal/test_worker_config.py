@@ -55,7 +55,7 @@ def test_override_takes_effect_despite_langsmith_env_cache(monkeypatch):
 
 
 def test_model_retry_budget_outlasts_a_sustained_overload():
-    # ~7.5 minutes of backoff (5, 10, 20, 40, then 60s) before a model call fails.
+    # ~6 minutes of backoff across 10 attempts (5, 10, 20, 40, then 60s x5) before a model call fails.
     assert MODEL_ACTIVITY_OPTIONS == {
         "start_to_close_timeout": timedelta(minutes=5),
         "retry_policy": RetryPolicy(

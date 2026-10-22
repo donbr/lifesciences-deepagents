@@ -40,8 +40,9 @@ with workflow.unsafe.imports_passed_through():
 
 @dataclass
 class LoopLimits:
-    """Model-call caps. Observed in the 2026-10-21 runs: supervisor <= 21, any
-    one specialist invocation <= 29. Defaults leave roughly 2x headroom."""
+    """Model-call caps. Observed in the LangSmith traces of the 2026-10-21
+    LangGraph runs (run-1952, run-2043): supervisor <= 21, any one specialist
+    invocation <= 29. Defaults leave ~1.7-1.9x headroom."""
 
     supervisor_model_calls: int = 40
     subagent_model_calls: int = 50

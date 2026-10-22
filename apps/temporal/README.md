@@ -16,7 +16,7 @@ uv run python scripts/temporal_run_report.py <workflow-id> [--out DIR]   # cost/
 ```
 
 `start.py` sets no execution timeout: a run lasts until it completes or fails
-(one question is ~25 minutes and a few dollars). Terminate a stuck run with
+(one NF1 question took 21-32 minutes; ~$3.30 with prompt caching, ~$5.60 at list price). Terminate a stuck run with
 `temporal workflow terminate --workflow-id <id>`.
 
 ## Environment
@@ -27,14 +27,20 @@ uv run python scripts/temporal_run_report.py <workflow-id> [--out DIR]   # cost/
 | `TEMPORAL_PAYLOAD_S3_BUCKET` | unset (storage off) | Enables S3 External Storage for large payloads |
 | `TEMPORAL_PAYLOAD_S3_ENDPOINT` | unset (real AWS S3) | Custom S3 endpoint; localhost only (moto/minio) today |
 | `LIFESCIENCES_TEMPORAL_TRACE` | unset (tracing off) | `1` keeps LangSmith tracing on in the worker |
-| `LIFESCIENCES_RUNTIME_ROOT` | `<repo>/.deepagents` | Filesystem root for the agent's persistent files |
+| `LIFESCIENCES_RUNTIME_ROOT` | `<repo>/.deepagents` | Filesystem root for the agent's persistent files (read by the starter) |
+
+The worker and the starter load `.env`; `scripts/temporal_run_report.py` does not, so export
+`TEMPORAL_ADDRESS` and any `TEMPORAL_PAYLOAD_S3_*` settings in the shell before running it.
 
 ## Payload size and External Storage
 
 Storage is **off by default**, so Temporal's limits apply: 2 MB per payload and
 50 MB per workflow history. One NF1 question produced ~8.45 MB of history.
-Without storage, a tool result over 2 MB fails its activity and the agent gets
-an error message instead of the result.
+Without storage, a tool result over 2 MB cannot be recorded: the tool activity
+fails (TMPRL1103) and is retried, re-calling the service on each of its 3
+attempts. The exhausted failure then counts toward fail-fast like any other
+transient failure (see Tool errors), so repeated oversized results from one
+service can end the run.
 
 To turn it on:
 
@@ -43,7 +49,8 @@ To turn it on:
   the normal AWS credential chain. A custom `TEMPORAL_PAYLOAD_S3_ENDPOINT` is
   rejected unless it is on localhost.
 - The worker, the starter **and** the report script must all use the same
-  storage settings, or they cannot decode each other's payloads.
+  storage settings, or they cannot decode each other's payloads (the report
+  script reads them from the shell environment, not `.env`).
 - With storage on, the report script reads raw history payloads: for offloaded
   payloads, the sizes and fallback counts it shows are those of the stored
   references, not of the real content.
@@ -78,14 +85,17 @@ history and `scripts/temporal_run_report.py` are the record of a run. Set
   errors (usually a bad query from the agent) do not count; a success resets
   the count. `query_api_direct` is counted per URL host. See
   `tool_errors.py`.
-- `persist_to_graphiti` raises a permanent error when Graphiti is
-  unreachable (it used to return a success-like note); the graph stays in
-  `/workspace/`.
+- `persist_to_graphiti` raises a permanent error on any failure (not retried,
+  not counted toward fail-fast); the graph stays in `/workspace/`.
+- Known gap: an MCP response with `result.isError: true` is still treated as
+  a successful result, so those tool errors are not retried or counted.
 
 ## Model
 
 The model is the alias `anthropic:claude-sonnet-4-5`
-(`agent_factory.DEFAULT_MODEL`). Model activities retry up to 10 attempts
-(5 s initial, x2 backoff, 60 s cap; a provider `retry-after` overrides).
+(`agent_factory.DEFAULT_MODEL`). Model activities retry retryable provider
+errors only (HTTP 408/409/429/5xx), up to 10 attempts (5 s initial, x2 backoff,
+60 s cap; `retry-after`/`retry-after-ms` from the provider is honored). Any
+other model failure, or exhausting the retries, fails the run.
 **Sonnet 4.5 retires on 2026-11-30**: migrating to a newer model is an open
 follow-up.

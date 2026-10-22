@@ -5,6 +5,11 @@ Same question as `../2026-10-21-sonnet45/temporal-0.7/PROVENANCE.md` (default NF
 code as of `2cc381e`, the later commit only touches the report script and its test). Model `anthropic:claude-sonnet-4-5` (alias).
 Local dev server, namespace `default`, no payload offload (`TEMPORAL_PAYLOAD_S3_BUCKET` unset), LangSmith tracing off.
 
+**Note (added after the final review):** this run predates the final fix wave (`74959bd`..`fbf186c`): fail-fast now
+counts only retry-exhausted transient failures (the two permanent HTTP 400s below would no longer count), the model
+retry budget is 10 attempts, HTTP 408 is retryable, and `persist_to_graphiti` raises on failure. Those changes are
+covered by the offline test suite only, not by a real run.
+
 | Item | Value | temporal-0.7 |
 |---|---|---|
 | Workflow | `lifesciences-3c228875-1d5e-44d7-a218-014e7f928642` | `lifesciences-1b1b5d83-...` |
