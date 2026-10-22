@@ -188,6 +188,8 @@ yarn dev
 
 Open `http://localhost:3000`. Select the **lifesciences** assistant in UI Settings to begin.
 
+> **Temporal host (spike):** the same agent can run as a durable Temporal workflow; see [`apps/temporal/README.md`](apps/temporal/README.md).
+
 ---
 
 ## Example Walkthrough: Drug Repurposing for FOP
