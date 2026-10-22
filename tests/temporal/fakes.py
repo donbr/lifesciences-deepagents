@@ -20,6 +20,7 @@ from langchain_core.outputs import ChatGeneration, ChatResult
 @dataclass
 class FakeState:
     tool_calls: Counter = field(default_factory=Counter)
+    tool_args: list[tuple[str, dict]] = field(default_factory=list)
     tool_delay: float = 0.0
     # Per-tool scripted outcomes, consumed in order; an exception is raised,
     # a string is returned. Default (empty) is success.
@@ -34,6 +35,7 @@ FAKE_STATE = FakeState()
 
 def reset_fakes() -> None:
     FAKE_STATE.tool_calls.clear()
+    FAKE_STATE.tool_args.clear()
     FAKE_STATE.tool_delay = 0.0
     FAKE_STATE.tool_script.clear()
     FAKE_STATE.model_script.clear()
@@ -54,9 +56,9 @@ _FIRST_TASKS = {
     "string_loop": [
         _task("expansion_specialist", "Expand NF1. Use string_search_proteins."),
     ],
-    # traversal_drugs_specialist has no string_* tool, so it loops on ChEMBL.
+    # Both specialists have chembl_search_compounds: two branches, one service.
     "parallel": [
-        _task("expansion_specialist", "Expand NF1. Use string_search_proteins."),
+        _task("anchor_specialist", "Anchor NF1. Use chembl_search_compounds."),
         _task("traversal_drugs_specialist", "Drugs for NF1. Use chembl_search_compounds."),
     ],
 }
@@ -115,7 +117,8 @@ class PolicyModel(BaseChatModel):
             return AIMessage(content=f"{tool} succeeded")
         if len(results) >= MAX_LOOP_CALLS:
             return AIMessage(content=f"{tool} kept failing")
-        return _call(call_id, tool, {"query": "NF1"})
+        # The task text as query tells the branches apart in FAKE_STATE.tool_args.
+        return _call(call_id, tool, {"query": task})
 
     def _generate(self, messages, stop=None, run_manager=None, **kwargs) -> ChatResult:
         role, message = self._reply(messages)
@@ -139,6 +142,7 @@ class PolicyModel(BaseChatModel):
 
 async def fake_call_tool(tool_name: str, arguments: dict, apply_rate_limit: bool = True) -> str:
     FAKE_STATE.tool_calls[tool_name] += 1
+    FAKE_STATE.tool_args.append((tool_name, arguments))
     await asyncio.sleep(FAKE_STATE.tool_delay)
     script = FAKE_STATE.tool_script.get(tool_name)
     if script:

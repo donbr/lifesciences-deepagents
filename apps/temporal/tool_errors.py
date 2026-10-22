@@ -42,12 +42,26 @@ def service_for_tool(tool_name: str) -> str:
     return tool_name
 
 
-def _root_message(error: BaseException) -> str:
-    while error.__cause__ is not None:
-        error = error.__cause__
-    if isinstance(error, FailureError):
+def _failure_message(error: ActivityError) -> str:
+    """The text the agent should see for a failed tool activity.
+
+    Temporal keeps the whole ``__cause__`` chain, and ``MCPCallError`` is
+    raised ``from`` the underlying httpx/stdio error, so the deepest cause is
+    raw transport text. Use the first ``MCPCallError`` in the chain (the
+    curated message); failing that, the activity's own error.
+    """
+    causes: list[BaseException] = []
+    cause = error.__cause__
+    while cause is not None:
+        causes.append(cause)
+        cause = cause.__cause__
+    for cause in causes:
+        if isinstance(cause, ApplicationError) and cause.type == "MCPCallError":
+            return cause.message
+    if not causes:
         return error.message
-    return str(error)
+    first = causes[0]
+    return first.message if isinstance(first, FailureError) else str(first)
 
 
 class ToolFailureMiddleware(AgentMiddleware):
@@ -62,25 +76,44 @@ class ToolFailureMiddleware(AgentMiddleware):
         self.max_consecutive_failures = max_consecutive_failures
         self._failures: Counter[str] = Counter()
 
+    def _tripped(self, service: str) -> bool:
+        return self._failures[service] >= self.max_consecutive_failures
+
+    def _unavailable(self, service: str) -> ApplicationError:
+        # Always the limit, not the running count: parallel branches can add a
+        # failure after the limit in the same workflow task, and whichever
+        # branch's error reaches the workflow first must say the same thing.
+        return ApplicationError(
+            f"MCP service {service} unavailable after "
+            f"{self.max_consecutive_failures} consecutive failures",
+            type="MCPServiceUnavailable",
+            non_retryable=True,
+        )
+
+    def _before_call(self, request: ToolCallRequest) -> None:
+        # Once tripped, a service stays down for the rest of the run: no new
+        # calls to it, only the same error.
+        service = service_for_tool(request.tool_call["name"])
+        if self._tripped(service):
+            raise self._unavailable(service)
+
     def _on_result(self, request: ToolCallRequest, result: Any) -> None:
         # An error message here never reached the service (e.g. ToolNode
         # rejected the arguments), so it is not evidence the service is up.
-        if not (isinstance(result, ToolMessage) and result.status == "error"):
-            self._failures.pop(service_for_tool(request.tool_call["name"]), None)
+        if isinstance(result, ToolMessage) and result.status == "error":
+            return
+        service = service_for_tool(request.tool_call["name"])
+        if not self._tripped(service):
+            self._failures.pop(service, None)
 
     def _on_failure(self, request: ToolCallRequest, error: ActivityError) -> ToolMessage:
         name = request.tool_call["name"]
         service = service_for_tool(name)
         self._failures[service] += 1
-        failures = self._failures[service]
-        if failures >= self.max_consecutive_failures:
-            raise ApplicationError(
-                f"MCP service {service} unavailable after {failures} consecutive failures",
-                type="MCPServiceUnavailable",
-                non_retryable=True,
-            ) from error
+        if self._tripped(service):
+            raise self._unavailable(service) from error
         return ToolMessage(
-            content=f"Tool error ({name}): {_root_message(error)}",
+            content=f"Tool error ({name}): {_failure_message(error)}",
             name=name,
             tool_call_id=request.tool_call["id"],
             status="error",
@@ -95,6 +128,7 @@ class ToolFailureMiddleware(AgentMiddleware):
     def wrap_tool_call(
         self, request: ToolCallRequest, handler: Callable[[ToolCallRequest], Any]
     ) -> Any:
+        self._before_call(request)
         try:
             result = handler(request)
         except ActivityError as error:
@@ -109,6 +143,7 @@ class ToolFailureMiddleware(AgentMiddleware):
         request: ToolCallRequest,
         handler: Callable[[ToolCallRequest], Awaitable[Any]],
     ) -> Any:
+        self._before_call(request)
         try:
             result = await handler(request)
         except ActivityError as error:

@@ -6,6 +6,7 @@ wrapper -> deepagents.invoke_tool activity -> ToolFailureMiddleware.
 """
 
 import anthropic
+import httpx
 import httpx2
 import pytest
 from langchain_core.messages import ToolMessage
@@ -15,7 +16,7 @@ from temporalio.exceptions import ActivityError, ApplicationError, RetryState
 import apps.temporal  # noqa: F401  (puts apps/api on sys.path)
 from apps.temporal.tool_errors import ToolFailureMiddleware, service_for_tool
 from apps.temporal.workflow import LoopLimits
-from shared.mcp import MCPCallError
+from shared.mcp import HTTPMCPClient, MCPCallError
 
 from .conftest import run_agent
 from .fakes import FAKE_STATE, PolicyModel
@@ -68,6 +69,50 @@ async def test_permanent_error_reaches_agent_once(client):
     assert hist["WORKFLOW_TASK_FAILED"] == 0, hist
 
 
+async def _real_client_error(handler) -> MCPCallError:
+    """The exception the real HTTP client raises: chained ``from`` the httpx error."""
+    mcp_client = HTTPMCPClient("https://mcp.test/mcp", transport=httpx.MockTransport(handler))
+    with pytest.raises(MCPCallError) as err:
+        await mcp_client.call_tool("hgnc_search_genes", {"query": "NF1"}, apply_rate_limit=False)
+    assert isinstance(err.value.__cause__, httpx.HTTPError)
+    return err.value
+
+
+def _timeout(request):
+    raise httpx.ReadTimeout("timed out", request=request)
+
+
+@pytest.mark.parametrize(
+    "handler, attempts, curated",
+    [
+        pytest.param(
+            lambda r: httpx.Response(400, json={"detail": "query must be a gene symbol"}),
+            1,
+            'HTTP 400 from MCP tool hgnc_search_genes: {"detail":"query must be a gene symbol"}',
+            id="permanent",
+        ),
+        pytest.param(
+            _timeout,
+            3,
+            "ReadTimeout calling MCP tool hgnc_search_genes: timed out",
+            id="retryable-exhausted",
+        ),
+    ],
+)
+async def test_agent_sees_curated_text_of_chained_error(client, handler, attempts, curated):
+    """Temporal keeps the __cause__ chain; the agent must get the MCPCallError
+    text, not the httpx exception underneath it."""
+    FAKE_STATE.tool_script["hgnc_search_genes"] = [
+        await _real_client_error(handler) for _ in range(attempts)
+    ]
+    result, hist = await run_agent(client, "happy", LoopLimits())
+    assert result.answer.startswith("DONE"), result.answer
+    assert FAKE_STATE.tool_calls["hgnc_search_genes"] == attempts
+    assert _results_seen("hgnc_search_genes") == [
+        ("error", f"Tool error (hgnc_search_genes): {curated}")
+    ]
+
+
 async def test_dead_service_fails_fast(client):
     for tool in ("string_search_proteins", "string_get_interactions"):
         FAKE_STATE.tool_script[tool] = _permanent(10)
@@ -88,32 +133,41 @@ async def test_dead_service_fails_fast(client):
 
 
 async def test_parallel_failures_count_deterministically(client):
-    """Two specialists run in parallel and share one middleware instance.
+    """Two specialists fail on the same service in parallel; one shared count stops the run.
 
-    Every workflow task replays the full history (max_cached_workflows=0), so a
-    failure count that depended on anything but history would diverge on
-    replay and fail a workflow task with a nondeterminism error.
+    The supervisor runs anchor_specialist and traversal_drugs_specialist at
+    once; both loop on chembl_search_compounds, which always fails.
 
-    The one task failure allowed is UNHANDLED_COMMAND: when the workflow tries
-    to fail while the other branch's activity is completing, the server rejects
-    the completion and the worker replays with the new event. It is timing
-    dependent and says nothing about determinism.
+    Determinism rests on the WORKFLOW_TASK_FAILED cause assertion: every
+    workflow task replays the full history (max_cached_workflows=0), so a
+    count that depended on anything but history would fail a task with a
+    nondeterminism error. The only cause allowed is UNHANDLED_COMMAND: the
+    workflow tried to fail while the other branch's activity was completing,
+    and the worker replayed with the new event. That depends on timing and
+    says nothing about determinism.
+
+    Why the activity count is 3 or 4, not exactly 3: each branch has at most
+    one chembl call in flight. When the 3rd failure (from either branch) hits
+    the limit, the other branch may already have scheduled its next call, so
+    one extra activity can exist. It cannot add to the count: the run has
+    already failed. The 0.2s tool delay makes both branches' first calls
+    overlap, so both feed the one count.
     """
-    FAKE_STATE.tool_script["string_search_proteins"] = _permanent(10)
+    FAKE_STATE.tool_delay = 0.2
     FAKE_STATE.tool_script["chembl_search_compounds"] = _permanent(10)
     error, hist = await run_agent(client, "parallel", LoopLimits(), expect_failure=True)
     assert hist["WORKFLOW_TASK_FAILED"] == hist["WORKFLOW_TASK_FAILED.UNHANDLED_COMMAND"], hist
     assert error.type == "MCPServiceUnavailable"
-    assert error.message in {
-        "MCP service string unavailable after 3 consecutive failures",
-        "MCP service chembl unavailable after 3 consecutive failures",
-    }
-    dead_tool = "string_search_proteins" if " string " in error.message else "chembl_search_compounds"
-    assert FAKE_STATE.tool_calls[dead_tool] == 3, FAKE_STATE.tool_calls
-    assert set(FAKE_STATE.tool_calls) == {"string_search_proteins", "chembl_search_compounds"}
-    # Both specialists ran; neither service passed the limit.
-    assert all(1 <= n <= 3 for n in FAKE_STATE.tool_calls.values()), FAKE_STATE.tool_calls
-    assert hist["deepagents.invoke_tool"] == FAKE_STATE.tool_calls.total(), hist
+    assert error.message == "MCP service chembl unavailable after 3 consecutive failures"
+    assert set(FAKE_STATE.tool_calls) == {"chembl_search_compounds"}, FAKE_STATE.tool_calls
+    assert hist["deepagents.invoke_tool"] in (3, 4), hist
+    assert hist["deepagents.invoke_tool.extra_attempts"] == 0, hist
+    # Both branches contributed calls to the one chembl count.
+    queries = {args["query"] for _, args in FAKE_STATE.tool_args}
+    assert queries == {
+        "Anchor NF1. Use chembl_search_compounds.",
+        "Drugs for NF1. Use chembl_search_compounds.",
+    }, FAKE_STATE.tool_args
 
 
 async def test_failure_counts_survive_worker_restart(client):
@@ -226,6 +280,29 @@ async def test_middleware_fails_fast_per_service_and_resets_on_success():
     assert err.value.type == "MCPServiceUnavailable"
     assert err.value.non_retryable
     assert err.value.message == "MCP service string unavailable after 3 consecutive failures"
+
+
+async def test_middleware_stays_tripped_with_the_same_message():
+    """After the limit, a racing failure and any new call for the service raise
+    the same error; the handler of a new call never runs."""
+    middleware = ToolFailureMiddleware(max_consecutive_failures=2)
+    fail = _async(_failing(_activity_error()))
+    await middleware.awrap_tool_call(_request("chembl_get_compound"), fail)
+    messages = set()
+    for _ in range(2):  # the tripping failure, then one already in flight
+        with pytest.raises(ApplicationError) as err:
+            await middleware.awrap_tool_call(_request("chembl_get_compound"), fail)
+        messages.add(err.value.message)
+    assert messages == {"MCP service chembl unavailable after 2 consecutive failures"}
+
+    async def must_not_run(request):
+        raise AssertionError("a tripped service must not be called")
+
+    with pytest.raises(ApplicationError, match="chembl unavailable after 2"):
+        await middleware.awrap_tool_call(_request("chembl_search_compounds"), must_not_run)
+    # Other services are unaffected.
+    ok = await middleware.awrap_tool_call(_request("string_search_proteins"), _async(_ok))
+    assert ok.content == "ok"
 
 
 def test_middleware_sync_path_matches_async():
