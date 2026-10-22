@@ -22,6 +22,7 @@ with workflow.unsafe.imports_passed_through():
     from temporalio.deepagents import TemporalBackend, create_temporal_deep_agent
 
     from agent_factory import AgentConfig, build_lifesciences_agent
+    from apps.temporal.caching import TemporalAnthropicPromptCachingMiddleware
     from apps.temporal.durable import (
         BACKEND_ACTIVITY_OPTIONS,
         DURABLE_TOOLS,
@@ -63,7 +64,11 @@ def _text(content: Any) -> str:
 
 
 def _limit_middleware(limit: int) -> list[Any]:
-    return [ModelCallLimitMiddleware(run_limit=limit, exit_behavior="end")]
+    # One caching instance per agent: the supervisor and each specialist get their own.
+    return [
+        ModelCallLimitMiddleware(run_limit=limit, exit_behavior="end"),
+        TemporalAnthropicPromptCachingMiddleware(),
+    ]
 
 
 @workflow.defn(failure_exception_types=[GraphRecursionError])

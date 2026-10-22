@@ -75,14 +75,17 @@ async def run_agent(
     limits: LoopLimits,
     *,
     crash_after_tool_calls: int | None = None,
+    model_name: str | None = None,
 ) -> tuple[ResearchResult, Counter]:
     """Run the workflow to completion; return its result and history counts.
 
     With crash_after_tool_calls, the worker is shut down once that many real
-    tool calls have happened and a fresh worker finishes the run.
+    tool calls have happened and a fresh worker finishes the run. model_name
+    overrides the default ``anthropic:<mode>``; the fake provider parses the
+    mode from the part after ':'.
     """
     task_queue = f"lifesciences-test-{uuid.uuid4()}"
-    config = replace(resolve_agent_config(), model_name=f"fake:{mode}")
+    config = replace(resolve_agent_config(), model_name=model_name or f"anthropic:{mode}")
     request = ResearchInput(question="NF1 doxorubicin toxicity", config=config, limits=limits)
     if crash_after_tool_calls is None:
         async with _worker(client, task_queue):
