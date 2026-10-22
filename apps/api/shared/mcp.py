@@ -1,4 +1,4 @@
-from langchain_core.tools import tool
+from langchain_core.tools import ToolException, tool
 import httpx
 import json
 import logging
@@ -66,10 +66,26 @@ class RateLimiter:
 rate_limiter = RateLimiter()
 
 
+class MCPCallError(ToolException):
+    """A failed MCP or direct API call."""
+
+    def __init__(self, message: str, *, service: str, retryable: bool):
+        super().__init__(message)
+        self.service = service
+        self.retryable = retryable
+
+
 class HTTPMCPClient:
-    def __init__(self, base_url: str, timeout: float = 30.0, api_key: Optional[str] = None):
+    def __init__(
+        self,
+        base_url: str,
+        timeout: float = 30.0,
+        api_key: Optional[str] = None,
+        transport: Optional[httpx.AsyncBaseTransport] = None,
+    ):
         self.base_url = base_url
         self.timeout = timeout
+        self.transport = transport  # test seam (httpx.MockTransport)
         self.headers = {
             "Content-Type": "application/json",
             "Accept": "application/json, text/event-stream"
@@ -77,10 +93,17 @@ class HTTPMCPClient:
         if api_key:
             self.headers["Authorization"] = f"Bearer {api_key}"
 
-    async def call_tool(self, tool_name: str, arguments: dict, apply_rate_limit: bool = True):
-        # Apply rate limiting based on tool name
+    async def call_tool(
+        self, tool_name: str, arguments: dict, apply_rate_limit: bool = True
+    ) -> str:
+        """Call an MCP tool and return its text content.
+
+        Raises:
+            MCPCallError: on any failure; ``retryable`` says whether the same
+                call may succeed if repeated (see ``_http_error``).
+        """
+        service = rate_limiter.get_service_from_tool(tool_name)
         if apply_rate_limit:
-            service = rate_limiter.get_service_from_tool(tool_name)
             await rate_limiter.wait(service)
 
         payload = {
@@ -93,54 +116,90 @@ class HTTPMCPClient:
             "id": 1
         }
 
+        what = f"MCP tool {tool_name}"
         try:
             # Enable HTTP/2 as some servers (LangChain, FastMCP) prefer it
-            async with httpx.AsyncClient(http2=True, verify=True, timeout=self.timeout) as client:
+            async with httpx.AsyncClient(
+                http2=True, verify=True, timeout=self.timeout, transport=self.transport
+            ) as client:
                 response = await client.post(self.base_url, json=payload, headers=self.headers)
                 response.raise_for_status()
-
-                return self._parse_response(response.text)
-        except httpx.HTTPStatusError as e:
-            return f"HTTP Connection Error to MCP server: {e}"
+                return self._parse_response(response.text, service=service, what=what)
+        except MCPCallError:
+            raise
         except Exception as e:
-            return f"Error calling tool {tool_name}: {e}"
+            raise _http_error(e, service=service, what=what) from e
 
-    def _parse_response(self, text: str):
-        # Manual SSE Parsing attempt
+    def _parse_response(self, text: str, *, service: str, what: str) -> str:
+        """Extract text content from an SSE or plain JSON-RPC body.
+
+        A JSON-RPC ``error`` or a body with no recognizable result is a
+        permanent failure: repeating the same request returns the same body.
+        """
+        def content_of(data: Any) -> Optional[str]:
+            if not isinstance(data, dict):
+                return None
+            if "error" in data:
+                raise MCPCallError(
+                    f"Error from {what}: {data['error']}", service=service, retryable=False
+                )
+            result = data.get("result")
+            if isinstance(result, dict) and "content" in result:
+                return "\n".join(
+                    item.get("text", "")
+                    for item in result["content"]
+                    if item.get("type") == "text"
+                ).strip()
+            return None
+
         # The server might return "event: message\ndata: {...}" body even with json header
         for line in text.split('\n'):
             if line.startswith("data: "):
-                json_str = line[6:].strip()
                 try:
-                    data = json.loads(json_str)
-                    
-                    # Process the JSON-RPC response
-                    if "error" in data:
-                        return f"Error from MCP server: {data['error']}"
-                    
-                    if "result" in data and "content" in data["result"]:
-                        text_content = ""
-                        for item in data["result"]["content"]:
-                            if item.get("type") == "text":
-                                text_content += item.get("text", "") + "\n"
-                        return text_content.strip()
-                        
+                    data = json.loads(line[6:].strip())
                 except json.JSONDecodeError:
                     continue
-        
+                content = content_of(data)
+                if content is not None:
+                    return content
+
         # Fallback for standard JSON result
         try:
             data = json.loads(text)
-            if "result" in data and "content" in data["result"]:
-                text_content = ""
-                for item in data["result"]["content"]:
-                    if item.get("type") == "text":
-                        text_content += item.get("text", "") + "\n"
-                return text_content.strip()
-        except:
-            pass
+        except json.JSONDecodeError:
+            data = None
+        content = content_of(data)
+        if content is not None:
+            return content
 
-        return f"No valid content found in response. Raw response start: {text[:200]}"
+        raise MCPCallError(
+            f"No valid content found in response from {what}. Raw response start: {text[:200]}",
+            service=service,
+            retryable=False,
+        )
+
+
+def _http_error(exc: Exception, *, service: str, what: str) -> MCPCallError:
+    """Classify a failed HTTP call.
+
+    Transient (``retryable=True``): timeouts, transport errors, HTTP 429 and
+    5xx. Permanent: any other HTTP status and anything unexpected.
+    """
+    if isinstance(exc, httpx.HTTPStatusError):
+        status = exc.response.status_code
+        detail = exc.response.text[:500] or exc.response.reason_phrase
+        return MCPCallError(
+            f"HTTP {status} from {what}: {detail}",
+            service=service,
+            retryable=status == 429 or status >= 500,
+        )
+    if isinstance(exc, (httpx.TimeoutException, httpx.TransportError)):
+        return MCPCallError(
+            f"{type(exc).__name__} calling {what}: {exc}", service=service, retryable=True
+        )
+    return MCPCallError(
+        f"Error calling {what}: {type(exc).__name__}: {exc}", service=service, retryable=False
+    )
 
 
 class StdioMCPClient:
@@ -153,23 +212,33 @@ class StdioMCPClient:
         )
 
     async def call_tool(self, tool_name: str, arguments: dict) -> str:
+        """Call a tool on a freshly spawned stdio server.
+
+        Raises:
+            MCPCallError: ``retryable=True`` when the server process or session
+                fails (spawn, handshake, broken pipe).
+        """
         try:
             async with stdio_client(self.server_params) as (read, write):
                 async with ClientSession(read, write) as session:
                     await session.initialize()
                     result = await session.call_tool(tool_name, arguments)
-                    
-                    # Format result to string to match HTTP client output
-                    text_content = ""
-                    if hasattr(result, 'content'):
-                        for content in result.content:
-                            if hasattr(content, 'text'):
-                                text_content += content.text + "\n"
-                            elif getattr(content, 'type', '') == 'image':
-                                text_content += "[Image]\n"
-                    return text_content.strip()
         except Exception as e:
-            return f"Stdio Connection Error: {e}"
+            raise MCPCallError(
+                f"Stdio Connection Error calling {tool_name}: {type(e).__name__}: {e}",
+                service=rate_limiter.get_service_from_tool(tool_name),
+                retryable=True,
+            ) from e
+
+        # Format result to string to match HTTP client output
+        text_content = ""
+        if hasattr(result, 'content'):
+            for content in result.content:
+                if hasattr(content, 'text'):
+                    text_content += content.text + "\n"
+                elif getattr(content, 'type', '') == 'image':
+                    text_content += "[Image]\n"
+        return text_content.strip()
 
 # --- Docs-LangChain MCP ---
 DOCS_MCP_URL = "https://docs.langchain.com/mcp"
@@ -571,10 +640,12 @@ async def query_api_direct(
                 response = await client.get(url, headers=default_headers)
             response.raise_for_status()
             return response.text
-    except httpx.HTTPStatusError as e:
-        return f"HTTP Error {e.response.status_code}: {e}"
     except Exception as e:
-        return f"Error fetching {url}: {e}"
+        raise _http_error(
+            e,
+            service=rate_limiter.get_service_from_tool("query_api_direct"),
+            what=f"{method.upper()} {url}",
+        ) from e
 
 
 # --- Graphiti Persistence ---

@@ -160,9 +160,24 @@ SUBAGENT_PROMPTS = {
 SUBAGENT_ORDER = tuple(SUBAGENT_TOOL_NAMES)
 
 
-def all_tools() -> dict[str, Any]:
-    """Every tool any specialist can use, keyed by tool name."""
+def all_tools(*, errors_as_content: bool = True) -> dict[str, Any]:
+    """Every tool any specialist can use, keyed by tool name.
+
+    I/O tools raise ``mcp.MCPCallError`` (a ``ToolException``) when a call fails.
+
+    Args:
+        errors_as_content: True (LangGraph host): each I/O tool is a copy with
+            ``handle_tool_error=True``, so a failure reaches the agent as a
+            ``ToolMessage(status="error")`` instead of an exception. False
+            (Temporal host): the tools raise, so the activity fails and is
+            retried; the host turns the final failure into a message itself.
+    """
     tools = {name: getattr(mcp, name) for name in IO_TOOL_NAMES}
+    if errors_as_content:
+        tools = {
+            name: tool.model_copy(update={"handle_tool_error": True})
+            for name, tool in tools.items()
+        }
     tools["think_tool"] = think_tool
     return tools
 
