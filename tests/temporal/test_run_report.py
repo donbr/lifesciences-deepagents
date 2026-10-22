@@ -121,7 +121,12 @@ def test_sums_cache_tokens_and_prices_them():
                 result=_payloads({"message": {"kwargs": {"usage_metadata": {
                     "input_tokens": inp,
                     "output_tokens": out,
-                    "input_token_details": {"cache_read": read, "cache_creation": create},
+                    "input_token_details": (
+                        {"cache_read": read, "cache_creation": create}
+                        if i == 0
+                        # TTL-split form: cache_creation is 0, the write is in ephemeral_5m
+                        else {"cache_read": read, "cache_creation": 0, "ephemeral_5m_input_tokens": create}
+                    ),
                 }}}}),
             ),
         ))

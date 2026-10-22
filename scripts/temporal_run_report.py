@@ -151,7 +151,12 @@ class RunTally:
                         self.tokens_out += usage.get("output_tokens", 0)
                         details = usage.get("input_token_details") or {}
                         self.cache_read += details.get("cache_read", 0)
-                        self.cache_creation += details.get("cache_creation", 0)
+                        # Anthropic splits writes by TTL; LangChain then reports
+                        # cache_creation=0 and puts them in ephemeral_*_input_tokens.
+                        by_ttl = details.get("ephemeral_5m_input_tokens", 0) + details.get(
+                            "ephemeral_1h_input_tokens", 0
+                        )
+                        self.cache_creation += max(details.get("cache_creation", 0), by_ttl)
             elif name == INVOKE_TOOL and "error" in _find(body, "status"):
                 self.tool_error_results[tool] += 1
         elif e.event_type in (
