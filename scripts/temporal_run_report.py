@@ -41,6 +41,8 @@ INVOKE_TOOL = "deepagents.invoke_tool"
 INVOKE_MODEL = "deepagents.invoke_model"
 # Sonnet 4.5 list prices, USD per million tokens.
 PRICE_IN, PRICE_OUT = 3.0, 15.0
+# Prompt-cache prices: writes cost 1.25x input, reads 0.1x input.
+PRICE_CACHE_WRITE, PRICE_CACHE_READ = 3.75, 0.30
 
 
 def _payload_json(payloads: Any) -> list[Any]:
@@ -93,8 +95,30 @@ class RunTally:
     tool_error_results: Counter = field(default_factory=Counter)  # status="error" results
     tokens_in: int = 0
     tokens_out: int = 0
+    cache_read: int = 0  # subset of tokens_in served from the prompt cache
+    cache_creation: int = 0  # subset of tokens_in written to the prompt cache
     workflow_failure: str | None = None
     _scheduled: dict[int, tuple[str, str]] = field(default_factory=dict)
+
+    @property
+    def cache_read_share(self) -> float:
+        return self.cache_read / self.tokens_in if self.tokens_in else 0.0
+
+    @property
+    def list_cost(self) -> float:
+        """USD at list price, ignoring the cache."""
+        return self.tokens_in / 1e6 * PRICE_IN + self.tokens_out / 1e6 * PRICE_OUT
+
+    @property
+    def cache_aware_cost(self) -> float:
+        """USD with cache pricing. input_tokens already includes cached tokens."""
+        uncached = self.tokens_in - self.cache_read - self.cache_creation
+        return (
+            uncached * PRICE_IN
+            + self.cache_creation * PRICE_CACHE_WRITE
+            + self.cache_read * PRICE_CACHE_READ
+            + self.tokens_out * PRICE_OUT
+        ) / 1e6
 
     def add(self, e: HistoryEvent) -> None:
         self.events += 1
@@ -125,6 +149,9 @@ class RunTally:
                     if isinstance(usage, dict):
                         self.tokens_in += usage.get("input_tokens", 0)
                         self.tokens_out += usage.get("output_tokens", 0)
+                        details = usage.get("input_token_details") or {}
+                        self.cache_read += details.get("cache_read", 0)
+                        self.cache_creation += details.get("cache_creation", 0)
             elif name == INVOKE_TOOL and "error" in _find(body, "status"):
                 self.tool_error_results[tool] += 1
         elif e.event_type in (
@@ -177,8 +204,11 @@ async def main() -> None:
         print(f"history: {t.events} events, {t.history_bytes / 1e6:.2f} MB; largest payload {t.largest_payload / 1e3:.0f} KB")
         print(f"activities: {dict(t.activities)}")
         print(f"extra attempts: {dict(+t.extra_attempts)}  failed/timed out: {dict(t.failed)}")
-        cost = t.tokens_in / 1e6 * PRICE_IN + t.tokens_out / 1e6 * PRICE_OUT
-        print(f"tokens: in {t.tokens_in:,} out {t.tokens_out:,}  ~${cost:.2f} at list price, no cache discount")
+        print(f"tokens: in {t.tokens_in:,} out {t.tokens_out:,}  ~${t.list_cost:.2f} at list price, no cache discount (comparable to earlier runs)")
+        print(
+            f"cache: read {t.cache_read:,} ({t.cache_read_share:.1%} of input) "
+            f"creation {t.cache_creation:,}  cache-aware cost ~${t.cache_aware_cost:.2f}"
+        )
         print(f"MCP tool calls: {sum(t.tools.values())}  top: {t.tools.most_common(10)}")
         print(f"tool retried attempts: {dict(t.tool_retries)}")
         print(f"tool final failures (failed/timed out): {dict(t.tool_failures)}")

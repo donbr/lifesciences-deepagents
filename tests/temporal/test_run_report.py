@@ -98,3 +98,36 @@ def test_counts_completed_results_with_error_status():
     assert tally.tool_error_results == {"hgnc_search_genes": 1}
     assert tally.tool_failures == {}
     assert tally.tool_retries == {}
+
+
+def test_sums_cache_tokens_and_prices_them():
+    """input_tokens includes cached tokens; cost discounts reads and surcharges writes."""
+    tally = report.RunTally()
+    for i, (inp, out, read, create) in enumerate([(1000, 100, 0, 600), (1000, 50, 600, 200)]):
+        sid = 10 * i + 1
+        tally.add(HistoryEvent(
+            event_id=sid,
+            event_type=EventType.EVENT_TYPE_ACTIVITY_TASK_SCHEDULED,
+            activity_task_scheduled_event_attributes=ActivityTaskScheduledEventAttributes(
+                activity_type=ActivityType(name="deepagents.invoke_model"),
+                input=_payloads({}),
+            ),
+        ))
+        tally.add(HistoryEvent(
+            event_id=sid + 1,
+            event_type=EventType.EVENT_TYPE_ACTIVITY_TASK_COMPLETED,
+            activity_task_completed_event_attributes=ActivityTaskCompletedEventAttributes(
+                scheduled_event_id=sid,
+                result=_payloads({"message": {"kwargs": {"usage_metadata": {
+                    "input_tokens": inp,
+                    "output_tokens": out,
+                    "input_token_details": {"cache_read": read, "cache_creation": create},
+                }}}}),
+            ),
+        ))
+    assert (tally.tokens_in, tally.tokens_out) == (2000, 150)
+    assert (tally.cache_read, tally.cache_creation) == (600, 800)
+    assert tally.cache_read_share == pytest.approx(0.3)
+    # uncached 600 * 3 + 800 * 3.75 + 600 * 0.30 + 150 * 15, per million
+    assert tally.cache_aware_cost == pytest.approx((1800 + 3000 + 180 + 2250) / 1e6)
+    assert tally.list_cost == pytest.approx((6000 + 2250) / 1e6)
