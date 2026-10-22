@@ -1,6 +1,7 @@
 """Large tool results go to S3 External Storage, not workflow history.
 
-Needs the ``external-storage`` uv group (moto); skipped cleanly without it.
+Needs moto (dev group) and aioboto3 (``uv sync --group external-storage``);
+skipped cleanly without them.
 """
 
 import socket
@@ -11,9 +12,9 @@ from datetime import timedelta
 
 import pytest
 import pytest_asyncio
-boto3 = pytest.importorskip("boto3", reason="needs the external-storage uv group")
+boto3 = pytest.importorskip("boto3", reason="needs moto (dev uv group)")
 pytest.importorskip("aioboto3", reason="needs the external-storage uv group")
-moto_server = pytest.importorskip("moto.server", reason="needs the external-storage uv group")
+moto_server = pytest.importorskip("moto.server", reason="needs moto (dev uv group)")
 
 from temporalio.api.enums.v1 import EventType
 from temporalio.api.sdk.v1 import ExternalStorageReference
