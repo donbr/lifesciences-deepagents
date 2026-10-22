@@ -11,12 +11,14 @@ from datetime import timedelta
 from typing import Any
 
 from deepagents.backends import FilesystemBackend
-from langchain_core.tools import StructuredTool
+from langchain_core.tools import BaseTool, StructuredTool
 from temporalio.common import RetryPolicy
 from temporalio.deepagents import DeepAgentsPlugin, tool_as_activity
+from temporalio.exceptions import ApplicationError
 
 import apps.temporal  # noqa: F401  (puts apps/api on sys.path)
 from agent_factory import IO_TOOL_NAMES, all_tools
+from shared.mcp import MCPCallError
 
 FILESYSTEM_BACKEND = "lifesciences_fs"
 
@@ -26,6 +28,8 @@ MODEL_ACTIVITY_OPTIONS: dict[str, Any] = {
 }
 
 # ChEMBL calls use a 120s HTTP timeout in shared.mcp; leave headroom.
+# Retryable MCPCallErrors (timeouts, transport errors, 429, 5xx) use these
+# attempts; permanent ones fail the activity at once (see _raise_for_activity).
 TOOL_ACTIVITY_OPTIONS: dict[str, Any] = {
     "retry_policy": RetryPolicy(maximum_attempts=3, initial_interval=timedelta(seconds=2)),
 }
@@ -57,12 +61,39 @@ def _async_in_workflow(tool: StructuredTool) -> StructuredTool:
     )
 
 
+def _raise_for_activity(tool: BaseTool) -> StructuredTool:
+    """Same tool, but a permanent MCPCallError stops the activity's retries.
+
+    A retryable MCPCallError propagates unchanged and is retried per
+    ``TOOL_ACTIVITY_OPTIONS``. This copy is what ``tool_as_activity`` registers,
+    so it is the body the ``deepagents.invoke_tool`` activity runs.
+    """
+    coroutine = tool.coroutine
+
+    async def _arun(*args: Any, **kwargs: Any) -> Any:
+        try:
+            return await coroutine(*args, **kwargs)
+        except MCPCallError as e:
+            if e.retryable:
+                raise
+            raise ApplicationError(str(e), type="MCPCallError", non_retryable=True) from e
+
+    return StructuredTool(
+        name=tool.name,
+        description=tool.description,
+        args_schema=tool.args_schema,
+        coroutine=_arun,
+    )
+
+
 def _durable_tools() -> dict[str, Any]:
-    tools = all_tools()
+    # Tools raise on failure; ToolFailureMiddleware turns the activity's final
+    # failure into an error message for the agent.
+    tools = all_tools(errors_as_content=False)
     for name, tool in tools.items():
         if name in IO_TOOL_NAMES:
             tools[name] = tool_as_activity(
-                tool,
+                _raise_for_activity(tool),
                 start_to_close_timeout=TOOL_TIMEOUT,
                 activity_options=TOOL_ACTIVITY_OPTIONS,
             )

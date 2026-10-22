@@ -6,8 +6,9 @@ from datetime import timedelta
 
 import pytest
 import pytest_asyncio
-from temporalio.api.enums.v1 import EventType
-from temporalio.client import Client
+from temporalio.api.enums.v1 import EventType, WorkflowTaskFailedCause
+from temporalio.client import Client, WorkflowFailureError, WorkflowHandle
+from temporalio.exceptions import ApplicationError
 from temporalio.testing import WorkflowEnvironment
 from temporalio.worker import Worker
 
@@ -57,6 +58,8 @@ async def _history(handle) -> Counter:
             counts[f"{scheduled[attrs.scheduled_event_id]}.extra_attempts"] += attrs.attempt - 1
         elif e.event_type == EventType.EVENT_TYPE_WORKFLOW_TASK_FAILED:
             counts["WORKFLOW_TASK_FAILED"] += 1
+            cause = WorkflowTaskFailedCause.Name(e.workflow_task_failed_event_attributes.cause)
+            counts[f"WORKFLOW_TASK_FAILED.{cause.removeprefix('WORKFLOW_TASK_FAILED_CAUSE_')}"] += 1
     return counts
 
 
@@ -69,6 +72,15 @@ def _worker(client: Client, task_queue: str) -> Worker:
     )
 
 
+async def _outcome(handle: WorkflowHandle, expect_failure: bool) -> ResearchResult | ApplicationError:
+    if not expect_failure:
+        return await handle.result()
+    with pytest.raises(WorkflowFailureError) as failure:
+        await handle.result()
+    assert isinstance(failure.value.cause, ApplicationError), failure.value.cause
+    return failure.value.cause
+
+
 async def run_agent(
     client: Client,
     mode: str,
@@ -76,13 +88,15 @@ async def run_agent(
     *,
     crash_after_tool_calls: int | None = None,
     model_name: str | None = None,
-) -> tuple[ResearchResult, Counter]:
+    expect_failure: bool = False,
+) -> tuple[ResearchResult | ApplicationError, Counter]:
     """Run the workflow to completion; return its result and history counts.
 
     With crash_after_tool_calls, the worker is shut down once that many real
     tool calls have happened and a fresh worker finishes the run. model_name
     overrides the default ``anthropic:<mode>``; the fake provider parses the
-    mode from the part after ':'.
+    mode from the part after ':'. With expect_failure, the run must fail and
+    the ApplicationError that failed it is returned instead of a result.
     """
     task_queue = f"lifesciences-test-{uuid.uuid4()}"
     config = replace(resolve_agent_config(), model_name=model_name or f"anthropic:{mode}")
@@ -96,7 +110,7 @@ async def run_agent(
                 task_queue=task_queue,
                 execution_timeout=timedelta(seconds=60),
             )
-            result = await handle.result()
+            result = await _outcome(handle, expect_failure)
         return result, await _history(handle)
 
     FAKE_STATE.tool_delay = 0.3
@@ -109,11 +123,12 @@ async def run_agent(
         task_queue=task_queue,
         execution_timeout=timedelta(seconds=90),
     )
-    while sum(FAKE_STATE.tool_calls.values()) < crash_after_tool_calls:
-        await asyncio.sleep(0.05)
+    async with asyncio.timeout(30):  # the run may end before the crash point
+        while sum(FAKE_STATE.tool_calls.values()) < crash_after_tool_calls:
+            await asyncio.sleep(0.05)
     await first.shutdown()
     await running
     async with _worker(client, task_queue):
-        result = await handle.result()
+        result = await _outcome(handle, expect_failure)
     FAKE_STATE.tool_delay = 0.0
     return result, await _history(handle)
