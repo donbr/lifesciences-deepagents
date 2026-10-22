@@ -5,6 +5,8 @@ the full history and any nondeterminism in agent construction or middleware
 fails the run.
 """
 
+from deepagents.backends import FilesystemBackend
+
 from apps.temporal.workflow import LoopLimits
 
 from .conftest import run_agent
@@ -50,3 +52,22 @@ async def test_crash_does_not_repeat_completed_calls(client):
     assert hist["deepagents.invoke_tool.extra_attempts"] + hist[
         "deepagents.invoke_model.extra_attempts"
     ] <= 1, hist
+
+
+async def test_workspace_writes_land_in_agent_state(client, monkeypatch):
+    """/workspace/ writes (here by the supervisor) stay in agent state, not a backend activity."""
+    fs_writes: list[str] = []
+    for name in ("write", "awrite"):
+        original = getattr(FilesystemBackend, name)
+
+        def spy(self, file_path, *a, _o=original, **kw):
+            fs_writes.append(file_path)
+            return _o(self, file_path, *a, **kw)
+
+        monkeypatch.setattr(FilesystemBackend, name, spy)
+
+    result, hist = await run_agent(client, "happy", LoopLimits())
+    assert result.workspace_files["/workspace/graph.json"].startswith("{"), result.workspace_files
+    assert "/workspace/report.md" in result.workspace_files
+    assert not [p for p in fs_writes if "graph.json" in p or "report.md" in p], fs_writes
+    assert hist["deepagents.backend_op"] > 0  # AGENTS.md/skills reads still cross the boundary

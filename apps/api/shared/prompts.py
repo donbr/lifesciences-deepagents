@@ -9,6 +9,7 @@ Use this prompt only for phase-specific objective + output contract.
 Phase-local constraints:
 - Cite provenance for claims with tool names + key identifiers.
 - Tool budget: max 8 tool calls per specialist run.
+- Write all phase and output files under /workspace/ (absolute path).
 </shared_contract>"""
 
 
@@ -39,7 +40,7 @@ Note: query_api_direct is NOT available to this specialist. Use MCP tools only.
 3. Resolve drugs via chembl_search_compounds or pubchem_search_compounds.
 4. Use query_pubmed to find drug targets if the query involves drug mechanisms.
 5. Record unresolved entities explicitly.
-6. Write JSON to `workspace/phase1_anchor.json` using write_file.
+6. Write JSON to `/workspace/phase1_anchor.json` using write_file.
 7. If file persistence fails after one corrective attempt, return partial JSON and stop.
 </instructions>
 
@@ -67,10 +68,10 @@ Note: query_api_direct is NOT available to this specialist. Use MCP tools only.
 </tools>
 
 <instructions>
-1. Read `workspace/phase1_anchor.json`.
+1. Read `/workspace/phase1_anchor.json`.
 2. Enrich each resolved entity with cross IDs (HGNC <-> Ensembl <-> UniProt where available).
 3. For disease-linked targets, extract mechanism context (gain-of-function / loss-of-function / unknown).
-4. Write JSON to `workspace/phase2_enrich.json`.
+4. Write JSON to `/workspace/phase2_enrich.json`.
 5. If file persistence fails after one corrective attempt, return partial JSON and stop.
 </instructions>
 
@@ -96,11 +97,11 @@ Note: query_api_direct is NOT available to this specialist. Use MCP tools only.
 </tools>
 
 <instructions>
-1. Read `workspace/phase2_enrich.json`.
+1. Read `/workspace/phase2_enrich.json`.
 2. Resolve STRING IDs, then pull high-confidence interactions.
 3. Pull pathway memberships and components for top genes.
 4. Extract candidate expansion nodes for drug traversal.
-5. Write JSON to `workspace/phase3_expand.json`.
+5. Write JSON to `/workspace/phase3_expand.json`.
 6. If file persistence fails after one corrective attempt, return partial JSON and stop.
 </instructions>
 
@@ -130,13 +131,13 @@ Fallback: query_api_direct (for Open Targets GraphQL when ChEMBL returns 500 err
 </tools>
 
 <instructions>
-1. Read `workspace/phase2_enrich.json` and `workspace/phase3_expand.json`.
+1. Read `/workspace/phase2_enrich.json` and `/workspace/phase3_expand.json`.
 2. Apply disease mechanism filter strictly:
    - gain_of_function -> keep inhibitors/antagonists/blockers; exclude agonists/activators.
    - loss_of_function -> keep agonists/activators; exclude inhibitors.
    - unknown -> include both but mark uncertainty.
 3. Prefer drugs with higher clinical maturity when available.
-4. Write JSON to `workspace/phase4a_drugs.json`.
+4. Write JSON to `/workspace/phase4a_drugs.json`.
 5. If file persistence fails after one corrective attempt, return partial JSON and stop.
 </instructions>
 
@@ -162,10 +163,10 @@ Fallback: query_api_direct (for ClinicalTrials.gov v2 API direct access).
 </tools>
 
 <instructions>
-1. Read `workspace/phase4a_drugs.json` and disease context from prior phases.
+1. Read `/workspace/phase4a_drugs.json` and disease context from prior phases.
 2. Search by (drug + disease) and by disease-only when necessary.
 3. Normalize trial IDs to NCT format and keep status/phase fields.
-4. Write JSON to `workspace/phase4b_trials.json`.
+4. Write JSON to `/workspace/phase4b_trials.json`.
 5. If file persistence fails after one corrective attempt, return partial JSON and stop.
 </instructions>
 
@@ -189,11 +190,11 @@ Note: query_api_direct is NOT available to this specialist. Use MCP tools only.
 </tools>
 
 <instructions>
-1. Read `workspace/phase4a_drugs.json` and `workspace/phase4b_trials.json`.
+1. Read `/workspace/phase4a_drugs.json` and `/workspace/phase4b_trials.json`.
 2. Verify each NCT ID with clinicaltrials_get_trial.
 3. Validate drug-target/mechanism claims against tool evidence.
 4. Mark each claim as VALIDATED, INVALID, or UNVERIFIABLE.
-5. Write JSON to `workspace/phase5_validate.json`.
+5. Write JSON to `/workspace/phase5_validate.json`.
 6. If file persistence fails after one corrective attempt, return partial JSON and stop.
 </instructions>
 
@@ -216,16 +217,16 @@ Primary: persist_to_graphiti (optional)
 
 <instructions>
 1. Read phase files if present:
-   - workspace/phase1_anchor.json
-   - workspace/phase2_enrich.json
-   - workspace/phase3_expand.json
-   - workspace/phase4a_drugs.json
-   - workspace/phase4b_trials.json
-   - workspace/phase5_validate.json
+   - /workspace/phase1_anchor.json
+   - /workspace/phase2_enrich.json
+   - /workspace/phase3_expand.json
+   - /workspace/phase4a_drugs.json
+   - /workspace/phase4b_trials.json
+   - /workspace/phase5_validate.json
 2. Construct graph JSON with top-level keys: nodes, edges, metadata.
 3. Mandatory artifacts:
-   - write_file(path="workspace/graph.json", content=<valid json string>)
-   - write_file(path="workspace/report.md", content=<markdown report>)
+   - write_file(path="/workspace/graph.json", content=<valid json string>)
+   - write_file(path="/workspace/report.md", content=<markdown report>)
 4. If graph data is partial, still emit both artifacts with explicit caveats.
 5. Graphiti persistence is optional/best-effort:
    - call persist_to_graphiti only if graph is available.
@@ -236,7 +237,7 @@ Primary: persist_to_graphiti (optional)
 
 <output_contract>
 Return a concise summary containing:
-- artifact_paths: ["workspace/graph.json", "workspace/report.md"]
+- artifact_paths: ["/workspace/graph.json", "/workspace/report.md"]
 - node_edge_counts
 - key_validated_findings
 - known_gaps_or_warnings

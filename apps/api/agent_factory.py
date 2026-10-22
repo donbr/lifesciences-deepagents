@@ -40,7 +40,7 @@ from shared.prompts import (
     PERSIST_SYSTEM,
 )
 
-DEFAULT_MODEL = "anthropic:claude-sonnet-4-5-20250929"
+DEFAULT_MODEL = "anthropic:claude-sonnet-4-5"
 
 ALLOWED_LIFESCIENCES_SUBAGENTS = {
     "anchor_specialist",
@@ -305,6 +305,7 @@ DATA PASSING BETWEEN PHASES:
 
 IMPORTANT:
 - Do not skip phases. If a phase returns no results, note this and continue.
+- All phase and output files are written under /workspace/ (absolute path).
 - After all phases complete, relay the persistence_specialist's summary to the user.
 
 Today's date is {current_date}.

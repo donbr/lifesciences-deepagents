@@ -164,7 +164,13 @@ Decide before implementing; each choice has a structural test.
 
 - **6a. `write_todos`.** deepagents 0.7 no longer adds `TodoListMiddleware`; the 0.3 runs used it 36-41 times per run. Options: (A) leave it out (fewer calls, unknown quality effect); (B) add `TodoListMiddleware()` to the supervisor in `build_lifesciences_agent`. If B: `test_supervisor_has_write_todos` asserts `"write_todos"` is in the built agent's tool node (`agent.nodes["tools"].bound.tools_by_name`).
 - **6b. Output location.** The 0.7 run wrote to `/tmp/workspace/` (filesystem backend, on disk); 0.3 wrote to the `/workspace/` state route. Options: (A) make `/workspace/` explicit in `PERSIST_SYSTEM` and the supervisor prompt; (B) route `/tmp/` to `StateBackend` as well. Test either way: `test_persist_files_land_in_workspace_state` with a fake persistence specialist writing `/tmp/workspace/graph.json` and `/workspace/graph.json`, asserting where each lands.
-- [ ] **Step 1: Record decisions in this file. Step 2: TDD each chosen option as above. Step 3: Commit.**
+**Decisions (2026-10-21):**
+- **6a = A (leave `write_todos` out).** Rationale: it is the deepagents 0.7 default and means fewer model calls; revisit after Task 7. Guard: `test_supervisor_has_no_write_todos`.
+- **6b = A via absolute `/workspace/` prompt paths** (no backend routing change). Root cause: every path in `shared/prompts.py` was relative (`workspace/...`); 0.3 resolved these into the `/workspace/` state route, 0.7 made the model write `/tmp/workspace/...`, which fell through to the on-disk `FilesystemBackend`. Tests: `test_prompt_workspace_paths_are_absolute`, `test_workspace_writes_land_in_agent_state`.
+- **Model = alias `anthropic:claude-sonnet-4-5`** (same snapshot as `-20250929`; "latest stable 4.5").
+- **Follow-up:** migrate to `claude-sonnet-5-5` before 2026-11-30, when Sonnet 4.5 retires (anthropic SDK deprecation table).
+
+- [x] **Step 1: Record decisions in this file (above). Step 2: TDD each chosen option as above. Step 3: Commit.**
 
 ---
 

@@ -94,10 +94,16 @@ class PolicyModel(BaseChatModel):
                     for i, (name, args) in enumerate(tasks)
                 ])
             if not done["write_file"]:
-                return "supervisor", _call(call_id, "write_file", {
-                    "file_path": "/workspace/report.md",
-                    "content": "# NF1 report\nHGNC:7765",
-                })
+                return "supervisor", AIMessage(content="", tool_calls=[
+                    {"id": f"{call_id}-report", "name": "write_file", "args": {
+                        "file_path": "/workspace/report.md",
+                        "content": "# NF1 report\nHGNC:7765",
+                    }},
+                    {"id": f"{call_id}-graph", "name": "write_file", "args": {
+                        "file_path": "/workspace/graph.json",
+                        "content": '{"nodes": [], "edges": [], "metadata": {}}',
+                    }},
+                ])
             return "supervisor", AIMessage(content="DONE: report written to /workspace/report.md")
         if self.mode in _LOOP_MODES:
             return "subagent", self._loop_reply(messages, call_id)
