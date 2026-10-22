@@ -31,11 +31,13 @@ report = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(report)
 
 
-async def test_counts_retries_final_failures_and_workflow_failure(client):
-    """A real offline run: one retried attempt, three final failures, fail-fast."""
+async def test_counts_retries_final_failures_and_workflow_failure(client, fast_tool_retries):
+    """A real offline run: a retried call that ends in a permanent error (not
+    counted by fail-fast), then three calls that exhaust their 3 attempts."""
     FAKE_STATE.tool_script["string_search_proteins"] = [
         MCPCallError("HTTP 503 from MCP tool", service="string", retryable=True),
-        *[MCPCallError("HTTP 400 from MCP tool", service="string", retryable=False)] * 5,
+        MCPCallError("HTTP 400 from MCP tool", service="string", retryable=False),
+        *[MCPCallError("HTTP 503 from MCP tool", service="string", retryable=True)] * 9,
     ]
     task_queue = f"lifesciences-test-{uuid.uuid4()}"
     config = replace(resolve_agent_config(), model_name="anthropic:string_loop")
@@ -54,10 +56,10 @@ async def test_counts_retries_final_failures_and_workflow_failure(client):
     async for event in handle.fetch_history_events():
         tally.add(event)
 
-    assert tally.tools == {"string_search_proteins": 3}
-    assert tally.tool_retries == {"string_search_proteins": 1}
-    assert tally.tool_failures == {"string_search_proteins": 3}
-    assert tally.tool_failure_types == {"string_search_proteins: MCPCallError": 3}
+    assert tally.tools == {"string_search_proteins": 4}
+    assert tally.tool_retries == {"string_search_proteins": 1 + 3 * 2}
+    assert tally.tool_failures == {"string_search_proteins": 4}
+    assert tally.tool_failure_types == {"string_search_proteins: MCPCallError": 4}
     assert tally.tool_error_results == {}
     assert tally.workflow_failure == (
         "MCPServiceUnavailable: MCP service string unavailable after 3 consecutive failures"
