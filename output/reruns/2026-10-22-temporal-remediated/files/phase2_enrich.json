@@ -1,0 +1,284 @@
+{
+  "enriched_entities": [
+    {
+      "entity_type": "gene",
+      "symbol": "NF1",
+      "hgnc_id": "HGNC:7765",
+      "ensembl_id": "ENSG00000196712",
+      "uniprot_id": "P21359",
+      "entrez_id": "4763",
+      "name": "neurofibromin 1",
+      "location": "17q11.2",
+      "function": "RAS GTPase-activating protein; tumor suppressor; negative regulator of RAS/MAPK signaling",
+      "role_in_context": "Disease gene - loss-of-function mutations cause neurofibromatosis type 1; hyperactive RAS signaling may affect tumor response to chemotherapy",
+      "mechanism_class": "disease_driver",
+      "provenance": "hgnc_get_gene:HGNC:7765"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "TOP2B",
+      "hgnc_id": "HGNC:11990",
+      "ensembl_id": "ENSG00000077097",
+      "uniprot_id": "Q02880",
+      "entrez_id": "7155",
+      "name": "DNA topoisomerase II beta",
+      "location": "3p24.2",
+      "function": "Catalyzes ATP-dependent transient DNA double-strand breaks; essential for DNA replication, transcription, and chromosome segregation",
+      "role_in_context": "PRIMARY TOXICITY MEDIATOR - doxorubicin stabilizes TOP2B-DNA cleavage complexes in cardiomyocytes causing DNA damage and apoptosis leading to cardiotoxicity. Inhibiting TOP2B reduces cardiotoxicity but preserving TOP2A maintains anti-tumor efficacy",
+      "mechanism_class": "toxicity_mediator",
+      "provenance": "hgnc_get_gene:HGNC:11990",
+      "clinical_relevance": "TOP2B knockout or inhibition protects against doxorubicin cardiotoxicity in preclinical models"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "CBR1",
+      "hgnc_id": "HGNC:1548",
+      "ensembl_id": "ENSG00000159228",
+      "uniprot_id": "P16152",
+      "entrez_id": "873",
+      "name": "carbonyl reductase 1",
+      "location": "21q22.12",
+      "function": "NADPH-dependent oxidoreductase; metabolizes carbonyl compounds including anthracyclines",
+      "role_in_context": "TOXICITY MEDIATOR - converts doxorubicin to the more cardiotoxic metabolite doxorubicinol (C-13 alcohol); CBR1 inhibition may reduce cardiotoxicity",
+      "mechanism_class": "toxicity_mediator",
+      "provenance": "hgnc_get_gene:HGNC:1548",
+      "clinical_relevance": "CBR1 polymorphisms associated with variable doxorubicin cardiotoxicity risk"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "TOP2A",
+      "hgnc_id": "HGNC:11989",
+      "ensembl_id": "ENSG00000131747",
+      "uniprot_id": "P11388",
+      "entrez_id": "7153",
+      "name": "DNA topoisomerase II alpha",
+      "location": "17q21.2",
+      "function": "Catalyzes ATP-dependent transient DNA double-strand breaks; highly expressed in proliferating cells",
+      "role_in_context": "PRIMARY ANTI-TUMOR TARGET - doxorubicin stabilizes TOP2A-DNA cleavage complexes in rapidly dividing tumor cells causing DNA damage and apoptosis. Preserving TOP2A activity is essential for anti-tumor efficacy",
+      "mechanism_class": "efficacy_mediator",
+      "provenance": "hgnc_get_gene:HGNC:11989",
+      "clinical_relevance": "TOP2A expression correlates with anthracycline sensitivity in cancer"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "GSTM1",
+      "hgnc_id": "HGNC:4632",
+      "ensembl_id": "ENSG00000134184",
+      "uniprot_id": "P09488",
+      "entrez_id": "2944",
+      "name": "glutathione S-transferase mu 1",
+      "location": "1p13.3",
+      "function": "Phase II detoxification enzyme; conjugates glutathione to electrophilic compounds and reactive oxygen species",
+      "role_in_context": "PROTECTIVE - detoxifies doxorubicin-induced reactive intermediates and protects against oxidative stress. GSTM1 null genotype associated with increased doxorubicin toxicity risk",
+      "mechanism_class": "protective",
+      "provenance": "hgnc_get_gene:HGNC:4632",
+      "clinical_relevance": "Common GSTM1 deletion polymorphism affects detoxification capacity"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "GSTP1",
+      "hgnc_id": "HGNC:4638",
+      "ensembl_id": "ENSG00000084207",
+      "uniprot_id": "P09211",
+      "entrez_id": "2950",
+      "name": "glutathione S-transferase pi 1",
+      "location": "11q13.2",
+      "function": "Phase II detoxification enzyme; abundant in heart and other tissues; conjugates glutathione to xenobiotics and lipid peroxidation products",
+      "role_in_context": "PROTECTIVE - detoxifies doxorubicin and ROS-induced lipid peroxidation products. Upregulation provides cardioprotection",
+      "mechanism_class": "protective",
+      "provenance": "hgnc_get_gene:HGNC:4638",
+      "clinical_relevance": "GSTP1 polymorphisms may modulate doxorubicin toxicity"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "ABCB1",
+      "hgnc_id": "HGNC:40",
+      "ensembl_id": "ENSG00000085563",
+      "uniprot_id": "P08183",
+      "entrez_id": "5243",
+      "name": "ATP binding cassette subfamily B member 1",
+      "aliases": ["MDR1", "P-glycoprotein"],
+      "location": "7q21.12",
+      "function": "ATP-dependent efflux pump; exports hydrophobic compounds including chemotherapy drugs from cells",
+      "role_in_context": "DUAL ROLE - protects normal tissues by limiting doxorubicin accumulation (cardioprotective), but also causes tumor drug resistance. Tissue-specific modulation could reduce toxicity while preserving tumor drug levels",
+      "mechanism_class": "protective_with_resistance_risk",
+      "provenance": "hgnc_get_gene:HGNC:40",
+      "clinical_relevance": "ABCB1 polymorphisms and expression levels affect doxorubicin pharmacokinetics and toxicity"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "SOD2",
+      "hgnc_id": "HGNC:11180",
+      "ensembl_id": "ENSG00000291237",
+      "uniprot_id": "P04179",
+      "entrez_id": "6648",
+      "name": "superoxide dismutase 2",
+      "aliases": ["MnSOD"],
+      "location": "6q25.3",
+      "function": "Mitochondrial antioxidant enzyme; converts superoxide radicals to hydrogen peroxide and oxygen",
+      "role_in_context": "PROTECTIVE - primary mitochondrial antioxidant defense; protects against doxorubicin-induced mitochondrial ROS and oxidative damage. SOD2 upregulation is cardioprotective",
+      "mechanism_class": "protective",
+      "provenance": "hgnc_get_gene:HGNC:11180",
+      "clinical_relevance": "SOD2 polymorphisms and expression levels modulate doxorubicin cardiotoxicity"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "CAT",
+      "hgnc_id": "HGNC:1516",
+      "ensembl_id": "not_enriched",
+      "uniprot_id": "not_enriched",
+      "name": "catalase",
+      "function": "Antioxidant enzyme; converts hydrogen peroxide to water and oxygen",
+      "role_in_context": "PROTECTIVE - scavenges H2O2 produced by SOD2 and other sources; protects against oxidative stress",
+      "mechanism_class": "protective",
+      "provenance": "phase1_anchor:literature_context",
+      "note": "Not enriched due to tool budget; priority gene for Phase 3"
+    },
+    {
+      "entity_type": "gene",
+      "symbol": "GPX1",
+      "hgnc_id": "HGNC:4553",
+      "ensembl_id": "not_enriched",
+      "uniprot_id": "not_enriched",
+      "name": "glutathione peroxidase 1",
+      "function": "Selenium-dependent antioxidant enzyme; reduces H2O2 and lipid hydroperoxides using glutathione",
+      "role_in_context": "PROTECTIVE - complements SOD2 and CAT in ROS scavenging; protects against oxidative damage",
+      "mechanism_class": "protective",
+      "provenance": "phase1_anchor:literature_context",
+      "note": "Not enriched due to tool budget; priority gene for Phase 3"
+    },
+    {
+      "entity_type": "drug",
+      "name": "DOXORUBICIN",
+      "chembl_id": "CHEMBL:53463",
+      "pubchem_id": "PubChem:CID31703",
+      "description": "Anthracycline antibiotic; DNA intercalating agent and topoisomerase II poison",
+      "mechanisms": [
+        "Stabilizes TOP2A-DNA and TOP2B-DNA cleavage complexes causing DNA damage",
+        "Generates reactive oxygen species via redox cycling",
+        "Intercalates into DNA disrupting replication and transcription",
+        "Causes mitochondrial dysfunction"
+      ],
+      "primary_targets": [
+        {
+          "target": "TOP2A",
+          "uniprot": "P11388",
+          "role": "Primary anti-tumor target in proliferating cells"
+        },
+        {
+          "target": "TOP2B",
+          "uniprot": "Q02880",
+          "role": "Primary cardiotoxicity mediator in cardiomyocytes"
+        }
+      ],
+      "approved_indications": [
+        "Breast cancer",
+        "Ovarian cancer",
+        "Bladder cancer",
+        "Kaposi sarcoma",
+        "Hodgkin lymphoma",
+        "Non-Hodgkin lymphoma",
+        "Acute lymphoblastic leukemia",
+        "Acute myeloid leukemia",
+        "Wilms tumor",
+        "Neuroblastoma",
+        "Soft tissue sarcomas"
+      ],
+      "provenance": "phase1_anchor:chembl_search_compounds + literature_context",
+      "note": "ChEMBL API not called due to tool budget; using Phase 1 data"
+    },
+    {
+      "entity_type": "disease",
+      "name": "Neurofibromatosis type 1",
+      "mondo_id": "MONDO:0018975",
+      "omim_id": "OMIM:162200",
+      "description": "Autosomal dominant tumor predisposition syndrome caused by loss-of-function mutations in NF1 gene; characterized by café-au-lait spots, neurofibromas, optic pathway gliomas, and increased risk of malignant peripheral nerve sheath tumors and other cancers",
+      "primary_gene": {
+        "symbol": "NF1",
+        "hgnc_id": "HGNC:7765",
+        "ensembl_id": "ENSG00000196712",
+        "uniprot_id": "P21359"
+      },
+      "associated_cancers": [
+        "Malignant peripheral nerve sheath tumor (MPNST)",
+        "Optic pathway glioma",
+        "Juvenile myelomonocytic leukemia",
+        "Pheochromocytoma",
+        "Gastrointestinal stromal tumor"
+      ],
+      "standard_treatments": [
+        "Surgical resection of symptomatic neurofibromas and tumors",
+        "MEK inhibitors (selumetinib) for inoperable plexiform neurofibromas",
+        "Chemotherapy for malignant tumors (including doxorubicin-based regimens for MPNST)",
+        "Radiation therapy (limited use due to secondary malignancy risk)"
+      ],
+      "chemotherapy_considerations": "NF1 patients with MPNST often receive doxorubicin-based chemotherapy but may have altered drug sensitivity due to RAS/MAPK pathway dysregulation. Cardiotoxicity monitoring is critical",
+      "provenance": "phase1_anchor:domain_knowledge + literature_context"
+    }
+  ],
+  "disease_mechanism": "unknown",
+  "disease_mechanism_rationale": "NF1 is a tumor suppressor with loss-of-function mechanism causing disease. However, the question focuses on minimizing doxorubicin toxicity while preserving efficacy - this involves multiple genes with different mechanisms: TOP2B/CBR1 (toxicity mediators requiring inhibition/loss-of-function for protection), TOP2A (efficacy target requiring preservation), and antioxidant/detox genes (protective when upregulated/gain-of-function). The overall therapeutic strategy is context-dependent rather than single-mechanism",
+  "evidence": [
+    "hgnc_get_gene provided cross-database IDs (HGNC → Ensembl, UniProt, Entrez) for NF1, TOP2B, TOP2A, CBR1, GSTM1, GSTP1, ABCB1, SOD2",
+    "Phase 1 literature context (PMIDs from doxorubicin cardiotoxicity and NF1 treatment searches) informed mechanism classification",
+    "TOP2B mechanism: doxorubicin-TOP2B cleavage complexes cause cardiotoxicity (loss-of-function protective)",
+    "TOP2A mechanism: doxorubicin-TOP2A cleavage complexes mediate anti-tumor efficacy (preserve function)",
+    "CBR1 mechanism: metabolizes doxorubicin to cardiotoxic doxorubicinol (loss-of-function protective)",
+    "GST genes (GSTM1, GSTP1): detoxify doxorubicin metabolites and ROS (gain-of-function protective)",
+    "SOD2: scavenges mitochondrial superoxide from doxorubicin (gain-of-function protective)",
+    "ABCB1: efflux pump with dual protective/resistance role",
+    "CAT and GPX1 identified as priority antioxidant genes but not enriched (tool budget limit)"
+  ],
+  "cross_database_mapping": {
+    "genes_enriched": 8,
+    "genes_partial": 2,
+    "mapping_quality": "High - all enriched genes have HGNC → Ensembl + UniProt cross-references",
+    "phase3_ready": "Yes - sufficient cross-IDs for network expansion via STRING, BioGRID, OpenTargets, pathway databases"
+  },
+  "pathway_context": {
+    "toxicity_pathways": [
+      "TOP2B-mediated DNA damage in cardiomyocytes",
+      "CBR1-mediated conversion to cardiotoxic doxorubicinol",
+      "Mitochondrial ROS generation and oxidative stress",
+      "Lipid peroxidation and membrane damage"
+    ],
+    "protective_pathways": [
+      "Glutathione conjugation and detoxification (GSTM1, GSTP1)",
+      "Antioxidant defense (SOD2, CAT, GPX1)",
+      "Drug efflux (ABCB1)"
+    ],
+    "efficacy_pathway": [
+      "TOP2A-mediated DNA damage in proliferating tumor cells"
+    ]
+  },
+  "next_phase_priorities": {
+    "network_expansion_targets": [
+      "Protein-protein interactions involving TOP2B, TOP2A, CBR1",
+      "Glutathione metabolism pathway (GSTM1, GSTP1 network)",
+      "Antioxidant pathway (SOD2, CAT, GPX1 network)",
+      "RAS/MAPK pathway connections to NF1",
+      "Drug transporter interactions (ABCB1 network)"
+    ],
+    "missing_enrichments": [
+      "CAT (HGNC:1516) - needs Ensembl/UniProt IDs",
+      "GPX1 (HGNC:4553) - needs Ensembl/UniProt IDs",
+      "ChEMBL detailed compound data for DOXORUBICIN (CHEMBL:53463)",
+      "Open Targets disease associations for all genes"
+    ],
+    "mechanistic_questions_for_phase3": [
+      "What are the direct protein interactors of TOP2B vs TOP2A that could enable selective inhibition?",
+      "Which pathways/genes regulate CBR1 expression or activity?",
+      "What is the network topology connecting protective genes (GSTs, antioxidants)?",
+      "Are there NF1-RAS pathway connections that affect doxorubicin response?",
+      "What upstream regulators could coordinately upregulate protective genes?"
+    ]
+  },
+  "metadata": {
+    "phase": "PHASE2_ENRICH",
+    "timestamp": "2024",
+    "tool_calls_used": 8,
+    "tool_budget": 8,
+    "status": "complete",
+    "limitations": "CAT and GPX1 not fully enriched due to tool budget; ChEMBL API not queried; UniProt function descriptions synthesized from gene names and literature rather than API calls"
+  }
+}

@@ -1,0 +1,831 @@
+{
+  "phase": "PHASE_4a_TRAVERSE_DRUGS",
+  "objective": "Identify drugs targeting genes/pathways that minimize doxorubicin cardiotoxicity while preserving anti-tumor efficacy in NF1",
+  "disease_context": "Neurofibromatosis Type 1 (NF1) - loss of function tumor suppressor with hyperactive RAS/MAPK signaling in tumors",
+  "filtering_mode": "mechanism_based_cardioprotection",
+  "filtering_rationale": "Prioritized drugs that: (1) inhibit cardiotoxicity mediators (TOP2B, CBR1), (2) enhance antioxidant defenses (NRF2, SOD2, GSH), (3) exploit tumor-specific vulnerabilities (MEK hyperactivation in NF1), (4) modulate DNA damage responses differentially between heart and tumor",
+  
+  "data_sources": [
+    "ChEMBL (bardoxolone search: CHEMBL:1762621, CHEMBL:1093059)",
+    "Open Targets (MAP2K1/MEK target: CHEMBL3587, TOP2B target: CHEMBL3396)",
+    "Phase 2/3 enrichment data (clinical relevance annotations)",
+    "Note: ChEMBL API experienced timeouts - some drugs listed from established drug-target relationships pending verification"
+  ],
+  
+  "tool_calls_used": 8,
+  "tool_budget": 8,
+  "completion_status": "partial_with_verification_needed",
+  
+  "therapeutic_strategies": [
+    {
+      "strategy_name": "CARDIOPROTECTION_VIA_TOP2B_INHIBITION",
+      "mechanism": "Selectively inhibit TOP2B in cardiomyocytes to prevent doxorubicin-induced DNA damage and apoptosis, while preserving TOP2A activity in tumor cells for anti-cancer efficacy",
+      "priority": "HIGHEST",
+      "feasibility": "MODERATE",
+      "rationale": "TOP2B is the primary mediator of doxorubicin cardiotoxicity. Isoform-selective inhibition could provide cardioprotection without compromising tumor response. Challenge: TOP2A and TOP2B share high sequence similarity.",
+      "drugs": [
+        {
+          "name": "Dexrazoxane",
+          "ids": {
+            "chembl": "CHEMBL1388 (requires verification)",
+            "drugbank": "DB06861",
+            "mesh": "D064730"
+          },
+          "mechanism": "Iron chelator that prevents formation of TOP2-DNA cleavage complexes; reduces doxorubicin cardiotoxicity via TOP2B pathway inhibition",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Non-selective TOP2 inhibitor - affects both TOP2A and TOP2B. May reduce tumor efficacy at high doses.",
+          "clinical_status": "FDA approved for prevention of anthracycline cardiotoxicity in adults with metastatic breast cancer",
+          "nf1_relevance": "Could be used prophylactically in NF1 patients requiring doxorubicin for MPNST or other tumors",
+          "evidence_level": "HIGH - Multiple clinical trials demonstrate cardioprotection",
+          "target": "TOP2B",
+          "strategy_fit": "CARDIOPROTECT"
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "name": "Etoposide",
+          "reason": "TOP2 poison that stabilizes TOP2-DNA complexes (opposite mechanism needed); would increase cardiotoxicity"
+        },
+        {
+          "name": "Mitoxantrone",
+          "reason": "TOP2 poison with known cardiotoxicity; contraindicated for cardioprotection strategy"
+        }
+      ]
+    },
+    
+    {
+      "strategy_name": "CARDIOPROTECTION_VIA_CBR1_INHIBITION",
+      "mechanism": "Block carbonyl reductase 1 to prevent conversion of doxorubicin to the more cardiotoxic metabolite doxorubicinol",
+      "priority": "HIGH",
+      "feasibility": "LOW",
+      "rationale": "CBR1 inhibition shown to reduce doxorubicinol formation in preclinical models. No FDA-approved selective CBR1 inhibitors currently available.",
+      "drugs": [
+        {
+          "name": "Quercetin",
+          "ids": {
+            "pubchem": "CID:5280343",
+            "chembl": "CHEMBL50 (requires verification)"
+          },
+          "mechanism": "Flavonoid with weak CBR1 inhibitory activity; also has antioxidant properties",
+          "phase": "Dietary supplement (not FDA approved as drug)",
+          "selectivity": "Non-selective; inhibits multiple reductases and has broad polyphenol activities",
+          "clinical_status": "Available as nutritional supplement; limited clinical trial data for cardioprotection",
+          "nf1_relevance": "Low risk adjunct therapy but limited potency for CBR1 inhibition",
+          "evidence_level": "LOW - Preclinical data only for CBR1 inhibition",
+          "target": "CBR1",
+          "strategy_fit": "CARDIOPROTECT"
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "name": "Specific CBR1 inhibitors",
+          "reason": "No FDA-approved or clinically advanced selective CBR1 inhibitors identified. This remains a drug development opportunity."
+        }
+      ]
+    },
+    
+    {
+      "strategy_name": "CARDIOPROTECTION_VIA_NRF2_ACTIVATION",
+      "mechanism": "Activate NRF2 transcription factor to upregulate antioxidant genes (SOD2, CAT, GPX1, GSTs) that protect against doxorubicin-induced oxidative stress",
+      "priority": "HIGHEST",
+      "feasibility": "HIGH",
+      "rationale": "NRF2 is master regulator of antioxidant response. Multiple drugs target this pathway. Activation protects heart without interfering with tumor TOP2 targeting.",
+      "drugs": [
+        {
+          "name": "Bardoxolone methyl",
+          "ids": {
+            "chembl": "CHEMBL:1762621",
+            "pubchem": "CID:9820755"
+          },
+          "mechanism": "Potent NRF2 activator via KEAP1 inhibition; induces antioxidant response element (ARE)-driven gene expression including SOD2, CAT, GPX1, GSTM1, GSTP1",
+          "phase": "Phase 3 (clinical trials for chronic kidney disease)",
+          "selectivity": "Selective NRF2 pathway activator",
+          "clinical_status": "Investigational - Phase 3 trials ongoing; previously tested in diabetic nephropathy (trials terminated due to cardiovascular events, but different patient population)",
+          "nf1_relevance": "Could provide broad cardioprotection via antioxidant upregulation in NF1 patients receiving doxorubicin",
+          "evidence_level": "MODERATE - Phase 3 data available but safety concerns in some populations",
+          "target": "NRF2 pathway (KEAP1 inhibitor)",
+          "strategy_fit": "CARDIOPROTECT",
+          "provenance": "chembl_search_compounds:bardoxolone"
+        },
+        {
+          "name": "Sulforaphane",
+          "ids": {
+            "pubchem": "CID:5350",
+            "chembl": "CHEMBL506970 (requires verification)"
+          },
+          "mechanism": "Natural isothiocyanate from broccoli; NRF2 activator via KEAP1 cysteine modification",
+          "phase": "Dietary supplement / nutraceutical (Phase 2 trials for various indications)",
+          "selectivity": "NRF2 pathway activator with additional histone deacetylase inhibitory activity",
+          "clinical_status": "Available as supplement; limited Phase 2 trial data for cancer prevention",
+          "nf1_relevance": "Low-risk adjunct with antioxidant and potential anti-cancer properties",
+          "evidence_level": "LOW-MODERATE - Preclinical cardioprotection data; limited clinical validation",
+          "target": "NRF2 pathway",
+          "strategy_fit": "DUAL_BENEFIT"
+        },
+        {
+          "name": "Dimethyl fumarate (DMF)",
+          "ids": {
+            "chembl": "CHEMBL1229517 (requires verification)",
+            "drugbank": "DB08908"
+          },
+          "mechanism": "NRF2 activator; FDA-approved for multiple sclerosis",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "NRF2 activation plus immunomodulatory effects",
+          "clinical_status": "FDA approved for relapsing-remitting multiple sclerosis (brand name: Tecfidera)",
+          "nf1_relevance": "Repurposing opportunity for cardioprotection; established safety profile",
+          "evidence_level": "MODERATE - FDA approved but not tested specifically for doxorubicin cardioprotection",
+          "target": "NRF2 pathway",
+          "strategy_fit": "CARDIOPROTECT"
+        }
+      ],
+      "excluded_candidates": []
+    },
+    
+    {
+      "strategy_name": "CARDIOPROTECTION_VIA_SOD_MIMETICS",
+      "mechanism": "Superoxide dismutase mimetics scavenge reactive oxygen species generated by doxorubicin metabolism",
+      "priority": "HIGH",
+      "feasibility": "MODERATE",
+      "rationale": "Direct ROS scavenging complements NRF2 activation. SOD2 upregulation is cardioprotective endpoint of NRF2 pathway.",
+      "drugs": [
+        {
+          "name": "Avasopasem manganese (GC4419)",
+          "ids": {
+            "chembl": "CHEMBL4297027 (requires verification)",
+            "clinicaltrials": "NCT03689712"
+          },
+          "mechanism": "Selective SOD mimetic; dismutates superoxide to hydrogen peroxide, reducing oxidative damage",
+          "phase": "Phase 3 (for radiation-induced mucositis)",
+          "selectivity": "Selective superoxide dismutase activity",
+          "clinical_status": "Investigational - Phase 3 trials for cancer treatment-related toxicities",
+          "nf1_relevance": "Could reduce doxorubicin-induced ROS in cardiac tissue",
+          "evidence_level": "MODERATE - Phase 3 data for radiation toxicity; preclinical data for anthracycline cardioprotection",
+          "target": "SOD2 pathway (mimetic)",
+          "strategy_fit": "CARDIOPROTECT"
+        },
+        {
+          "name": "MnTBAP (Mn(III)tetrakis(4-benzoic acid)porphyrin)",
+          "ids": {
+            "pubchem": "CID:6857717",
+            "chembl": "Not available"
+          },
+          "mechanism": "Manganese porphyrin SOD mimetic and peroxynitrite scavenger",
+          "phase": "Preclinical / research tool",
+          "selectivity": "SOD and catalase mimetic activity",
+          "clinical_status": "Research compound - not in clinical development",
+          "nf1_relevance": "Preclinical proof-of-concept for cardioprotection but no clinical pathway",
+          "evidence_level": "LOW - Preclinical only",
+          "target": "SOD2 pathway (mimetic)",
+          "strategy_fit": "CARDIOPROTECT"
+        }
+      ],
+      "excluded_candidates": []
+    },
+    
+    {
+      "strategy_name": "TUMOR_SELECTIVE_EFFICACY_VIA_MEK_INHIBITION",
+      "mechanism": "Exploit hyperactive RAS/MAPK signaling in NF1-deficient tumors. MEK inhibition reduces TOP2A expression selectively in RAS-driven tumors, reducing their doxorubicin sensitivity. PARADOX: This could reduce tumor efficacy, OR could be used to dose-reduce doxorubicin if MEK inhibitor has direct anti-tumor activity in NF1 tumors.",
+      "priority": "HIGH",
+      "feasibility": "HIGH",
+      "rationale": "MEK inhibitors are FDA-approved for NF1-related tumors (plexiform neurofibromas). Could be combined with reduced-dose doxorubicin to maintain efficacy while reducing cardiotoxicity.",
+      "drugs": [
+        {
+          "name": "Selumetinib (AZD6244)",
+          "ids": {
+            "chembl": "CHEMBL:3587 (MAP2K1 target)",
+            "drugbank": "DB11742",
+            "mesh": "C517975"
+          },
+          "mechanism": "Selective allosteric MEK1/2 inhibitor; blocks ERK phosphorylation downstream of RAS",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Highly selective for MEK1/2 (IC50 ~10 nM)",
+          "clinical_status": "FDA approved for NF1-associated inoperable plexiform neurofibromas in pediatric patients (brand name: Koselugo)",
+          "nf1_relevance": "CRITICAL - Already approved for NF1 tumors. Could be combined with doxorubicin in NF1-associated MPNST or other tumors requiring anthracyclines.",
+          "evidence_level": "HIGH - FDA approved specifically for NF1",
+          "target": "MAP2K1/MEK1",
+          "strategy_fit": "PRESERVE_EFFICACY",
+          "provenance": "opentargets_get_target:ENSG00000169032"
+        },
+        {
+          "name": "Trametinib (GSK1120212)",
+          "ids": {
+            "chembl": "CHEMBL:3587 (MAP2K1 target)",
+            "drugbank": "DB08911"
+          },
+          "mechanism": "Selective allosteric MEK1/2 inhibitor",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Highly selective for MEK1/2 (IC50 ~2 nM)",
+          "clinical_status": "FDA approved for BRAF V600-mutant melanoma and NSCLC",
+          "nf1_relevance": "Could be repurposed for NF1 tumors; more potent than selumetinib but not specifically approved for NF1",
+          "evidence_level": "HIGH - FDA approved for RAS pathway-driven cancers",
+          "target": "MAP2K1/MEK1",
+          "strategy_fit": "PRESERVE_EFFICACY"
+        },
+        {
+          "name": "Cobimetinib (GDC-0973)",
+          "ids": {
+            "chembl": "CHEMBL:3587 (MAP2K1 target)",
+            "drugbank": "DB11428"
+          },
+          "mechanism": "Selective allosteric MEK1/2 inhibitor",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Highly selective for MEK1/2",
+          "clinical_status": "FDA approved for BRAF V600-mutant melanoma in combination with vemurafenib",
+          "nf1_relevance": "Could be repurposed for NF1 tumors",
+          "evidence_level": "HIGH - FDA approved for RAS pathway-driven cancers",
+          "target": "MAP2K1/MEK1",
+          "strategy_fit": "PRESERVE_EFFICACY"
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "name": "MEK activators",
+          "reason": "No MEK activators clinically available; would be contraindicated in NF1 (already hyperactive pathway)"
+        }
+      ]
+    },
+    
+    {
+      "strategy_name": "DNA_DAMAGE_RESPONSE_MODULATION_VIA_PARP_INHIBITION",
+      "mechanism": "PARP inhibitors block DNA repair in tumor cells (synthetic lethality with doxorubicin-induced damage), but may also protect cardiomyocytes by preventing PARP1-mediated energy depletion and cell death. BIDIRECTIONAL EFFECT - needs careful evaluation.",
+      "priority": "MODERATE",
+      "feasibility": "HIGH",
+      "rationale": "PARP inhibitors are FDA-approved and could synergize with doxorubicin in tumors. However, PARP1 interacts with TOP2B (Phase 3 data) and PARP inhibition might increase cardiotoxicity. Preclinical validation needed.",
+      "drugs": [
+        {
+          "name": "Olaparib (AZD2281)",
+          "ids": {
+            "chembl": "CHEMBL521686 (requires verification)",
+            "drugbank": "DB09074"
+          },
+          "mechanism": "PARP1/2 inhibitor; traps PARP on DNA causing synthetic lethality in BRCA-deficient or HR-deficient tumors",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Selective for PARP1/2 (IC50 ~5 nM)",
+          "clinical_status": "FDA approved for BRCA-mutant ovarian, breast, pancreatic, and prostate cancers",
+          "nf1_relevance": "Could synergize with doxorubicin in NF1 tumors IF they have HR deficiency. Risk of increased cardiotoxicity needs evaluation.",
+          "evidence_level": "MODERATE - FDA approved for cancer but cardiotoxicity interaction with doxorubicin uncertain",
+          "target": "PARP1",
+          "strategy_fit": "PRESERVE_EFFICACY",
+          "caution": "PARP1-TOP2B interaction (BioGRID) suggests potential for increased cardiotoxicity; requires preclinical validation"
+        },
+        {
+          "name": "Rucaparib (AG-014699)",
+          "ids": {
+            "chembl": "CHEMBL1173055 (requires verification)",
+            "drugbank": "DB11807"
+          },
+          "mechanism": "PARP1/2/3 inhibitor",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Selective for PARP1/2/3",
+          "clinical_status": "FDA approved for BRCA-mutant ovarian and prostate cancers",
+          "nf1_relevance": "Similar to olaparib - potential synergy but cardiotoxicity risk",
+          "evidence_level": "MODERATE",
+          "target": "PARP1",
+          "strategy_fit": "PRESERVE_EFFICACY",
+          "caution": "Same cardiotoxicity concerns as olaparib"
+        },
+        {
+          "name": "Niraparib",
+          "ids": {
+            "chembl": "CHEMBL3137308 (requires verification)",
+            "drugbank": "DB11791"
+          },
+          "mechanism": "PARP1/2 inhibitor",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Selective for PARP1/2",
+          "clinical_status": "FDA approved for ovarian, fallopian tube, and peritoneal cancers",
+          "nf1_relevance": "Similar profile to other PARP inhibitors",
+          "evidence_level": "MODERATE",
+          "target": "PARP1",
+          "strategy_fit": "PRESERVE_EFFICACY",
+          "caution": "Cardiotoxicity interaction uncertain"
+        },
+        {
+          "name": "Talazoparib",
+          "ids": {
+            "chembl": "CHEMBL3707346 (requires verification)",
+            "drugbank": "DB11827"
+          },
+          "mechanism": "Ultra-potent PARP1/2 inhibitor with strong PARP-trapping activity",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Highly selective for PARP1/2; strongest trapping activity",
+          "clinical_status": "FDA approved for BRCA-mutant breast cancer",
+          "nf1_relevance": "Most potent PARP inhibitor - highest synergy potential but also highest cardiotoxicity risk",
+          "evidence_level": "MODERATE",
+          "target": "PARP1",
+          "strategy_fit": "PRESERVE_EFFICACY",
+          "caution": "Strongest PARP trapping may increase cardiotoxicity"
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "name": "PARP activators",
+          "reason": "No PARP activators in clinical development; would increase DNA repair in tumors (counterproductive)"
+        }
+      ]
+    },
+    
+    {
+      "strategy_name": "EPIGENETIC_MODULATION_VIA_HDAC_INHIBITION",
+      "mechanism": "HDAC inhibitors modulate chromatin structure and can suppress TOP2B expression in cardiac tissue while maintaining TOP2A in proliferating tumor cells. Also shown to affect doxorubicin sensitivity.",
+      "priority": "MODERATE",
+      "feasibility": "HIGH",
+      "rationale": "HDAC1/2 interact with TOP2B (Phase 3 BioGRID data). Multiple FDA-approved HDAC inhibitors available. Tissue-selective effects possible due to differential proliferation rates.",
+      "drugs": [
+        {
+          "name": "Vorinostat (SAHA)",
+          "ids": {
+            "chembl": "CHEMBL98 (requires verification)",
+            "drugbank": "DB02546"
+          },
+          "mechanism": "Pan-HDAC inhibitor (Class I, II, IV); induces histone hyperacetylation and altered gene expression",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Non-selective HDAC inhibitor",
+          "clinical_status": "FDA approved for cutaneous T-cell lymphoma",
+          "nf1_relevance": "Could modulate TOP2B expression in cardiac tissue; may sensitize or protect depending on context",
+          "evidence_level": "MODERATE - FDA approved but mechanism in cardioprotection needs validation",
+          "target": "HDAC1/2",
+          "strategy_fit": "CARDIOPROTECT",
+          "caution": "HDAC inhibitors can both sensitize and protect - bidirectional effects require careful dosing"
+        },
+        {
+          "name": "Romidepsin (FK228)",
+          "ids": {
+            "chembl": "CHEMBL269733 (requires verification)",
+            "drugbank": "DB06176"
+          },
+          "mechanism": "Selective HDAC1/2 inhibitor (Class I)",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Class I-selective (HDAC1, 2, 3, 8)",
+          "clinical_status": "FDA approved for cutaneous and peripheral T-cell lymphoma",
+          "nf1_relevance": "More selective than vorinostat for HDAC1/2-TOP2B interaction",
+          "evidence_level": "MODERATE",
+          "target": "HDAC1/2",
+          "strategy_fit": "CARDIOPROTECT"
+        },
+        {
+          "name": "Belinostat (PXD101)",
+          "ids": {
+            "chembl": "CHEMBL273823 (requires verification)",
+            "drugbank": "DB08935"
+          },
+          "mechanism": "Pan-HDAC inhibitor",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Non-selective HDAC inhibitor",
+          "clinical_status": "FDA approved for peripheral T-cell lymphoma",
+          "nf1_relevance": "Similar profile to vorinostat",
+          "evidence_level": "MODERATE",
+          "target": "HDAC1/2",
+          "strategy_fit": "CARDIOPROTECT"
+        },
+        {
+          "name": "Panobinostat (LBH589)",
+          "ids": {
+            "chembl": "CHEMBL1229176 (requires verification)",
+            "drugbank": "DB09085"
+          },
+          "mechanism": "Pan-HDAC inhibitor",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Non-selective, highly potent HDAC inhibitor",
+          "clinical_status": "FDA approved for multiple myeloma",
+          "nf1_relevance": "Most potent HDAC inhibitor; highest risk of off-target effects",
+          "evidence_level": "MODERATE",
+          "target": "HDAC1/2",
+          "strategy_fit": "CARDIOPROTECT",
+          "caution": "Known cardiac adverse effects in some patients - careful monitoring required"
+        }
+      ],
+      "excluded_candidates": []
+    },
+    
+    {
+      "strategy_name": "ANTIOXIDANT_SUPPORT_GLUTATHIONE_PATHWAY",
+      "mechanism": "Support glutathione-dependent detoxification of doxorubicin and ROS. Enhance GST and GPX1 function.",
+      "priority": "MODERATE",
+      "feasibility": "HIGH",
+      "rationale": "GSTM1 and GSTP1 are protective (Phase 2 data). Glutathione supplementation is safe and well-tolerated. NAC is FDA-approved for acetaminophen overdose.",
+      "drugs": [
+        {
+          "name": "N-acetylcysteine (NAC)",
+          "ids": {
+            "chembl": "CHEMBL1521 (requires verification)",
+            "drugbank": "DB06151",
+            "mesh": "D000111"
+          },
+          "mechanism": "Glutathione precursor; provides cysteine for glutathione synthesis; direct antioxidant via free thiol group",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "Non-selective antioxidant; supports multiple glutathione-dependent pathways",
+          "clinical_status": "FDA approved for acetaminophen overdose; used off-label for antioxidant support",
+          "nf1_relevance": "Safe, well-tolerated adjunct for glutathione support in NF1 patients receiving doxorubicin",
+          "evidence_level": "MODERATE - FDA approved but limited data specifically for doxorubicin cardioprotection in humans",
+          "target": "Glutathione pathway (GSTM1, GSTP1, GPX1)",
+          "strategy_fit": "CARDIOPROTECT"
+        },
+        {
+          "name": "Glutathione (GSH)",
+          "ids": {
+            "pubchem": "CID:124886",
+            "chembl": "CHEMBL1292 (requires verification)"
+          },
+          "mechanism": "Direct glutathione supplementation; substrate for GSTs and GPX",
+          "phase": "Dietary supplement / IV formulation available",
+          "selectivity": "Direct substrate for glutathione-dependent enzymes",
+          "clinical_status": "Available as supplement and IV preparation; limited clinical trial data",
+          "nf1_relevance": "Oral bioavailability limited; IV administration may be more effective",
+          "evidence_level": "LOW - Preclinical data; oral GSH has poor bioavailability",
+          "target": "Glutathione pathway",
+          "strategy_fit": "CARDIOPROTECT"
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "name": "Buthionine sulfoximine (BSO)",
+          "reason": "Glutathione synthesis inhibitor - would INCREASE doxorubicin toxicity; used to sensitize tumors but contraindicated for cardioprotection"
+        }
+      ]
+    },
+    
+    {
+      "strategy_name": "ESTROGEN_RECEPTOR_MODULATION",
+      "mechanism": "Estrogen receptor activation provides cardioprotection via multiple pathways including antioxidant gene expression. Female sex and estrogen status correlate with reduced doxorubicin cardiotoxicity.",
+      "priority": "LOW",
+      "feasibility": "MODERATE",
+      "rationale": "ESR1 identified as moderate priority target. Selective estrogen receptor modulators (SERMs) could provide cardioprotection in appropriate patient populations.",
+      "drugs": [
+        {
+          "name": "Tamoxifen",
+          "ids": {
+            "chembl": "CHEMBL83 (requires verification)",
+            "drugbank": "DB00675"
+          },
+          "mechanism": "Selective estrogen receptor modulator (SERM); agonist in some tissues (bone, cardiovascular), antagonist in breast",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "SERM with tissue-selective effects",
+          "clinical_status": "FDA approved for breast cancer prevention and treatment",
+          "nf1_relevance": "Could provide cardioprotection via ESR1 activation in heart; may be useful in female NF1 patients with ER+ breast tumors requiring doxorubicin",
+          "evidence_level": "LOW-MODERATE - FDA approved but cardioprotection mechanism not well-studied",
+          "target": "ESR1",
+          "strategy_fit": "CARDIOPROTECT"
+        },
+        {
+          "name": "Raloxifene",
+          "ids": {
+            "chembl": "CHEMBL1095 (requires verification)",
+            "drugbank": "DB00481"
+          },
+          "mechanism": "SERM with cardiovascular agonist activity",
+          "phase": "FDA Approved (Phase 4)",
+          "selectivity": "SERM",
+          "clinical_status": "FDA approved for osteoporosis prevention and breast cancer risk reduction",
+          "nf1_relevance": "Potentially safer SERM profile than tamoxifen for cardioprotection",
+          "evidence_level": "LOW",
+          "target": "ESR1",
+          "strategy_fit": "CARDIOPROTECT"
+        }
+      ],
+      "excluded_candidates": [
+        {
+          "name": "Aromatase inhibitors",
+          "reason": "Would reduce estrogen levels and potentially increase cardiotoxicity risk"
+        }
+      ]
+    }
+  ],
+  
+  "drugs": [
+    {
+      "name": "Dexrazoxane",
+      "ids": {
+        "chembl": "CHEMBL1388 (requires verification)",
+        "drugbank": "DB06861"
+      },
+      "target": "TOP2B",
+      "mechanism": "Iron chelator; TOP2B pathway inhibitor preventing doxorubicin-DNA-TOP2B complex formation",
+      "phase": "FDA Approved (Phase 4)",
+      "selectivity": "Non-selective TOP2 inhibitor",
+      "rationale": "PRIMARY CARDIOPROTECTIVE AGENT - FDA approved specifically for preventing anthracycline cardiotoxicity. Strong clinical evidence but may reduce tumor efficacy at high doses.",
+      "strategy": "CARDIOPROTECT",
+      "nf1_specific": "Standard of care option for NF1 patients at high risk for cardiotoxicity",
+      "evidence_level": "HIGH"
+    },
+    {
+      "name": "Selumetinib",
+      "ids": {
+        "chembl": "CHEMBL:3587 (MAP2K1 target)",
+        "drugbank": "DB11742"
+      },
+      "target": "MAP2K1/MEK1",
+      "mechanism": "Selective MEK1/2 inhibitor; blocks hyperactive RAS/MAPK pathway in NF1 tumors",
+      "phase": "FDA Approved (Phase 4) for NF1 plexiform neurofibromas",
+      "selectivity": "Highly selective for MEK1/2",
+      "rationale": "FDA-APPROVED FOR NF1 - Could enable doxorubicin dose reduction or be combined at lower doses. Exploits NF1-specific tumor vulnerability.",
+      "strategy": "PRESERVE_EFFICACY / DUAL_BENEFIT",
+      "nf1_specific": "CRITICAL - Already approved for NF1; established safety profile in NF1 patients",
+      "evidence_level": "HIGHEST",
+      "provenance": "opentargets_get_target:ENSG00000169032"
+    },
+    {
+      "name": "Bardoxolone methyl",
+      "ids": {
+        "chembl": "CHEMBL:1762621",
+        "pubchem": "CID:9820755"
+      },
+      "target": "NRF2 pathway (KEAP1 inhibitor)",
+      "mechanism": "Potent NRF2 activator; upregulates SOD2, CAT, GPX1, GSTs for comprehensive antioxidant protection",
+      "phase": "Phase 3 (investigational)",
+      "selectivity": "NRF2-selective",
+      "rationale": "Master antioxidant regulator - addresses multiple cardiotoxicity mechanisms (ROS, oxidative stress, mitochondrial damage). Phase 3 data available.",
+      "strategy": "CARDIOPROTECT",
+      "nf1_specific": "Not NF1-specific but targets fundamental cardiotoxicity mechanisms",
+      "evidence_level": "MODERATE",
+      "provenance": "chembl_search_compounds:bardoxolone",
+      "caution": "Previous trial terminations due to cardiovascular events in diabetic nephropathy patients"
+    },
+    {
+      "name": "Trametinib",
+      "ids": {
+        "chembl": "CHEMBL:3587 (MAP2K1 target)",
+        "drugbank": "DB08911"
+      },
+      "target": "MAP2K1/MEK1",
+      "mechanism": "Selective MEK1/2 inhibitor; most potent approved MEK inhibitor",
+      "phase": "FDA Approved (Phase 4) for melanoma",
+      "selectivity": "Highly selective for MEK1/2",
+      "rationale": "More potent than selumetinib; could be repurposed for NF1 tumors requiring doxorubicin",
+      "strategy": "PRESERVE_EFFICACY",
+      "nf1_specific": "Not approved for NF1 but targets same pathway as selumetinib",
+      "evidence_level": "HIGH"
+    },
+    {
+      "name": "Cobimetinib",
+      "ids": {
+        "chembl": "CHEMBL:3587 (MAP2K1 target)",
+        "drugbank": "DB11428"
+      },
+      "target": "MAP2K1/MEK1",
+      "mechanism": "Selective MEK1/2 inhibitor",
+      "phase": "FDA Approved (Phase 4) for melanoma",
+      "selectivity": "Highly selective for MEK1/2",
+      "rationale": "Alternative MEK inhibitor with established safety profile",
+      "strategy": "PRESERVE_EFFICACY",
+      "nf1_specific": "Repurposing candidate for NF1 tumors",
+      "evidence_level": "HIGH"
+    },
+    {
+      "name": "Olaparib",
+      "ids": {
+        "chembl": "CHEMBL521686 (requires verification)",
+        "drugbank": "DB09074"
+      },
+      "target": "PARP1",
+      "mechanism": "PARP1/2 inhibitor with DNA repair blocking and PARP-trapping activity",
+      "phase": "FDA Approved (Phase 4)",
+      "selectivity": "PARP1/2 selective",
+      "rationale": "Could synergize with doxorubicin in tumors but PARP1-TOP2B interaction raises cardiotoxicity concerns. Requires preclinical validation.",
+      "strategy": "PRESERVE_EFFICACY (with caution)",
+      "nf1_specific": "Not NF1-specific; applicability depends on HR deficiency status of tumor",
+      "evidence_level": "MODERATE",
+      "caution": "PARP1-TOP2B protein interaction (BioGRID) suggests potential for increased cardiotoxicity"
+    },
+    {
+      "name": "Avasopasem manganese (GC4419)",
+      "ids": {
+        "chembl": "CHEMBL4297027 (requires verification)",
+        "clinicaltrials": "NCT03689712"
+      },
+      "target": "SOD2 pathway (mimetic)",
+      "mechanism": "Selective SOD mimetic; dismutates superoxide radicals",
+      "phase": "Phase 3 (investigational)",
+      "selectivity": "SOD-selective",
+      "rationale": "Direct ROS scavenging; Phase 3 data for cancer treatment toxicity reduction",
+      "strategy": "CARDIOPROTECT",
+      "nf1_specific": "Not NF1-specific",
+      "evidence_level": "MODERATE"
+    },
+    {
+      "name": "N-acetylcysteine (NAC)",
+      "ids": {
+        "chembl": "CHEMBL1521 (requires verification)",
+        "drugbank": "DB06151"
+      },
+      "target": "Glutathione pathway (GSTM1, GSTP1, GPX1)",
+      "mechanism": "Glutathione precursor; supports GST-mediated detoxification and GPX antioxidant function",
+      "phase": "FDA Approved (Phase 4)",
+      "selectivity": "Glutathione pathway support",
+      "rationale": "Safe, well-tolerated adjunct; supports protective enzymes identified in Phase 2",
+      "strategy": "CARDIOPROTECT",
+      "nf1_specific": "Not NF1-specific; general antioxidant support",
+      "evidence_level": "MODERATE"
+    },
+    {
+      "name": "Dimethyl fumarate",
+      "ids": {
+        "chembl": "CHEMBL1229517 (requires verification)",
+        "drugbank": "DB08908"
+      },
+      "target": "NRF2 pathway",
+      "mechanism": "NRF2 activator; FDA-approved for multiple sclerosis",
+      "phase": "FDA Approved (Phase 4)",
+      "selectivity": "NRF2 activation",
+      "rationale": "Repurposing opportunity; established safety profile for chronic use",
+      "strategy": "CARDIOPROTECT",
+      "nf1_specific": "Not NF1-specific",
+      "evidence_level": "MODERATE"
+    },
+    {
+      "name": "Vorinostat",
+      "ids": {
+        "chembl": "CHEMBL98 (requires verification)",
+        "drugbank": "DB02546"
+      },
+      "target": "HDAC1/2",
+      "mechanism": "Pan-HDAC inhibitor; modulates TOP2B expression via chromatin remodeling",
+      "phase": "FDA Approved (Phase 4)",
+      "selectivity": "Non-selective HDAC inhibitor",
+      "rationale": "HDAC1/2 interact with TOP2B (BioGRID data from Phase 3); could suppress cardiac TOP2B expression",
+      "strategy": "CARDIOPROTECT (with caution)",
+      "nf1_specific": "Not NF1-specific",
+      "evidence_level": "MODERATE",
+      "caution": "Bidirectional effects on drug sensitivity require careful evaluation"
+    },
+    {
+      "name": "Romidepsin",
+      "ids": {
+        "chembl": "CHEMBL269733 (requires verification)",
+        "drugbank": "DB06176"
+      },
+      "target": "HDAC1/2",
+      "mechanism": "Class I-selective HDAC inhibitor",
+      "phase": "FDA Approved (Phase 4)",
+      "selectivity": "Class I HDAC selective",
+      "rationale": "More selective than vorinostat for HDAC1/2-TOP2B pathway",
+      "strategy": "CARDIOPROTECT",
+      "nf1_specific": "Not NF1-specific",
+      "evidence_level": "MODERATE"
+    },
+    {
+      "name": "Sulforaphane",
+      "ids": {
+        "pubchem": "CID:5350",
+        "chembl": "CHEMBL506970 (requires verification)"
+      },
+      "target": "NRF2 pathway",
+      "mechanism": "Natural NRF2 activator from broccoli",
+      "phase": "Dietary supplement / Phase 2 trials",
+      "selectivity": "NRF2 activation with HDAC inhibitory activity",
+      "rationale": "Safe, accessible adjunct with antioxidant and potential anti-cancer properties",
+      "strategy": "DUAL_BENEFIT",
+      "nf1_specific": "Not NF1-specific",
+      "evidence_level": "LOW-MODERATE"
+    }
+  ],
+  
+  "excluded_candidates": [
+    {
+      "name": "Etoposide",
+      "target": "TOP2A/TOP2B",
+      "reason": "TOP2 poison - stabilizes TOP2-DNA complexes (opposite of needed mechanism); would increase cardiotoxicity",
+      "mechanism_conflict": "Requires TOP2 poisoning for anti-tumor activity; incompatible with cardioprotection strategy"
+    },
+    {
+      "name": "Mitoxantrone",
+      "target": "TOP2A/TOP2B",
+      "reason": "Anthracenedione with known cardiotoxicity via TOP2B pathway; contraindicated for cardioprotection",
+      "mechanism_conflict": "Same toxicity mechanism as doxorubicin"
+    },
+    {
+      "name": "Buthionine sulfoximine (BSO)",
+      "target": "Glutathione synthesis",
+      "reason": "Glutathione synthesis inhibitor - would INCREASE doxorubicin toxicity; used in research to sensitize tumors but contraindicated clinically",
+      "mechanism_conflict": "Depletes protective glutathione pathway"
+    },
+    {
+      "name": "Aromatase inhibitors (letrozole, anastrozole, exemestane)",
+      "target": "Estrogen synthesis",
+      "reason": "Reduce estrogen levels; would eliminate potential cardioprotective effects of estrogen signaling",
+      "mechanism_conflict": "Opposite of ESR1 activation strategy"
+    },
+    {
+      "name": "Non-selective CBR1 inhibitors",
+      "target": "CBR1",
+      "reason": "No FDA-approved selective CBR1 inhibitors available; quercetin has weak activity but limited clinical utility",
+      "mechanism_conflict": "Drug development gap - target validated but no clinical compounds"
+    }
+  ],
+  
+  "nf1_specific_combinations": {
+    "rationale": "NF1-associated tumors (plexiform neurofibromas, MPNST, gliomas) may require anthracycline-based chemotherapy. Combining cardioprotective and NF1-targeted therapies could improve outcomes.",
+    "proposed_combinations": [
+      {
+        "combination": "Doxorubicin + Selumetinib + Dexrazoxane",
+        "mechanism": "Anti-tumor (doxorubicin TOP2A targeting) + NF1 pathway inhibition (selumetinib MEK) + cardioprotection (dexrazoxane TOP2B blocking)",
+        "feasibility": "HIGH",
+        "rationale": "Selumetinib FDA-approved for NF1; dexrazoxane FDA-approved for cardioprotection; both have established safety profiles",
+        "clinical_precedent": "Selumetinib approved as monotherapy for NF1 plexiform neurofibromas; combination with doxorubicin not yet tested",
+        "priority": "HIGHEST"
+      },
+      {
+        "combination": "Doxorubicin + Bardoxolone methyl + NAC",
+        "mechanism": "Anti-tumor (doxorubicin) + NRF2 activation (bardoxolone) + glutathione support (NAC)",
+        "feasibility": "MODERATE",
+        "rationale": "Comprehensive antioxidant strategy targeting multiple protective pathways",
+        "clinical_precedent": "No direct precedent but both compounds have been tested in clinical trials",
+        "priority": "MODERATE",
+        "caution": "Bardoxolone has previous cardiovascular safety signals"
+      },
+      {
+        "combination": "Reduced-dose Doxorubicin + Selumetinib",
+        "mechanism": "MEK inhibition provides anti-tumor activity in NF1 tumors, allowing doxorubicin dose reduction",
+        "feasibility": "HIGH",
+        "rationale": "Dose reduction is most effective cardioprotection strategy; selumetinib could maintain efficacy at lower doxorubicin doses",
+        "clinical_precedent": "Selumetinib monotherapy effective for NF1 plexiform neurofibromas",
+        "priority": "HIGH"
+      },
+      {
+        "combination": "Doxorubicin + Vorinostat + Dexrazoxane",
+        "mechanism": "HDAC inhibition may suppress cardiac TOP2B expression while dexrazoxane blocks remaining TOP2B activity",
+        "feasibility": "MODERATE",
+        "rationale": "Dual TOP2B targeting via transcriptional suppression and enzymatic inhibition",
+        "clinical_precedent": "HDAC inhibitors combined with other chemotherapies in clinical trials",
+        "priority": "MODERATE",
+        "caution": "HDAC inhibitors can have bidirectional effects on drug sensitivity"
+      }
+    ],
+    "existing_clinical_trials": {
+      "note": "No clinical trials identified combining doxorubicin with selumetinib in NF1 patients. This represents a significant opportunity given selumetinib's FDA approval for NF1.",
+      "search_needed": "ClinicalTrials.gov search for 'doxorubicin AND selumetinib AND NF1' or 'anthracycline AND MEK inhibitor AND neurofibromatosis'"
+    }
+  },
+  
+  "summary_by_priority": {
+    "immediate_clinical_use": [
+      "Dexrazoxane - FDA approved for anthracycline cardioprotection",
+      "Selumetinib - FDA approved for NF1 plexiform neurofibromas",
+      "NAC - FDA approved, safe adjunct for antioxidant support"
+    ],
+    "clinical_development_ready": [
+      "Bardoxolone methyl - Phase 3 NRF2 activator",
+      "Avasopasem manganese - Phase 3 SOD mimetic",
+      "Trametinib/Cobimetinib - FDA approved MEK inhibitors (repurposing for NF1)"
+    ],
+    "requires_preclinical_validation": [
+      "PARP inhibitors (olaparib, rucaparib, niraparib, talazoparib) - cardiotoxicity interaction uncertain",
+      "HDAC inhibitors (vorinostat, romidepsin) - bidirectional effects need clarification",
+      "TOP2B-selective inhibitors - none currently available (drug development opportunity)"
+    ],
+    "drug_development_gaps": [
+      "Selective CBR1 inhibitors - target validated but no clinical compounds",
+      "TOP2B-selective inhibitors - isoform selectivity remains major challenge",
+      "Tissue-selective NRF2 activators - cardiac-specific targeting would be ideal"
+    ]
+  },
+  
+  "key_findings": {
+    "highest_priority_drugs": [
+      {
+        "drug": "Selumetinib",
+        "rationale": "FDA-approved for NF1; directly addresses tumor biology; could enable doxorubicin dose reduction",
+        "evidence": "Phase 3 NF1 trial data (NCT01362803); FDA approval 2020"
+      },
+      {
+        "drug": "Dexrazoxane",
+        "rationale": "FDA-approved specifically for anthracycline cardioprotection; direct TOP2B mechanism",
+        "evidence": "Multiple RCTs showing cardioprotection; FDA approved"
+      },
+      {
+        "drug": "Bardoxolone methyl",
+        "rationale": "Potent NRF2 activator targeting master antioxidant regulator; Phase 3 development",
+        "evidence": "Phase 3 trials in CKD; preclinical cardioprotection data"
+      }
+    ],
+    "novel_insights": [
+      "Selumetinib (NF1-approved MEK inhibitor) represents unique opportunity to address both tumor biology AND enable cardioprotection via doxorubicin dose reduction",
+      "NRF2 pathway activation (bardoxolone, DMF, sulforaphane) provides comprehensive antioxidant response addressing multiple cardiotoxicity mechanisms",
+      "PARP1-TOP2B protein interaction (BioGRID data from Phase 3) suggests PARP inhibitors may INCREASE cardiotoxicity despite potential tumor synergy - requires careful evaluation",
+      "HDAC1/2-TOP2B interactions suggest epigenetic modulation as alternative cardioprotection strategy",
+      "Major drug development gap: No selective CBR1 inhibitors or TOP2B-selective inhibitors currently available despite strong target validation"
+    ],
+    "nf1_specific_opportunities": [
+      "Selumetinib + doxorubicin combination could be NF1 disease-modifying while enabling safer chemotherapy",
+      "MEK pathway hyperactivation in NF1 tumors creates synthetic lethality opportunity with lower doxorubicin doses",
+      "NF1 patients may benefit from prophylactic cardioprotection given potential need for repeated chemotherapy cycles"
+    ]
+  },
+  
+  "limitations_and_caveats": {
+    "api_limitations": "ChEMBL API experienced timeouts during searches. Some ChEMBL IDs marked 'requires verification' are based on established drug-target relationships but not confirmed via API during this session.",
+    "evidence_gaps": [
+      "Limited clinical trial data for most cardioprotection strategies beyond dexrazoxane",
+      "No clinical trials combining selumetinib with doxorubicin in NF1",
+      "PARP inhibitor cardiotoxicity interaction with doxorubicin poorly characterized",
+      "Optimal timing and dosing of cardioprotective agents relative to doxorubicin administration not established for most candidates"
+    ],
+    "mechanistic_uncertainties": [
+      "PARP inhibitors: Could be tumor-synergistic OR cardiotoxic - bidirectional possibility",
+      "HDAC inhibitors: Can both sensitize and protect depending on dose, timing, and specific isoform",
+      "MEK inhibitors: Reduce TOP2A in tumors which could reduce doxorubicin efficacy OR create synthetic lethality",
+      "NRF2 activators: Could theoretically protect tumor cells as well as cardiomyocytes - differential effects need validation"
+    ],
+    "recommendation": "Prioritize drugs with clinical precedent (dexrazoxane, selumetinib, NAC) while pursuing preclinical validation of mechanistically rational but clinically unproven combinations (bardoxolone, HDAC inhibitors, PARP inhibitors with careful cardiotoxicity monitoring)"
+  }
+}

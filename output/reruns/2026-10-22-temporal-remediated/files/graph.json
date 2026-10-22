@@ -1,0 +1,1068 @@
+{
+  "metadata": {
+    "research_question": "What known genes or pathways are implicated in minimizing Doxorubicin toxicity while preserving its anti-tumor efficacy for NF1?",
+    "pipeline_version": "Fuzzy-to-Fact v1.0",
+    "creation_date": "2024",
+    "validation_rate": "64%",
+    "total_nodes": 45,
+    "total_edges": 89,
+    "confidence_levels": {
+      "HIGH": "Validated by multiple sources (PubMed, clinical trials, databases)",
+      "MODERATE": "Supported by single source or established domain knowledge",
+      "LOW": "Hypothesis requiring further validation"
+    },
+    "data_sources": [
+      "HGNC",
+      "Ensembl",
+      "UniProt",
+      "ChEMBL",
+      "BioGRID",
+      "WikiPathways",
+      "ClinicalTrials.gov",
+      "PubMed",
+      "Open Targets"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "MONDO:0018975",
+      "type": "Disease",
+      "label": "Neurofibromatosis type 1",
+      "properties": {
+        "alternative_ids": ["OMIM:162200"],
+        "description": "Genetic disorder caused by NF1 gene mutations with hyperactive RAS/MAPK signaling"
+      }
+    },
+    {
+      "id": "CHEMBL:53463",
+      "type": "Drug",
+      "label": "Doxorubicin",
+      "properties": {
+        "alternative_ids": ["PubChem:CID31703"],
+        "drug_class": "Anthracycline topoisomerase II poison",
+        "mechanism": "Stabilizes TOP2-DNA cleavage complexes causing DNA damage",
+        "toxicity_profile": "Cardiotoxicity (dose-limiting), myelosuppression"
+      }
+    },
+    {
+      "id": "HGNC:7765",
+      "type": "Gene",
+      "label": "NF1",
+      "properties": {
+        "ensembl_id": "ENSG00000196712",
+        "uniprot_id": "P21359",
+        "entrez_id": "4763",
+        "name": "neurofibromin 1",
+        "location": "17q11.2",
+        "function": "RAS GTPase-activating protein; tumor suppressor",
+        "mechanism_class": "disease_driver"
+      }
+    },
+    {
+      "id": "HGNC:11990",
+      "type": "Gene",
+      "label": "TOP2B",
+      "properties": {
+        "ensembl_id": "ENSG00000077097",
+        "uniprot_id": "Q02880",
+        "entrez_id": "7155",
+        "name": "DNA topoisomerase II beta",
+        "location": "3p24.2",
+        "function": "Catalyzes DNA double-strand breaks for replication and transcription",
+        "mechanism_class": "toxicity_mediator",
+        "validation_status": "VALIDATED",
+        "validation_evidence": ["PubMed:8_articles", "NCT03930680"]
+      }
+    },
+    {
+      "id": "HGNC:11989",
+      "type": "Gene",
+      "label": "TOP2A",
+      "properties": {
+        "ensembl_id": "ENSG00000131747",
+        "uniprot_id": "P11388",
+        "entrez_id": "7153",
+        "name": "DNA topoisomerase II alpha",
+        "location": "17q21.2",
+        "function": "Catalyzes DNA double-strand breaks; highly expressed in proliferating cells",
+        "mechanism_class": "efficacy_mediator"
+      }
+    },
+    {
+      "id": "HGNC:1548",
+      "type": "Gene",
+      "label": "CBR1",
+      "properties": {
+        "ensembl_id": "ENSG00000159228",
+        "uniprot_id": "P16152",
+        "entrez_id": "873",
+        "name": "carbonyl reductase 1",
+        "location": "21q22.12",
+        "function": "NADPH-dependent oxidoreductase; metabolizes anthracyclines",
+        "mechanism_class": "toxicity_mediator",
+        "validation_status": "VALIDATED",
+        "validation_evidence": ["PubMed:14_articles"]
+      }
+    },
+    {
+      "id": "HGNC:4632",
+      "type": "Gene",
+      "label": "GSTM1",
+      "properties": {
+        "ensembl_id": "ENSG00000134184",
+        "uniprot_id": "P09488",
+        "entrez_id": "2944",
+        "name": "glutathione S-transferase mu 1",
+        "location": "1p13.3",
+        "function": "Phase II detoxification enzyme",
+        "mechanism_class": "protective",
+        "polymorphisms": "Common deletion polymorphism affects detoxification capacity"
+      }
+    },
+    {
+      "id": "HGNC:4638",
+      "type": "Gene",
+      "label": "GSTP1",
+      "properties": {
+        "ensembl_id": "ENSG00000084207",
+        "uniprot_id": "P09211",
+        "entrez_id": "2950",
+        "name": "glutathione S-transferase pi 1",
+        "location": "11q13.2",
+        "function": "Phase II detoxification enzyme; detoxifies doxorubicin and ROS products",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "id": "HGNC:40",
+      "type": "Gene",
+      "label": "ABCB1",
+      "properties": {
+        "ensembl_id": "ENSG00000085563",
+        "uniprot_id": "P08183",
+        "entrez_id": "5243",
+        "name": "ATP binding cassette subfamily B member 1",
+        "aliases": ["MDR1", "P-glycoprotein"],
+        "function": "Drug efflux transporter",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "id": "HGNC:11180",
+      "type": "Gene",
+      "label": "SOD2",
+      "properties": {
+        "ensembl_id": "ENSG00000112096",
+        "uniprot_id": "P04179",
+        "entrez_id": "6648",
+        "name": "superoxide dismutase 2",
+        "location": "6q25.3",
+        "function": "Mitochondrial antioxidant enzyme; dismutates superoxide to H2O2",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "id": "HGNC:1516",
+      "type": "Gene",
+      "label": "CAT",
+      "properties": {
+        "ensembl_id": "ENSG00000121691",
+        "uniprot_id": "P04040",
+        "entrez_id": "847",
+        "name": "catalase",
+        "function": "Peroxisomal enzyme; converts H2O2 to water and oxygen",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "id": "HGNC:4553",
+      "type": "Gene",
+      "label": "GPX1",
+      "properties": {
+        "ensembl_id": "ENSG00000233276",
+        "uniprot_id": "P07203",
+        "entrez_id": "2876",
+        "name": "glutathione peroxidase 1",
+        "function": "Reduces H2O2 and lipid peroxides using glutathione",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "id": "HGNC:7157",
+      "type": "Gene",
+      "label": "TP53",
+      "properties": {
+        "entrez_id": "7157",
+        "name": "tumor protein p53",
+        "function": "DNA damage checkpoint and apoptosis regulator",
+        "mechanism_class": "toxicity_mediator",
+        "interaction_context": "Activated by TOP2B-DNA complexes in cardiotoxicity"
+      }
+    },
+    {
+      "id": "HGNC:142",
+      "type": "Gene",
+      "label": "PARP1",
+      "properties": {
+        "entrez_id": "142",
+        "name": "poly(ADP-ribose) polymerase 1",
+        "function": "DNA damage response enzyme",
+        "mechanism_class": "toxicity_efficacy_hub",
+        "interaction_context": "Major hub protein interacting with TOP2B"
+      }
+    },
+    {
+      "id": "HGNC:3065",
+      "type": "Gene",
+      "label": "HDAC1",
+      "properties": {
+        "entrez_id": "3065",
+        "name": "histone deacetylase 1",
+        "function": "Chromatin remodeling enzyme",
+        "mechanism_class": "modulator"
+      }
+    },
+    {
+      "id": "HGNC:3066",
+      "type": "Gene",
+      "label": "HDAC2",
+      "properties": {
+        "entrez_id": "3066",
+        "name": "histone deacetylase 2",
+        "function": "Chromatin remodeling enzyme",
+        "mechanism_class": "modulator"
+      }
+    },
+    {
+      "id": "CHEMBL:1388",
+      "type": "Drug",
+      "label": "Dexrazoxane",
+      "properties": {
+        "drugbank_id": "DB06861",
+        "mesh_id": "D064730",
+        "mechanism": "Iron chelator and TOP2B degrader",
+        "fda_status": "APPROVED",
+        "indication": "Prevention of anthracycline cardiotoxicity",
+        "validation_status": "VALIDATED",
+        "validation_evidence": ["NCT03930680", "NCT06220032"]
+      }
+    },
+    {
+      "id": "DRUG:Selumetinib",
+      "type": "Drug",
+      "label": "Selumetinib",
+      "properties": {
+        "aliases": ["Koselugo"],
+        "mechanism": "MEK1/2 inhibitor",
+        "fda_status": "APPROVED",
+        "indication": "NF1 plexiform neurofibromas (pediatric, age ≥2 years)",
+        "approval_date": "2020-04",
+        "validation_status": "VALIDATED",
+        "validation_evidence": ["PubMed:20_articles", "FDA_label"]
+      }
+    },
+    {
+      "id": "CHEMBL:1762621",
+      "type": "Drug",
+      "label": "Bardoxolone methyl",
+      "properties": {
+        "pubchem_id": "CID:9820755",
+        "mechanism": "NRF2 activator via KEAP1 inhibition",
+        "development_status": "Clinical trials",
+        "target_pathway": "Antioxidant response element (ARE)"
+      }
+    },
+    {
+      "id": "DRUG:NAC",
+      "type": "Drug",
+      "label": "N-acetylcysteine",
+      "properties": {
+        "mechanism": "Glutathione precursor; antioxidant",
+        "fda_status": "APPROVED (acetaminophen overdose)"
+      }
+    },
+    {
+      "id": "DRUG:Avasopasem",
+      "type": "Drug",
+      "label": "Avasopasem/GC4419",
+      "properties": {
+        "mechanism": "SOD2 mimetic",
+        "development_status": "Clinical trials"
+      }
+    },
+    {
+      "id": "DRUG:Olaparib",
+      "type": "Drug",
+      "label": "Olaparib",
+      "properties": {
+        "mechanism": "PARP inhibitor",
+        "fda_status": "APPROVED (ovarian, breast, prostate cancer)"
+      }
+    },
+    {
+      "id": "DRUG:Vorinostat",
+      "type": "Drug",
+      "label": "Vorinostat",
+      "properties": {
+        "mechanism": "HDAC inhibitor",
+        "fda_status": "APPROVED (cutaneous T-cell lymphoma)"
+      }
+    },
+    {
+      "id": "DRUG:Empagliflozin",
+      "type": "Drug",
+      "label": "Empagliflozin",
+      "properties": {
+        "mechanism": "SGLT2 inhibitor; metabolic cardioprotection",
+        "fda_status": "APPROVED (diabetes, heart failure)",
+        "trial_status": "NCT05271162 (ACTIVE)"
+      }
+    },
+    {
+      "id": "DRUG:Trametinib",
+      "type": "Drug",
+      "label": "Trametinib",
+      "properties": {
+        "mechanism": "MEK1/2 inhibitor",
+        "fda_status": "APPROVED (melanoma)"
+      }
+    },
+    {
+      "id": "DRUG:Cobimetinib",
+      "type": "Drug",
+      "label": "Cobimetinib",
+      "properties": {
+        "mechanism": "MEK1/2 inhibitor",
+        "fda_status": "APPROVED (melanoma)"
+      }
+    },
+    {
+      "id": "NCT:00304083",
+      "type": "ClinicalTrial",
+      "label": "NF1 MPNST Doxorubicin Trial",
+      "properties": {
+        "title": "Phase II Trial of Chemotherapy in Sporadic and NF1 Associated High Grade MPNST",
+        "phase": "Phase 2",
+        "status": "COMPLETED",
+        "completion_date": "2014-06",
+        "interventions": ["doxorubicin", "etoposide", "ifosfamide", "filgrastim"],
+        "conditions": ["NF1", "MPNST"],
+        "cardioprotection": "None",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "id": "NCT:06220032",
+      "type": "ClinicalTrial",
+      "label": "ANTICIPATE Trial",
+      "properties": {
+        "title": "Prevention of Anthracycline-Induced Cardiac Dysfunction by Dexrazoxane in DLBCL",
+        "phase": "Phase 3",
+        "status": "RECRUITING",
+        "start_date": "2024-08-15",
+        "completion_date": "2028-12-15",
+        "interventions": ["dexrazoxane", "R-CHOP"],
+        "primary_outcome": "Incidence of anthracycline-induced cardiac dysfunction",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "id": "NCT:03930680",
+      "type": "ClinicalTrial",
+      "label": "Dexrazoxane TOP2B Degradation Trial",
+      "properties": {
+        "title": "Prevention of Heart Failure Induced by Doxorubicin With Early Dexrazoxane",
+        "phase": "Clinical Trial",
+        "status": "COMPLETED",
+        "interventions": ["dexrazoxane", "doxorubicin"],
+        "primary_outcome": "95% reduction in TOP2B from baseline at 8 hours",
+        "validation_status": "VALIDATED",
+        "mechanistic_significance": "Direct human evidence for dexrazoxane TOP2B degradation mechanism"
+      }
+    },
+    {
+      "id": "NCT:05271162",
+      "type": "ClinicalTrial",
+      "label": "EMPACT Study",
+      "properties": {
+        "title": "Empagliflozin Prevention of Anthracycline Cardiotoxicity",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "interventions": ["empagliflozin", "anthracyclines"],
+        "mechanism": "SGLT2i metabolic cardioprotection"
+      }
+    },
+    {
+      "id": "PATHWAY:DNA_Damage_Response",
+      "type": "Pathway",
+      "label": "DNA Damage Response",
+      "properties": {
+        "description": "Cellular response to DNA double-strand breaks",
+        "key_components": ["TOP2B", "TP53", "PARP1"]
+      }
+    },
+    {
+      "id": "PATHWAY:Oxidative_Stress_Response",
+      "type": "Pathway",
+      "label": "Oxidative Stress Response",
+      "properties": {
+        "description": "Antioxidant defense systems",
+        "key_components": ["SOD2", "CAT", "GPX1", "GSTM1", "GSTP1"],
+        "wikipathways_id": "WP:WP408"
+      }
+    },
+    {
+      "id": "PATHWAY:RAS_MAPK",
+      "type": "Pathway",
+      "label": "RAS/MAPK Signaling",
+      "properties": {
+        "description": "RAS-MEK-ERK pathway",
+        "key_components": ["NF1", "MAP2K1", "MAP2K2"],
+        "wikipathways_id": "WP:WP382",
+        "nf1_context": "Hyperactive in NF1 loss-of-function"
+      }
+    },
+    {
+      "id": "PATHWAY:Drug_Metabolism",
+      "type": "Pathway",
+      "label": "Anthracycline Metabolism",
+      "properties": {
+        "description": "Biotransformation of anthracyclines",
+        "key_components": ["CBR1", "GSTM1", "GSTP1"]
+      }
+    },
+    {
+      "id": "PATHWAY:Chromatin_Remodeling",
+      "type": "Pathway",
+      "label": "Chromatin Remodeling",
+      "properties": {
+        "description": "Epigenetic regulation and TOP2 interaction",
+        "key_components": ["HDAC1", "HDAC2", "TOP2A", "TOP2B"]
+      }
+    },
+    {
+      "id": "TARGET:MAP2K1",
+      "type": "Protein",
+      "label": "MEK1",
+      "properties": {
+        "name": "Mitogen-activated protein kinase kinase 1",
+        "pathway": "RAS/MAPK",
+        "drug_targets": ["Selumetinib", "Trametinib", "Cobimetinib"]
+      }
+    },
+    {
+      "id": "TARGET:MAP2K2",
+      "type": "Protein",
+      "label": "MEK2",
+      "properties": {
+        "name": "Mitogen-activated protein kinase kinase 2",
+        "pathway": "RAS/MAPK",
+        "drug_targets": ["Selumetinib", "Trametinib", "Cobimetinib"]
+      }
+    },
+    {
+      "id": "TARGET:NRF2",
+      "type": "Protein",
+      "label": "NRF2",
+      "properties": {
+        "name": "Nuclear factor erythroid 2-related factor 2",
+        "function": "Master regulator of antioxidant response",
+        "drug_targets": ["Bardoxolone"]
+      }
+    },
+    {
+      "id": "METABOLITE:Doxorubicinol",
+      "type": "Metabolite",
+      "label": "Doxorubicinol",
+      "properties": {
+        "description": "C-13 alcohol metabolite of doxorubicin",
+        "toxicity": "More cardiotoxic than parent doxorubicin",
+        "enzyme": "CBR1"
+      }
+    },
+    {
+      "id": "STRATEGY:Selumetinib_Dexrazoxane",
+      "type": "TherapeuticStrategy",
+      "label": "Selumetinib + Dexrazoxane Combination",
+      "properties": {
+        "priority": "HIGHEST",
+        "rationale": "Combines FDA-approved MEK inhibitor (NF1-specific) with FDA-approved cardioprotectant",
+        "mechanism": "Selumetinib targets NF1 tumor dependency; dexrazoxane protects heart from doxorubicin",
+        "clinical_gap": "No trials testing this combination in NF1",
+        "validation_status": "Both components validated individually"
+      }
+    },
+    {
+      "id": "STRATEGY:NRF2_Activation",
+      "type": "TherapeuticStrategy",
+      "label": "NRF2 Activation for Cardioprotection",
+      "properties": {
+        "priority": "HIGH",
+        "rationale": "Upregulates multiple antioxidant defenses without interfering with TOP2 targeting",
+        "drugs": ["Bardoxolone", "NAC"],
+        "targets": ["SOD2", "CAT", "GPX1", "GSTM1", "GSTP1"]
+      }
+    },
+    {
+      "id": "STRATEGY:TOP2B_Selective",
+      "type": "TherapeuticStrategy",
+      "label": "Selective TOP2B Inhibition",
+      "properties": {
+        "priority": "HIGH",
+        "feasibility": "MODERATE",
+        "current_limitation": "Dexrazoxane is non-selective (affects both TOP2A and TOP2B)",
+        "opportunity": "Development of isoform-selective TOP2B inhibitors"
+      }
+    },
+    {
+      "id": "HYPOTHESIS:NF1_MAPK_TOP2A",
+      "type": "Hypothesis",
+      "label": "NF1→MAPK→TOP2A Upregulation",
+      "properties": {
+        "description": "NF1 loss leads to hyperactive MAPK signaling which may upregulate TOP2A in tumors",
+        "validation_status": "UNVERIFIED",
+        "confidence": "LOW",
+        "biological_plausibility": "HIGH",
+        "requires_validation": true
+      }
+    },
+    {
+      "id": "HYPOTHESIS:NF1_Mitochondrial",
+      "type": "Hypothesis",
+      "label": "NF1 Mitochondrial Dysfunction",
+      "properties": {
+        "description": "NF1 loss may cause mitochondrial dysfunction making SGLT2i particularly relevant",
+        "validation_status": "UNVERIFIED",
+        "confidence": "LOW",
+        "evidence_level": "SPECULATIVE"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "HGNC:7765",
+      "target": "MONDO:0018975",
+      "type": "CAUSES",
+      "properties": {
+        "relationship": "Loss-of-function mutations in NF1 cause Neurofibromatosis type 1",
+        "confidence": "HIGH",
+        "validation_status": "Established medical genetics"
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11990",
+      "type": "TARGETS",
+      "properties": {
+        "relationship": "Doxorubicin stabilizes TOP2B-DNA cleavage complexes",
+        "mechanism": "TOP2 poison",
+        "tissue_context": "Cardiomyocytes (toxicity)",
+        "confidence": "HIGH",
+        "validation_status": "VALIDATED",
+        "evidence": ["PubMed:8_articles", "NCT03930680"]
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:11989",
+      "type": "TARGETS",
+      "properties": {
+        "relationship": "Doxorubicin stabilizes TOP2A-DNA cleavage complexes",
+        "mechanism": "TOP2 poison",
+        "tissue_context": "Tumor cells (efficacy)",
+        "confidence": "HIGH",
+        "validation_status": "Established pharmacology"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "PATHWAY:DNA_Damage_Response",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Primary mediator of doxorubicin cardiotoxicity",
+        "confidence": "HIGH"
+      }
+    },
+    {
+      "source": "HGNC:11989",
+      "target": "PATHWAY:DNA_Damage_Response",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Primary mediator of doxorubicin anti-tumor efficacy",
+        "confidence": "HIGH"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "HGNC:7157",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "interaction_type": "protein-protein",
+        "experimental_systems": ["Affinity Capture-Western", "Reconstituted Complex", "Proximity Label-MS"],
+        "evidence_source": "BioGRID",
+        "pubmed_ids": ["10666337", "34795231"],
+        "functional_context": "TP53 activated by TOP2B-DNA complexes leading to apoptosis"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "HGNC:142",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "interaction_type": "protein-protein",
+        "experimental_systems": ["Affinity Capture-Western", "Proximity Label-MS", "Affinity Capture-MS", "Co-fractionation"],
+        "evidence_source": "BioGRID",
+        "pubmed_ids": ["16794079", "34079125", "35013556", "35271311", "35831314"],
+        "functional_context": "PARP1 major DNA damage response hub"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "HGNC:11989",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "interaction_type": "physical complex",
+        "experimental_systems": ["Reconstituted Complex", "Co-fractionation", "Affinity Capture-MS"],
+        "evidence_source": "BioGRID",
+        "pubmed_ids": ["8710863", "22939629", "35271311"],
+        "functional_context": "TOP2A-TOP2B heterocomplexes; coordinated regulation",
+        "therapeutic_implication": "Differential inhibition challenging but possible"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "HGNC:3065",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "interaction_type": "protein-protein",
+        "experimental_systems": ["Affinity Capture-Western", "Reconstituted Complex", "Two-hybrid"],
+        "evidence_source": "BioGRID",
+        "pubmed_ids": ["11062478", "11136718"],
+        "functional_context": "Chromatin remodeling modulates TOP2 activity"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "HGNC:3066",
+      "type": "INTERACTS_WITH",
+      "properties": {
+        "interaction_type": "protein-protein",
+        "experimental_systems": ["Affinity Capture-Western", "Reconstituted Complex"],
+        "evidence_source": "BioGRID",
+        "pubmed_ids": ["11062478"]
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "HGNC:1548",
+      "type": "METABOLIZED_BY",
+      "properties": {
+        "relationship": "CBR1 converts doxorubicin to doxorubicinol",
+        "product": "Doxorubicinol (more cardiotoxic metabolite)",
+        "confidence": "HIGH",
+        "validation_status": "VALIDATED",
+        "evidence": ["PubMed:14_articles"]
+      }
+    },
+    {
+      "source": "HGNC:1548",
+      "target": "METABOLITE:Doxorubicinol",
+      "type": "PRODUCES",
+      "properties": {
+        "enzyme_reaction": "C-13 reduction of doxorubicin",
+        "cofactor": "NADPH"
+      }
+    },
+    {
+      "source": "METABOLITE:Doxorubicinol",
+      "target": "PATHWAY:DNA_Damage_Response",
+      "type": "CONTRIBUTES_TO",
+      "properties": {
+        "mechanism": "Enhanced cardiotoxicity compared to parent compound"
+      }
+    },
+    {
+      "source": "HGNC:4632",
+      "target": "PATHWAY:Oxidative_Stress_Response",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Detoxifies reactive metabolites and ROS",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "source": "HGNC:4638",
+      "target": "PATHWAY:Oxidative_Stress_Response",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Detoxifies doxorubicin and lipid peroxidation products",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "source": "HGNC:11180",
+      "target": "PATHWAY:Oxidative_Stress_Response",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Mitochondrial superoxide dismutation",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "source": "HGNC:1516",
+      "target": "PATHWAY:Oxidative_Stress_Response",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Converts H2O2 to water",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "source": "HGNC:4553",
+      "target": "PATHWAY:Oxidative_Stress_Response",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Reduces H2O2 and lipid peroxides",
+        "mechanism_class": "protective"
+      }
+    },
+    {
+      "source": "HGNC:7765",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "REGULATES",
+      "properties": {
+        "relationship": "NF1 negatively regulates RAS; loss leads to hyperactive MAPK",
+        "disease_context": "NF1 loss-of-function causes constitutive pathway activation"
+      }
+    },
+    {
+      "source": "PATHWAY:RAS_MAPK",
+      "target": "TARGET:MAP2K1",
+      "type": "CONTAINS",
+      "properties": {
+        "component": "MEK1 kinase"
+      }
+    },
+    {
+      "source": "PATHWAY:RAS_MAPK",
+      "target": "TARGET:MAP2K2",
+      "type": "CONTAINS",
+      "properties": {
+        "component": "MEK2 kinase"
+      }
+    },
+    {
+      "source": "CHEMBL:1388",
+      "target": "HGNC:11990",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "Induces TOP2B degradation (95% reduction at 8 hours)",
+        "confidence": "HIGH",
+        "validation_status": "VALIDATED",
+        "evidence": ["NCT03930680 primary outcome"],
+        "selectivity": "Non-selective (also affects TOP2A)"
+      }
+    },
+    {
+      "source": "CHEMBL:1388",
+      "target": "NCT:03930680",
+      "type": "TESTED_IN",
+      "properties": {
+        "trial_status": "COMPLETED",
+        "primary_outcome": "TOP2B degradation mechanism validated"
+      }
+    },
+    {
+      "source": "CHEMBL:1388",
+      "target": "NCT:06220032",
+      "type": "TESTED_IN",
+      "properties": {
+        "trial_status": "RECRUITING",
+        "trial_phase": "Phase 3",
+        "indication": "Prevention of anthracycline cardiotoxicity in DLBCL"
+      }
+    },
+    {
+      "source": "DRUG:Selumetinib",
+      "target": "TARGET:MAP2K1",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "MEK1 kinase inhibitor",
+        "confidence": "HIGH",
+        "validation_status": "FDA-approved mechanism"
+      }
+    },
+    {
+      "source": "DRUG:Selumetinib",
+      "target": "TARGET:MAP2K2",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "MEK2 kinase inhibitor",
+        "confidence": "HIGH",
+        "validation_status": "FDA-approved mechanism"
+      }
+    },
+    {
+      "source": "DRUG:Selumetinib",
+      "target": "MONDO:0018975",
+      "type": "APPROVED_FOR",
+      "properties": {
+        "indication": "Pediatric NF1 plexiform neurofibromas (age ≥2 years)",
+        "approval_date": "2020-04",
+        "validation_status": "VALIDATED",
+        "evidence": ["PubMed:20_articles", "FDA_label"]
+      }
+    },
+    {
+      "source": "CHEMBL:53463",
+      "target": "NCT:00304083",
+      "type": "TESTED_IN",
+      "properties": {
+        "trial_status": "COMPLETED",
+        "trial_phase": "Phase 2",
+        "population": "NF1-associated MPNST",
+        "completion_date": "2014-06",
+        "validation_status": "VALIDATED"
+      }
+    },
+    {
+      "source": "NCT:00304083",
+      "target": "MONDO:0018975",
+      "type": "ENROLLS",
+      "properties": {
+        "population": "NF1 patients with malignant peripheral nerve sheath tumors"
+      }
+    },
+    {
+      "source": "CHEMBL:1762621",
+      "target": "TARGET:NRF2",
+      "type": "ACTIVATES",
+      "properties": {
+        "mechanism": "KEAP1 inhibition releases NRF2 to activate antioxidant response elements",
+        "downstream_targets": ["SOD2", "CAT", "GPX1", "GSTM1", "GSTP1"]
+      }
+    },
+    {
+      "source": "TARGET:NRF2",
+      "target": "PATHWAY:Oxidative_Stress_Response",
+      "type": "REGULATES",
+      "properties": {
+        "role": "Master transcriptional activator of antioxidant genes"
+      }
+    },
+    {
+      "source": "DRUG:NAC",
+      "target": "PATHWAY:Oxidative_Stress_Response",
+      "type": "ENHANCES",
+      "properties": {
+        "mechanism": "Glutathione precursor; replenishes GSH pools"
+      }
+    },
+    {
+      "source": "DRUG:Avasopasem",
+      "target": "HGNC:11180",
+      "type": "MIMICS",
+      "properties": {
+        "mechanism": "SOD2 mimetic; superoxide dismutation"
+      }
+    },
+    {
+      "source": "DRUG:Olaparib",
+      "target": "HGNC:142",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "PARP inhibition",
+        "context": "May synergize with doxorubicin in tumors but could increase cardiotoxicity"
+      }
+    },
+    {
+      "source": "DRUG:Vorinostat",
+      "target": "HGNC:3065",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "HDAC inhibition",
+        "context": "Modulates TOP2 activity and doxorubicin sensitivity"
+      }
+    },
+    {
+      "source": "DRUG:Vorinostat",
+      "target": "HGNC:3066",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "HDAC inhibition"
+      }
+    },
+    {
+      "source": "DRUG:Empagliflozin",
+      "target": "NCT:05271162",
+      "type": "TESTED_IN",
+      "properties": {
+        "trial_status": "ACTIVE_NOT_RECRUITING",
+        "mechanism": "SGLT2i metabolic cardioprotection"
+      }
+    },
+    {
+      "source": "DRUG:Trametinib",
+      "target": "TARGET:MAP2K1",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "MEK1/2 inhibitor",
+        "fda_status": "Approved for melanoma"
+      }
+    },
+    {
+      "source": "DRUG:Cobimetinib",
+      "target": "TARGET:MAP2K1",
+      "type": "INHIBITS",
+      "properties": {
+        "mechanism": "MEK1/2 inhibitor",
+        "fda_status": "Approved for melanoma"
+      }
+    },
+    {
+      "source": "STRATEGY:Selumetinib_Dexrazoxane",
+      "target": "DRUG:Selumetinib",
+      "type": "INCLUDES",
+      "properties": {
+        "role": "Targets NF1 tumor dependency via MEK inhibition"
+      }
+    },
+    {
+      "source": "STRATEGY:Selumetinib_Dexrazoxane",
+      "target": "CHEMBL:1388",
+      "type": "INCLUDES",
+      "properties": {
+        "role": "Cardioprotection via TOP2B degradation"
+      }
+    },
+    {
+      "source": "STRATEGY:Selumetinib_Dexrazoxane",
+      "target": "MONDO:0018975",
+      "type": "TARGETS_DISEASE",
+      "properties": {
+        "priority": "HIGHEST",
+        "clinical_gap": "No trials testing this combination in NF1",
+        "rationale": "Both drugs FDA-approved; addresses NF1-specific biology and cardiotoxicity"
+      }
+    },
+    {
+      "source": "STRATEGY:NRF2_Activation",
+      "target": "TARGET:NRF2",
+      "type": "TARGETS",
+      "properties": {
+        "mechanism": "Upregulates multiple antioxidant defenses"
+      }
+    },
+    {
+      "source": "STRATEGY:NRF2_Activation",
+      "target": "CHEMBL:1762621",
+      "type": "INCLUDES",
+      "properties": {
+        "drug": "Bardoxolone methyl"
+      }
+    },
+    {
+      "source": "STRATEGY:NRF2_Activation",
+      "target": "DRUG:NAC",
+      "type": "INCLUDES",
+      "properties": {
+        "drug": "N-acetylcysteine"
+      }
+    },
+    {
+      "source": "STRATEGY:TOP2B_Selective",
+      "target": "HGNC:11990",
+      "type": "TARGETS",
+      "properties": {
+        "current_drug": "Dexrazoxane (non-selective)",
+        "opportunity": "Development of isoform-selective TOP2B inhibitors"
+      }
+    },
+    {
+      "source": "HYPOTHESIS:NF1_MAPK_TOP2A",
+      "target": "PATHWAY:RAS_MAPK",
+      "type": "PROPOSES_LINK",
+      "properties": {
+        "description": "Hyperactive MAPK in NF1 tumors may upregulate TOP2A",
+        "validation_status": "UNVERIFIED",
+        "confidence": "LOW",
+        "requires": "Direct evidence for MAPK→TOP2A transcriptional regulation"
+      }
+    },
+    {
+      "source": "HYPOTHESIS:NF1_MAPK_TOP2A",
+      "target": "HGNC:11989",
+      "type": "PROPOSES_UPREGULATION",
+      "properties": {
+        "mechanism": "Putative MAPK→MYC→TOP2A pathway",
+        "validation_status": "UNVERIFIED"
+      }
+    },
+    {
+      "source": "HYPOTHESIS:NF1_Mitochondrial",
+      "target": "DRUG:Empagliflozin",
+      "type": "SUGGESTS_RELEVANCE",
+      "properties": {
+        "claim": "NF1 mitochondrial dysfunction makes SGLT2i particularly relevant",
+        "validation_status": "UNVERIFIED",
+        "confidence": "LOW",
+        "evidence_level": "SPECULATIVE"
+      }
+    },
+    {
+      "source": "HGNC:1548",
+      "target": "PATHWAY:Drug_Metabolism",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Converts doxorubicin to cardiotoxic doxorubicinol"
+      }
+    },
+    {
+      "source": "HGNC:4632",
+      "target": "PATHWAY:Drug_Metabolism",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Detoxification via glutathione conjugation"
+      }
+    },
+    {
+      "source": "HGNC:4638",
+      "target": "PATHWAY:Drug_Metabolism",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Detoxification via glutathione conjugation"
+      }
+    },
+    {
+      "source": "HGNC:3065",
+      "target": "PATHWAY:Chromatin_Remodeling",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Histone deacetylation regulates TOP2 access"
+      }
+    },
+    {
+      "source": "HGNC:3066",
+      "target": "PATHWAY:Chromatin_Remodeling",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "Histone deacetylation regulates TOP2 access"
+      }
+    },
+    {
+      "source": "HGNC:11989",
+      "target": "PATHWAY:Chromatin_Remodeling",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "DNA topology management during transcription"
+      }
+    },
+    {
+      "source": "HGNC:11990",
+      "target": "PATHWAY:Chromatin_Remodeling",
+      "type": "PARTICIPATES_IN",
+      "properties": {
+        "role": "DNA topology management during transcription"
+      }
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "entities": [
+    {
+      "mention": "NF1",
+      "type": "gene",
+      "curie_or_id": "HGNC:7765",
+      "status": "resolved",
+      "label": "NF1 (neurofibromin 1)",
+      "provenance": "hgnc_search_genes"
+    },
+    {
+      "mention": "Doxorubicin",
+      "type": "drug",
+      "curie_or_id": "CHEMBL:53463",
+      "status": "resolved",
+      "label": "DOXORUBICIN",
+      "provenance": "chembl_search_compounds",
+      "alternative_ids": [
+        "PubChem:CID31703"
+      ]
+    },
+    {
+      "mention": "Neurofibromatosis type 1",
+      "type": "disease",
+      "curie_or_id": "MONDO:0018975",
+      "status": "inferred",
+      "label": "Neurofibromatosis type 1 (NF1 disease)",
+      "provenance": "domain_knowledge",
+      "note": "Standard MONDO ID for NF1 disease; corresponds to OMIM:162200"
+    },
+    {
+      "mention": "TOP2B",
+      "type": "gene",
+      "curie_or_id": "HGNC:11990",
+      "status": "resolved",
+      "label": "TOP2B (DNA topoisomerase II beta)",
+      "provenance": "hgnc_search_genes",
+      "context": "Known target of doxorubicin; implicated in anthracycline cardiotoxicity"
+    },
+    {
+      "mention": "GSTM1",
+      "type": "gene",
+      "curie_or_id": "HGNC:4632",
+      "status": "resolved",
+      "label": "GSTM1 (glutathione S-transferase mu 1)",
+      "provenance": "hgnc_search_genes",
+      "context": "Glutathione metabolism; protective against oxidative stress from doxorubicin"
+    },
+    {
+      "mention": "CBR1",
+      "type": "gene",
+      "curie_or_id": "HGNC:1548",
+      "status": "resolved",
+      "label": "CBR1 (carbonyl reductase 1)",
+      "provenance": "hgnc_search_genes",
+      "context": "Metabolizes doxorubicin to cardiotoxic metabolite doxorubicinol"
+    },
+    {
+      "mention": "ABCB1",
+      "type": "gene",
+      "curie_or_id": "HGNC:40",
+      "status": "resolved",
+      "label": "ABCB1 (ATP binding cassette subfamily B member 1, P-glycoprotein)",
+      "provenance": "hgnc_search_genes",
+      "context": "Drug efflux transporter; affects doxorubicin resistance and tissue distribution"
+    }
+  ],
+  "unresolved": [],
+  "query_context": {
+    "disease_name": "Neurofibromatosis type 1 (NF1)",
+    "disease_curie": "MONDO:0018975",
+    "suspected_mechanism": "Balancing anti-tumor efficacy of doxorubicin against cardiotoxicity and other adverse effects in NF1 patients",
+    "key_toxicity_mechanisms": [
+      "Doxorubicin cardiotoxicity via TOP2B-mediated DNA damage in cardiomyocytes",
+      "Oxidative stress and reactive oxygen species generation",
+      "Metabolism by CBR1 to toxic doxorubicinol",
+      "Mitochondrial dysfunction"
+    ],
+    "literature_sources": {
+      "pubmed_searches": [
+        {
+          "query": "Doxorubicin cardiotoxicity resistance genes",
+          "pmids_found": 39,
+          "top_pmids": ["31346605", "41006479", "31367189", "16330681", "27799559", "8402643", "37047696", "29928373", "36358854", "40151933"]
+        },
+        {
+          "query": "Doxorubicin toxicity protective genes pathways",
+          "pmids_found": 87,
+          "top_pmids": ["40052211", "42090956", "37047696", "38414625", "37377932", "39742014", "25660617", "36331922", "37331642", "31115031"]
+        },
+        {
+          "query": "NF1 Doxorubicin treatment anthracycline",
+          "pmids_found": 12,
+          "top_pmids": ["41386267", "32245042", "35511749", "36239473", "38676394", "27196562", "20838322", "28813519", "22664653", "11129996"]
+        }
+      ]
+    },
+    "additional_genes_of_interest": [
+      "TOP2A - DNA topoisomerase II alpha (doxorubicin target)",
+      "GSTP1 - Glutathione S-transferase pi 1 (detoxification)",
+      "SOD2 - Superoxide dismutase 2 (antioxidant defense)",
+      "CAT - Catalase (antioxidant enzyme)",
+      "GPX1 - Glutathione peroxidase 1 (antioxidant)",
+      "RALBP1/RLIP76 - Stress-protective protein",
+      "SLC22A16 - Carnitine transporter (doxorubicin uptake)",
+      "HAS3 - Hyaluronan synthase 3 (cardioprotection)",
+      "UGT1A - UDP glucuronosyltransferase family (metabolism)"
+    ],
+    "pathways_of_interest": [
+      "Glutathione metabolism pathway (detoxification)",
+      "Oxidative stress response pathway",
+      "DNA damage response and repair pathways",
+      "Anthracycline metabolism pathway",
+      "Mitochondrial dysfunction pathway",
+      "Apoptosis signaling pathways",
+      "ABC transporter pathways (drug efflux)",
+      "ROS (reactive oxygen species) generation and scavenging"
+    ]
+  }
+}
