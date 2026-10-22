@@ -8,6 +8,11 @@ stays on ``StateBackend``, i.e. in agent state inside the workflow.
 Loop limits are LangChain middleware; Temporal's part is that the counters are
 rebuilt from history on replay, so a crash cannot reset a run's budget. The
 same holds for tool failure counts (``tool_errors.ToolFailureMiddleware``).
+
+Tracing: under Temporal each activity would be its own LangSmith trace, so the
+worker disables LangSmith tracing by default. Temporal history (and
+``scripts/temporal_run_report.py``) is the record of a run; set
+``LIFESCIENCES_TEMPORAL_TRACE=1`` to trace anyway.
 """
 
 from dataclasses import dataclass, field
