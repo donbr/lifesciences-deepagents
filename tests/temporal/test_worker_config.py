@@ -1,5 +1,7 @@
 """Worker tracing configuration (offline: plain dicts, no Temporal server)."""
 
+import pytest
+
 from apps.temporal.worker import configure_tracing
 
 
@@ -42,3 +44,18 @@ def test_override_takes_effect_despite_langsmith_env_cache(monkeypatch):
     finally:
         monkeypatch.undo()
         ls_utils.get_env_var.cache_clear()
+
+
+async def test_payload_storage_disabled_without_bucket_env():
+    from apps.temporal.storage import payload_storage_from_env
+
+    async with payload_storage_from_env({}) as converter:
+        assert converter is None
+
+
+async def test_payload_storage_rejects_remote_custom_endpoint():
+    from apps.temporal.storage import payload_storage
+
+    with pytest.raises(ValueError, match="local"):
+        async with payload_storage("https://s3.example.com", "bucket"):
+            pass

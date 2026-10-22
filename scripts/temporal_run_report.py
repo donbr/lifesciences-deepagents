@@ -34,6 +34,7 @@ from temporalio.api.history.v1 import HistoryEvent
 from temporalio.client import Client
 
 from apps.temporal.durable import make_plugin
+from apps.temporal.storage import payload_storage_from_env
 from apps.temporal.workflow import LifesciencesResearchWorkflow
 
 INVOKE_TOOL = "deepagents.invoke_tool"
@@ -151,56 +152,59 @@ async def main() -> None:
     parser.add_argument("--out")
     args = parser.parse_args()
 
-    client = await Client.connect(
-        os.environ.get("TEMPORAL_ADDRESS", "localhost:7233"), plugins=[make_plugin()]
-    )
-    handle = client.get_workflow_handle(args.workflow_id)
-    desc = await handle.describe()
+    # Must match the worker's storage (TEMPORAL_PAYLOAD_S3_BUCKET) to decode payloads.
+    async with payload_storage_from_env(os.environ) as converter:
+        client = await Client.connect(
+            os.environ.get("TEMPORAL_ADDRESS", "localhost:7233"),
+            plugins=[make_plugin(data_converter=converter)],
+        )
+        handle = client.get_workflow_handle(args.workflow_id)
+        desc = await handle.describe()
 
-    t = RunTally()
-    async for e in handle.fetch_history_events():
-        t.add(e)
+        t = RunTally()
+        async for e in handle.fetch_history_events():
+            t.add(e)
 
-    duration = (
-        (desc.close_time - desc.start_time).total_seconds() / 60
-        if desc.close_time
-        else None
-    )
-    print(f"workflow: {args.workflow_id}  status: {desc.status.name}")
-    if t.workflow_failure:
-        print(f"workflow failure: {t.workflow_failure}")
-    print(f"duration: {duration and round(duration, 1)} min")
-    print(f"history: {t.events} events, {t.history_bytes / 1e6:.2f} MB; largest payload {t.largest_payload / 1e3:.0f} KB")
-    print(f"activities: {dict(t.activities)}")
-    print(f"extra attempts: {dict(+t.extra_attempts)}  failed/timed out: {dict(t.failed)}")
-    cost = t.tokens_in / 1e6 * PRICE_IN + t.tokens_out / 1e6 * PRICE_OUT
-    print(f"tokens: in {t.tokens_in:,} out {t.tokens_out:,}  ~${cost:.2f} at list price, no cache discount")
-    print(f"MCP tool calls: {sum(t.tools.values())}  top: {t.tools.most_common(10)}")
-    print(f"tool retried attempts: {dict(t.tool_retries)}")
-    print(f"tool final failures (failed/timed out): {dict(t.tool_failures)}")
-    print(f"tool failure types: {dict(t.tool_failure_types)}")
-    print(f"tool results with status=error (fallback): {dict(t.tool_error_results)}")
+        duration = (
+            (desc.close_time - desc.start_time).total_seconds() / 60
+            if desc.close_time
+            else None
+        )
+        print(f"workflow: {args.workflow_id}  status: {desc.status.name}")
+        if t.workflow_failure:
+            print(f"workflow failure: {t.workflow_failure}")
+        print(f"duration: {duration and round(duration, 1)} min")
+        print(f"history: {t.events} events, {t.history_bytes / 1e6:.2f} MB; largest payload {t.largest_payload / 1e3:.0f} KB")
+        print(f"activities: {dict(t.activities)}")
+        print(f"extra attempts: {dict(+t.extra_attempts)}  failed/timed out: {dict(t.failed)}")
+        cost = t.tokens_in / 1e6 * PRICE_IN + t.tokens_out / 1e6 * PRICE_OUT
+        print(f"tokens: in {t.tokens_in:,} out {t.tokens_out:,}  ~${cost:.2f} at list price, no cache discount")
+        print(f"MCP tool calls: {sum(t.tools.values())}  top: {t.tools.most_common(10)}")
+        print(f"tool retried attempts: {dict(t.tool_retries)}")
+        print(f"tool final failures (failed/timed out): {dict(t.tool_failures)}")
+        print(f"tool failure types: {dict(t.tool_failure_types)}")
+        print(f"tool results with status=error (fallback): {dict(t.tool_error_results)}")
 
-    if desc.status.name != "COMPLETED":
-        return
-    result = await client.get_workflow_handle_for(
-        LifesciencesResearchWorkflow.run, args.workflow_id
-    ).result()
-    graph = result.workspace_files.get("/workspace/graph.json")
-    if graph:
-        try:
-            g = json.loads(graph)
-            print(f"graph.json: {len(g.get('nodes', []))} nodes / {len(g.get('edges', []))} edges")
-        except ValueError:
-            print("graph.json: not valid JSON")
-    print(f"workspace files: {sorted(result.workspace_files)}")
-    if args.out:
-        out = Path(args.out)
-        (out / "files").mkdir(parents=True, exist_ok=True)
-        (out / "answer.md").write_text(result.answer)
-        for path, content in result.workspace_files.items():
-            (out / "files" / Path(path).name).write_text(content)
-        print(f"wrote {out}")
+        if desc.status.name != "COMPLETED":
+            return
+        result = await client.get_workflow_handle_for(
+            LifesciencesResearchWorkflow.run, args.workflow_id
+        ).result()
+        graph = result.workspace_files.get("/workspace/graph.json")
+        if graph:
+            try:
+                g = json.loads(graph)
+                print(f"graph.json: {len(g.get('nodes', []))} nodes / {len(g.get('edges', []))} edges")
+            except ValueError:
+                print("graph.json: not valid JSON")
+        print(f"workspace files: {sorted(result.workspace_files)}")
+        if args.out:
+            out = Path(args.out)
+            (out / "files").mkdir(parents=True, exist_ok=True)
+            (out / "answer.md").write_text(result.answer)
+            for path, content in result.workspace_files.items():
+                (out / "files" / Path(path).name).write_text(content)
+            print(f"wrote {out}")
 
 
 if __name__ == "__main__":

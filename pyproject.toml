@@ -32,6 +32,12 @@ dev = [
     "pytest>=9.1.1",
     "pytest-asyncio>=1.4.0",
 ]
+# Optional S3 External Storage (apps/temporal/storage.py); moto is test-only.
+external-storage = [
+    "aioboto3>=15.1.0,<15.2",
+    "moto[server]>=4.0.0",
+    "types-aiobotocore-s3>=2.0.0",  # imported by temporalio.contrib.aws.s3driver.aioboto3
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
@@ -47,5 +53,7 @@ filterwarnings = [
     "ignore::langchain_core._api.beta_decorator.LangChainBetaWarning",
     "ignore::langchain_core._api.deprecation.LangChainPendingDeprecationWarning",
     # temporalio sandbox: lazy third-party imports (zipp, annotated_types) after workflow load
+    # botocore (moto test server) still calls datetime.utcnow()
+    "ignore:datetime.datetime.utcnow\\(\\) is deprecated:DeprecationWarning",
     "ignore:Module .* was imported after initial workflow load:UserWarning",
 ]

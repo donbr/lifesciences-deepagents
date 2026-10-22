@@ -13,6 +13,7 @@ from typing import Any
 from deepagents.backends import FilesystemBackend
 from langchain_core.tools import BaseTool, StructuredTool
 from temporalio.common import RetryPolicy
+from temporalio.converter import DataConverter
 from temporalio.deepagents import DeepAgentsPlugin, tool_as_activity
 from temporalio.exceptions import ApplicationError
 
@@ -110,14 +111,17 @@ def filesystem_backend(root_dir: str) -> FilesystemBackend:
     return FilesystemBackend(root_dir=root_dir, virtual_mode=True)
 
 
-def make_plugin(**kwargs: Any) -> DeepAgentsPlugin:
+def make_plugin(data_converter: DataConverter | None = None, **kwargs: Any) -> DeepAgentsPlugin:
     """The plugin with this app's backend factory and model defaults.
 
     Subagent ``model="..."`` strings are routed through the plugin's patched
     ``resolve_model``, so they use these plugin-wide model options.
+    ``data_converter`` (e.g. from ``apps.temporal.storage``) is composed by the
+    plugin with its LangChain-aware converter; None keeps the default.
     """
     kwargs.setdefault("model_activity_options", MODEL_ACTIVITY_OPTIONS)
     return DeepAgentsPlugin(
         backends={FILESYSTEM_BACKEND: filesystem_backend},
+        data_converter=data_converter,
         **kwargs,
     )

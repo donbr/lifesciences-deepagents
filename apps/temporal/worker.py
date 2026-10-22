@@ -17,6 +17,7 @@ from temporalio.client import Client
 from temporalio.worker import Worker
 
 from apps.temporal.durable import make_plugin
+from apps.temporal.storage import payload_storage_from_env
 from apps.temporal.workflow import LifesciencesResearchWorkflow
 
 TASK_QUEUE = "lifesciences-research"
@@ -48,17 +49,20 @@ async def main() -> None:
         print("LangSmith tracing: ON (LIFESCIENCES_TEMPORAL_TRACE=1); expect one trace per activity.")
     else:
         print("LangSmith tracing: OFF for this worker (set LIFESCIENCES_TEMPORAL_TRACE=1 to enable).")
-    client = await Client.connect(
-        os.environ.get("TEMPORAL_ADDRESS", "localhost:7233"),
-        plugins=[make_plugin()],
-    )
-    worker = Worker(
-        client,
-        task_queue=TASK_QUEUE,
-        workflows=[LifesciencesResearchWorkflow],
-    )
-    print(f"Worker started on {TASK_QUEUE}. Ctrl+C to exit.")
-    await worker.run()
+    # Optional S3 External Storage (TEMPORAL_PAYLOAD_S3_BUCKET); the client that
+    # starts runs and the report script must use the same storage.
+    async with payload_storage_from_env(os.environ) as converter:
+        client = await Client.connect(
+            os.environ.get("TEMPORAL_ADDRESS", "localhost:7233"),
+            plugins=[make_plugin(data_converter=converter)],
+        )
+        worker = Worker(
+            client,
+            task_queue=TASK_QUEUE,
+            workflows=[LifesciencesResearchWorkflow],
+        )
+        print(f"Worker started on {TASK_QUEUE}. Ctrl+C to exit.")
+        await worker.run()
 
 
 if __name__ == "__main__":
