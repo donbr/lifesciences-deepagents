@@ -29,6 +29,17 @@ def _permanent(n: int = 1) -> list[Exception]:
     ]
 
 
+def _transient(n: int) -> list[Exception]:
+    """``n`` failed attempts; a call uses 3 (TOOL_ACTIVITY_OPTIONS) before it fails."""
+    return [
+        MCPCallError("HTTP 503 from MCP tool: unavailable", service="x", retryable=True)
+        for _ in range(n)
+    ]
+
+
+TRANSIENT_TEXT = "HTTP 503 from MCP tool: unavailable"
+
+
 def _results_seen(tool: str) -> list[tuple[str, str]]:
     """(status, content) of every result for ``tool`` that a model call saw, in order."""
     seen: list[tuple[str, str]] = []
@@ -113,26 +124,46 @@ async def test_agent_sees_curated_text_of_chained_error(client, handler, attempt
     ]
 
 
-async def test_dead_service_fails_fast(client):
+async def test_dead_service_fails_fast(client, fast_tool_retries):
+    """Three calls in a row exhaust their retries on transient errors: stop the run."""
     for tool in ("string_search_proteins", "string_get_interactions"):
-        FAKE_STATE.tool_script[tool] = _permanent(10)
+        FAKE_STATE.tool_script[tool] = _transient(30)
     error, hist = await run_agent(client, "string_loop", LoopLimits(), expect_failure=True)
     assert error.type == "MCPServiceUnavailable"
     assert error.non_retryable
     assert error.message == "MCP service string unavailable after 3 consecutive failures"
     assert hist["deepagents.invoke_tool"] == 3, hist
-    assert hist["deepagents.invoke_tool.extra_attempts"] == 0, hist
-    assert FAKE_STATE.tool_calls["string_search_proteins"] == 3
+    assert hist["deepagents.invoke_tool.extra_attempts"] == 6, hist
+    assert FAKE_STATE.tool_calls["string_search_proteins"] == 9
     # The first two failures reached the specialist as error messages.
     assert [s for s, _ in _results_seen("string_search_proteins")] == ["error"]
     assert PolicyModel.calls[-1]["tool_results"].count(
-        ("string_search_proteins", "error",
-         "Tool error (string_search_proteins): HTTP 400 from MCP tool: bad arguments")
+        ("string_search_proteins", "error", f"Tool error (string_search_proteins): {TRANSIENT_TEXT}")
     ) == 2
     assert hist["WORKFLOW_TASK_FAILED"] == 0, hist
 
 
-async def test_parallel_failures_count_deterministically(client):
+async def test_permanent_failures_do_not_stop_the_run(client):
+    """An error the agent caused (HTTP 400, invalid params) says nothing about the
+    service being down: it reaches the agent, but never counts toward fail-fast."""
+    FAKE_STATE.tool_script["string_search_proteins"] = _permanent(3)
+    result, hist = await run_agent(client, "string_loop", LoopLimits())
+    assert result.answer.startswith("DONE"), result.answer
+    assert hist["deepagents.invoke_tool"] == 4, hist
+    assert hist["deepagents.invoke_tool.extra_attempts"] == 0, hist
+    assert FAKE_STATE.tool_calls["string_search_proteins"] == 4
+    last = [c for c in PolicyModel.calls if c["role"] == "subagent"][-1]["tool_results"]
+    assert [s for n, s, _ in last if n == "string_search_proteins"] == [
+        "error", "error", "error", "success"
+    ]
+    assert last.count(
+        ("string_search_proteins", "error",
+         "Tool error (string_search_proteins): HTTP 400 from MCP tool: bad arguments")
+    ) == 3
+    assert hist["WORKFLOW_TASK_FAILED"] == 0, hist
+
+
+async def test_parallel_failures_count_deterministically(client, fast_tool_retries):
     """Two specialists fail on the same service in parallel; one shared count stops the run.
 
     The supervisor runs anchor_specialist and traversal_drugs_specialist at
@@ -152,16 +183,19 @@ async def test_parallel_failures_count_deterministically(client):
     one extra activity can exist. It cannot add to the count: the run has
     already failed. The 0.2s tool delay makes both branches' first calls
     overlap, so both feed the one count.
+
+    Each call exhausts its 3 attempts (2 extra per counted call); attempts of
+    a possible 4th call add to that before the run closes.
     """
     FAKE_STATE.tool_delay = 0.2
-    FAKE_STATE.tool_script["chembl_search_compounds"] = _permanent(10)
+    FAKE_STATE.tool_script["chembl_search_compounds"] = _transient(60)
     error, hist = await run_agent(client, "parallel", LoopLimits(), expect_failure=True)
     assert hist["WORKFLOW_TASK_FAILED"] == hist["WORKFLOW_TASK_FAILED.UNHANDLED_COMMAND"], hist
     assert error.type == "MCPServiceUnavailable"
     assert error.message == "MCP service chembl unavailable after 3 consecutive failures"
     assert set(FAKE_STATE.tool_calls) == {"chembl_search_compounds"}, FAKE_STATE.tool_calls
     assert hist["deepagents.invoke_tool"] in (3, 4), hist
-    assert hist["deepagents.invoke_tool.extra_attempts"] == 0, hist
+    assert 6 <= hist["deepagents.invoke_tool.extra_attempts"] <= 8, hist
     # Both branches contributed calls to the one chembl count.
     queries = {args["query"] for _, args in FAKE_STATE.tool_args}
     assert queries == {
@@ -170,22 +204,25 @@ async def test_parallel_failures_count_deterministically(client):
     }, FAKE_STATE.tool_args
 
 
-async def test_failure_counts_survive_worker_restart(client):
-    """The worker dies after two failed calls, while the 3rd is in flight.
+async def test_failure_counts_survive_worker_restart(client, fast_tool_retries):
+    """The worker dies after two failed calls, while the 3rd call's first attempt
+    is in flight.
 
-    The new worker rebuilds the count (2) from history; the retried 3rd call
-    fails and stops the run. A reset count would allow two more calls.
+    Each failed call is 3 attempts, so the crash comes at attempt 7. The new
+    worker rebuilds the count (2) from history; the 3rd call's remaining
+    attempts fail and stop the run. A reset count would allow two more calls.
     """
-    FAKE_STATE.tool_script["string_search_proteins"] = _permanent(10)
+    FAKE_STATE.tool_script["string_search_proteins"] = _transient(30)
     error, hist = await run_agent(
-        client, "string_loop", LoopLimits(), crash_after_tool_calls=3, expect_failure=True
+        client, "string_loop", LoopLimits(), crash_after_tool_calls=7, expect_failure=True
     )
     assert error.type == "MCPServiceUnavailable"
     assert error.message == "MCP service string unavailable after 3 consecutive failures"
     assert hist["deepagents.invoke_tool"] == 3, hist
-    # The in-flight attempt ran again on the new worker (at-least-once).
-    assert hist["deepagents.invoke_tool.extra_attempts"] == 1, hist
-    assert FAKE_STATE.tool_calls["string_search_proteins"] == 4
+    # The interrupted attempt counts as one of the 3rd call's 3 attempts; the
+    # new worker runs the other two (at-least-once).
+    assert hist["deepagents.invoke_tool.extra_attempts"] == 6, hist
+    assert FAKE_STATE.tool_calls["string_search_proteins"] == 9
     assert hist["WORKFLOW_TASK_FAILED"] == 0, hist
 
 
@@ -206,12 +243,31 @@ async def test_model_rate_limit_is_retried(client):
     assert hist["WORKFLOW_TASK_FAILED"] == 0, hist
 
 
+@pytest.mark.parametrize("overloads", [2, 9])
+async def test_model_overload_is_retried(client, overloads):
+    """A sustained 529 must not end a long run: up to 10 attempts per model call."""
+    request = httpx2.Request("POST", "https://api.anthropic.com/v1/messages")
+    FAKE_STATE.model_script["supervisor"] = [
+        anthropic.OverloadedError(
+            "overloaded",
+            response=httpx2.Response(529, headers={"retry-after-ms": "10"}, request=request),
+            body=None,
+        )
+        for _ in range(overloads)
+    ]
+    result, hist = await run_agent(client, "happy", LoopLimits())
+    assert FAKE_STATE.model_script["supervisor"] == [], "not every 529 was raised"
+    assert result.answer.startswith("DONE"), result.answer
+    assert hist["deepagents.invoke_model.extra_attempts"] == overloads, hist
+    assert hist["WORKFLOW_TASK_FAILED"] == 0, hist
+
+
 # --- ToolFailureMiddleware unit tests -------------------------------------------
 
 
-def _request(tool: str, call_id: str = "call-1") -> ToolCallRequest:
+def _request(tool: str, call_id: str = "call-1", args: dict | None = None) -> ToolCallRequest:
     return ToolCallRequest(
-        tool_call={"name": tool, "args": {}, "id": call_id, "type": "tool_call"},
+        tool_call={"name": tool, "args": args or {}, "id": call_id, "type": "tool_call"},
         tool=None,
         state={},
         runtime=None,
@@ -219,8 +275,12 @@ def _request(tool: str, call_id: str = "call-1") -> ToolCallRequest:
 
 
 def _activity_error(
-    message: str = "bad arguments", activity_type: str = "deepagents.invoke_tool"
+    message: str = "bad arguments",
+    activity_type: str = "deepagents.invoke_tool",
+    retry_state: RetryState = RetryState.MAXIMUM_ATTEMPTS_REACHED,
 ) -> ActivityError:
+    """A failed tool activity. The default retried transient errors until it ran
+    out of attempts; NON_RETRYABLE_FAILURE is a permanent (agent-caused) error."""
     error = ActivityError(
         "Activity task failed",
         scheduled_event_id=1,
@@ -228,10 +288,18 @@ def _activity_error(
         identity="worker",
         activity_type=activity_type,
         activity_id="1",
-        retry_state=RetryState.NON_RETRYABLE_FAILURE,
+        retry_state=retry_state,
     )
-    error.__cause__ = ApplicationError(message, type="MCPCallError", non_retryable=True)
+    error.__cause__ = ApplicationError(
+        message,
+        type="MCPCallError",
+        non_retryable=retry_state == RetryState.NON_RETRYABLE_FAILURE,
+    )
     return error
+
+
+def _permanent_error(message: str = "bad arguments") -> ActivityError:
+    return _activity_error(message, retry_state=RetryState.NON_RETRYABLE_FAILURE)
 
 
 def _ok(request: ToolCallRequest) -> ToolMessage:
@@ -325,6 +393,82 @@ async def test_middleware_leaves_other_errors_alone():
         await middleware.awrap_tool_call(
             _request("string_search_proteins"), _async(_failing(ValueError("bug")))
         )
+
+
+@pytest.mark.parametrize(
+    "retry_state", [RetryState.MAXIMUM_ATTEMPTS_REACHED, RetryState.TIMEOUT]
+)
+async def test_middleware_counts_failures_that_exhausted_retries(retry_state):
+    middleware = ToolFailureMiddleware(max_consecutive_failures=1)
+    with pytest.raises(ApplicationError, match="string unavailable after 1"):
+        await middleware.awrap_tool_call(
+            _request("string_search_proteins"),
+            _async(_failing(_activity_error(retry_state=retry_state))),
+        )
+
+
+async def test_middleware_permanent_failures_neither_count_nor_reset():
+    """A permanent failure still reaches the agent as an error message, but it
+    neither adds to the service's count nor clears it (it is no evidence that
+    the service is up or down)."""
+    middleware = ToolFailureMiddleware(max_consecutive_failures=2)
+    exhausted = _async(_failing(_activity_error()))
+    permanent = _async(_failing(_permanent_error()))
+    await middleware.awrap_tool_call(_request("string_search_proteins"), exhausted)
+    for _ in range(5):
+        message = await middleware.awrap_tool_call(_request("string_search_proteins"), permanent)
+        assert message.status == "error"
+        assert message.content == "Tool error (string_search_proteins): bad arguments"
+    with pytest.raises(ApplicationError, match="string unavailable after 2"):
+        await middleware.awrap_tool_call(_request("string_get_interactions"), exhausted)
+
+
+def test_middleware_permanent_failures_sync_path():
+    middleware = ToolFailureMiddleware(max_consecutive_failures=1)
+    message = middleware.wrap_tool_call(
+        _request("string_search_proteins"), _failing(_permanent_error())
+    )
+    assert message.status == "error"
+
+
+OPEN_TARGETS = "https://api.platform.opentargets.org/api/v4/graphql"
+HGNC_REST = "https://rest.genenames.org/fetch/symbol/NF1"
+
+
+async def test_query_api_direct_hosts_do_not_share_a_count():
+    middleware = ToolFailureMiddleware(max_consecutive_failures=2)
+    fail = _async(_failing(_activity_error()))
+    open_targets = _request("query_api_direct", args={"url": OPEN_TARGETS, "method": "POST"})
+    hgnc = _request("query_api_direct", args={"url": HGNC_REST})
+    await middleware.awrap_tool_call(open_targets, fail)
+    message = await middleware.awrap_tool_call(hgnc, fail)
+    assert message.status == "error"  # one failure per host: neither is tripped
+    with pytest.raises(
+        ApplicationError,
+        match="query_api_direct:api.platform.opentargets.org unavailable after 2",
+    ):
+        await middleware.awrap_tool_call(open_targets, fail)
+    ok = await middleware.awrap_tool_call(hgnc, _async(_ok))
+    assert ok.content == "ok"
+
+
+def test_service_for_query_api_direct_is_keyed_by_host():
+    assert (
+        service_for_tool("query_api_direct", {"url": OPEN_TARGETS})
+        == "query_api_direct:api.platform.opentargets.org"
+    )
+    assert (
+        service_for_tool("query_api_direct", {"url": "https://REST.genenames.org:443/x"})
+        == "query_api_direct:rest.genenames.org"
+    )
+    # No usable URL: one shared fallback key.
+    assert service_for_tool("query_api_direct") == "query_api_direct"
+    assert service_for_tool("query_api_direct", {}) == "query_api_direct"
+    assert service_for_tool("query_api_direct", {"url": "not a url"}) == "query_api_direct"
+    assert service_for_tool("query_api_direct", {"url": "http://[::1"}) == "query_api_direct"
+    assert service_for_tool("query_api_direct", {"url": 42}) == "query_api_direct"
+    # Only query_api_direct looks at its arguments.
+    assert service_for_tool("hgnc_search_genes", {"url": OPEN_TARGETS}) == "hgnc"
 
 
 def test_service_for_tool():

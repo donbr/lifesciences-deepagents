@@ -14,7 +14,7 @@ from temporalio.worker import Worker
 
 import apps.temporal  # noqa: F401  (puts apps/api on sys.path)
 from agent_factory import resolve_agent_config
-from apps.temporal.durable import make_plugin
+from apps.temporal.durable import TOOL_ACTIVITY_OPTIONS, make_plugin
 from apps.temporal.workflow import (
     LifesciencesResearchWorkflow,
     LoopLimits,
@@ -30,6 +30,19 @@ from .fakes import FAKE_STATE, PolicyModel, fake_call_tool, reset_fakes
 async def env():
     async with await WorkflowEnvironment.start_local() as environment:
         yield environment
+
+
+@pytest.fixture
+def fast_tool_retries(monkeypatch):
+    """Shrink the tool activities' retry backoff (2s, then 4s) to milliseconds.
+
+    For tests whose tool calls exhaust their retries. ``tool_as_activity``
+    captured TOOL_ACTIVITY_OPTIONS' RetryPolicy object at import, so changing
+    that object reaches every wrapped tool; attempts stay as in production.
+    """
+    monkeypatch.setattr(
+        TOOL_ACTIVITY_OPTIONS["retry_policy"], "initial_interval", timedelta(milliseconds=50)
+    )
 
 
 @pytest_asyncio.fixture

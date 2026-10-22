@@ -5,7 +5,11 @@ is retried by the activity's retry policy; a permanent failure, or a transient
 one that exhausts its retries, surfaces in the workflow as ``ActivityError``.
 LangGraph's ToolNode re-raises that, which would abort the whole run, so
 ``ToolFailureMiddleware`` turns it into an error ``ToolMessage`` the agent can
-react to, and stops the run once one service has failed several times in a row.
+react to, and stops the run once one service has run out of retries on
+transient errors several times in a row. A permanent failure (HTTP 400/404,
+JSON-RPC invalid params: usually a bad query the agent wrote) reaches the
+agent the same way but says nothing about the service being down, so it does
+not count.
 
 The failure counts live on the middleware instance, which the workflow builds
 inside ``run``. They are therefore rebuilt from history on every replay: a
@@ -13,25 +17,55 @@ crashed or evicted worker resumes with the same counts, never with zeros.
 """
 
 from collections import Counter
-from collections.abc import Awaitable, Callable
+from collections.abc import Awaitable, Callable, Mapping
 from typing import Any
+from urllib.parse import urlsplit
 
 from langchain.agents.middleware.types import AgentMiddleware, ToolCallRequest
 from langchain_core.messages import ToolMessage
-from temporalio.deepagents._activity import INVOKE_TOOL
-from temporalio.exceptions import ActivityError, ApplicationError, FailureError
+from temporalio.exceptions import ActivityError, ApplicationError, FailureError, RetryState
 
 import apps.temporal  # noqa: F401  (puts apps/api on sys.path)
 from shared.mcp import LIFESCIENCES_ALIAS_TOOL_NAMES, rate_limiter
 
+# The temporalio-deepagents activity name (as in scripts/temporal_run_report.py);
+# a literal so we do not import the package's private _activity module.
+INVOKE_TOOL = "deepagents.invoke_tool"
 
-def service_for_tool(tool_name: str) -> str:
-    """The upstream service a tool depends on, for counting failures.
+# Retry states of a tool activity that ran out of retries on transient errors
+# (timeouts, transport errors, 429, 5xx): evidence the service is down. A
+# permanent MCPCallError ends as NON_RETRYABLE_FAILURE instead.
+_EXHAUSTED_RETRY_STATES = frozenset({RetryState.MAXIMUM_ATTEMPTS_REACHED, RetryState.TIMEOUT})
+
+
+def _query_api_direct_service(args: Mapping[str, Any] | None) -> str:
+    """``query_api_direct:<host>``, or ``query_api_direct`` without a usable URL.
+
+    Pure string parsing of the tool call's ``url`` argument (no I/O), so the
+    key is the same on every replay.
+    """
+    url = args.get("url") if isinstance(args, Mapping) else None
+    if isinstance(url, str):
+        try:
+            host = urlsplit(url).hostname
+        except ValueError:
+            host = None
+        if host:
+            return f"query_api_direct:{host}"
+    return "query_api_direct"
+
+
+def service_for_tool(tool_name: str, args: Mapping[str, Any] | None = None) -> str:
+    """The upstream service a tool call depends on, for counting failures.
 
     Starts from ``rate_limiter.get_service_from_tool`` (the service an
     ``MCPCallError`` names), but splits its catch-all ``"default"`` bucket:
-    an HGNC outage says nothing about WikiPathways.
+    an HGNC outage says nothing about WikiPathways. ``query_api_direct`` is
+    keyed by the host of its ``url`` argument: a bad Open Targets query says
+    nothing about ClinicalTrials.gov.
     """
+    if tool_name == "query_api_direct":
+        return _query_api_direct_service(args)
     service = rate_limiter.get_service_from_tool(tool_name)
     if service != "default":
         return service
@@ -67,8 +101,23 @@ def _failure_message(error: ActivityError) -> str:
 class ToolFailureMiddleware(AgentMiddleware):
     """Failed tool activity -> error ToolMessage; N in a row for a service -> fail the run.
 
+    Only a failure whose retries ran out on transient errors
+    (``RetryState.MAXIMUM_ATTEMPTS_REACHED`` or ``TIMEOUT``) adds to the
+    service's count. A permanent failure (``NON_RETRYABLE_FAILURE``: the
+    ``ApplicationError(type="MCPCallError", non_retryable=True)`` raised for
+    HTTP 4xx, JSON-RPC errors, ...) still reaches the agent as an error
+    message but neither adds to nor resets the count. A success resets it.
+
     Use one instance per workflow run, shared by the supervisor and every
     specialist, so failures of one service count across agents.
+
+    Invariant: a trip is sticky (the count is never reset once it reaches the
+    limit, and every later call for that service raises the same error). That
+    is only safe because the trip error, ``MCPServiceUnavailable``
+    (non-retryable), always propagates out of the agent and fails the
+    workflow, so no call ever runs after a trip. If the trip error is ever
+    caught and the run continues, the service stays blocked for the rest of
+    the run.
     """
 
     def __init__(self, max_consecutive_failures: int = 3) -> None:
@@ -90,10 +139,14 @@ class ToolFailureMiddleware(AgentMiddleware):
             non_retryable=True,
         )
 
+    @staticmethod
+    def _service(request: ToolCallRequest) -> str:
+        return service_for_tool(request.tool_call["name"], request.tool_call.get("args"))
+
     def _before_call(self, request: ToolCallRequest) -> None:
         # Once tripped, a service stays down for the rest of the run: no new
         # calls to it, only the same error.
-        service = service_for_tool(request.tool_call["name"])
+        service = self._service(request)
         if self._tripped(service):
             raise self._unavailable(service)
 
@@ -102,14 +155,15 @@ class ToolFailureMiddleware(AgentMiddleware):
         # rejected the arguments), so it is not evidence the service is up.
         if isinstance(result, ToolMessage) and result.status == "error":
             return
-        service = service_for_tool(request.tool_call["name"])
+        service = self._service(request)
         if not self._tripped(service):
             self._failures.pop(service, None)
 
     def _on_failure(self, request: ToolCallRequest, error: ActivityError) -> ToolMessage:
         name = request.tool_call["name"]
-        service = service_for_tool(name)
-        self._failures[service] += 1
+        service = self._service(request)
+        if error.retry_state in _EXHAUSTED_RETRY_STATES:
+            self._failures[service] += 1
         if self._tripped(service):
             raise self._unavailable(service) from error
         return ToolMessage(

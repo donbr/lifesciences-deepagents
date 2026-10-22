@@ -25,7 +25,15 @@ FILESYSTEM_BACKEND = "lifesciences_fs"
 
 MODEL_ACTIVITY_OPTIONS: dict[str, Any] = {
     "start_to_close_timeout": timedelta(minutes=5),
-    "retry_policy": RetryPolicy(maximum_attempts=3, initial_interval=timedelta(seconds=5)),
+    # ~7.5 min of backoff (5, 10, 20, 40, then 60 s) before a model call fails:
+    # a sustained 429/529 must not end a 30-minute run. A retry-after header
+    # from the provider overrides the interval.
+    "retry_policy": RetryPolicy(
+        initial_interval=timedelta(seconds=5),
+        backoff_coefficient=2.0,
+        maximum_interval=timedelta(seconds=60),
+        maximum_attempts=10,
+    ),
 }
 
 # ChEMBL calls use a 120s HTTP timeout in shared.mcp; leave headroom.
@@ -36,8 +44,11 @@ TOOL_ACTIVITY_OPTIONS: dict[str, Any] = {
 }
 TOOL_TIMEOUT = timedelta(minutes=3)
 
+# Bounded: Temporal's default policy retries forever, and a deterministic
+# backend exception (bad path, permission error) would never succeed.
 BACKEND_ACTIVITY_OPTIONS: dict[str, Any] = {
     "start_to_close_timeout": timedelta(seconds=30),
+    "retry_policy": RetryPolicy(maximum_attempts=3, initial_interval=timedelta(seconds=1)),
 }
 
 
