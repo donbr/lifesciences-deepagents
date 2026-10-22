@@ -25,13 +25,21 @@ TASK_QUEUE = "lifesciences-research"
 def configure_tracing(env: MutableMapping[str, str]) -> bool:
     """Turn LangSmith tracing off unless LIFESCIENCES_TEMPORAL_TRACE=1.
 
-    Returns True if tracing settings were left as the operator configured them.
+    Returns whether tracing is opted in (True) or disabled (False).
     """
-    if env.get("LIFESCIENCES_TEMPORAL_TRACE") == "1":
-        return True
-    env["LANGSMITH_TRACING"] = "false"
-    env["LANGCHAIN_TRACING_V2"] = "false"
-    return False
+    opted_in = env.get("LIFESCIENCES_TEMPORAL_TRACE") == "1"
+    if not opted_in:
+        env["LANGSMITH_TRACING"] = "false"
+        env["LANGCHAIN_TRACING_V2"] = "false"
+    # langsmith caches env lookups (populated at import time, before load_dotenv
+    # and this override), so drop the cache for the new values to be seen.
+    try:
+        from langsmith import utils as ls_utils
+
+        ls_utils.get_env_var.cache_clear()
+    except (ImportError, AttributeError):
+        pass
+    return opted_in
 
 
 async def main() -> None:
